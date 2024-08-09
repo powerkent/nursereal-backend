@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Nursery\Domain\Nursery\Model\Action" table="action" inheritance-type="JOINED">
+        <discriminator-column name="discr"  type="string"/>
+        <discriminator-map>
+            <discriminator-mapping value="rest" class="Nursery\Domain\Nursery\Model\Action\Rest"/>
+            <discriminator-mapping value="care" class="Nursery\Domain\Nursery\Model\Action\Care"/>
+            <discriminator-mapping value="treatment" class="Nursery\Domain\Nursery\Model\Action\Treatment"/>
+            <discriminator-mapping value="activity" class="Nursery\Domain\Nursery\Model\Action\Activity"/>
+            <discriminator-mapping value="action" class="Nursery\Domain\Nursery\Model\Action"/>
+        </discriminator-map>
+
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="uuid" type="uuid" unique="true" />
+
+        <field name="comment" nullable="true" />
+
+        <field name="createdAt" type="datetime" />
+
+        <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child" mapped-by="activities"/>
+    </entity>
+</doctrine-mapping>

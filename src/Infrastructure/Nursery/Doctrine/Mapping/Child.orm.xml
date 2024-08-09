@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Nursery\Domain\Shared\Model\Child" table="child">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="uuid" type="uuid" unique="true" />
+
+        <field name="firstname" type="text" length="65535" />
+
+        <field name="lastname" type="text" length="65535" />
+
+        <field name="birthday" type="datetime" />
+
+        <field name="createdAt" type="datetime" />
+
+        <one-to-one field="irp" target-entity="Nursery\Domain\Shared\Model\IRP">
+            <join-column name="irp" referenced-column-name="id" nullable="true"/>
+            <cascade>
+                <cascade-remove />
+                <cascade-persist />
+            </cascade>
+        </one-to-one>
+
+        <one-to-many field="treatments" target-entity="Nursery\Domain\Shared\Model\Treatment" mapped-by="child" orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
+
+        <many-to-many field="activities" target-entity="Nursery\Domain\Nursery\Model\Action\Activity">
+            <join-table name="child_activity">
+                <join-columns>
+                    <join-column name="child_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="activity_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+
+</doctrine-mapping>

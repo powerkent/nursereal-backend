@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use ApiPlatform\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Exception\ExtraAttributesException;
+use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -28,6 +31,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     'type' => 'header',
                 ],
             ],
+        ],
+        'exception_to_status' => [
+            InvalidArgumentException::class => 400,
+            ExtraAttributesException::class => 400,
+            MissingConstructorArgumentsException::class => 400,
         ],
         'show_webby' => false,
     ]);

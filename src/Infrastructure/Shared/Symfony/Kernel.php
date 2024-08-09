@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Symfony;
 
+use Nursery\ApiPlatform\OpenApi\OpenApiContextInterface;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Nursery\Domain\Shared\Event\EventHandlerInterface;
 use Nursery\Domain\Shared\Query\QueryHandlerInterface;
@@ -12,7 +13,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use function sprintf;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
@@ -43,8 +48,7 @@ class Kernel extends BaseKernel
         $container->registerForAutoconfiguration(EventHandlerInterface::class)
             ->addTag('messenger.message_handler', ['bus' => 'event.bus']);
 
-        // TODO
-        //        $container->registerForAutoconfiguration(OpenApiContextInterface::class)
-        //            ->addTag('shared.resource.open_api_context');
+        $container->registerForAutoconfiguration(OpenApiContextInterface::class)
+            ->addTag('shared.resource.open_api_context');
     }
 }

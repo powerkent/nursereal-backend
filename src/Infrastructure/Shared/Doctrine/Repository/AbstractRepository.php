@@ -7,6 +7,7 @@ namespace Nursery\Infrastructure\Shared\Doctrine\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Nursery\Domain\Shared\Repository\RepositoryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -14,7 +15,7 @@ use Ramsey\Uuid\UuidInterface;
  *
  * @extends ServiceEntityRepository<T>
  */
-abstract class AbstractRepository extends ServiceEntityRepository
+abstract class AbstractRepository extends ServiceEntityRepository implements RepositoryInterface
 {
     public function __construct(
         private ManagerRegistry $registry,

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Nursery\Infrastructure\Shared\Doctrine\DateTime\DateTimeType;
 use Ramsey\Uuid\Doctrine\UuidType;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -11,6 +12,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'default_connection' => 'default',
             'types' => [
                 UuidType::NAME => UuidType::class,
+                DateTimeType::DOCTRINE_DATETIME_FORMAT => DateTimeType::class,
             ],
             'connections' => [
                 'default' => ['url' => '%env(resolve:DATABASE_URL)%'],
