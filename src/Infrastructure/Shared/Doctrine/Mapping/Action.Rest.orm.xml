@@ -4,9 +4,9 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Nursery\Domain\Nursery\Model\Action\Rest" table="action_rest">
+    <entity name="Nursery\Domain\Shared\Model\Action\Rest" table="action_rest">
         <field name="endDate" type="datetime" />
 
-        <field name="restQuality" enum-type="Nursery\Domain\Nursery\Enum\RestQuality" />
+        <field name="restQuality" enum-type="Nursery\Domain\Shared\Enum\RestQuality" />
     </entity>
 </doctrine-mapping>

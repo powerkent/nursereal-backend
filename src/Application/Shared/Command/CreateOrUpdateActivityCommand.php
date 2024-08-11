@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Shared\Command;
+namespace Nursery\Application\Shared\Command;
+
+use Nursery\Domain\Shared\Command\AbstractCreateCommand;
 
 final class CreateOrUpdateActivityCommand extends AbstractCreateCommand
 {

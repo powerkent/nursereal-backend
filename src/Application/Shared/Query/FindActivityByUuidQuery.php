@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Shared\Query;
+namespace Nursery\Application\Shared\Query;
 
+use Nursery\Domain\Shared\Query\QueryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 final readonly class FindActivityByUuidQuery implements QueryInterface

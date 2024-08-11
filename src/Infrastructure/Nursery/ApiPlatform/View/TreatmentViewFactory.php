@@ -16,8 +16,6 @@ final class TreatmentViewFactory
     public function fromModel(Treatment $treatment): TreatmentView
     {
         return new TreatmentView(
-            id: $treatment->getId(),
-            uuid: $treatment->getUuid(),
             childUuid: $treatment->getChild()->getUuid(),
             name: $treatment->getName(),
             description: $treatment->getDescription(),

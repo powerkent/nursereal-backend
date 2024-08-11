@@ -6,7 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
-use Nursery\Domain\Nursery\Model\Action;
+use Nursery\Domain\Shared\Model\Action;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActionResource;
 use function dump;
 

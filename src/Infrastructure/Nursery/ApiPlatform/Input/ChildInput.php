@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Input;
 
 use ApiPlatform\Metadata\ApiProperty;
-use ApiPlatform\Payload\IRPPayload;
-use ApiPlatform\Payload\TreatmentPayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\ActivityPayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\IRPPayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\TreatmentPayload;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -26,8 +27,8 @@ final class ChildInput
         #[Groups(['child:item'])]
         public ?IRPPayload $irp = null,
         #[Groups(['child:item'])]
-        /** @var TreatmentPayload $treatments */
-        public array $treatments = [],
+        /** @var list<TreatmentPayload> $treatments */
+        public ?array $treatments = [],
         //        #[Groups(['child:put:read', 'child:put:write'])]
         //        /** @var list<ActivityPayload> $activities */
         //        public array $activities = [],

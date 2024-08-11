@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource;
 
-use Nursery\Domain\Nursery\Model\Activity;
+use Nursery\Domain\Shared\Model\Activity;
 
 final class ActivityResourceFactory
 {
@@ -13,8 +13,9 @@ final class ActivityResourceFactory
         return new ActivityResource(
             uuid: $activity->getUuid(),
             name: $activity->getName(),
-            createdAt: $activity->getCreatedAt(),
             description: $activity->getDescription(),
+            createdAt: $activity->getCreatedAt(),
+            updatedAt: $activity->getUpdatedAt(),
         );
     }
 }

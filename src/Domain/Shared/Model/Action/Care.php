@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Nursery\Model\Action;
+namespace Nursery\Domain\Shared\Model\Action;
 
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
-use Enum\ActionType;
-use Enum\CareType;
-use Enum\DiaperQuality;
-use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Nursery\Model\Child;
+use Nursery\Domain\Shared\Enum\ActionType;
+use Nursery\Domain\Shared\Enum\CareType;
+use Nursery\Domain\Shared\Enum\DiaperQuality;
+use Nursery\Domain\Shared\Model\Action;
 use Ramsey\Uuid\UuidInterface;
 
 class Care extends Action

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Nursery\Infrastructure\Shared\Symfony\Serializer;
+namespace Nursery\Infrastructure\Shared\Symfony\Serializer;
 
 use Nursery\Domain\Shared\Serializer\NormalizerInterface as DomainNormalizer;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;

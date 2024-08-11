@@ -15,6 +15,7 @@ use DateTimeInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ActivityInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ActivityDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ActivityProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ActivityCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ActivityProvider;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -28,6 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new GetCollection(
             normalizationContext: ['groups' => ['activity:list']],
+            provider: ActivityCollectionProvider::class
         ),
         new Post(
             normalizationContext: ['groups' => ['activity:item', 'activity:post:read']],
@@ -57,9 +59,11 @@ final class ActivityResource
         #[Groups(['activity:item', 'activity:list'])]
         public string $name,
         #[Groups(['activity:item', 'activity:list'])]
+        public ?string $description,
+        #[Groups(['activity:item', 'activity:list'])]
         public DateTimeInterface $createdAt,
         #[Groups(['activity:item', 'activity:list'])]
-        public ?string $description = null,
+        public ?DateTimeInterface $updatedAt,
     ) {
     }
 }

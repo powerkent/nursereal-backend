@@ -6,8 +6,10 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use Nursery\Application\Nursery\Query\FindChildByUuidQuery;
+use Nursery\Application\Shared\Command\CreateOrUpdateActivityCommand;
+use Nursery\Domain\Nursery\Model\Child;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
-use Nursery\Domain\Shared\Command\CreateOrUpdateActivityCommand;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ActivityInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResourceFactory;
@@ -36,4 +38,14 @@ final class ActivityProcessor implements ProcessorInterface
 
         return $this->activityResourceFactory->fromModel($activity);
     }
+
+    //    private function CreateOrUpdateActivity(array $primitives): Child
+    //    {
+    //        $command = (null === $this->queryBus->ask(new FindChildByUuidQuery($primitives['uuid'])))
+    //            ? CreateActivityCommand::create($primitives)
+    //            : UpdateActivityCommand::create($primitives)
+    //        ;
+    //
+    //        return $this->commandBus->dispatch($command);
+    //    }
 }

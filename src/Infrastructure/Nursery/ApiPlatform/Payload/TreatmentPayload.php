@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Payload;
+namespace Nursery\Infrastructure\Nursery\ApiPlatform\Payload;
 
 use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -21,8 +21,8 @@ final class TreatmentPayload
         #[ApiProperty(openapiContext: ['example' => '2024-01-01 00:00:00'])]
         public ?string $endAt = null,
         #[Groups(['child:item'])]
-        /** @var DosagePayload $dosages */
-        public array $dosages = [],
+        /** @var list<DosagePayload> $dosages */
+        public ?array $dosages = [],
     ) {
     }
 }

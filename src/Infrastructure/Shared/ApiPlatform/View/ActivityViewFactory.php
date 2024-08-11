@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Nursery\ApiPlatform\View;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View;
 
-use Nursery\Domain\Nursery\Model\Action\Activity;
+use Nursery\Domain\Shared\Model\Action\Activity;
 
 final class ActivityViewFactory
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
+namespace Nursery\Infrastructure\Nursery\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Nursery\Application\Shared\Command\DeleteChildByUuidQuery;
+use Nursery\Application\Nursery\Command\DeleteChildByUuidQuery;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 
-final class ActivityDeleteProcessor implements ProcessorInterface
+final class ChildDeleteProcessor implements ProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,

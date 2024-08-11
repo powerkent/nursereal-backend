@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
-use ApiPlatform\Resource\CustomerResource;
-use ApiPlatform\Resource\CustomerResourceFactory;
 use ApiPlatform\State\ProviderInterface;
-use Model\Customer;
-use Nursery\ApiPlatform\Provider\AbstractProvider;
+use Nursery\Application\Nursery\Query\FindCustomerByUuidQuery;
+use Nursery\Domain\Nursery\Model\Customer;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
-use Query\FindCustomerByUuidQuery;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\CustomerResource;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\CustomerResourceFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
 
+/**
+ * @extends AbstractProvider<Customer, CustomerResource>
+ */
 final class CustomerProvider extends AbstractProvider implements ProviderInterface
 {
     public function __construct(

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\OpenApi;
 
-use Enum\ActionType;
+use Nursery\Domain\Shared\Enum\ActionType;
 
 /**
  * @codeCoverageIgnore

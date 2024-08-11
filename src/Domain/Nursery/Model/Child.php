@@ -7,6 +7,7 @@ namespace Nursery\Domain\Nursery\Model;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Shared\Model\Activity;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
 

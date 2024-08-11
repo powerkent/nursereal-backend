@@ -12,6 +12,9 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResourceFactory;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @implements ProcessorInterface<ChildResource>
+ */
 final readonly class ChildPostProcessor implements ProcessorInterface
 {
     public function __construct(

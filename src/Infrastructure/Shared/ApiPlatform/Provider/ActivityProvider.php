@@ -6,11 +6,15 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
-use Nursery\Domain\Shared\Query\FindActivityByUuidQuery;
+use Nursery\Application\Shared\Query\FindActivityByUuidQuery;
+use Nursery\Domain\Shared\Model\Activity;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResourceFactory;
 
+/**
+ * @extends AbstractProvider<Activity, ActivityResource>
+ */
 final readonly class ActivityProvider implements ProviderInterface
 {
     public function __construct(

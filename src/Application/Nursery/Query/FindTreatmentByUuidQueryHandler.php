@@ -7,6 +7,8 @@ namespace Nursery\Application\Nursery\Query;
 use Nursery\Domain\Nursery\Model\Treatment;
 use Nursery\Domain\Nursery\Repository\TreatmentRepositoryInterface;
 use Nursery\Domain\Shared\Query\QueryHandlerInterface;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final readonly class FindTreatmentByUuidQueryHandler implements QueryHandlerInterface
 {

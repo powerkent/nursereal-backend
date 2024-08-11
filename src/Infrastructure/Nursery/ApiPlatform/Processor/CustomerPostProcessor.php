@@ -17,6 +17,9 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\CustomerResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\CustomerResourceFactory;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @implements ProcessorInterface<CustomerResource>
+ */
 final readonly class CustomerPostProcessor implements ProcessorInterface
 {
     public function __construct(

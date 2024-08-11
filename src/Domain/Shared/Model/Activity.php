@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Nursery\Model;
+namespace Nursery\Domain\Shared\Model;
 
 use DateTimeInterface;
 use Ramsey\Uuid\UuidInterface;
@@ -15,8 +15,9 @@ class Activity
     public function __construct(
         protected UuidInterface $uuid,
         protected string $name,
-        protected DateTimeInterface $createdAt,
         protected ?string $description,
+        protected DateTimeInterface $createdAt,
+        protected ?DateTimeInterface $updatedAt = null,
     ) {
         Assert::stringNotEmpty($this->name);
     }
@@ -70,6 +71,18 @@ class Activity
     public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

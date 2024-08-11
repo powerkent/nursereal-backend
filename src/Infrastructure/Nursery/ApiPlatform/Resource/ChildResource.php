@@ -6,18 +6,21 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Resource;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Input\ChildInput;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ChildDeleteProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ChildPostProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ChildPutProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ChildCollectionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ChildProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\IRPView;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\TreatmentView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\ActivityView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -45,6 +48,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
             provider: ChildProvider::class,
             processor: ChildPutProcessor::class,
         ),
+        new Delete(
+            provider: ChildProvider::class,
+            processor: ChildDeleteProcessor::class,
+        ),
     ]
 )]
 final class ChildResource
@@ -64,11 +71,11 @@ final class ChildResource
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?IRPView $irp = null,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        /** @var TreatmentView|null $treatments */
+        /** @var list<TreatmentView>|null $treatments */
         public ?array $treatments = null,
-        //        #[Groups(['child:item', 'child:list', 'customer:item'])]
-        //        /** @var list<ActivityView>|null $activities */
-        //        public ?array $activities = null,
+        #[Groups(['child:item', 'customer:item'])]
+        /** @var list<ActivityView>|null $activities */
+        public ?array $activities = null,
     ) {
     }
 }

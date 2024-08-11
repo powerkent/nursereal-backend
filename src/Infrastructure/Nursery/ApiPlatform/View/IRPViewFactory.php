@@ -11,7 +11,6 @@ final class IRPViewFactory
     public function fromModel(IRP $irp): IRPView
     {
         return new IRPView(
-            id: $irp->getId(),
             name: $irp->getName(),
             description: $irp->getDescription(),
             createdAt: $irp->getCreatedAt(),

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Payload;
+namespace Nursery\Infrastructure\Nursery\ApiPlatform\Payload;
 
 use DateTimeInterface;
 use Symfony\Component\Serializer\Annotation\Groups;

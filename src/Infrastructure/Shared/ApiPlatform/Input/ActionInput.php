@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Input;
 
-use Enum\ActionType;
+use Nursery\Domain\Shared\Enum\ActionType;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Symfony;
 
-use Nursery\ApiPlatform\OpenApi\OpenApiContextInterface;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Nursery\Domain\Shared\Event\EventHandlerInterface;
 use Nursery\Domain\Shared\Query\QueryHandlerInterface;
+use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\OpenApiContextInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

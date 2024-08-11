@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Enum;
+namespace Nursery\Domain\Shared\Enum;
 
 use function array_map;
 

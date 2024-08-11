@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Shared\Query;
+namespace Nursery\Application\Shared\Query;
 
-use Model\Activity;
+use Nursery\Domain\Shared\Model\Activity;
+use Nursery\Domain\Shared\Query\QueryHandlerInterface;
 use Nursery\Infrastructure\Shared\Doctrine\Repository\ActivityRepository;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Shared\Command;
+namespace Nursery\Application\Shared\Command;
 
-use Model\Activity;
+use DateTimeImmutable;
+use Nursery\Domain\Shared\Command\CommandHandlerInterface;
+use Nursery\Domain\Shared\Model\Activity;
 use Nursery\Domain\Shared\Repository\ActivityRepositoryInterface;
 use Nursery\Domain\Shared\Serializer\NormalizerInterface;
 use Ramsey\Uuid\Uuid;
@@ -24,9 +26,12 @@ final readonly class CreateOrUpdateActivityCommandHandler implements CommandHand
 
         if (null !== $activity) {
             $activity = $this->normalizer->denormalize($command->primitives, Activity::class, context: ['object_to_populate' => $activity]);
+            $activity->setUpdatedAt(new DateTimeImmutable());
 
             return $this->activityRepository->update($activity);
         }
+
+        $command->primitives['createdAt'] = new DateTimeImmutable();
 
         return $this->activityRepository->save(new Activity(...$command->primitives));
     }

@@ -4,10 +4,9 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Nursery\Domain\Nursery\Model\Action\Activity" table="action_activity">
-        <one-to-one field="activity" target-entity="Nursery\Domain\Nursery\Model\Activity">
+    <entity name="Nursery\Domain\Shared\Model\Action\Activity" table="action_activity">
+        <one-to-one field="activity" target-entity="Nursery\Domain\Shared\Model\Activity">
             <join-column name="activity_id" referenced-column-name="id" nullable="false"/>
         </one-to-one>
     </entity>
 </doctrine-mapping>
-

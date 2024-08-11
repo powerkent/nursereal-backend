@@ -11,8 +11,6 @@ class IRPView
 {
     public function __construct(
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public int $id,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
         public string $name,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public string $description,

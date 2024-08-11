@@ -11,7 +11,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
-use Enum\ActionType;
+use Nursery\Domain\Shared\Enum\ActionType;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ActionInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ActionPostProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ActionPutProcessor;

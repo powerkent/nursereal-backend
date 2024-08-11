@@ -13,6 +13,9 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResourceFactory;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
 
+/**
+ * @extends AbstractProvider<Child, ChildResource>
+ */
 final class ChildProvider extends AbstractProvider implements ProviderInterface
 {
     public function __construct(

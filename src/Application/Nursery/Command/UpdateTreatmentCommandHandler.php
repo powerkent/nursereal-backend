@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Application\Nursery\Command;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Nursery\Application\Nursery\Query\FindChildByUuidQuery;
 use Nursery\Domain\Nursery\Model\Treatment;
 use Nursery\Domain\Nursery\Repository\TreatmentRepositoryInterface;
 use Nursery\Domain\Shared\Command\CommandBusInterface;

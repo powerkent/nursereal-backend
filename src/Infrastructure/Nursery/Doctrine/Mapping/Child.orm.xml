@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Nursery\Domain\Shared\Model\Child" table="child">
+    <entity name="Nursery\Domain\Nursery\Model\Child" table="child">
         <id name="id" type="integer">
             <generator strategy="AUTO" />
         </id>
@@ -19,7 +19,7 @@
 
         <field name="createdAt" type="datetime" />
 
-        <one-to-one field="irp" target-entity="Nursery\Domain\Shared\Model\IRP">
+        <one-to-one field="irp" target-entity="Nursery\Domain\Nursery\Model\IRP">
             <join-column name="irp" referenced-column-name="id" nullable="true"/>
             <cascade>
                 <cascade-remove />
@@ -27,14 +27,14 @@
             </cascade>
         </one-to-one>
 
-        <one-to-many field="treatments" target-entity="Nursery\Domain\Shared\Model\Treatment" mapped-by="child" orphan-removal="true">
+        <one-to-many field="treatments" target-entity="Nursery\Domain\Nursery\Model\Treatment" mapped-by="child" orphan-removal="true">
             <cascade>
                 <cascade-persist />
                 <cascade-remove />
             </cascade>
         </one-to-many>
 
-        <many-to-many field="activities" target-entity="Nursery\Domain\Nursery\Model\Action\Activity">
+        <many-to-many field="activities" target-entity="Nursery\Domain\Shared\Model\Action\Activity">
             <join-table name="child_activity">
                 <join-columns>
                     <join-column name="child_id" referenced-column-name="id"/>

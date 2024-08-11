@@ -10,11 +10,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class DosageView
 {
     public function __construct(
-        #[Groups(['child:item'])]
-        public int $id,
-        #[Groups(['child:item'])]
+        #[Groups(['child:item', 'child:list'])]
         public ?string $dose, // quantity
-        #[Groups(['child:item'])]
+        #[Groups(['child:item', 'child:list'])]
         public ?DateTimeInterface $dosingDate,
     ) {
     }

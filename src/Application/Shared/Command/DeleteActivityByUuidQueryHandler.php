@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Shared\Command;
+namespace Nursery\Application\Shared\Command;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Nursery\Domain\Shared\Repository\ActivityRepositoryInterface;
 
 final readonly class DeleteActivityByUuidQueryHandler implements CommandHandlerInterface

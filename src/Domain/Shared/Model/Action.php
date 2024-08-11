@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Nursery\Model;
+namespace Nursery\Domain\Shared\Model;
 
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Nursery\Model\Child;
+use Nursery\Domain\Nursery\Model\Treatment;
 use Ramsey\Uuid\UuidInterface;
 
 class Action

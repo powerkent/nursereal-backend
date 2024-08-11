@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Doctrine\Repository;
 
-use Nursery\Domain\Nursery\Model\Activity;
+use Nursery\Domain\Shared\Model\Activity;
 use Nursery\Domain\Shared\Repository\ActivityRepositoryInterface;
 
 /**

@@ -6,7 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Nursery\Domain\Shared\Command\CreateOrUpdateActivityCommand;
+use Nursery\Application\Shared\Command\CreateOrUpdateActivityCommand;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ActivityInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResourceFactory;

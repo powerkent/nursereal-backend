@@ -11,7 +11,6 @@ final class DosageViewFactory
     public function fromModel(Dosage $dosage): DosageView
     {
         return new DosageView(
-            id: $dosage->getId(),
             dose: $dosage->getDose(), // quantity
             dosingDate: $dosage->getDosingDate(),
         );

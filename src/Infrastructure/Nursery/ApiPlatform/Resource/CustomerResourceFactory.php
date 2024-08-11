@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Resource;
 
-use Model\Child;
-use Model\Customer;
+use Nursery\Domain\Nursery\Model\Child;
+use Nursery\Domain\Nursery\Model\Customer;
 
 final class CustomerResourceFactory
 {

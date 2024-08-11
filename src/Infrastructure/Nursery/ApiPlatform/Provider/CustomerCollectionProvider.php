@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
-use ApiPlatform\Resource\CustomerResource;
-use ApiPlatform\Resource\CustomerResourceFactory;
 use ApiPlatform\State\Pagination\Pagination;
-use Model\Child;
-use Model\Customer;
-use Nursery\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Application\Nursery\Query\FindCustomersQuery;
+use Nursery\Domain\Nursery\Model\Child;
+use Nursery\Domain\Nursery\Model\Customer;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
-use Query\FindCustomersQuery;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\CustomerResource;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\CustomerResourceFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
 
 /**
  * @extends AbstractCollectionProvider<Customer, CustomerResource>
@@ -29,8 +29,6 @@ final class CustomerCollectionProvider extends AbstractCollectionProvider
 
     /**
      * @param array<string, mixed> $uriVariables
-     * @param Child                $filters
-     * @param array<string, mixed> $context
      *
      * @return Child
      */

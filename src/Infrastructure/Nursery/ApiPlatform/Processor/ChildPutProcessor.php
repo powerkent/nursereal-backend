@@ -15,6 +15,9 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Input\ChildInput;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResourceFactory;
 
+/**
+ * @implements ProcessorInterface<ChildResource>
+ */
 final readonly class ChildPutProcessor implements ProcessorInterface
 {
     public function __construct(
