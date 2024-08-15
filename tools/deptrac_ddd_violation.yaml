@@ -1,0 +1,5 @@
+parameters:
+    skip_violations:
+        Nursery\Domain\Nursery\Model\Action\Care:
+            - Doctrine\ORM\Mapping
+            - Doctrine\ORM\Mapping\Column

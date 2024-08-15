@@ -1,0 +1,53 @@
+imports:
+    - deptrac_ddd_violation.yaml
+
+parameters:
+    paths:
+        - ../src
+
+    layers:
+        - name: Application
+          collectors:
+              - type: directory
+                regex: src/Application/.*
+
+        - name: Domain
+          collectors:
+              - type: directory
+                regex: src/Domain/.*
+
+        - name: Infrastructure
+          collectors:
+              - type: directory
+                regex: src/Infrastructure/.*
+
+        - name: Attributes
+          collectors:
+              - { type: className, regex: ^ApiPlatform\\Core\\Annotation }
+              - { type: className, regex: ^Symfony\\Component\\Validator\\Constraints? }
+              - { type: className, regex: ^Symfony\\Component\\Serializer\\Annotation\\SerializedName }
+
+        - name: Vendor
+          collectors:
+              - { type: className, regex: ^ApiPlatform\\ }
+              - { type: className, regex: ^Psr\\ }
+              - { type: className, regex: ^Symfony\\(?!(Component\\Security\\Core\\User\\UserInterface)) }
+              - { type: className, regex: ^Zenstruck\\ }
+              - { type: className, regex: ^Doctrine\\(?!(Common\\Collections)|(Common\\Util)) }
+              - { type: className, regex: ^PHPStan\\ }
+              - { type: className, regex: ^PhpParser\\ }
+
+        - name: Helpers
+          collectors:
+              - { type: className, regex: ^Doctrine\\Common\\Collections\\ }
+              - { type: className, regex: ^Doctrine\\Common\\Util\\ClassUtils$ }
+              - { type: className, regex: ^Ramsey\\Uuid\\ }
+              - { type: className, regex: ^Faker\\ }
+              - { type: className, regex: ^Webmozart\\ }
+              - { type: className, regex: ^BackedEnum$ }
+              - { type: className, regex: ^Symfony\\Component\\Security\\Core\\User\\UserInterface }
+
+    ruleset:
+        Application: [ Domain, Helpers, Attributes ]
+        Infrastructure: [ Domain, Application, Vendor, Helpers, Attributes ]
+        Domain: [ Helpers, Attributes ]

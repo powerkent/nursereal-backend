@@ -113,6 +113,13 @@ consume:
 ###
 Tools:
 
+## Clear Symfony cache
+cc:
+	@$(SYMFONY) cache:clear -e dev
+	@$(SYMFONY) doctrine:cache:clear-metadata --flush -e dev
+	@$(SYMFONY) cache:clear -e test
+	@$(SYMFONY) doctrine:cache:clear-metadata --flush -e test
+
 ## Code cleaner
 fix-cs:
 	@$(EXEC) vendor/bin/php-cs-fixer fix --config tools/.php-cs-fixer.dist.php  --cache-file tools/.php-cs-fixer.cache
@@ -121,11 +128,12 @@ fix-cs:
 phpstan:
 	@$(EXEC) vendor/bin/phpstan analyze -c tools/phpstan.neon --memory-limit 1G
 
-## Clear Symfony cache
-cc:
-	@$(SYMFONY) cache:clear -e dev
-	@$(SYMFONY) doctrine:cache:clear-metadata --flush -e dev
-	@$(SYMFONY) cache:clear -e test
-	@$(SYMFONY) doctrine:cache:clear-metadata --flush -e test
+deptrac:
+	@echo "\n\e[7mChecking DDD layers...\e[0m"
+	@$(EXEC) vendor/bin/deptrac analyze --fail-on-uncovered --report-uncovered --no-progress --cache-file tools/.deptrac_ddd.cache --config-file tools/deptrac_ddd.yaml
 
-.PHONY: fix-cs phpstan cc
+	@echo "\n\e[7mChecking Bounded context layers...\e[0m"
+	@$(EXEC) vendor/bin/deptrac analyze --fail-on-uncovered --report-uncovered --no-progress --cache-file tools/.deptrac_bounded_context.cache --config-file tools/deptrac_bounded_context.yaml
+
+
+.PHONY: cc fix-cs phpstan deptrac

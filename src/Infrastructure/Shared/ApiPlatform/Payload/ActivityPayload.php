@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Shared\ApiPlatform\View;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Payload;
 
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class ActivityPayload
 {
     public function __construct(
-        #[Groups(['action:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
         public UuidInterface $uuid,
     ) {
     }

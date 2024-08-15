@@ -1,0 +1,4 @@
+parameters:
+    skip_violations:
+        Nursery\Infrastructure\Shared\Enum\CareTypeArray:
+        - Nursery\Domain\Nursery\Enum\CareType
