@@ -8,8 +8,11 @@ use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class CustomerPostInput
+final class CustomerInput
 {
+    /**
+     * @param array<array<string, string>> $children
+     */
     public function __construct(
         #[Groups(['customer:item'])]
         #[Assert\NotBlank(message: 'Customer requires a firstname.')]

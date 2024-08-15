@@ -5,7 +5,7 @@
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Nursery\Domain\Shared\Model\Action\Rest" table="action_rest">
-        <field name="endDate" type="datetime" />
+        <field name="restEndDate" type="datetime" />
 
         <field name="restQuality" enum-type="Nursery\Domain\Shared\Enum\RestQuality" />
     </entity>

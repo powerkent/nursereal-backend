@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Symfony;
 
+use App\Doctrine\Types\CareTypeArray;
+use Doctrine\DBAL\Types\Type;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Nursery\Domain\Shared\Event\EventHandlerInterface;
 use Nursery\Domain\Shared\Query\QueryHandlerInterface;
@@ -21,6 +23,15 @@ use function sprintf;
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
+
+    public function boot(): void
+    {
+        parent::boot();
+
+        if (!Type::hasType(CareTypeArray::NAME)) {
+            Type::addType(CareTypeArray::NAME, CareTypeArray::class);
+        }
+    }
 
     protected function configureContainer(ContainerConfigurator $container): void
     {

@@ -6,9 +6,12 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Nursery\Application\Shared\Command\DeleteChildByUuidQuery;
+use Nursery\Application\Shared\Command\DeleteActivityByUuidQuery;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 
+/**
+ * @implements ProcessorInterface<null, boolean>
+ */
 final class ActivityDeleteProcessor implements ProcessorInterface
 {
     public function __construct(
@@ -16,8 +19,8 @@ final class ActivityDeleteProcessor implements ProcessorInterface
     ) {
     }
 
-    public function process($data, Operation $operation, array $uriVariables = [], array $context = []): void
+    public function process($data, Operation $operation, array $uriVariables = [], array $context = []): bool
     {
-        $this->commandBus->dispatch(new DeleteChildByUuidQuery($uriVariables['uuid']));
+        return $this->commandBus->dispatch(new DeleteActivityByUuidQuery($uriVariables['uuid']));
     }
 }

@@ -26,9 +26,10 @@ final readonly class UpdateTreatmentCommandHandler implements CommandHandlerInte
     {
         $treatment = $command->id() instanceof UuidInterface ? $this->treatmentRepository->searchByUuid($command->id()) : $this->treatmentRepository->search($command->id());
 
-        if (null === $treatment) {
+        if (null === $treatment || null === $treatment->getChild()) {
             throw new EntityNotFoundException(Treatment::class);
         }
+
         $child = $this->queryBus->ask(new FindChildByUuidQuery($treatment->getChild()->getUuid()));
         $this->commandBus->dispatch(new DeleteTreatmentByUuidQuery($treatment->getUuid()));
 

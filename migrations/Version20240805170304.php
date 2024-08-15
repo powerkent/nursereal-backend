@@ -11,7 +11,7 @@ final class Version20240805170304 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Add child_activity, dosing, drug tables.';
+        return 'Add child_activity, dosing, drug tables';
     }
 
     public function up(Schema $schema): void

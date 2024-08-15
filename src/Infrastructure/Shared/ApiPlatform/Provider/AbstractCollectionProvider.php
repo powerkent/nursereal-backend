@@ -27,9 +27,9 @@ abstract class AbstractCollectionProvider implements ProviderInterface
     }
 
     /**
-     * @param array<string, mixed> $uriVariables
-     * @param FilterInterface      $filters
-     * @param array<string, mixed> $context
+     * @param array<string, mixed>  $uriVariables
+     * @param list<FilterInterface> $filters
+     * @param array<string, mixed>  $context
      *
      * @return iterable<T1>
      */

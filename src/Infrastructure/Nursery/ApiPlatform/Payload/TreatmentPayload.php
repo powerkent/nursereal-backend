@@ -9,6 +9,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 final class TreatmentPayload
 {
+    /**
+     * @param list<DosagePayload> $dosages
+     */
     public function __construct(
         #[Groups(['child:item'])]
         public string $name,

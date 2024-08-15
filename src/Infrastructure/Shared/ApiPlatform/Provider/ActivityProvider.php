@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\ProviderInterface;
 use Nursery\Application\Shared\Query\FindActivityByUuidQuery;
 use Nursery\Domain\Shared\Model\Activity;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
@@ -15,7 +14,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResourceFactory;
 /**
  * @extends AbstractProvider<Activity, ActivityResource>
  */
-final readonly class ActivityProvider implements ProviderInterface
+final class ActivityProvider extends AbstractProvider
 {
     public function __construct(
         private QueryBusInterface $queryBus,
@@ -23,10 +22,18 @@ final readonly class ActivityProvider implements ProviderInterface
     ) {
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): ActivityResource
+    protected function item(Operation $operation, array $uriVariables = [], array $context = []): ?object
     {
-        $child = $this->queryBus->ask(new FindActivityByUuidQuery(uuid: $uriVariables['uuid']));
+        return $this->queryBus->ask(new FindActivityByUuidQuery(uuid: $uriVariables['uuid']));
+    }
 
-        return $this->activityResourceFactory->fromModel($child);
+    /**
+     * @param Activity $model
+     *
+     * @return ActivityResource
+     */
+    protected function toResource(object $model): object
+    {
+        return $this->activityResourceFactory->fromModel($model);
     }
 }

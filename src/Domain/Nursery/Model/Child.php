@@ -18,11 +18,15 @@ class Child
     /** @var Collection<int, Treatment> */
     protected Collection $treatments;
 
-    /** @var Collection<int, Treatment> */
+    /** @var Collection<int, Customer> */
+    protected Collection $customers;
+
+    /** @var Collection<int, Activity> */
     protected Collection $activities;
 
     /**
      * @param array<int, Treatment>|Collection<int, Treatment> $treatments
+     * @param array<int, Customer>|Collection<int, Customer>   $customers
      * @param array<int, Activity>|Collection<int, Activity>   $activities
      */
     public function __construct(
@@ -33,12 +37,14 @@ class Child
         protected DateTimeInterface $createdAt,
         protected ?IRP $irp = null,
         array|Collection $treatments = [],
+        array|Collection $customers = [],
         array|Collection $activities = [],
     ) {
         Assert::stringNotEmpty($firstname);
         Assert::stringNotEmpty($lastname);
 
         $this->treatments = is_array($treatments) ? new ArrayCollection($treatments) : $treatments;
+        $this->customers = is_array($customers) ? new ArrayCollection($customers) : $customers;
         $this->activities = is_array($activities) ? new ArrayCollection($activities) : $activities;
     }
 
@@ -119,6 +125,9 @@ class Child
         return $this;
     }
 
+    /**
+     * @return Collection<int, Treatment>|null
+     */
     public function getTreatments(): ?Collection
     {
         return $this->treatments;
@@ -154,16 +163,45 @@ class Child
         return $this;
     }
 
-    public function sortTreatmentsById(): array
+    /**
+     * @return Collection<int, Customer>
+     */
+    public function getCustomers(): Collection
     {
-        $sortedTreatments = $this->treatments->getValues();
-        usort($sortedTreatments, function (Treatment $a, Treatment $b) {
-            return $a->getId() > $b->getId();
-        });
-
-        return $sortedTreatments;
+        return $this->customers;
     }
 
+    /**
+     * @param array<int, Customer>|Collection<int, Customer> $customers
+     */
+    public function setCustomers(Collection|array $customers): self
+    {
+        $this->customers = $customers instanceof Collection ? $customers : new ArrayCollection($customers);
+
+        return $this;
+    }
+
+    public function addCustomer(Customer $customer): self
+    {
+        if (!$this->customers->contains($customer)) {
+            $this->customers->add($customer);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(Customer $customer): self
+    {
+        if ($this->customers->contains($customer)) {
+            $this->customers->removeElement($customer);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Activity>|null
+     */
     public function getActivities(): ?Collection
     {
         return $this->activities;
@@ -195,15 +233,5 @@ class Child
         }
 
         return $this;
-    }
-
-    public function sortActivitiesById(): Collection
-    {
-        $sortedActivities = $this->activities->getValues();
-        usort($sortedActivities, function (Activity $a, Activity $b) {
-            return $a->getId() > $b->getId();
-        });
-
-        return new ArrayCollection($sortedActivities);
     }
 }

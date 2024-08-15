@@ -125,13 +125,16 @@ class Treatment
         return $this;
     }
 
+    /**
+     * @return Collection<int, Dosage>|null
+     */
     public function getDosages(): ?Collection
     {
         return $this->dosages;
     }
 
     /**
-     * @param array<int, Dosage>|Collection<int, Dosage>|null $dosages
+     * @param array<int, Dosage>|Collection<int, Dosage> $dosages
      */
     public function setDosages(Collection|array $dosages): self
     {
@@ -158,15 +161,5 @@ class Treatment
         }
 
         return $this;
-    }
-
-    public function sortDosagesById(): Collection
-    {
-        $sortedDosages = $this->dosages->getValues();
-        usort($sortedDosages, function (Treatment $a, Treatment $b) {
-            return $a->getId() > $b->getId();
-        });
-
-        return new ArrayCollection($sortedDosages);
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\ProviderInterface;
 use Nursery\Application\Nursery\Query\FindChildByUuidQuery;
 use Nursery\Domain\Nursery\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
@@ -16,7 +15,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
 /**
  * @extends AbstractProvider<Child, ChildResource>
  */
-final class ChildProvider extends AbstractProvider implements ProviderInterface
+final class ChildProvider extends AbstractProvider
 {
     public function __construct(
         private QueryBusInterface $queryBus,

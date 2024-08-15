@@ -16,8 +16,8 @@ RESET  := $(shell tput -Txterm sgr0)
 TARGET_MAX_CHAR_NUM=30
 
 help:
-	@echo "Nursery ${GREEN}API${RESET}"
-	@awk '/^[a-zA-Z\-\_0-9]+:/ { \
+	@echo "Nursery Management ${GREEN}API${RESET}"
+	@awk '/^[a-zA-Z\-_0-9]+:/ { \
 		helpMessage = match(lastLine, /^## (.*)/); \
 		if (helpMessage) { \
 			helpCommand = substr($$1, 0, index($$1, ":")-1); \
@@ -32,20 +32,21 @@ help:
 	} { lastLine = $$0 }' $(MAKEFILE_LIST)
 
 
+####################################### INSTALL #######################################
 
-#################################
-Project:
+###
+Install:
 
-## Enter the application container
+## Run docker exec to enter the application container
 shell:
 	@$(EXEC) bash
 
-## Enter the database container
+## Run docker exec to enter the database container
 database:
 	@$(DC) exec -u www-data database mysql --user=symfony --password=symfony --host=localhost nursery
 
 
-## Install the whole dev environment
+## Install the dev environment
 install:
 	@$(DC) build
 	@$(MAKE) start -s
@@ -54,11 +55,11 @@ install:
 	@$(SYMFONY) messenger:setup-transports
 
 
-## Install composer dependencies
+## Install the composer dependencies
 vendor: composer.lock
 	@$(COMPOSER) install --optimize-autoloader
 
-## Start the project
+## Docker compose the project
 start:
 	@$(DC) up -d --remove-orphans
 
@@ -69,30 +70,31 @@ stop:
 
 .PHONY: shell database install vendor start stop
 
-fix-cs:
-	@$(EXEC) vendor/bin/php-cs-fixer fix --config tools/.php-cs-fixer.dist.php  --cache-file tools/.php-cs-fixer.cache
 
-#################################
+####################################### DATABASE #######################################
+
+
+###
 Database:
 
-## Create/Recreate the database
+## Create the database
 db-create:
 	@$(SYMFONY) doctrine:database:drop --force --if-exists -nq
 	@$(SYMFONY) doctrine:database:create -nq
 
-## Run database migrations
+## Run migrations
 db-migrate:
 	@$(SYMFONY) doctrine:migrations:migrate -nq --allow-no-migration
 
 ## Reset database
 db-reset: db-create db-migrate
 
-## Clear Symfony cache
-cc:
-	@$(SYMFONY) cache:clear -e dev
-	@$(SYMFONY) doctrine:cache:clear-metadata --flush -e dev
-	@$(SYMFONY) cache:clear -e test
-	@$(SYMFONY) doctrine:cache:clear-metadata --flush -e test
+
+####################################### MESSENGER #######################################
+
+
+###
+Messenger:
 
 ## Stop active messenger workers
 stop-workers:
@@ -102,5 +104,28 @@ stop-workers:
 consume:
 	@$(SYMFONY) messenger:consume async -vv
 
-.PHONY: cc stop-workers consume
+.PHONY: stop-workers consume
 
+
+####################################### TOOLS #######################################
+
+
+###
+Tools:
+
+## Code cleaner
+fix-cs:
+	@$(EXEC) vendor/bin/php-cs-fixer fix --config tools/.php-cs-fixer.dist.php  --cache-file tools/.php-cs-fixer.cache
+
+# Code analyze
+phpstan:
+	@$(EXEC) vendor/bin/phpstan analyze -c tools/phpstan.neon --memory-limit 1G
+
+## Clear Symfony cache
+cc:
+	@$(SYMFONY) cache:clear -e dev
+	@$(SYMFONY) doctrine:cache:clear-metadata --flush -e dev
+	@$(SYMFONY) cache:clear -e test
+	@$(SYMFONY) doctrine:cache:clear-metadata --flush -e test
+
+.PHONY: fix-cs phpstan cc

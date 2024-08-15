@@ -8,10 +8,9 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Nursery\Domain\Nursery\Model\Child;
-use Nursery\Domain\Nursery\Model\Treatment;
 use Ramsey\Uuid\UuidInterface;
 
-class Action
+abstract class AbstractAction
 {
     protected ?int $id = null;
 
@@ -71,13 +70,16 @@ class Action
         return $this;
     }
 
+    /**
+     * @return Collection<int, Child>
+     */
     public function getChildren(): Collection
     {
         return $this->children;
     }
 
     /**
-     * @param array<int, Treatment>|Collection<int, Treatment> $children
+     * @param array<int, Child>|Collection<int, Child> $children
      */
     public function setChildren(Collection|array $children): self
     {
@@ -102,15 +104,5 @@ class Action
         }
 
         return $this;
-    }
-
-    public function sortChildrenById(): Collection
-    {
-        $sortedChildren = $this->children->getValues();
-        usort($sortedChildren, function (Child $a, Child $b) {
-            return $a->getId() > $b->getId();
-        });
-
-        return new ArrayCollection($sortedChildren);
     }
 }

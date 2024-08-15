@@ -18,7 +18,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ],
         'defaults' => [
-            'normalization_context' => ['skip_null_values' => false],
+            'normalization_context' => ['skip_null_values' => true],
         ],
         'patch_formats' => [
             'json' => ['application/merge-patch+json'],

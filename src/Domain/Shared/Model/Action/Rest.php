@@ -7,15 +7,12 @@ namespace Nursery\Domain\Shared\Model\Action;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Nursery\Domain\Nursery\Model\Child;
-use Nursery\Domain\Shared\Enum\ActionType;
 use Nursery\Domain\Shared\Enum\RestQuality;
-use Nursery\Domain\Shared\Model\Action;
+use Nursery\Domain\Shared\Model\AbstractAction;
 use Ramsey\Uuid\UuidInterface;
 
-class Rest extends Action
+class Rest extends AbstractAction
 {
-    protected ActionType $type;
-
     /**
      * @param array<int, Child>|Collection<int, Child> $children
      */
@@ -24,7 +21,7 @@ class Rest extends Action
         DateTimeInterface $createdAt,
         Collection|array $children,
         ?string $comment,
-        protected DateTimeInterface $endDate,
+        protected DateTimeInterface $restEndDate,
         protected RestQuality $restQuality,
     ) {
         parent::__construct(
@@ -33,18 +30,16 @@ class Rest extends Action
             children: $children,
             comment: $comment,
         );
-
-        $this->type = ActionType::Rest;
     }
 
-    public function getEndDate(): DateTimeInterface
+    public function getRestEndDate(): DateTimeInterface
     {
-        return $this->endDate;
+        return $this->restEndDate;
     }
 
-    public function setEndDate(DateTimeInterface $endDate): self
+    public function setRestEndDate(DateTimeInterface $restEndDate): self
     {
-        $this->endDate = $endDate;
+        $this->restEndDate = $restEndDate;
 
         return $this;
     }

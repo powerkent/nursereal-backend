@@ -13,7 +13,7 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResourceFactory;
 use Ramsey\Uuid\Uuid;
 
 /**
- * @implements ProcessorInterface<ChildResource>
+ * @implements ProcessorInterface<ChildInput, ChildResource>
  */
 final readonly class ChildPostProcessor implements ProcessorInterface
 {

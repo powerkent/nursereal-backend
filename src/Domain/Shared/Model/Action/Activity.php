@@ -7,15 +7,12 @@ namespace Nursery\Domain\Shared\Model\Action;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Nursery\Domain\Nursery\Model\Child;
-use Nursery\Domain\Shared\Enum\ActionType;
-use Nursery\Domain\Shared\Model\Action;
+use Nursery\Domain\Shared\Model\AbstractAction;
 use Nursery\Domain\Shared\Model\Activity as WhatActivity;
 use Ramsey\Uuid\UuidInterface;
 
-class Activity extends Action
+class Activity extends AbstractAction
 {
-    protected ActionType $type;
-
     /**
      * @param array<int, Child>|Collection<int, Child> $children
      */
@@ -32,8 +29,6 @@ class Activity extends Action
             children : $children,
             comment  : $comment,
         );
-
-        $this->type = ActionType::Activity;
     }
 
     public function getActivity(): WhatActivity

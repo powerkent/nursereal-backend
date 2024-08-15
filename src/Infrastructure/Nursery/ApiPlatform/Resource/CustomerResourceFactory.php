@@ -6,10 +6,12 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Resource;
 
 use Nursery\Domain\Nursery\Model\Child;
 use Nursery\Domain\Nursery\Model\Customer;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\ChildView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\ChildViewFactory;
 
 final class CustomerResourceFactory
 {
-    public function __construct(private ChildResourceFactory $childResourceFactory)
+    public function __construct(private ChildViewFactory $childViewFactory)
     {
     }
 
@@ -21,7 +23,7 @@ final class CustomerResourceFactory
             lastname: $customer->getLastname(),
             email: $customer->getEmail(),
             phoneNumber: $customer->getPhoneNumber(),
-            children: $customer->getChildren()->map(fn (Child $child): ChildResource => $this->childResourceFactory->fromModel($child))->toArray(),
+            children: $customer->getChildren()?->map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child))->toArray(),
         );
     }
 }

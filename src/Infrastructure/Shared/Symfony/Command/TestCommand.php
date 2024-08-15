@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Symfony\Command;
 
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,6 +28,10 @@ class TestCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
+        $myClass = new MaClasse(1, 'hello', new \DateTime('08:30'));
+
+        dump(Uuid::uuid4());
+
         $this->io->section('Summary:');
         $this->io->info('it is ok !');
 

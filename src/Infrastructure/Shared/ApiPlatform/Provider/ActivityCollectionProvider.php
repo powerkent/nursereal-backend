@@ -6,7 +6,8 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
-use Nursery\Application\Shared\Query\FindActivityQuery;
+use Nursery\Application\Shared\Query\FindActivitiesQuery;
+use Nursery\Domain\Shared\Criteria\FilterInterface;
 use Nursery\Domain\Shared\Model\Activity;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResource;
@@ -26,13 +27,14 @@ class ActivityCollectionProvider extends AbstractCollectionProvider
     }
 
     /**
-     * @param array<string, mixed> $uriVariables
+     * @param array<string, mixed>  $uriVariables
+     * @param list<FilterInterface> $filters
      *
      * @return Activity[]
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable
     {
-        return $this->queryBus->ask(new FindActivityQuery());
+        return $this->queryBus->ask(new FindActivitiesQuery());
     }
 
     /**

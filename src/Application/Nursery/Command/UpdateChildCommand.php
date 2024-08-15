@@ -8,6 +8,9 @@ use Nursery\Domain\Shared\Command\AbstractUpdateCommand;
 
 final class UpdateChildCommand extends AbstractUpdateCommand
 {
+    /**
+     * @param array<string, mixed> $primitives
+     */
     public static function create(array $primitives): static
     {
         return new self($primitives);

@@ -16,7 +16,7 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ChildResourceFactory;
 
 /**
- * @implements ProcessorInterface<ChildResource>
+ * @implements ProcessorInterface<ChildInput, ChildResource>
  */
 final readonly class ChildPutProcessor implements ProcessorInterface
 {
@@ -33,7 +33,7 @@ final readonly class ChildPutProcessor implements ProcessorInterface
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): ChildResource
     {
-        /** @var Child $child */
+        /** @var ?Child $child */
         $child = $this->queryBus->ask(new FindChildByUuidQuery($uriVariables['uuid']));
 
         if (null === $child) {

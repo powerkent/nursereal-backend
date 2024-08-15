@@ -17,6 +17,13 @@ interface RepositoryInterface
     public function searchByUuid(UuidInterface $uuid): ?object;
 
     /**
+     * @phpstan-param array<string, mixed> $filters
+     *
+     * @phpstan-return list<T>|null
+     */
+    public function searchByFilters(array $filters): ?array;
+
+    /**
      * @phpstan-param T $entity
      *
      * @phpstan-return T

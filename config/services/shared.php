@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\ActionResourceOpenApiContext;
 use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\ResourceMetadataFactory;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActionResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Action\ActionResource;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 

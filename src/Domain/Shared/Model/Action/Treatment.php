@@ -6,16 +6,13 @@ namespace Nursery\Domain\Shared\Model\Action;
 
 use DateTimeInterface;
 use Nursery\Domain\Nursery\Model\Child;
-use Nursery\Domain\Shared\Enum\ActionType;
-use Nursery\Domain\Shared\Model\Action;
+use Nursery\Domain\Shared\Model\AbstractAction;
 use Ramsey\Uuid\UuidInterface;
 use Nursery\Domain\Nursery\Model\Treatment as WhatTreatment;
 use Doctrine\Common\Collections\Collection;
 
-class Treatment extends Action
+class Treatment extends AbstractAction
 {
-    protected ActionType $type;
-
     /**
      * @param array<int, Child>|Collection<int, Child> $children
      */
@@ -33,8 +30,6 @@ class Treatment extends Action
             children: $children,
             comment: $comment,
         );
-
-        $this->type = ActionType::Treatment;
     }
 
     public function getTreatment(): WhatTreatment

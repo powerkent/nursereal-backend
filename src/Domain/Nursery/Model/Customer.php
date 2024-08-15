@@ -18,7 +18,7 @@ class Customer
     protected Collection $children;
 
     /**
-     * @param array<int, Child>|Collection<int, Child>|null $children
+     * @param array<int, Child>|Collection<int, Child> $children
      */
     public function __construct(
         protected UuidInterface $uuid,
@@ -26,8 +26,8 @@ class Customer
         protected string $lastname,
         protected ?string $email,
         protected int $phoneNumber,
-        array|Collection|null $children,
         protected DateTimeInterface $createdAt,
+        array|Collection $children = [],
     ) {
         Assert::stringNotEmpty($firstname);
         Assert::stringNotEmpty($lastname);
@@ -111,9 +111,9 @@ class Customer
     }
 
     /**
-     * @param Collection<int, Child>|array<int, Child>|null $children
+     * @param Collection<int, Child>|array<int, Child> $children
      */
-    public function setChildren(Collection|array|null $children): self
+    public function setChildren(Collection|array $children): self
     {
         $this->children = $children instanceof Collection ? $children : new ArrayCollection($children);
 

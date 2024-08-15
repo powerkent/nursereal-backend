@@ -7,7 +7,7 @@ namespace Nursery\Infrastructure\Shared\Doctrine\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-use Nursery\Domain\Shared\Repository\RepositoryInterface;
+use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -15,10 +15,11 @@ use Ramsey\Uuid\UuidInterface;
  *
  * @extends ServiceEntityRepository<T>
  */
-abstract class AbstractRepository extends ServiceEntityRepository implements RepositoryInterface
+abstract class AbstractRepository extends ServiceEntityRepository
 {
     public function __construct(
-        private ManagerRegistry $registry,
+        private readonly LoggerInterface $logger,
+        private readonly ManagerRegistry $registry,
     ) {
         parent::__construct($registry, static::entityClass());
     }
@@ -83,6 +84,16 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Rep
     public function search(int $id): ?object
     {
         return $this->find($id);
+    }
+
+    /**
+     * @param array<string, mixed> $filters
+     *
+     * @phpstan-return list<T>
+     */
+    public function searchByFilters(array $filters): ?array
+    {
+        return $this->findBy($filters);
     }
 
     /**

@@ -11,7 +11,7 @@
 
         <field name="dose" />
 
-        <field name="dosingDate" type="datetime" nullable="true" />
+        <field name="dosingDate" type="time" nullable="true" />
 
         <many-to-one field="treatment" target-entity="Nursery\Domain\Nursery\Model\Treatment" inversed-by="dosages">
             <join-column name="treatment_id" referenced-column-name="id" nullable="true" on-delete="CASCADE"/>

@@ -2,23 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Shared\ApiPlatform\View;
+namespace Nursery\Infrastructure\Nursery\ApiPlatform\View;
 
 use DateTimeInterface;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-class ActivityView
+class CustomerView
 {
     public function __construct(
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public UuidInterface $uuid,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public string $name,
+        public string $firstname,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public ?string $description,
+        public string $lastname,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public string $comment,
+        public ?string $email,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public int $phoneNumber,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,
     ) {

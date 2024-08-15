@@ -48,7 +48,7 @@ final readonly class ChildProcessor implements ChildProcessorInterface
                 'description' => $data->irp->description,
                 'createdAt' => $createdAt,
                 'startAt' => new DateTimeImmutable($data->irp->startAt),
-                'endAt' => new DateTimeImmutable($data->irp->endAt),
+                'endAt' => null !== $data->irp->endAt ? new DateTimeImmutable($data->irp->endAt) : null,
             ];
         }
 
@@ -68,7 +68,7 @@ final readonly class ChildProcessor implements ChildProcessorInterface
                     'description' => $newTreatment->description,
                     'createdAt'   => $createdAt,
                     'startAt'     => new DateTimeImmutable($newTreatment->startAt),
-                    'endAt'       => new DateTimeImmutable($newTreatment->endAt),
+                    'endAt'       => null !== $newTreatment->endAt ? new DateTimeImmutable($newTreatment->endAt) : null,
                 ];
 
                 /** @var Treatment $treatmentObject */
@@ -79,7 +79,7 @@ final readonly class ChildProcessor implements ChildProcessorInterface
                         $dosageArray = [
                             'treatment'  => $treatmentObject,
                             'dose'       => $newDosage->dose,
-                            'dosingDate' => $newDosage->dosingDate,
+                            'dosingDate' => null !== $newDosage->dosingDate ? new DateTimeImmutable($newDosage->dosingDate) : null,
                         ];
 
                         $treatmentObject->addDosage($this->commandBus->dispatch(CreateDosageCommand::create($dosageArray)));
@@ -93,6 +93,9 @@ final readonly class ChildProcessor implements ChildProcessorInterface
         return $this->commandBus->dispatch(UpdateChildCommand::create($primitives));
     }
 
+    /**
+     * @param array<string, mixed> $primitives
+     */
     private function createOrUpdateChild(array $primitives): Child
     {
         $command = (null === $this->queryBus->ask(new FindChildByUuidQuery($primitives['uuid'])))

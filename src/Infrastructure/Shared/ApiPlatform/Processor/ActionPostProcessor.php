@@ -6,34 +6,55 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Nursery\Application\Shared\Command\CreateOrUpdateActivityCommand;
-use Nursery\Infrastructure\Shared\ApiPlatform\Input\ActivityInput;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResource;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActivityResourceFactory;
+use DateTimeImmutable;
+use Nursery\Application\Nursery\Query\FindChildByUuidQuery;
+use Nursery\Application\Shared\Command\CreateActionCommand;
+use Nursery\Domain\Nursery\Model\Child;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
+use Nursery\Domain\Shared\Query\QueryBusInterface;
+use Nursery\Infrastructure\Shared\ApiPlatform\Input\ActionInput;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Action\ActionResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Action\ActionResourceFactory;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\InputBag;
 
+/**
+ * @implements ProcessorInterface<ActionInput, ActionResource>
+ */
 final class ActionPostProcessor implements ProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,
-        private ActivityResourceFactory $activityResourceFactory,
+        private QueryBusInterface $queryBus,
+        private ActionResourceFactory $actionResourceFactory,
     ) {
     }
 
     /**
-     * @param ActivityInput $data
+     * @param ActionInput $data
      */
-    public function process($data, Operation $operation, array $uriVariables = [], array $context = []): ActivityResource
+    public function process($data, Operation $operation, array $uriVariables = [], array $context = []): ActionResource
     {
+        /** @var InputBag $query */
+        /* @phpstan-ignore-next-line */
+        $query = $context['request']->query;
+
         $primitives = [
-            'uuid' => $uriVariables['uuid'] ?? Uuid::uuid4(),
-            'name' => $data->name,
-            'description' => $data->description,
+            'uuid' => Uuid::uuid4(),
+            'createdAt' => new DateTimeImmutable(),
+            'children' => array_map(fn (array $child): Child => $this->queryBus->ask(new FindChildByUuidQuery($child['uuid'])), $data->children),
+            'comment' => $data->comment,
+            'query' => $query,
+            'attributes' => [
+                'activity' => $data->activity?->uuid,
+                'restEndDate' => $data->restEndDate,
+                'treatment' => $data->treatment,
+                'temperature' => $data->temperature,
+            ],
         ];
 
-        $activity = $this->commandBus->dispatch(CreateOrUpdateActivityCommand::create($primitives));
+        $action = $this->commandBus->dispatch(CreateActionCommand::create($primitives));
 
-        return $this->activityResourceFactory->fromModel($activity);
+        return $this->actionResourceFactory->fromModel($action);
     }
 }

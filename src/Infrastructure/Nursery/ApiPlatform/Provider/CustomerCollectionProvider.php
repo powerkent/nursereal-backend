@@ -7,7 +7,6 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
 use Nursery\Application\Nursery\Query\FindCustomersQuery;
-use Nursery\Domain\Nursery\Model\Child;
 use Nursery\Domain\Nursery\Model\Customer;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\CustomerResource;
@@ -29,8 +28,6 @@ final class CustomerCollectionProvider extends AbstractCollectionProvider
 
     /**
      * @param array<string, mixed> $uriVariables
-     *
-     * @return Child
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable
     {

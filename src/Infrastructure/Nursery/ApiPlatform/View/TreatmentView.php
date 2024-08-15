@@ -10,9 +10,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 class TreatmentView
 {
+    /**
+     * @param list<DosageView>|null $dosages
+     */
     public function __construct(
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public UuidInterface $childUuid,
+        public ?UuidInterface $childUuid,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public string $name,
         #[Groups(['child:item', 'child:list', 'customer:item'])]

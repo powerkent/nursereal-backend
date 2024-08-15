@@ -13,7 +13,7 @@ class DateTimeType extends DoctrineDateTimeType
     public const DATETIME_FORMAT = 'Y-m-d H:i:s';
     public const DOCTRINE_DATETIME_FORMAT = 'doctrine_datetime_format';
 
-    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): DateTimeInterface
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
         return $value?->format(self::DATETIME_FORMAT);
     }

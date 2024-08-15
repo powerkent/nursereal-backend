@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Nursery\Domain\Nursery\Repository;
 
-interface DosageRepositoryInterface
+use Nursery\Domain\Nursery\Model\Dosage;
+use Nursery\Domain\Shared\Repository\RepositoryInterface;
+
+/**
+ * @extends RepositoryInterface<Dosage>
+ */
+interface DosageRepositoryInterface extends RepositoryInterface
 {
 }

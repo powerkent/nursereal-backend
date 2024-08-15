@@ -18,9 +18,10 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ChildPostProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ChildPutProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ChildCollectionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ChildProvider;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\CustomerView;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\IRPView;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\TreatmentView;
-use Nursery\Infrastructure\Shared\ApiPlatform\View\ActivityView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Action\ActivityView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -56,6 +57,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 final class ChildResource
 {
+    /**
+     * @param list<CustomerView>|null  $customers
+     * @param list<TreatmentView>|null $treatments
+     * @param list<ActivityView>|null  $activities
+     */
     public function __construct(
         #[ApiProperty(identifier: true)]
         #[Groups(['child:item', 'child:list', 'customer:item'])]
@@ -71,9 +77,12 @@ final class ChildResource
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?IRPView $irp = null,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
+        /** @var list<CustomerView>|null $customers */
+        public ?array $customers = null,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
         /** @var list<TreatmentView>|null $treatments */
         public ?array $treatments = null,
-        #[Groups(['child:item', 'customer:item'])]
+        #[Groups(['child:item', 'child:list'])]
         /** @var list<ActivityView>|null $activities */
         public ?array $activities = null,
     ) {

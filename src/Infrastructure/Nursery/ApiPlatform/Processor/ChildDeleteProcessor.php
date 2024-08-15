@@ -9,6 +9,9 @@ use ApiPlatform\State\ProcessorInterface;
 use Nursery\Application\Nursery\Command\DeleteChildByUuidQuery;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 
+/**
+ * @implements ProcessorInterface<null, boolean>
+ */
 final class ChildDeleteProcessor implements ProcessorInterface
 {
     public function __construct(
@@ -16,8 +19,8 @@ final class ChildDeleteProcessor implements ProcessorInterface
     ) {
     }
 
-    public function process($data, Operation $operation, array $uriVariables = [], array $context = []): void
+    public function process($data, Operation $operation, array $uriVariables = [], array $context = []): bool
     {
-        $this->commandBus->dispatch(new DeleteChildByUuidQuery($uriVariables['uuid']));
+        return $this->commandBus->dispatch(new DeleteChildByUuidQuery($uriVariables['uuid']));
     }
 }

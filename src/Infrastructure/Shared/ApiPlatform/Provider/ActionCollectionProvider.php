@@ -6,16 +6,20 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
-use Nursery\Domain\Shared\Model\Action;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ActionResource;
-use function dump;
+use Nursery\Application\Nursery\Query\FindActionByFiltersQuery;
+use Nursery\Domain\Shared\Model\AbstractAction;
+use Nursery\Domain\Shared\Query\QueryBusInterface;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Action\ActionResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Action\ActionResourceFactory;
 
 /**
- * @extends AbstractCollectionProvider<Action, ActionResource>
+ * @extends AbstractCollectionProvider<AbstractAction, ActionResource>
  */
 class ActionCollectionProvider extends AbstractCollectionProvider
 {
     public function __construct(
+        private QueryBusInterface $queryBus,
+        private ActionResourceFactory $actionResourceFactory,
         Pagination $pagination,
     ) {
         parent::__construct($pagination);
@@ -23,13 +27,11 @@ class ActionCollectionProvider extends AbstractCollectionProvider
 
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable
     {
-        dump($context['filters']['coucou']);
-
-        return [];
+        return $this->queryBus->ask(new FindActionByFiltersQuery($context['filters']['action']));
     }
 
     protected function toResource(object $model): object
     {
-        return (object) ['foo' => 'bar'];
+        return $this->actionResourceFactory->fromModel($model);
     }
 }

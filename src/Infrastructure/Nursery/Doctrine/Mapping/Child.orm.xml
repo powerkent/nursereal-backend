@@ -44,6 +44,7 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
-    </entity>
 
+        <many-to-many field="customers" target-entity="Nursery\Domain\Nursery\Model\Customer" mapped-by="children" fetch="LAZY" />
+    </entity>
 </doctrine-mapping>

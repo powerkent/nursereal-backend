@@ -17,7 +17,7 @@ final readonly class Serializer implements DomainSerializer
     /**
      * @param array<string, mixed> $context
      */
-    public function serialize(mixed $data, ?string $format = null, array $context = []): mixed
+    public function serialize(mixed $data, string $format, array $context = []): string
     {
         return $this->serializer->serialize($data, $format, $context);
     }
@@ -31,7 +31,7 @@ final readonly class Serializer implements DomainSerializer
      *
      * @phpstan-return T
      */
-    public function deserialize(mixed $data, string $type, ?string $format = null, array $context = []): object
+    public function deserialize(mixed $data, string $type, string $format, array $context = []): object
     {
         return $this->serializer->deserialize($data, $type, $format, $context);
     }

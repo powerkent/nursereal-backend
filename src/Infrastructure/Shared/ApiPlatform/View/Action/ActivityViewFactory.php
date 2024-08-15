@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Shared\ApiPlatform\View;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Action;
 
 use Nursery\Domain\Shared\Model\Action\Activity;
 

@@ -16,7 +16,7 @@
         <field name="email" type="text" length="65535" nullable="true" />
         <field name="phoneNumber" type="integer" />
 
-        <many-to-many field="children" target-entity="Nursery\Domain\Nursery\Model\Child" orphan-removal="true">
+        <many-to-many field="children" target-entity="Nursery\Domain\Nursery\Model\Child" fetch="LAZY" inversed-by="customers" orphan-removal="false">
             <join-table name="customer_child">
                 <join-columns>
                     <join-column name="customer_id" referenced-column-name="id" />
@@ -26,7 +26,6 @@
                 </inverse-join-columns>
             </join-table>
             <cascade>
-                <cascade-remove />
                 <cascade-persist />
             </cascade>
         </many-to-many>

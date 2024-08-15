@@ -21,7 +21,7 @@ final class UpdateChildCommandHandler implements CommandHandlerInterface
     public function __invoke(UpdateChildCommand $command): Child
     {
         dump($command);
-        /** @var Child $child */
+        /** @var ?Child $child */
         $child = $command->id() instanceof UuidInterface ? $this->childRepository->searchByUuid($command->id()) : $this->childRepository->search($command->id());
 
         if (null === $child) {
@@ -32,8 +32,10 @@ final class UpdateChildCommandHandler implements CommandHandlerInterface
             $child->setIrp(new IRP(...$command->primitives['irp']));
         }
 
-        foreach ($child->getTreatments() as $existingTreatment) {
-            $child->removeTreatment($existingTreatment);
+        if (!empty($child->getTreatments())) {
+            foreach ($child->getTreatments() as $existingTreatment) {
+                $child->removeTreatment($existingTreatment);
+            }
         }
 
         foreach ($command->primitives['treatments'] as $treatment) {

@@ -7,26 +7,27 @@ namespace Nursery\Domain\Shared\Model\Action;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Nursery\Domain\Nursery\Model\Child;
-use Nursery\Domain\Shared\Enum\ActionType;
+use Nursery\Domain\Shared\Model\AbstractAction;
 use Nursery\Domain\Shared\Enum\CareType;
-use Nursery\Domain\Shared\Enum\DiaperQuality;
-use Nursery\Domain\Shared\Model\Action;
 use Ramsey\Uuid\UuidInterface;
+use Doctrine\ORM\Mapping as ORM;
 
-class Care extends Action
+class Care extends AbstractAction
 {
-    protected ActionType $type;
+    #[ORM\Column(type: 'care_type_array')]
+    /* @phpstan-ignore-next-line */
+    protected array $careTypes = [];
 
     /**
      * @param array<int, Child>|Collection<int, Child> $children
+     * @param array<int, CareType>                     $careTypes
      */
     public function __construct(
         UuidInterface $uuid,
         DateTimeInterface $createdAt,
         Collection|array $children,
         ?string $comment,
-        protected ?CareType $careType = null,
-        protected ?DiaperQuality $quality = null,
+        array $careTypes = [],
     ) {
         parent::__construct(
             uuid: $uuid,
@@ -35,29 +36,23 @@ class Care extends Action
             comment: $comment,
         );
 
-        $this->type = ActionType::Care;
+        $this->careTypes = $careTypes;
     }
 
-    public function getCareType(): ?CareType
+    /**
+     * @return array<int, CareType>
+     */
+    public function getCareTypes(): array
     {
-        return $this->careType;
+        return $this->careTypes;
     }
 
-    public function setCareType(?CareType $careType): self
+    /**
+     * @param array<int, CareType> $careTypes
+     */
+    public function setCareTypes(array $careTypes): self
     {
-        $this->careType = $careType;
-
-        return $this;
-    }
-
-    public function getQuality(): ?DiaperQuality
-    {
-        return $this->quality;
-    }
-
-    public function setQuality(?DiaperQuality $quality): self
-    {
-        $this->quality = $quality;
+        $this->careTypes = $careTypes;
 
         return $this;
     }

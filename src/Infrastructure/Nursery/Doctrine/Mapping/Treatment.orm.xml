@@ -17,7 +17,7 @@
 
         <field name="name" />
 
-        <field name="description" />
+        <field name="description" nullable="true"/>
 
         <field name="createdAt" type="datetime" />
 

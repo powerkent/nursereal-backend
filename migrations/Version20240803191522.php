@@ -11,7 +11,7 @@ final class Version20240803191522 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Add fields in irp table.';
+        return 'Add fields in irp table';
     }
 
     public function up(Schema $schema): void
