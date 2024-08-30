@@ -12,12 +12,15 @@ class CareTypeArray extends Type
 {
     public const NAME = 'care_type_array';
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         return 'JSON';
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    /**
+     * @return array<int, CareType>
+     */
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): array
     {
         if (null === $value) {
             return [];
@@ -28,7 +31,7 @@ class CareTypeArray extends Type
         return array_map(fn ($val) => CareType::from($val), $values);
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): string|false|null
     {
         if (empty($value)) {
             return null;
@@ -39,7 +42,7 @@ class CareTypeArray extends Type
         return json_encode($arrayValues);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return self::NAME;
     }

@@ -37,4 +37,9 @@ final class Version20240805195933 extends AbstractMigration
         $this->addSql('ALTER TABLE treatment ADD CONSTRAINT FK_98013C31AABCA765 FOREIGN KEY (drug_id) REFERENCES drug (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_98013C31AABCA765 ON treatment (drug_id)');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

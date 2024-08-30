@@ -16,4 +16,24 @@ class TreatmentRepository extends AbstractRepository implements TreatmentReposit
     {
         return Treatment::class;
     }
+
+    /**
+     * @param list<int> $children
+     *
+     * @return array<Treatment>|null
+     */
+    public function searchByFilter(array $children = []): ?array
+    {
+        $queryBuilder = $this->createQueryBuilder('t');
+        $queryBuilder
+            ->select('t', 'c', 'd')
+            ->join('t.child', 'c')
+            ->join('t.dosages', 'd')
+            ->where($queryBuilder->expr()->in('c.id', ':childIds'))
+            ->setParameter('childIds', $children);
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
 }

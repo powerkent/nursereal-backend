@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Application\Shared\Command;
 
+use DateTimeImmutable;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\IRP;
 use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
@@ -21,6 +22,9 @@ final readonly class CreateChildCommandHandler implements CommandHandlerInterfac
         if (!empty($command->primitives['irp'])) {
             $command->primitives['irp'] = new IRP(...$command->primitives['irp']);
         }
+
+        $command->primitives['createdAt'] = new DateTimeImmutable();
+        $command->primitives['updatedAt'] = null;
 
         $child = new Child(...$command->primitives);
 

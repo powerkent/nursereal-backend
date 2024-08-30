@@ -12,7 +12,7 @@ final class DosageViewFactory
     {
         return new DosageView(
             dose: $dosage->getDose(), // quantity
-            dosingDate: $dosage->getDosingDate()?->format('H:i'),
+            dosingTime: $dosage->getDosingTime()?->format('H:i'),
         );
     }
 }

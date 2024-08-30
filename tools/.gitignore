@@ -1,8 +1,4 @@
-###> phpunit/phpunit ###
-.phpunit
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
-
+/.deptrac_bounded_context.cache
 /.deptrac_ddd.cache
-/.deptrac_bc.cache
+
+/.php-cs-fixer.cache

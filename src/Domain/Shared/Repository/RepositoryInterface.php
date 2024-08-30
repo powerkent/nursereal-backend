@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Domain\Shared\Repository;
 
+use Nursery\Domain\Shared\Criteria\Criteria;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -22,6 +23,11 @@ interface RepositoryInterface
      * @phpstan-return list<T>|null
      */
     public function searchByFilters(array $filters): ?array;
+
+    /**
+     * @phpstan-return iterable<T>
+     */
+    public function searchByCriteria(Criteria $criteria): iterable;
 
     /**
      * @phpstan-param T $entity

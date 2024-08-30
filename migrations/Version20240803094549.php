@@ -35,4 +35,9 @@ final class Version20240803094549 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_98013C31DD62C21B ON treatment');
         $this->addSql('ALTER TABLE treatment DROP child_id, CHANGE description description VARCHAR(255) DEFAULT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

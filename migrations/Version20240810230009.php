@@ -25,4 +25,9 @@ final class Version20240810230009 extends AbstractMigration
         $this->addSql('ALTER TABLE activity DROP created_at');
         $this->addSql('ALTER TABLE dosage CHANGE treatment_id treatment_id INT NOT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

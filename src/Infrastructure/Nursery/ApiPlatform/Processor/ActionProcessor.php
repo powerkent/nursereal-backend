@@ -7,7 +7,7 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Processor;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use DateTimeImmutable;
-use Nursery\Application\Shared\Query\FindChildByUuidQuery;
+use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
 use Nursery\Application\Nursery\Command\CreateActionCommand;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\InputBag;
 /**
  * @implements ProcessorInterface<ActionInput, ActionResource>
  */
-final class ActionPostProcessor implements ProcessorInterface
+final class ActionProcessor implements ProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,
@@ -42,14 +42,18 @@ final class ActionPostProcessor implements ProcessorInterface
         $primitives = [
             'uuid' => Uuid::uuid4(),
             'createdAt' => new DateTimeImmutable(),
-            'children' => array_map(fn (array $child): Child => $this->queryBus->ask(new FindChildByUuidQuery($child['uuid'])), $data->children),
+            'children' => array_map(fn (array $child): Child => $this->queryBus->ask(new FindChildByUuidOrIdQuery($child['uuid'])), $data->children),
             'comment' => $data->comment,
             'query' => $query,
             'attributes' => [
                 'activity' => $data->activity?->uuid,
-                'restEndDate' => $data->restEndDate,
-                'treatment' => $data->treatment,
-                'temperature' => $data->temperature,
+                'rest' => ['restEndTime' => $data->restEndTime],
+                'treatment' => [
+                    'uuid' => $data->treatment?->treatmentUuid,
+                    'dose' => $data->treatment?->dose,
+                    'dosingTime' => $data->treatment?->dosingTime,
+                    'temperature' => $data->treatment?->temperature,
+                ],
             ],
         ];
 

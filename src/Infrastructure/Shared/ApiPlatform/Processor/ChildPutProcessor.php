@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Exception;
-use Nursery\Application\Shared\Query\FindChildByUuidQuery;
+use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ChildInput;
@@ -34,7 +34,7 @@ final readonly class ChildPutProcessor implements ProcessorInterface
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): ChildResource
     {
         /** @var ?Child $child */
-        $child = $this->queryBus->ask(new FindChildByUuidQuery($uriVariables['uuid']));
+        $child = $this->queryBus->ask(new FindChildByUuidOrIdQuery($uriVariables['uuid']));
 
         if (null === $child) {
             throw new EntityNotFoundException(Child::class);

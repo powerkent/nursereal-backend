@@ -23,4 +23,9 @@ final class Version20240813111404 extends AbstractMigration
     {
         $this->addSql('ALTER TABLE action_rest CHANGE rest_end_date end_date DATETIME NOT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

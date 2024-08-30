@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Nursery\ApiPlatform\View;
+namespace Nursery\Infrastructure\Nursery\ApiPlatform\Payload;
 
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;

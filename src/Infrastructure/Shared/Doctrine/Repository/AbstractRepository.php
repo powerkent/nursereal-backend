@@ -4,11 +4,20 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Doctrine\Repository;
 
+use Nursery\Domain\Shared\Criteria\Criteria;
+use Nursery\Domain\Shared\Criteria\EqualsFilter;
+use Nursery\Domain\Shared\Criteria\MultipleValuesEqualsFilter;
+use Nursery\Domain\Shared\Criteria\MultipleValuesJoinedEqualsFilter;
+use Nursery\Domain\Shared\Criteria\PaginationFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\UuidInterface;
+use function sprintf;
 
 /**
  * @template T of object
@@ -94,6 +103,71 @@ abstract class AbstractRepository extends ServiceEntityRepository
     public function searchByFilters(array $filters): ?array
     {
         return $this->findBy($filters);
+    }
+
+    /**
+     * @phpstan-return iterable<T>
+     */
+    public function searchByCriteria(Criteria $criteria): iterable
+    {
+        [$qb, $paginated] = $this->createQueryFromCriteria($criteria);
+
+        return $paginated ? new Paginator($qb->getQuery()) : $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return array{0: QueryBuilder, 1: bool}
+     */
+    protected function createQueryFromCriteria(Criteria $criteria): array
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        $paginated = false;
+
+        foreach ($criteria->filters as $i => $filter) {
+            if ($filter instanceof EqualsFilter) {
+                $qb
+                    ->andWhere($qb->expr()->eq(sprintf('o.%s', $filter->field), sprintf(':value_%d', $i)))
+                    ->setParameter(sprintf(':value_%d', $i), $filter->value)
+                ;
+
+                continue;
+            }
+
+            if ($filter instanceof MultipleValuesEqualsFilter) {
+                $qb
+                    ->andWhere($qb->expr()->in(sprintf('o.%s', $filter->field), sprintf(':value_%d', $i)))
+                    ->setParameter(sprintf(':value_%d', $i), $filter->value)
+                ;
+
+                continue;
+            }
+
+            if ($filter instanceof MultipleValuesJoinedEqualsFilter) {
+                $qb
+                    ->join(
+                        $filter->joinTargetEntityClass,
+                        sprintf('j_%d', $i),
+                        Join::WITH,
+                        sprintf('o.%s = j_%d.%s', $filter->joinRootField, $i, $filter->joinTargetField)
+                    )
+                    ->andWhere($qb->expr()->in(sprintf('j_%d.%s', $i, $filter->field), sprintf(':value_%d', $i)))
+                    ->setParameter(sprintf(':value_%d', $i), $filter->value)
+                ;
+                continue;
+            }
+
+            if ($filter instanceof PaginationFilter) {
+                $paginated = true;
+
+                $qb
+                    ->setFirstResult($filter->page * $filter->itemsPerPage)
+                    ->setMaxResults($filter->itemsPerPage)
+                ;
+            }
+        }
+
+        return [$qb, $paginated];
     }
 
     /**

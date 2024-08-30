@@ -23,4 +23,9 @@ final class Version20240803191522 extends AbstractMigration
     {
         $this->addSql('ALTER TABLE irp DROP created_at, DROP start_at, DROP end_at');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

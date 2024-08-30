@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Config\DoctrineMigrationsConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->extension('doctrine_migrations', [
-        'migrations_paths' => [
-            'DoctrineMigrations' => '%kernel.project_dir%/migrations',
-        ],
-        'enable_profiler' => '%kernel.debug%',
-    ]);
+return static function (DoctrineMigrationsConfig $config): void {
+    $config->migrationsPath('DoctrineMigrations', '%kernel.project_dir%/migrations');
+    $config->transactional(false);
+    $config->enableProfiler('%kernel.debug%');
 };

@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Nursery\Domain\Shared\Model\Action\Diaper" table="action_diaper">
-        <field name="diaperQuality" enum-type="Nursery\Domain\Shared\Enum\DiaperQuality" />
+    <entity name="Nursery\Domain\Nursery\Model\Action\Diaper" table="action_diaper">
+        <field name="quality" enum-type="Nursery\Domain\Nursery\Enum\DiaperQuality" />
     </entity>
 </doctrine-mapping>

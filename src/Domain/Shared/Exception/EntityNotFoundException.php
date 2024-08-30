@@ -13,8 +13,8 @@ final class EntityNotFoundException extends RuntimeException
     /**
      * @param class-string $class
      */
-    public function __construct(string $class, mixed $id, string $idProperty = 'id', int $code = 0, ?Throwable $previous = null)
+    public function __construct(string $class, mixed $id, string $propertyName = 'id', int $code = 0, ?Throwable $previous = null)
     {
-        parent::__construct(sprintf('%s with %s "%s" not found.', $class, $idProperty, $id), $code, $previous);
+        parent::__construct(sprintf('%s with %s "%s" not found.', $class, $propertyName, $id), $code, $previous);
     }
 }

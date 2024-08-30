@@ -20,9 +20,13 @@ class Child
     /** @var Collection<int, Customer> */
     protected Collection $customers;
 
+    /** @var Collection<int, ContractDate> */
+    protected Collection $contractDates;
+
     /**
-     * @param array<int, Treatment>|Collection<int, Treatment> $treatments
-     * @param array<int, Customer>|Collection<int, Customer>   $customers
+     * @param array<int, Treatment>|Collection<int, Treatment>       $treatments
+     * @param array<int, Customer>|Collection<int, Customer>         $customers
+     * @param array<int, ContractDate>|Collection<int, ContractDate> $contractDates
      */
     public function __construct(
         protected UuidInterface $uuid,
@@ -30,15 +34,18 @@ class Child
         protected string $lastname,
         protected DateTimeInterface $birthday,
         protected DateTimeInterface $createdAt,
+        protected ?DateTimeInterface $updatedAt = null,
         protected ?IRP $irp = null,
         array|Collection $treatments = [],
         array|Collection $customers = [],
+        array|Collection $contractDates = [],
     ) {
         Assert::stringNotEmpty($firstname);
         Assert::stringNotEmpty($lastname);
 
         $this->treatments = is_array($treatments) ? new ArrayCollection($treatments) : $treatments;
         $this->customers = is_array($customers) ? new ArrayCollection($customers) : $customers;
+        $this->contractDates = is_array($contractDates) ? new ArrayCollection($contractDates) : $contractDates;
     }
 
     public function getId(): ?int
@@ -102,6 +109,18 @@ class Child
     public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -187,6 +206,42 @@ class Child
     {
         if ($this->customers->contains($customer)) {
             $this->customers->removeElement($customer);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ContractDate>
+     */
+    public function getContractDates(): Collection
+    {
+        return $this->contractDates;
+    }
+
+    /**
+     * @param array<int, ContractDate>|Collection<int, ContractDate> $contractDates
+     */
+    public function setContractDates(Collection|array $contractDates): self
+    {
+        $this->contractDates = $contractDates instanceof Collection ? $contractDates : new ArrayCollection($contractDates);
+
+        return $this;
+    }
+
+    public function addContractDate(ContractDate $contractDate): self
+    {
+        if (!$this->contractDates->contains($contractDate)) {
+            $this->contractDates->add($contractDate);
+        }
+
+        return $this;
+    }
+
+    public function removeContractDate(ContractDate $contractDate): self
+    {
+        if ($this->contractDates->contains($contractDate)) {
+            $this->contractDates->removeElement($contractDate);
         }
 
         return $this;

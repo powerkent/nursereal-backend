@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Nursery\Domain\Shared\Model\Child;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class AbstractAction
+abstract class Action
 {
     protected ?int $id = null;
 
@@ -23,6 +23,7 @@ abstract class AbstractAction
     public function __construct(
         protected UuidInterface $uuid,
         protected DateTimeInterface $createdAt,
+        protected ?DateTimeInterface $updatedAt,
         Collection|array $children,
         protected ?string $comment = null,
     ) {
@@ -32,6 +33,13 @@ abstract class AbstractAction
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getUuid(): UuidInterface
@@ -51,9 +59,21 @@ abstract class AbstractAction
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeInterface $dateTime): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
-        $this->createdAt = $dateTime;
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

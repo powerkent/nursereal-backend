@@ -124,10 +124,11 @@ cc:
 fix-cs:
 	@$(EXEC) vendor/bin/php-cs-fixer fix --config tools/.php-cs-fixer.dist.php  --cache-file tools/.php-cs-fixer.cache
 
-# Code analyze
+## Code analyze
 phpstan:
 	@$(EXEC) vendor/bin/phpstan analyze -c tools/phpstan.neon --memory-limit 1G
 
+## check ddd and bounded context dependencies
 deptrac:
 	@echo "\n\e[7mChecking DDD layers...\e[0m"
 	@$(EXEC) vendor/bin/deptrac analyze --fail-on-uncovered --report-uncovered --no-progress --cache-file tools/.deptrac_ddd.cache --config-file tools/deptrac_ddd.yaml

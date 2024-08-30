@@ -43,4 +43,9 @@ final class Version20240801205439 extends AbstractMigration
         $this->addSql('ALTER TABLE activity DROP created_at');
         $this->addSql('ALTER TABLE customer DROP created_at');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

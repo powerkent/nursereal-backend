@@ -23,4 +23,9 @@ final class Version20240810232011 extends AbstractMigration
     {
         $this->addSql('ALTER TABLE activity DROP updated_at');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

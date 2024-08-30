@@ -16,7 +16,7 @@ use Nursery\Domain\Nursery\Enum\DiaperQuality;
 use Nursery\Domain\Nursery\Enum\RestQuality;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\TreatmentView;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Input\ActionInput;
-use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ActionPostProcessor;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ActionProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ActionCollectionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ActionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\ActivityView;
@@ -39,7 +39,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             normalizationContext: ['groups' => ['action:item', 'action:post:read']],
             denormalizationContext: ['groups' => ['action:item', 'action:post:write']],
             input: ActionInput::class,
-            processor: ActionPostProcessor::class,
+            processor: ActionProcessor::class,
         ),
     ]
 )]
@@ -53,6 +53,8 @@ final class ActionResource
         #[ApiProperty(identifier: true)]
         #[Groups(['action:item', 'action:list'])]
         public UuidInterface $uuid,
+        #[Groups(['action:item', 'action:list'])]
+        public ?int $id,
         #[Groups(['action:item', 'action:list'])]
         public ?ActionType $actionType,
         #[Groups(['action:item', 'action:list'])]
@@ -77,6 +79,8 @@ final class ActionResource
         public ?TreatmentView $treatment = null,
         #[Groups(['action:item', 'action:list'])]
         public ?float $temperature = null,
+        #[Groups(['action:item', 'action:list'])]
+        public bool $presence = false,
     ) {
     }
 }

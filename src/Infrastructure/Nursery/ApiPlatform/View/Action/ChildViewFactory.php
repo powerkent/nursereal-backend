@@ -12,6 +12,7 @@ final class ChildViewFactory
     {
         return new ChildView(
             uuid: $child->getUuid(),
+            id: $child->getId(),
             firstname: $child->getFirstname(),
             lastname: $child->getLastname(),
         );

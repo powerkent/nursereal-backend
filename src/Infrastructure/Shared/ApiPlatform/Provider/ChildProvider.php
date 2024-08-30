@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
-use Nursery\Application\Shared\Query\FindChildByUuidQuery;
+use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ChildResource;
@@ -24,7 +24,7 @@ final class ChildProvider extends AbstractProvider
 
     protected function item(Operation $operation, array $uriVariables = [], array $context = []): ?Child
     {
-        return $this->queryBus->ask(new FindChildByUuidQuery(uuid: $uriVariables['uuid']));
+        return $this->queryBus->ask(new FindChildByUuidOrIdQuery(uuid: $uriVariables['uuid']));
     }
 
     /**

@@ -19,7 +19,7 @@ final readonly class DeleteTreatmentByUuidQueryHandler implements CommandHandler
     ) {
     }
 
-    public function __invoke(DeleteTreatmentByUuidQuery $command): void
+    public function __invoke(DeleteTreatmentByUuidQuery $command): bool
     {
         $treatment = $this->treatmentRepository->searchByUuid(is_string($command->uuid) ? Uuid::fromString($command->uuid) : $command->uuid);
 
@@ -28,5 +28,7 @@ final readonly class DeleteTreatmentByUuidQueryHandler implements CommandHandler
         }
 
         $this->treatmentRepository->delete($treatment);
+
+        return true;
     }
 }

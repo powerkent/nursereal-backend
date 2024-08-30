@@ -25,4 +25,9 @@ final class Version20240807065630 extends AbstractMigration
         $this->addSql('ALTER TABLE dosage DROP FOREIGN KEY FK_1E3ECAA1471C0366');
         $this->addSql('ALTER TABLE dosage ADD CONSTRAINT FK_1E3ECAA1471C0366 FOREIGN KEY (treatment_id) REFERENCES treatment (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

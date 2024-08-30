@@ -9,7 +9,7 @@ use Nursery\Domain\Shared\Model\Customer;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\ChildView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\ChildViewFactory;
 
-final class CustomerResourceFactory
+final readonly class CustomerResourceFactory
 {
     public function __construct(private ChildViewFactory $childViewFactory)
     {

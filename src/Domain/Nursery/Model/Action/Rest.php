@@ -8,10 +8,10 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Nursery\Enum\RestQuality;
-use Nursery\Domain\Nursery\Model\AbstractAction;
+use Nursery\Domain\Nursery\Model\Action;
 use Ramsey\Uuid\UuidInterface;
 
-class Rest extends AbstractAction
+class Rest extends Action
 {
     /**
      * @param array<int, Child>|Collection<int, Child> $children
@@ -19,39 +19,54 @@ class Rest extends AbstractAction
     public function __construct(
         UuidInterface $uuid,
         DateTimeInterface $createdAt,
+        ?DateTimeInterface $updatedAt,
         Collection|array $children,
         ?string $comment,
-        protected DateTimeInterface $restEndDate,
-        protected RestQuality $restQuality,
+        protected DateTimeInterface $startDateTime,
+        protected ?DateTimeInterface $endDateTime = null,
+        protected ?RestQuality $quality = null,
     ) {
         parent::__construct(
             uuid: $uuid,
             createdAt: $createdAt,
+            updatedAt: $updatedAt,
             children: $children,
             comment: $comment,
         );
     }
 
-    public function getRestEndDate(): DateTimeInterface
+    public function getStartDateTime(): DateTimeInterface
     {
-        return $this->restEndDate;
+        return $this->startDateTime;
     }
 
-    public function setRestEndDate(DateTimeInterface $restEndDate): self
+    public function setStartDateTime(DateTimeInterface $startDateTime): self
     {
-        $this->restEndDate = $restEndDate;
+        $this->startDateTime = $startDateTime;
 
         return $this;
     }
 
-    public function getRestQuality(): RestQuality
+    public function getEndDateTime(): ?DateTimeInterface
     {
-        return $this->restQuality;
+        return $this->endDateTime;
     }
 
-    public function setRestQuality(RestQuality $restQuality): self
+    public function setEndDateTime(?DateTimeInterface $endDateTime): self
     {
-        $this->restQuality = $restQuality;
+        $this->endDateTime = $endDateTime;
+
+        return $this;
+    }
+
+    public function getQuality(): ?RestQuality
+    {
+        return $this->quality;
+    }
+
+    public function setQuality(?RestQuality $quality): self
+    {
+        $this->quality = $quality;
 
         return $this;
     }

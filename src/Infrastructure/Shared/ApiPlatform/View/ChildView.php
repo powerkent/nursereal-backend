@@ -14,15 +14,15 @@ class ChildView
      * @param list<TreatmentView>|null $treatments
      */
     public function __construct(
-        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list', 'treatment:item', 'treatment:list'])]
         public UuidInterface $uuid,
-        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list', 'treatment:item', 'treatment:list'])]
         public string $firstname,
-        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list', 'treatment:item', 'treatment:list'])]
         public string $lastname,
-        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list', 'treatment:item', 'treatment:list'])]
         public DateTimeInterface $birthday,
-        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list', 'treatment:item', 'treatment:list'])]
         public DateTimeInterface $createdAt,
         #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list'])]
         public ?IRPView $irp = null,

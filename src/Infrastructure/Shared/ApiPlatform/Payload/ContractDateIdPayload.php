@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Payload;
 
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-class ActivityPayload
+final class ContractDateIdPayload
 {
     public function __construct(
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public UuidInterface $uuid,
+        #[Groups(['childCalendarEntry:item'])]
+        public int $id,
     ) {
     }
 }

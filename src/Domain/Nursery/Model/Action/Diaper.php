@@ -8,10 +8,10 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Nursery\Enum\DiaperQuality;
-use Nursery\Domain\Nursery\Model\AbstractAction;
+use Nursery\Domain\Nursery\Model\Action;
 use Ramsey\Uuid\UuidInterface;
 
-class Diaper extends AbstractAction
+class Diaper extends Action
 {
     /**
      * @param array<int, Child>|Collection<int, Child> $children
@@ -19,26 +19,28 @@ class Diaper extends AbstractAction
     public function __construct(
         UuidInterface $uuid,
         DateTimeInterface $createdAt,
+        ?DateTimeInterface $updatedAt,
         Collection|array $children,
         ?string $comment,
-        protected DiaperQuality $diaperQuality,
+        protected DiaperQuality $quality,
     ) {
         parent::__construct(
             uuid: $uuid,
             createdAt: $createdAt,
+            updatedAt: $updatedAt,
             children: $children,
             comment: $comment,
         );
     }
 
-    public function getDiaperQuality(): DiaperQuality
+    public function getQuality(): DiaperQuality
     {
-        return $this->diaperQuality;
+        return $this->quality;
     }
 
-    public function setDiaperQuality(DiaperQuality $diaperQuality): self
+    public function setQuality(DiaperQuality $quality): self
     {
-        $this->diaperQuality = $diaperQuality;
+        $this->quality = $quality;
 
         return $this;
     }

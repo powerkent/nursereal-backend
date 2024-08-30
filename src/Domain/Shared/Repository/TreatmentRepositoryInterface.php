@@ -11,4 +11,10 @@ use Nursery\Domain\Shared\Model\Treatment;
  */
 interface TreatmentRepositoryInterface extends RepositoryInterface
 {
+    /**
+     * @param list<int> $children
+     *
+     * @return array<Treatment>|null
+     */
+    public function searchByFilter(array $children = []): ?array;
 }

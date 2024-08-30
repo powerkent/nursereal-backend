@@ -16,4 +16,18 @@ class ChildRepository extends AbstractRepository implements ChildRepositoryInter
     {
         return Child::class;
     }
+
+    public function searchByFilter(int $childId): ?array
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+        $queryBuilder
+            ->select('cd')
+            ->join('c.contractDate', 'cd')
+            ->where($queryBuilder->expr()->eq('c.id', ':childId'))
+            ->setParameter('childId', $childId);
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
 }

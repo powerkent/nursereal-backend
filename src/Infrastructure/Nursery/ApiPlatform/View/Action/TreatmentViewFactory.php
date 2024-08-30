@@ -13,7 +13,8 @@ final class TreatmentViewFactory
         return new TreatmentView(
             name: $treatment->getTreatment()->getName(),
             description: $treatment->getTreatment()->getDescription(),
-            createdAt: $treatment->getCreatedAt(),
+            dose: $treatment->getDose(),
+            dosingTime: $treatment->getDosingTime()?->format('H:i'),
         );
     }
 }

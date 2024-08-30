@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Application\Nursery\Query;
+namespace Nursery\Application\Shared\Query;
 
 use Nursery\Domain\Shared\Query\QueryInterface;
 
-final class FindActionByFiltersQuery implements QueryInterface
+final class FindTreatmentByChildrenQuery implements QueryInterface
 {
     /**
      * @param array<string, mixed> $filters

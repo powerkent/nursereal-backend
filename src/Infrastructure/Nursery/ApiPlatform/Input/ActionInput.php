@@ -6,8 +6,9 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Input;
 
 use ApiPlatform\Metadata\ApiProperty;
 use DateTimeInterface;
-use Nursery\Infrastructure\Shared\ApiPlatform\Payload\TreatmentPayload;
-use Nursery\Infrastructure\Nursery\ApiPlatform\View\ActivityPayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\ActivityPayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\PresencePayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\TreatmentPayload;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 final class ActionInput
@@ -33,11 +34,11 @@ final class ActionInput
         #[Groups(['action:item'])]
         public ?ActivityPayload $activity = null,
         #[Groups(['action:item'])]
-        public ?DateTimeInterface $restEndDate = null,
+        public ?DateTimeInterface $restEndTime = null,
         #[Groups(['action:item'])]
         public ?TreatmentPayload $treatment = null,
         #[Groups(['action:item'])]
-        public ?float $temperature = null,
+        public ?PresencePayload $presence = null,
     ) {
     }
 }

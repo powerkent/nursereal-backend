@@ -11,15 +11,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class ActivityView
 {
     public function __construct(
-        #[Groups(['action:item'])]
+        #[Groups(['action:item', 'action:list'])]
         public UuidInterface $uuid,
-        #[Groups(['action:item'])]
+        #[Groups(['action:item', 'action:list'])]
         public string $name,
-        #[Groups(['action:item'])]
+        #[Groups(['action:item', 'action:list'])]
         public ?string $description,
-        #[Groups(['action:item'])]
+        #[Groups(['action:item', 'action:list'])]
         public ?string $comment,
-        #[Groups(['action:item'])]
+        #[Groups(['action:item', 'action:list'])]
         public DateTimeInterface $createdAt,
     ) {
     }

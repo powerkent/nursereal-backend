@@ -27,4 +27,9 @@ final class Version20240801211536 extends AbstractMigration
         $this->addSql('ALTER TABLE irp_treatment ADD CONSTRAINT FK_86562EF6471C0366 FOREIGN KEY (treatment_id) REFERENCES treatment (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
         $this->addSql('ALTER TABLE irp_treatment ADD CONSTRAINT FK_86562EF6EF14F020 FOREIGN KEY (irp_id) REFERENCES irp (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

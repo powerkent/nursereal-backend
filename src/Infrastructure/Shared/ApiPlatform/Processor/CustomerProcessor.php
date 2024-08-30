@@ -7,7 +7,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use Nursery\Application\Shared\Command\CreateOrUpdateCustomerCommand;
-use Nursery\Application\Shared\Query\FindChildByUuidQuery;
+use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
@@ -39,7 +39,7 @@ final readonly class CustomerProcessor implements ProcessorInterface
             'lastname' => $data->lastname,
             'email' => $data->email,
             'phoneNumber' => $data->phoneNumber,
-            'children' => array_map(fn (array $child): Child => $this->queryBus->ask(new FindChildByUuidQuery($child['uuid'])), $data->children),
+            'children' => array_map(fn (array $child): Child => $this->queryBus->ask(new FindChildByUuidOrIdQuery($child['uuid'])), $data->children),
         ];
 
         $customer = $this->commandBus->dispatch(CreateOrUpdateCustomerCommand::create($primitives));

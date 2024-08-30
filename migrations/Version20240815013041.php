@@ -25,4 +25,9 @@ final class Version20240815013041 extends AbstractMigration
         $this->addSql('ALTER TABLE dosage CHANGE dosing_date dosing_date DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE treatment CHANGE description description VARCHAR(255) NOT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

@@ -52,4 +52,9 @@ final class Version20240703204559 extends AbstractMigration
         $this->addSql('DROP TABLE treatment');
         $this->addSql('DROP TABLE messenger_messages');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

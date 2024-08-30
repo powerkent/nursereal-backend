@@ -13,17 +13,17 @@ final class TreatmentPayload
      * @param list<DosagePayload> $dosages
      */
     public function __construct(
-        #[Groups(['child:item'])]
+        #[Groups(['child:item', 'treatment:item', 'treatment:list'])]
         public string $name,
-        #[Groups(['child:item'])]
+        #[Groups(['child:item', 'treatment:item', 'treatment:list'])]
         public string $description,
-        #[Groups(['child:item'])]
+        #[Groups(['child:item', 'treatment:item', 'treatment:list'])]
         #[ApiProperty(openapiContext: ['example' => '2024-01-01 00:00:00'])]
         public string $startAt,
-        #[Groups(['child:item'])]
+        #[Groups(['child:item', 'treatment:item', 'treatment:list'])]
         #[ApiProperty(openapiContext: ['example' => '2024-01-01 00:00:00'])]
         public ?string $endAt = null,
-        #[Groups(['child:item'])]
+        #[Groups(['child:item', 'treatment:item', 'treatment:list'])]
         /** @var list<DosagePayload> $dosages */
         public ?array $dosages = [],
     ) {

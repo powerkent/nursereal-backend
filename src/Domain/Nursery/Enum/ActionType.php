@@ -13,6 +13,7 @@ enum ActionType: string implements SubTypeActionInterface
     case Diaper = 'diaper';
     case Rest = 'rest';
     case Treatment = 'treatment';
+    case Presence = 'presence';
 
     /**
      * @return list<string>

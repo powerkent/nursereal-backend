@@ -27,4 +27,9 @@ final class Version20240813025448 extends AbstractMigration
         $this->addSql('DROP TABLE action_diaper');
         $this->addSql('ALTER TABLE action_care ADD quality VARCHAR(255) DEFAULT NULL, CHANGE type type VARCHAR(255) DEFAULT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

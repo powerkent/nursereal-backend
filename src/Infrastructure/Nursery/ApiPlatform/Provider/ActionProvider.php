@@ -6,14 +6,14 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use Nursery\Application\Nursery\Query\FindActionByUuidQuery;
-use Nursery\Domain\Nursery\Model\AbstractAction;
+use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResourceFactory;
 
 /**
- * @extends AbstractProvider<AbstractAction, ActionResource>
+ * @extends AbstractProvider<Action, ActionResource>
  */
 final class ActionProvider extends AbstractProvider
 {
@@ -23,7 +23,7 @@ final class ActionProvider extends AbstractProvider
     ) {
     }
 
-    protected function item(Operation $operation, array $uriVariables = [], array $context = []): ?AbstractAction
+    protected function item(Operation $operation, array $uriVariables = [], array $context = []): ?Action
     {
         dump($action = $this->queryBus->ask(new FindActionByUuidQuery(uuid: $uriVariables['uuid'])));
 
@@ -31,7 +31,7 @@ final class ActionProvider extends AbstractProvider
     }
 
     /**
-     * @param AbstractAction $model
+     * @param Action $model
      *
      * @return ActionResource
      */

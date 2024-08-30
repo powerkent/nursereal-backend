@@ -25,4 +25,9 @@ final class Version20240813144457 extends AbstractMigration
         $this->addSql('ALTER TABLE action_care CHANGE care_type type VARCHAR(255) NOT NULL');
         $this->addSql('ALTER TABLE action CHANGE type discr VARCHAR(255) NOT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

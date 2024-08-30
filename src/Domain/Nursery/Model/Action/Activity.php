@@ -7,11 +7,11 @@ namespace Nursery\Domain\Nursery\Model\Action;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Nursery\Domain\Shared\Model\Child;
-use Nursery\Domain\Nursery\Model\AbstractAction;
+use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Nursery\Model\Activity as WhatActivity;
 use Ramsey\Uuid\UuidInterface;
 
-class Activity extends AbstractAction
+class Activity extends Action
 {
     /**
      * @param array<int, Child>|Collection<int, Child> $children
@@ -19,6 +19,7 @@ class Activity extends AbstractAction
     public function __construct(
         UuidInterface $uuid,
         DateTimeInterface $createdAt,
+        ?DateTimeInterface $updatedAt,
         Collection|array $children,
         ?string $comment,
         protected WhatActivity $activity,
@@ -26,6 +27,7 @@ class Activity extends AbstractAction
         parent::__construct(
             uuid     : $uuid,
             createdAt: $createdAt,
+            updatedAt: $updatedAt,
             children : $children,
             comment  : $comment,
         );

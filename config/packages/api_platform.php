@@ -3,9 +3,14 @@
 declare(strict_types=1);
 
 use ApiPlatform\Exception\InvalidArgumentException;
+use Nursery\Domain\Shared\Exception\ContractDateShouldHaveSameDayDateException;
+use Nursery\Domain\Shared\Exception\MissingPropertyException;
+use Nursery\Domain\Shared\Exception\OnlyOneChildPerContractCalendarException;
+use Nursery\Domain\Shared\Exception\SeveralChildrenOnSameTreatmentException;
+use Nursery\Domain\Shared\Exception\TreatmentNotCorrectForChildException;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('api_platform', [
@@ -36,6 +41,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             InvalidArgumentException::class => 400,
             ExtraAttributesException::class => 400,
             MissingConstructorArgumentsException::class => 400,
+            OnlyOneChildPerContractCalendarException::class => 400,
+            SeveralChildrenOnSameTreatmentException::class => 400,
+            TreatmentNotCorrectForChildException::class => 400,
+            ContractDateShouldHaveSameDayDateException::class => 400,
+            MissingPropertyException::class => 400,
         ],
         'show_webby' => false,
     ]);

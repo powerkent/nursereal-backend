@@ -23,4 +23,9 @@ final class Version20240813201540 extends AbstractMigration
     {
         $this->addSql('ALTER TABLE action_diaper CHANGE diaper_quality quality VARCHAR(255) NOT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

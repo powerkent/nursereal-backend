@@ -10,11 +10,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class ChildView
 {
     public function __construct(
-        #[Groups(['action:item'])]
+        #[Groups(['action:item', 'action:list'])]
         public UuidInterface $uuid,
-        #[Groups(['action:item'])]
+        #[Groups(['action:item', 'action:list'])]
+        public ?int $id,
+        #[Groups(['action:item', 'action:list'])]
         public string $firstname,
-        #[Groups(['action:item'])]
+        #[Groups(['action:item', 'action:list'])]
         public string $lastname,
     ) {
     }

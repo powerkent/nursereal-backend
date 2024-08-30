@@ -35,4 +35,9 @@ final class Version20240801233546 extends AbstractMigration
         $this->addSql('ALTER TABLE irp CHANGE description description VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE treatment ADD temperature DOUBLE PRECISION DEFAULT NULL, DROP created_at, DROP start_at, DROP end_at');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

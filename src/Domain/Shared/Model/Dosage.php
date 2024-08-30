@@ -13,7 +13,7 @@ class Dosage
     public function __construct(
         protected ?Treatment $treatment,
         protected ?string $dose, // quantity
-        protected ?DateTimeInterface $dosingDate,
+        protected ?DateTimeInterface $dosingTime,
     ) {
     }
 
@@ -46,14 +46,14 @@ class Dosage
         return $this;
     }
 
-    public function getDosingDate(): ?DateTimeInterface
+    public function getDosingTime(): ?DateTimeInterface
     {
-        return $this->dosingDate;
+        return $this->dosingTime;
     }
 
-    public function setDosingDate(?DateTimeInterface $dosingDate): self
+    public function setDosingTime(?DateTimeInterface $dosingTime): self
     {
-        $this->dosingDate = $dosingDate;
+        $this->dosingTime = $dosingTime;
 
         return $this;
     }

@@ -59,4 +59,9 @@ final class Version20240805170304 extends AbstractMigration
         $this->addSql('ALTER TABLE action_treatment DROP INDEX UNIQ_3C072F2C471C0366, ADD INDEX IDX_3C072F2C471C0366 (treatment_id)');
         $this->addSql('ALTER TABLE action_treatment CHANGE treatment_id treatment_id INT DEFAULT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

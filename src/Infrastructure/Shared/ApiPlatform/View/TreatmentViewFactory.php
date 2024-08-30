@@ -16,13 +16,14 @@ final class TreatmentViewFactory
     public function fromModel(Treatment $treatment): TreatmentView
     {
         return new TreatmentView(
+            uuid: $treatment->getUuid(),
             childUuid: $treatment->getChild()?->getUuid(),
             name: $treatment->getName(),
             description: $treatment->getDescription(),
-            dosages: $treatment->getDosages()?->map(fn (Dosage $dosage): DosageView => $this->dosageViewFactory->fromModel($dosage))->toArray(),
             createdAt: $treatment->getCreatedAt(),
             startAt: $treatment->getStartAt(),
             endAt: $treatment->getEndAt(),
+            dosages: $treatment->getDosages()?->map(fn (Dosage $dosage): DosageView => $this->dosageViewFactory->fromModel($dosage))->toArray(),
         );
     }
 }

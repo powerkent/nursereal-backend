@@ -73,6 +73,8 @@ final class ChildResource
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public ?DateTimeInterface $updatedAt = null,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?IRPView $irp = null,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         /** @var list<CustomerView>|null $customers */

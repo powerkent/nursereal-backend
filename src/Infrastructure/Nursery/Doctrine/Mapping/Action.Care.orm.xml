@@ -4,11 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Nursery\Domain\Shared\Model\Action\Care" table="action_care">
-        <field name="careTypes" type="care_type_array" column="care_types"/>
+    <entity name="Nursery\Domain\Nursery\Model\Action\Care" table="action_care">
+        <field name="types" type="care_type_array" column="types" />
     </entity>
-
-    <!--        <entity name="Nursery\Domain\Shared\Model\Action\Care" table="action_care">-->
-    <!--            <field name="careTypes" enum-type="Nursery\Domain\Shared\Enum\CareType" />-->
-    <!--        </entity>-->
 </doctrine-mapping>

@@ -13,13 +13,12 @@ use Nursery\Infrastructure\Shared\ApiPlatform\View\IRPViewFactory;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\TreatmentView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\TreatmentViewFactory;
 
-class ChildResourceFactory
+final readonly class ChildResourceFactory
 {
     public function __construct(
         private CustomerViewFactory $customerViewFactory,
         private IRPViewFactory $IRPViewFactory,
         private TreatmentViewFactory $treatmentViewFactory,
-        //        private ActivityViewFactory $activityViewFactory,
     ) {
     }
 
@@ -31,10 +30,10 @@ class ChildResourceFactory
             lastname: $child->getLastname(),
             birthday: $child->getBirthday(),
             createdAt: $child->getCreatedAt(),
+            updatedAt: $child->getUpdatedAt(),
             irp: null !== $child->getIrp() ? $this->IRPViewFactory->fromModel($child->getIrp()) : null,
             customers: $child->getCustomers()->map(fn (Customer $customer): CustomerView => $this->customerViewFactory->fromModel($customer))->toArray(),
             treatments: $child->getTreatments()?->map(fn (Treatment $treatment): TreatmentView => $this->treatmentViewFactory->fromModel($treatment))->toArray(),
-            //            activities: $child->getActivities()?->map(fn (Activity $activity): ActivityView => $this->activityViewFactory->fromModel($activity))->toArray(),
         );
     }
 }

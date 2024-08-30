@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Application\Shared\Command;
 
-use Nursery\Application\Shared\Query\FindChildByUuidQuery;
+use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Model\Treatment;
 use Nursery\Domain\Shared\Repository\TreatmentRepositoryInterface;
@@ -30,7 +30,7 @@ final readonly class UpdateTreatmentCommandHandler implements CommandHandlerInte
             throw new EntityNotFoundException(Treatment::class, 'id', $command->id());
         }
 
-        $child = $this->queryBus->ask(new FindChildByUuidQuery($treatment->getChild()->getUuid()));
+        $child = $this->queryBus->ask(new FindChildByUuidOrIdQuery($treatment->getChild()->getUuid()));
         $this->commandBus->dispatch(new DeleteTreatmentByUuidQuery($treatment->getUuid()));
 
         $command->primitives['child'] = $child;

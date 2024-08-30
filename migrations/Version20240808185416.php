@@ -23,4 +23,9 @@ final class Version20240808185416 extends AbstractMigration
     {
         $this->addSql('ALTER TABLE treatment CHANGE child_id child_id INT NOT NULL');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
