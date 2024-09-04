@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
+use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ChildInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ChildDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ChildPostProcessor;
@@ -39,17 +40,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Post(
             normalizationContext: ['groups' => ['child:item', 'child:post:read']],
             denormalizationContext: ['groups' => ['child:item', 'child:post:write']],
+            security: "is_granted('" . Roles::Manager->value . "')",
             input: ChildInput::class,
             processor: ChildPostProcessor::class,
         ),
         new Put(
             normalizationContext: ['groups' => ['child:item', 'child:put:read']],
             denormalizationContext: ['groups' => ['child:item', 'child:put:write']],
+            security: "is_granted('" . Roles::Manager->value . "')",
             input: ChildInput::class,
             provider: ChildProvider::class,
             processor: ChildPutProcessor::class,
         ),
         new Delete(
+            security: "is_granted('" . Roles::Manager->value . "')",
             provider: ChildProvider::class,
             processor: ChildDeleteProcessor::class,
         ),

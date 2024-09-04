@@ -13,6 +13,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\AgentResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\AgentResourceFactory;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * @implements ProcessorInterface<AgentInput, AgentResource>
