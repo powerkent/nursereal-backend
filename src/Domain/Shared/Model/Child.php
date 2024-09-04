@@ -33,6 +33,7 @@ class Child
         protected string $firstname,
         protected string $lastname,
         protected DateTimeInterface $birthday,
+        protected NurseryStructure $nurseryStructure,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?IRP $irp = null,
@@ -97,6 +98,18 @@ class Child
     public function setBirthday(DateTimeInterface $birthday): self
     {
         $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getNurseryStructure(): NurseryStructure
+    {
+        return $this->nurseryStructure;
+    }
+
+    public function setNurseryStructure(NurseryStructure $nurseryStructure): self
+    {
+        $this->nurseryStructure = $nurseryStructure;
 
         return $this;
     }

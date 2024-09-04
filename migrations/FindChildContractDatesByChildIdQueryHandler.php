@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Application\Shared\Query;
+namespace DoctrineMigrations;
 
+use Nursery\Application\Shared\Query\FindChildContractDatesByChildIdQuery;
 use Nursery\Domain\Shared\Model\ContractDate;
 use Nursery\Domain\Shared\Query\QueryHandlerInterface;
 use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
@@ -19,6 +20,6 @@ final readonly class FindChildContractDatesByChildIdQueryHandler implements Quer
      */
     public function __invoke(FindChildContractDatesByChildIdQuery $query): ?array
     {
-        return $this->childRepository->searchByFilter($query->childId);
+        return $this->childRepository->searchContractDatesByChildId($query->childId);
     }
 }

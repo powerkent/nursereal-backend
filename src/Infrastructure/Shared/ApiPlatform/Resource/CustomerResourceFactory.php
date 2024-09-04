@@ -23,7 +23,7 @@ final readonly class CustomerResourceFactory
             lastname: $customer->getLastname(),
             email: $customer->getEmail(),
             phoneNumber: $customer->getPhoneNumber(),
-            children: $customer->getChildren()?->map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child))->toArray(),
+            children: $customer->getChildren()->map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child))->toArray(),
         );
     }
 }
