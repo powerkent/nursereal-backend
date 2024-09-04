@@ -15,9 +15,7 @@ final class NurseryStructureInput
         #[Groups(['nurseryStructure:item'])]
         public string $address,
         #[Groups(['nurseryStructure:item'])]
-        public DateTimeInterface $startAt,
-        #[Groups(['nurseryStructure:item'])]
-        public DateTimeInterface $endAt,
+        public ?DateTimeInterface $startAt = null,
     ) {
     }
 }

@@ -86,8 +86,12 @@ db-create:
 db-migrate:
 	@$(SYMFONY) doctrine:migrations:migrate -nq --allow-no-migration
 
+## Create admin agent
+db-manager:
+	@$(SYMFONY) app:create:manager
+
 ## Reset database
-db-reset: db-create db-migrate
+db-reset: db-create db-migrate db-manager
 
 
 ####################################### MESSENGER #######################################

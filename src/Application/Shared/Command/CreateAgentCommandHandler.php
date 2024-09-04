@@ -11,12 +11,14 @@ use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final readonly class CreateAgentCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private QueryBusInterface $queryBus,
         private AgentRepositoryInterface $agentRepository,
+        private UserPasswordHasherInterface $passwordHasher,
     ) {
     }
 
@@ -25,7 +27,8 @@ final readonly class CreateAgentCommandHandler implements CommandHandlerInterfac
         $command->primitives['updatedAt'] = null;
 
         $nurseryStructures = $command->primitives['nurseryStructures'];
-        unset($command->primitives['nurseryStructures']);
+        $password = $command->primitives['password'];
+        unset($command->primitives['nurseryStructures'], $command->primitives['password']);
 
         $agent = new Agent(...$command->primitives);
 
@@ -39,6 +42,8 @@ final readonly class CreateAgentCommandHandler implements CommandHandlerInterfac
                 $nurseryStructure->addAgent($agent);
             }
         }
+
+        $agent->setPassword($this->passwordHasher->hashPassword($agent, $password));
 
         return $this->agentRepository->save($agent);
     }

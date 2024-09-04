@@ -21,8 +21,6 @@
 
         <field name="startAt" type="datetime" nullable="true" />
 
-        <field name="endAt" type="datetime" nullable="true" />
-
         <many-to-many field="agents" target-entity="Nursery\Domain\Shared\Model\Agent" inversed-by="nurseryStructures">
             <join-table name="nursery_structure_agent">
                 <join-columns>

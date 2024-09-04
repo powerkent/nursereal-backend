@@ -7,6 +7,7 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Nursery\Domain\Nursery\Enum\SubTypeInterface;
+use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ActionTypeCollectionProvider;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -16,6 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             paginationEnabled: false,
             normalizationContext: ['groups' => ['actionType:list']],
+            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
             provider: ActionTypeCollectionProvider::class,
         ),
     ]

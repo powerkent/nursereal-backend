@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
+use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Action\ContractDateDeleteAction;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ContractDateInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ContractDatePostProcessor;
@@ -27,11 +28,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Post(
             normalizationContext: ['groups' => ['contract:item', 'contract:post:read']],
             denormalizationContext: ['groups' => ['contract:item', 'contract:post:write']],
+            security: "is_granted('" . Roles::Manager->value . "')",
             input: ContractDateInput::class,
             processor: ContractDatePostProcessor::class,
         ),
         new Delete(
             controller: ContractDateDeleteAction::class,
+            security: "is_granted('" . Roles::Manager->value . "')",
             name: 'delete_contract_dates',
         ),
     ]

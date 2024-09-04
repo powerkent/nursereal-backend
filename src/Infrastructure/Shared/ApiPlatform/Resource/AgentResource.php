@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use DateTimeInterface;
+use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AgentDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AgentProcessor;
@@ -25,19 +26,23 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(
             normalizationContext: ['groups' => ['agent:item']],
+            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
             provider: AgentProvider::class
         ),
         new GetCollection(
             normalizationContext: ['groups' => ['agent:list']],
+            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
             provider: AgentCollectionProvider::class
         ),
         new Post(
             normalizationContext: ['groups' => ['agent:item', 'agent:post:read']],
             denormalizationContext: ['groups' => ['agent:item', 'agent:post:write']],
+            security: "is_granted('" . Roles::Manager->value . "')",
             input: AgentInput::class,
             processor: AgentProcessor::class,
         ),
         new Delete(
+            security: "is_granted('" . Roles::Manager->value . "')",
             provider: AgentProvider::class,
             processor: AgentDeleteProcessor::class,
         ),

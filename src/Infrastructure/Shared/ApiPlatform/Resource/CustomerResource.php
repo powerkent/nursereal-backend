@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\CustomerInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\CustomerDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\CustomerProcessor;
@@ -25,15 +26,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(
             normalizationContext: ['groups' => ['customer:item']],
+            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
             provider: CustomerProvider::class
         ),
         new GetCollection(
             normalizationContext: ['groups' => ['customer:list']],
+            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
             provider: CustomerCollectionProvider::class
         ),
         new Post(
             normalizationContext: ['groups' => ['customer:item', 'customer:post:read']],
             denormalizationContext: ['groups' => ['customer:item', 'customer:post:write']],
+            security: "is_granted('" . Roles::Manager->value . "')",
             input: CustomerInput::class,
             provider: CustomerProvider::class,
             processor: CustomerProcessor::class,
@@ -41,11 +45,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Put(
             normalizationContext: ['groups' => ['customer:item', 'customer:put:read']],
             denormalizationContext: ['groups' => ['customer:item', 'customer:put:write']],
+            security: "is_granted('" . Roles::Manager->value . "')",
             input: CustomerInput::class,
             provider: CustomerProvider::class,
             processor: CustomerProcessor::class,
         ),
         new Delete(
+            security: "is_granted('" . Roles::Manager->value . "')",
             provider: CustomerProvider::class,
             processor: CustomerDeleteProcessor::class,
         ),

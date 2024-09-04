@@ -1,5 +1,5 @@
 {
-    "name": "quentin_lemoine/nursery",
+    "name": "powerkent/nursereal-backend",
     "autoload": {
         "psr-4": {
             "Nursery\\": "src/"
@@ -13,6 +13,9 @@
         "doctrine/doctrine-bundle": "^2",
         "doctrine/doctrine-migrations-bundle": "^3",
         "doctrine/orm": "^3.2",
+        "lcobucci/jwt": "*",
+        "lexik/jwt-authentication-bundle": "*",
+        "nelmio/cors-bundle": "^2.5",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.29",
         "ramsey/uuid-doctrine": "^2.1",
