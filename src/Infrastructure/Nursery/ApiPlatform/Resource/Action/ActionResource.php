@@ -14,6 +14,7 @@ use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Nursery\Enum\CareType;
 use Nursery\Domain\Nursery\Enum\DiaperQuality;
 use Nursery\Domain\Nursery\Enum\RestQuality;
+use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\TreatmentView;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Input\ActionInput;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ActionProcessor;
@@ -38,6 +39,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Post(
             normalizationContext: ['groups' => ['action:item', 'action:post:read']],
             denormalizationContext: ['groups' => ['action:item', 'action:post:write']],
+            security: 'is_granted(\''.Roles::Manager->value.'\') or is_granted(\''.Roles::Agent->value.'\')',
             input: ActionInput::class,
             processor: ActionProcessor::class,
         ),

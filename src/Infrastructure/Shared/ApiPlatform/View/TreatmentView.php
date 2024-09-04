@@ -14,13 +14,13 @@ class TreatmentView
      * @param list<DosageView>|null $dosages
      */
     public function __construct(
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'nurseryStructure:item'])]
         public ?UuidInterface $uuid,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?UuidInterface $childUuid,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'nurseryStructure:item'])]
         public string $name,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'nurseryStructure:item'])]
         public string $description,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,

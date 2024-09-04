@@ -16,7 +16,7 @@
         </discriminator-map>
 
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <field name="uuid" type="uuid" unique="true" />

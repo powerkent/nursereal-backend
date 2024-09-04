@@ -1,42 +1,55 @@
 <?php
 
-declare(strict_types=1);
+use Symfony\Config\SecurityConfig;
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+return static function (SecurityConfig $securityConfig): void {
+    $securityConfig->passwordHasher('Nursery\Domain\Shared\Model\Agent')
+        ->algorithm('auto');
+    $securityConfig->passwordHasher('Nursery\Domain\Shared\Model\Customer')
+        ->algorithm('auto');
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->extension('security', [
-        'password_hashers' => [
-            PasswordAuthenticatedUserInterface::class => 'auto',
-        ],
-        'providers' => [
-            'users_in_memory' => [
-                'memory' => null,
-            ],
-        ],
-        'firewalls' => [
-            'dev' => [
-                'pattern' => '^/(_(profiler|wdt)|css|images|js)/',
-                'security' => false,
-            ],
-            'main' => [
-                'lazy' => true,
-                'provider' => 'users_in_memory',
-            ],
-        ],
-        'access_control' => null,
-    ]);
-    if ('test' === $containerConfigurator->env()) {
-        $containerConfigurator->extension('security', [
-            'password_hashers' => [
-                PasswordAuthenticatedUserInterface::class => [
-                    'algorithm' => 'auto',
-                    'cost' => 4,
-                    'time_cost' => 3,
-                    'memory_cost' => 10,
-                ],
-            ],
-        ]);
-    }
+    // Providers
+    $provider = $securityConfig->provider('app_user_provider');
+    $provider->entity()
+        ->class('Nursery\Domain\Shared\Model\Agent')
+        ->property('email');
+
+    $securityConfig->roleHierarchy('ROLE_MANAGER', ['ROLE_AGENT']);
+    $securityConfig->roleHierarchy('ROLE_AGENT', ['ROLE_PARENT']);
+
+    // Firewalls
+    $devFirewall = $securityConfig->firewall('dev');
+    $devFirewall->pattern('^/(_(profiler|wdt)|css|images|js)/')
+        ->security(false);
+
+    $publicFirewall = $securityConfig->firewall('public');
+    $publicFirewall
+        ->pattern('^/api/(docs|contexts)')
+        ->security(false);
+
+    $apiFirewall = $securityConfig->firewall('api');
+    $apiFirewall
+        ->pattern('^/api/')
+        ->stateless(true)
+        ->provider('app_user_provider')
+        ->jsonLogin()
+        ->checkPath('/api/login')   // Vérification que cette route est correctement configurée pour le login
+        ->usernamePath('email')
+        ->passwordPath('password');
+    
+    $mainFirewall = $securityConfig->firewall('main');
+    $mainFirewall
+        ->lazy(true)
+        ->provider('app_user_provider')
+        ->logout()
+        ->path('/api/logout');
+
+    $securityConfig->accessControl()
+        ->path('^/api/login')->roles(['IS_AUTHENTICATED_ANONYMOUSLY']);
+    $securityConfig->accessControl()
+        ->path('^/api/docs')->roles(['IS_AUTHENTICATED_ANONYMOUSLY']);
+    $securityConfig->accessControl()
+        ->path('^/api/contexts')->roles(['IS_AUTHENTICATED_ANONYMOUSLY']);
+    $securityConfig->accessControl()
+        ->path('^/api')->roles(['IS_AUTHENTICATED_ANONYMOUSLY']);
 };

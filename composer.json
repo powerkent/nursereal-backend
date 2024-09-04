@@ -13,6 +13,8 @@
         "doctrine/doctrine-bundle": "^2",
         "doctrine/doctrine-migrations-bundle": "^3",
         "doctrine/orm": "^3.2",
+        "firebase/php-jwt": "*",
+        "lexik/jwt-authentication-bundle": "*",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.29",
         "ramsey/uuid-doctrine": "^2.1",
@@ -46,7 +48,8 @@
         "symfony/web-link": "^7.1",
         "symfony/yaml": "^7.1",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "zircote/swagger-php": "^4.10"
     },
     "config": {
         "optimize-autoloader": true,

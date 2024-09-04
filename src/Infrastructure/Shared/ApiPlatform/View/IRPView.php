@@ -10,15 +10,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class IRPView
 {
     public function __construct(
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'nurseryStructure:item'])]
         public string $name,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'nurseryStructure:item'])]
         public string $description,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'nurseryStructure:item'])]
         public DateTimeInterface $startAt,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'nurseryStructure:item'])]
         public ?DateTimeInterface $endAt,
     ) {
     }

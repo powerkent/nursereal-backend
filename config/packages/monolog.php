@@ -8,8 +8,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('monolog', [
         'channels' => [
             'deprecation',
+            'security',  // Ajout du canal de sécurité
         ],
     ]);
+
     if ('dev' === $containerConfigurator->env()) {
         $containerConfigurator->extension('monolog', [
             'handlers' => [
@@ -30,9 +32,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                         '!console',
                     ],
                 ],
+                'security' => [  // Handler pour les logs de sécurité
+                    'type' => 'stream',
+                    'path' => '%kernel.logs_dir%/security.log',
+                    'level' => 'debug',
+                    'channels' => ['security'],
+                ],
             ],
         ]);
     }
+
     if ('test' === $containerConfigurator->env()) {
         $containerConfigurator->extension('monolog', [
             'handlers' => [
@@ -56,6 +65,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]);
     }
+
     if ('prod' === $containerConfigurator->env()) {
         $containerConfigurator->extension('monolog', [
             'handlers' => [
@@ -90,6 +100,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     ],
                     'path' => 'php://stderr',
                     'formatter' => 'monolog.formatter.json',
+                ],
+                'security' => [  // Handler pour les logs de sécurité en production
+                    'type' => 'stream',
+                    'path' => '%kernel.logs_dir%/security.log',
+                    'level' => 'debug',
+                    'channels' => ['security'],
                 ],
             ],
         ]);

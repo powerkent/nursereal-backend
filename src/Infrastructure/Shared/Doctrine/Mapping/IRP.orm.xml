@@ -6,7 +6,7 @@
 
     <entity name="Nursery\Domain\Shared\Model\IRP" table="irp">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <field name="name" type="string" />

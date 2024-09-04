@@ -24,6 +24,10 @@ final class CustomerInput
         #[Assert\Email]
         public ?string $email,
         #[Groups(['customer:item'])]
+        #[Assert\NotBlank]
+        #[ApiProperty(example: 'password123')]
+        public string $password,
+        #[Groups(['customer:item'])]
         #[Assert\NotBlank(message: 'Customer requires a phone number.')]
         public int $phoneNumber,
         #[Groups(['customer:item'])]

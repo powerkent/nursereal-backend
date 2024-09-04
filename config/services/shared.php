@@ -3,10 +3,12 @@
 declare(strict_types=1);
 
 use Nursery\Domain\Shared\Listener\GuardInterface;
+use Nursery\Infrastructure\Nursery\Symfony\Security\AgentAuthenticator;
 use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\ResourceMetadataFactory;
 use Nusery\Infrastructure\Shared\Listener\PreventChildrenOnPostCalendarGuard;
 use Nusery\Infrastructure\Shared\Listener\PreventContractDateOnlyOneDayGuard;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -25,6 +27,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->load('Nursery\\Infrastructure\\Shared\\ApiPlatform\\Action\\', __DIR__.'/../../src/Infrastructure/Shared/ApiPlatform/Action')
         ->tag('controller.service_arguments');
+
+    $services->set(AgentAuthenticator::class)
+        ->args([
+            '$jwtEncoder' => service('lexik_jwt_authentication.jwt_manager'),
+        ])
+        ->tag('security.authenticator');;
 
     $services->set(ResourceMetadataFactory::class)
         ->decorate('api_platform.openapi.factory')

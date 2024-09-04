@@ -9,7 +9,6 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\OpenApi\Model\PathItem;
 use ApiPlatform\OpenApi\Model\Paths;
 use ApiPlatform\OpenApi\OpenApi;
-use RuntimeException;
 
 final class ResourceMetadataFactory implements OpenApiFactoryInterface
 {
@@ -34,7 +33,9 @@ final class ResourceMetadataFactory implements OpenApiFactoryInterface
             foreach ($resource->operations() as $iri => $doc) {
                 $iriSplit = explode(' ', $iri);
                 [$httpVerb, $url] = $iriSplit;
-                $openApi->getPaths()->addPath($url, $this->buildOperationDoc($paths, $url, $httpVerb, $doc));
+                if ($this->buildOperationDoc($paths, $url, $httpVerb, $doc)) {
+                    $openApi->getPaths()->addPath($url, $this->buildOperationDoc($paths, $url, $httpVerb, $doc));
+                }
             }
         }
 
@@ -44,11 +45,11 @@ final class ResourceMetadataFactory implements OpenApiFactoryInterface
     /**
      * @param array<string, mixed> $params
      */
-    private function buildOperationDoc(Paths $paths, string $uuid, string $httpVerb, array $params): PathItem
+    private function buildOperationDoc(Paths $paths, string $uuid, string $httpVerb, array $params): ?PathItem
     {
         $pathItem = $paths->getPath($uuid);
         if (null === $pathItem) {
-            throw new RuntimeException('Item path needed to build operation doc');
+            return null;
         }
 
         $getMethod = sprintf('get%s', ucfirst(strtolower($httpVerb)));

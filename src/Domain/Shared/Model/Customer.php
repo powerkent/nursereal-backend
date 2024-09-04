@@ -7,35 +7,47 @@ namespace Nursery\Domain\Shared\Model;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Shared\Enum\Roles;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Webmozart\Assert\Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class Customer
+class Customer implements UserInterface, PasswordAuthenticatedUserInterface
 {
     protected ?int $id = null;
 
     /** @var Collection<int, Child> */
     protected Collection $children;
 
+    /** @var array<int, string> */
+    protected array $roles;
+
     /**
      * @param array<int, Child>|Collection<int, Child> $children
+     * @param array<int, string>                       $roles
      */
     public function __construct(
         protected UuidInterface $uuid,
         protected string $firstname,
         protected string $lastname,
-        protected ?string $email,
+        protected string $email,
+        protected string $password,
         protected int $phoneNumber,
         protected DateTimeInterface $createdAt,
+        protected ?DateTimeInterface $updatedAt,
         array|Collection $children = [],
+        array $roles = [],
     ) {
         Assert::stringNotEmpty($firstname);
         Assert::stringNotEmpty($lastname);
-        if (null !== $email) {
-            Assert::email($email);
-        }
+        Assert::email($email);
 
         $this->children = is_array($children) ? new ArrayCollection($children) : $children;
+        $this->roles = $roles;
+        if (empty($this->roles)) {
+            $this->roles = [Roles::Parent->value];
+        }
     }
 
     public function getId(): ?int
@@ -103,9 +115,9 @@ class Customer
     }
 
     /**
-     * @return Collection<int, Child>|null
+     * @return Collection<int, Child>
      */
-    public function getChildren(): ?Collection
+    public function getChildren(): Collection
     {
         return $this->children;
     }
@@ -130,5 +142,54 @@ class Customer
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array<int, string> $roles
+     */
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function eraseCredentials(): void
+    {
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
     }
 }

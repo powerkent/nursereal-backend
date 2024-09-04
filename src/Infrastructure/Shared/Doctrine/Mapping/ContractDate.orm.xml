@@ -5,7 +5,7 @@
 
     <entity name="Nursery\Domain\Shared\Model\ContractDate" table="contract_date">
         <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
+            <generator />
         </id>
 
         <field name="contractTimeStart" type="datetime" column="start" />

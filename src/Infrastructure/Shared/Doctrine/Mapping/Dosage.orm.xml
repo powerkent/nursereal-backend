@@ -6,7 +6,7 @@
 
     <entity name="Nursery\Domain\Shared\Model\Dosage" table="dosage">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <many-to-one field="treatment" target-entity="Nursery\Domain\Shared\Model\Treatment" inversed-by="dosages">

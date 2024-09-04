@@ -6,23 +6,31 @@
 
     <entity name="Nursery\Domain\Shared\Model\Child" table="child">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <field name="uuid" type="uuid" unique="true" />
 
-        <field name="firstname" type="text" length="65535" />
+        <field name="firstname" length="320" />
 
-        <field name="lastname" type="text" length="65535" />
+        <field name="lastname" length="320" />
 
         <field name="birthday" type="datetime" />
+
+        <one-to-one field="nurseryStructure" target-entity="Nursery\Domain\Shared\Model\NurseryStructure" orphan-removal="true">
+            <join-column name="nursery_structure_id" />
+            <cascade>
+                <cascade-remove />
+                <cascade-persist />
+            </cascade>
+        </one-to-one>
 
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
 
         <one-to-one field="irp" target-entity="Nursery\Domain\Shared\Model\IRP" orphan-removal="true">
-            <join-column name="irp" referenced-column-name="id" nullable="true" />
+            <join-column name="irp" />
             <cascade>
                 <cascade-remove />
                 <cascade-persist />

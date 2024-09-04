@@ -7,7 +7,7 @@ namespace Nursery\Domain\Shared\Criteria;
 final class Criteria
 {
     /**
-     * @param iterable<FilterInterface> $filters
+     * @param array<FilterInterface> $filters
      */
     public function __construct(public readonly iterable $filters)
     {

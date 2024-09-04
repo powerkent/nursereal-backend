@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             paginationEnabled: false,
             normalizationContext: ['groups' => ['actionType:list']],
+            security: "is_granted('ROLE_PARENT')",
             provider: ActionTypeCollectionProvider::class,
         ),
     ]

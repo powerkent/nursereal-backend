@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use Nursery\Domain\Shared\Processor\ChildInputDataInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Payload\IRPPayload;
 use Nursery\Infrastructure\Shared\ApiPlatform\Payload\TreatmentPayload;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,6 +28,9 @@ final class ChildInput implements ChildInputDataInterface
         #[Assert\NotBlank(message: 'Child requires a birthday')]
         #[ApiProperty(openapiContext: ['example' => '2024-01-01 00:00:00'])]
         public string $birthday,
+        #[Groups(['child:item'])]
+        #[Assert\NotBlank(message: 'Child requires a nursery structure.')]
+        public UuidInterface $nurseryStructureUuid,
         #[Groups(['child:item'])]
         public ?IRPPayload $irp = null,
         #[Groups(['child:item'])]

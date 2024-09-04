@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
+use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ChildInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ChildDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ChildPostProcessor;
@@ -20,6 +21,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ChildCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ChildProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\CustomerView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\IRPView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructureView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\TreatmentView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -33,22 +35,26 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new GetCollection(
             normalizationContext: ['groups' => ['child:list']],
+            security: 'is_granted(\''.Roles::Manager->value.'\') or is_granted(\''.Roles::Agent->value.'\')',
             provider: ChildCollectionProvider::class
         ),
         new Post(
             normalizationContext: ['groups' => ['child:item', 'child:post:read']],
             denormalizationContext: ['groups' => ['child:item', 'child:post:write']],
+            security: "is_granted('ROLE_MANAGER')",
             input: ChildInput::class,
             processor: ChildPostProcessor::class,
         ),
         new Put(
             normalizationContext: ['groups' => ['child:item', 'child:put:read']],
             denormalizationContext: ['groups' => ['child:item', 'child:put:write']],
+            security: 'is_granted(\''.Roles::Manager->value.'\')',
             input: ChildInput::class,
             provider: ChildProvider::class,
             processor: ChildPutProcessor::class,
         ),
         new Delete(
+            security: 'is_granted(\''.Roles::Manager->value.'\')',
             provider: ChildProvider::class,
             processor: ChildDeleteProcessor::class,
         ),
@@ -70,6 +76,8 @@ final class ChildResource
         public string $lastname,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $birthday,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public NurseryStructureView $nurseryStructure,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,
         #[Groups(['child:item', 'child:list', 'customer:item'])]

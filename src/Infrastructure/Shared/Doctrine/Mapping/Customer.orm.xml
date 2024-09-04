@@ -6,18 +6,22 @@
 
     <entity name="Nursery\Domain\Shared\Model\Customer" table="customer">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <field name="uuid" type="uuid" unique="true" />
 
-        <field name="firstname" type="text" length="65535" />
+        <field name="firstname" length="320" />
 
-        <field name="lastname" type="text" length="65535" />
+        <field name="lastname" length="320" />
 
-        <field name="email" type="text" length="65535" nullable="true" />
+        <field name="email" length="320" />
 
-        <field name="phoneNumber" type="integer" />
+        <field name="password" length="320" />
+
+        <field name="roles" type="json" />
+
+        <field name="phoneNumber" type="integer" length="10" />
 
         <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child" fetch="LAZY" inversed-by="customers" orphan-removal="false">
             <join-table name="customer_child">
@@ -34,5 +38,7 @@
         </many-to-many>
 
         <field name="createdAt" type="datetime" />
+
+        <field name="updatedAt" type="datetime" nullable="true" />
     </entity>
 </doctrine-mapping>
