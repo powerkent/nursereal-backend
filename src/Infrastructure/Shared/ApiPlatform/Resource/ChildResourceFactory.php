@@ -10,6 +10,7 @@ use Nursery\Domain\Shared\Model\Treatment;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\CustomerView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\CustomerViewFactory;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\IRPViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructureViewFactory;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\TreatmentView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\TreatmentViewFactory;
 
@@ -19,6 +20,7 @@ final readonly class ChildResourceFactory
         private CustomerViewFactory $customerViewFactory,
         private IRPViewFactory $IRPViewFactory,
         private TreatmentViewFactory $treatmentViewFactory,
+        private NurseryStructureViewFactory $nurseryStructureViewFactory,
     ) {
     }
 
@@ -29,6 +31,7 @@ final readonly class ChildResourceFactory
             firstname: $child->getFirstname(),
             lastname: $child->getLastname(),
             birthday: $child->getBirthday(),
+            nurseryStructure: $this->nurseryStructureViewFactory->fromModel($child->getNurseryStructure()),
             createdAt: $child->getCreatedAt(),
             updatedAt: $child->getUpdatedAt(),
             irp: null !== $child->getIrp() ? $this->IRPViewFactory->fromModel($child->getIrp()) : null,

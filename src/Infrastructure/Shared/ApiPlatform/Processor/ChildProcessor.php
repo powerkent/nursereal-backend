@@ -11,6 +11,7 @@ use Nursery\Application\Shared\Command\CreateDosageCommand;
 use Nursery\Application\Shared\Command\CreateTreatmentCommand;
 use Nursery\Application\Shared\Command\UpdateChildCommand;
 use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
+use Nursery\Application\Shared\Query\FindNurseryStructureByUuidQuery;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\Treatment;
 use Nursery\Domain\Shared\Processor\ChildProcessorInterface;
@@ -41,6 +42,7 @@ final readonly class ChildProcessor implements ChildProcessorInterface
             'firstname' => $data->firstname,
             'lastname' => $data->lastname,
             'birthday' => new DateTimeImmutable($data->birthday),
+            'nurseryStructure' => $this->queryBus->ask(new FindNurseryStructureByUuidQuery($data->nurseryStructureUuid)),
             'treatments' => [],
         ];
 

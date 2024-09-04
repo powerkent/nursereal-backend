@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Doctrine\Repository;
 
 use Nursery\Domain\Shared\Model\Child;
+use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
 
 /**
@@ -17,7 +18,7 @@ class ChildRepository extends AbstractRepository implements ChildRepositoryInter
         return Child::class;
     }
 
-    public function searchByFilter(int $childId): ?array
+    public function searchContractDatesByChildId(int $childId): ?array
     {
         $queryBuilder = $this->createQueryBuilder('c');
         $queryBuilder
@@ -29,5 +30,10 @@ class ChildRepository extends AbstractRepository implements ChildRepositoryInter
         $query = $queryBuilder->getQuery();
 
         return $query->getResult();
+    }
+
+    public function searchChildrenByNurseryStructure(NurseryStructure $nurseryStructure): ?array
+    {
+        return $this->findBy(['nurseryStructure' => $nurseryStructure]);
     }
 }

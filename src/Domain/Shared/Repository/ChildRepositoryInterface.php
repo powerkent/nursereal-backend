@@ -6,6 +6,7 @@ namespace Nursery\Domain\Shared\Repository;
 
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\ContractDate;
+use Nursery\Domain\Shared\Model\NurseryStructure;
 
 /**
  * @extends RepositoryInterface<Child>
@@ -13,7 +14,12 @@ use Nursery\Domain\Shared\Model\ContractDate;
 interface ChildRepositoryInterface extends RepositoryInterface
 {
     /**
-     * @return array<ContractDate>|null
+     * @return array<int, ContractDate>|null
      */
-    public function searchByFilter(int $childId): ?array;
+    public function searchContractDatesByChildId(int $childId): ?array;
+
+    /**
+     * @return array<int, Child>|null
+     */
+    public function searchChildrenByNurseryStructure(NurseryStructure $nurseryStructure): ?array;
 }

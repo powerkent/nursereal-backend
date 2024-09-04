@@ -20,6 +20,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ChildCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ChildProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\CustomerView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\IRPView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructureView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\TreatmentView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -70,6 +71,8 @@ final class ChildResource
         public string $lastname,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $birthday,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public NurseryStructureView $nurseryStructure,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,
         #[Groups(['child:item', 'child:list', 'customer:item'])]

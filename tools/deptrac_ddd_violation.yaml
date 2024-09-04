@@ -3,3 +3,8 @@ parameters:
         Nursery\Domain\Nursery\Model\Action\Care:
             - Doctrine\ORM\Mapping
             - Doctrine\ORM\Mapping\Column
+        Nursery\Domain\Shared\Model\Agent:
+            - Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
+            - Doctrine\ORM\Mapping
+        Nursery\Domain\Shared\Model\Customer:
+            - Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface

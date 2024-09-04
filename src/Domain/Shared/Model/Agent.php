@@ -4,50 +4,55 @@ declare(strict_types=1);
 
 namespace Nursery\Domain\Shared\Model;
 
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Webmozart\Assert\Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Webmozart\Assert\Assert;
+use function is_array;
 
-class Customer implements UserInterface, PasswordAuthenticatedUserInterface
+class Agent implements UserInterface, PasswordAuthenticatedUserInterface
 {
     protected ?int $id = null;
 
-    /** @var Collection<int, Child> */
-    protected Collection $children;
-
-    /** @var array<int, string> */
+    /**
+     * @ORM\Column(type="json")
+     * @var array<int, string>
+     */
     protected array $roles;
 
+    /** @var Collection<int, NurseryStructure> */
+    protected Collection $nurseryStructures;
+
     /**
-     * @param array<int, Child>|Collection<int, Child> $children
-     * @param array<int, string>                       $roles
+     * @param array<int, string>                                             $roles
+     * @param array<int, NurseryStructure>|Collection<int, NurseryStructure> $nurseryStructures
      */
     public function __construct(
         protected UuidInterface $uuid,
         protected string $firstname,
         protected string $lastname,
         protected string $email,
-        protected string $password,
-        protected int $phoneNumber,
+        protected ?string $password,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt,
-        array|Collection $children = [],
+        array|Collection $nurseryStructures = [],
         array $roles = [],
     ) {
         Assert::stringNotEmpty($firstname);
         Assert::stringNotEmpty($lastname);
         Assert::email($email);
 
-        $this->children = is_array($children) ? new ArrayCollection($children) : $children;
         $this->roles = $roles;
         if (empty($this->roles)) {
-            $this->roles = [Roles::Parent->value];
+            $this->roles = [Roles::Agent->value];
         }
+
+        $this->nurseryStructures = is_array($nurseryStructures) ? new ArrayCollection($nurseryStructures) : $nurseryStructures;
     }
 
     public function getId(): ?int
@@ -91,7 +96,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -99,35 +104,6 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-    public function getPhoneNumber(): int
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(int $phoneNumber): self
-    {
-        $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Child>
-     */
-    public function getChildren(): Collection
-    {
-        return $this->children;
-    }
-
-    /**
-     * @param Collection<int, Child>|array<int, Child> $children
-     */
-    public function setChildren(Collection|array $children): self
-    {
-        $this->children = $children instanceof Collection ? $children : new ArrayCollection($children);
 
         return $this;
     }
@@ -152,6 +128,42 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(?DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, NurseryStructure>
+     */
+    public function getNurseryStructures(): Collection
+    {
+        return $this->nurseryStructures;
+    }
+
+    /**
+     * @param array<int, NurseryStructure>|Collection<int, NurseryStructure> $nurseryStructures
+     */
+    public function setNurseryStructures(Collection|array $nurseryStructures): self
+    {
+        $this->nurseryStructures = $nurseryStructures instanceof Collection ? $nurseryStructures : new ArrayCollection($nurseryStructures);
+
+        return $this;
+    }
+
+    public function addNurseryStructure(NurseryStructure $nurseryStructure): self
+    {
+        if (!$this->nurseryStructures->contains($nurseryStructure)) {
+            $this->nurseryStructures->add($nurseryStructure);
+        }
+
+        return $this;
+    }
+
+    public function removeNurseryStructure(NurseryStructure $nurseryStructure): self
+    {
+        if ($this->nurseryStructures->contains($nurseryStructure)) {
+            $this->nurseryStructures->removeElement($nurseryStructure);
+        }
 
         return $this;
     }
@@ -191,5 +203,12 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    public function setPassword(string $hashedPassword): self
+    {
+        $this->password = $hashedPassword;
+
+        return $this;
     }
 }
