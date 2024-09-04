@@ -28,9 +28,12 @@ class TestCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $myClass = new MaClasse(1, 'hello', new \DateTime('08:30'));
+        $privateKey = file_get_contents('%kernel.project_dir%/config/jwt/private.pem');
+        $publicKey = file_get_contents('%kernel.project_dir%/config/jwt/public.pem');
 
-        dump(Uuid::uuid4());
+        if ($privateKey === false || $publicKey === false) {
+            throw new \Exception('Unable to read the JWT private or public key.');
+        }
 
         $this->io->section('Summary:');
         $this->io->info('it is ok !');

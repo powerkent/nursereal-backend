@@ -25,3 +25,6 @@ phpstan.neon
 ###> qossmic/deptrac-shim ###
 /.deptrac.cache
 ###< qossmic/deptrac-shim ###
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
