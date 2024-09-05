@@ -35,20 +35,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Post(
             normalizationContext: ['groups' => ['activity:item', 'activity:post:read']],
             denormalizationContext: ['groups' => ['activity:item', 'activity:post:write']],
-            security: "is_granted('" . Roles::Manager->value . "')",
+            security: "is_granted('".Roles::Manager->value."')",
             input: ActivityInput::class,
             processor: ActivityProcessor::class,
         ),
         new Put(
             normalizationContext: ['groups' => ['activity:item', 'activity:put:read']],
             denormalizationContext: ['groups' => ['activity:item', 'activity:put:write']],
-            security: "is_granted('" . Roles::Manager->value . "')",
+            security: "is_granted('".Roles::Manager->value."')",
             input: ActivityInput::class,
             provider: ActivityProvider::class,
             processor: ActivityProcessor::class,
         ),
         new Delete(
-            security: "is_granted('" . Roles::Manager->value . "')",
+            security: "is_granted('".Roles::Manager->value."')",
             provider: ActivityProvider::class,
             processor: ActivityDeleteProcessor::class,
         ),

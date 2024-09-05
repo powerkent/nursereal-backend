@@ -36,7 +36,6 @@ final class NurseryStructureProcessor implements ProcessorInterface
             'address' => $data->address,
             'createdAt' => new DateTimeImmutable(),
             'startAt' => $data->startAt,
-            'endAt' => $data->endAt,
         ];
 
         $activity = $this->commandBus->dispatch(CreateNurseryStructureCommand::create($primitives));

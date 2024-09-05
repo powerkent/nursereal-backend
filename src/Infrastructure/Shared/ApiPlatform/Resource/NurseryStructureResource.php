@@ -27,23 +27,23 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(
             normalizationContext: ['groups' => ['nurseryStructure:item']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: NurseryStructureProvider::class
         ),
         new GetCollection(
             normalizationContext: ['groups' => ['nurseryStructure:list']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: NurseryStructureCollectionProvider::class
         ),
         new Post(
             normalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:post:read']],
             denormalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:post:write']],
-            security: "is_granted('" . Roles::Manager->value . "')",
+            security: "is_granted('".Roles::Manager->value."')",
             input: NurseryStructureInput::class,
             processor: NurseryStructureProcessor::class,
         ),
         new Delete(
-            security: "is_granted('" . Roles::Manager->value . "')",
+            security: "is_granted('".Roles::Manager->value."')",
             provider: NurseryStructureProvider::class,
             processor: NurseryStructureDeleteProcessor::class,
         ),
@@ -69,8 +69,6 @@ final class NurseryStructureResource
         public ?DateTimeInterface $updatedAt,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?DateTimeInterface $startAt,
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?DateTimeInterface $endAt,
         #[Groups(['nurseryStructure:item'])]
         /** @var list<AgentView>|null $agents */
         public ?array $agents = null,

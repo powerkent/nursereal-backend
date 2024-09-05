@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Nursery\Domain\Shared\Listener\GuardInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\ResourceMetadataFactory;
+use Nursery\Infrastructure\Shared\Security\JWTCreatedListener;
 use Nusery\Infrastructure\Shared\Listener\PreventChildrenOnPostCalendarGuard;
 use Nusery\Infrastructure\Shared\Listener\PreventContractDateOnlyOneDayGuard;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -36,5 +37,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->tag('kernel.event_listener', [
             'event' => 'kernel.request',
             'method' => 'onKernelRequest',
+        ]);
+
+    $services->set(JWTCreatedListener::class)
+        ->tag('kernel.event_listener', [
+            'event' => 'lexik_jwt_authentication.on_jwt_created',
+            'method' => 'onJWTCreated',
         ]);
 };

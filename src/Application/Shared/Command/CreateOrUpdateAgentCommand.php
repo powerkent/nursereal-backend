@@ -6,7 +6,7 @@ namespace Nursery\Application\Shared\Command;
 
 use Nursery\Domain\Shared\Command\AbstractCreateCommand;
 
-final class CreateAgentCommand extends AbstractCreateCommand
+final class CreateOrUpdateAgentCommand extends AbstractCreateCommand
 {
     public static function create(array $primitives): static
     {

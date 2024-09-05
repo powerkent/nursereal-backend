@@ -23,8 +23,6 @@ class NurseryStructureView
         public ?DateTimeInterface $updatedAt,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?DateTimeInterface $startAt,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public ?DateTimeInterface $endAt,
     ) {
     }
 }

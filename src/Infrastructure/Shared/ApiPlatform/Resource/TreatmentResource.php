@@ -27,23 +27,23 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(
             normalizationContext: ['groups' => ['treatment:item']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: TreatmentProvider::class,
         ),
         new GetCollection(
             normalizationContext: ['groups' => ['treatment:list']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: TreatmentCollectionProvider::class
         ),
         new Post(
             normalizationContext: ['groups' => ['treatment:item', 'treatment:post:read']],
             denormalizationContext: ['groups' => ['treatment:item', 'treatment:post:write']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             input: TreatmentPayload::class,
             processor: TreatmentProcessor::class,
         ),
         new Delete(
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: TreatmentProvider::class,
             processor: TreatmentDeleteProcessor::class,
         ),

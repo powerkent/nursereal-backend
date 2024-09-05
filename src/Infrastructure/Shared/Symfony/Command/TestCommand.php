@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Symfony\Command;
 
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,7 +30,7 @@ class TestCommand extends Command
         $privateKey = file_get_contents('%kernel.project_dir%/config/jwt/private.pem');
         $publicKey = file_get_contents('%kernel.project_dir%/config/jwt/public.pem');
 
-        if ($privateKey === false || $publicKey === false) {
+        if (false === $privateKey || false === $publicKey) {
             throw new \Exception('Unable to read the JWT private or public key.');
         }
 

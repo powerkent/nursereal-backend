@@ -27,7 +27,6 @@ class NurseryStructure
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?DateTimeInterface $startAt = null,
-        protected ?DateTimeInterface $endAt = null,
         array|Collection $agents = [],
     ) {
         Assert::stringNotEmpty($this->name);
@@ -109,18 +108,6 @@ class NurseryStructure
     public function setStartAt(?DateTimeInterface $startAt): self
     {
         $this->startAt = $startAt;
-
-        return $this;
-    }
-
-    public function getEndAt(): ?DateTimeInterface
-    {
-        return $this->endAt;
-    }
-
-    public function setEndAt(?DateTimeInterface $endAt): self
-    {
-        $this->endAt = $endAt;
 
         return $this;
     }

@@ -10,11 +10,13 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AgentDeleteProcessor;
-use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AgentProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AgentPostProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AgentPutProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AgentCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AgentProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructureView;
@@ -26,23 +28,31 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(
             normalizationContext: ['groups' => ['agent:item']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: AgentProvider::class
         ),
         new GetCollection(
             normalizationContext: ['groups' => ['agent:list']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: AgentCollectionProvider::class
         ),
         new Post(
             normalizationContext: ['groups' => ['agent:item', 'agent:post:read']],
             denormalizationContext: ['groups' => ['agent:item', 'agent:post:write']],
-            security: "is_granted('" . Roles::Manager->value . "')",
+            security: "is_granted('".Roles::Manager->value."')",
             input: AgentInput::class,
-            processor: AgentProcessor::class,
+            processor: AgentPostProcessor::class,
+        ),
+        new Put(
+            normalizationContext: ['groups' => ['agent:item', 'agent:put:read']],
+            denormalizationContext: ['groups' => ['agent:item', 'agent:put:write']],
+            security: "is_granted('".Roles::Manager->value."')",
+            input: AgentInput::class,
+            provider: AgentProvider::class,
+            processor: AgentPutProcessor::class,
         ),
         new Delete(
-            security: "is_granted('" . Roles::Manager->value . "')",
+            security: "is_granted('".Roles::Manager->value."')",
             provider: AgentProvider::class,
             processor: AgentDeleteProcessor::class,
         ),

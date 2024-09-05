@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nursery\Infrastructure\Shared\Security;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
@@ -15,7 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 class JwtAuthenticator extends AbstractAuthenticator
 {
     public function __construct(
-        private JWTTokenManagerInterface $manager,
         private JWTEncoderInterface $encoder
     ) {
     }
@@ -54,6 +54,6 @@ class JwtAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        return new Response("Authentication failed", Response::HTTP_UNAUTHORIZED);
+        return new Response('Authentication failed', Response::HTTP_UNAUTHORIZED);
     }
 }

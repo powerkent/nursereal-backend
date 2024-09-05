@@ -40,15 +40,15 @@ class CreateManagerCommand extends Command
             uuid: Uuid::uuid4(),
             firstname: 'admin',
             lastname: 'admin',
-            email: 'admin@example.com',
-            password: null,
+            email: 'a@a.com',
             createdAt: new DateTimeImmutable(),
             updatedAt: null,
+            password: null,
             nurseryStructures: [],
             roles: ['ROLE_MANAGER'],
         );
 
-        $admin->setPassword($this->passwordHasher->hashPassword($admin, 'admin'));
+        $admin->setPassword($this->passwordHasher->hashPassword($admin, 'a'));
         $this->agentRepository->save($admin);
         $output->writeln('Admin user created.');
 

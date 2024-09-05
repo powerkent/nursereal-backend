@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             paginationEnabled: false,
             normalizationContext: ['groups' => ['actionType:list']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: ActionTypeCollectionProvider::class,
         ),
     ]

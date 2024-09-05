@@ -30,18 +30,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(
             normalizationContext: ['groups' => ['action:item']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: ActionProvider::class,
         ),
         new GetCollection(
             normalizationContext: ['groups' => ['action:list']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: ActionCollectionProvider::class,
         ),
         new Post(
             normalizationContext: ['groups' => ['action:item', 'action:post:read']],
             denormalizationContext: ['groups' => ['action:item', 'action:post:write']],
-            security: "is_granted('" . Roles::Manager->value . "') or is_granted('" . Roles::Agent->value . "')",
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             input: ActionInput::class,
             processor: ActionProcessor::class,
         ),

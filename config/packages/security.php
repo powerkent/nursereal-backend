@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 use Nursery\Infrastructure\Shared\Security\JwtAuthenticator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Config\SecurityConfig;
 
 return function (ContainerConfigurator $container, SecurityConfig $security) {
-
     // Configuration des password hashers
     $security->passwordHasher('Nursery\Domain\Shared\Model\Agent')
         ->algorithm('bcrypt');

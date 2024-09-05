@@ -4,45 +4,39 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
-use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\ProcessorInterface;
 use DateTimeImmutable;
-use Nursery\Application\Shared\Command\CreateAgentCommand;
+use DateTimeInterface;
+use Nursery\Application\Shared\Command\CreateOrUpdateAgentCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
+use Nursery\Domain\Shared\Model\Agent;
+use Nursery\Domain\Shared\Processor\AgentProcessorInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\AgentResource;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\AgentResourceFactory;
-use Ramsey\Uuid\Uuid;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Ramsey\Uuid\UuidInterface;
 
-/**
- * @implements ProcessorInterface<AgentInput, AgentResource>
- */
-final readonly class AgentProcessor implements ProcessorInterface
+final readonly class AgentProcessor implements AgentProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,
-        private AgentResourceFactory $agentResourceFactory,
     ) {
     }
 
     /**
      * @param AgentInput $data
      */
-    public function process($data, Operation $operation, array $uriVariables = [], array $context = []): AgentResource
+    public function process($data, UuidInterface $uuid): Agent
     {
         $primitives = [
-            'uuid' => Uuid::uuid4(),
+            'uuid' => $uuid,
             'firstname' => $data->firstname,
             'lastname' => $data->lastname,
             'email' => $data->email,
+            'createdAt' => new DateTimeImmutable(),
+            'updatedAt' => new DateTimeImmutable(),
             'password' => $data->password,
             'nurseryStructures' => $data->nurseryStructures,
-            'createdAt' => new DateTimeImmutable(),
+            'roles' => $data->roles,
         ];
 
-        $agent = $this->commandBus->dispatch(CreateAgentCommand::create($primitives));
-
-        return $this->agentResourceFactory->fromModel($agent);
+        return $this->commandBus->dispatch(CreateOrUpdateAgentCommand::create($primitives));
     }
 }
