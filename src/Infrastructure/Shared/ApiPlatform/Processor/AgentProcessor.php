@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use DateTimeImmutable;
-use DateTimeInterface;
 use Nursery\Application\Shared\Command\CreateOrUpdateAgentCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Domain\Shared\Model\Agent;

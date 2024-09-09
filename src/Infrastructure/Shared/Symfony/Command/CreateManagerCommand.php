@@ -12,14 +12,11 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand('app:create:manager', 'Create a default manager')]
 class CreateManagerCommand extends Command
 {
-    private SymfonyStyle $io;
-
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
         private AgentRepositoryInterface $agentRepository,

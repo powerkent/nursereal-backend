@@ -6,7 +6,6 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityNotFoundException;
 use Exception;
 use Nursery\Application\Shared\Query\FindAgentByUuidQuery;
@@ -42,7 +41,7 @@ final readonly class AgentPutProcessor implements ProcessorInterface
             throw new EntityNotFoundException(Child::class);
         }
 
-        $agent = $this->agentProcessor->process($data, $uriVariables['uuid'], $agent->getCreatedAt(), new DateTimeImmutable());
+        $agent = $this->agentProcessor->process($data, $uriVariables['uuid']);
 
         return $this->agentResourceFactory->fromModel($agent);
     }

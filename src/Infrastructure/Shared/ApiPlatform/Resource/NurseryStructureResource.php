@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\NurseryStructureInput;
@@ -40,6 +41,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
             denormalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:post:write']],
             security: "is_granted('".Roles::Manager->value."')",
             input: NurseryStructureInput::class,
+            processor: NurseryStructureProcessor::class,
+        ),
+        new Put(
+            normalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:put:read']],
+            denormalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:put:write']],
+            security: "is_granted('".Roles::Manager->value."')",
+            input: NurseryStructureInput::class,
+            provider: NurseryStructureProvider::class,
             processor: NurseryStructureProcessor::class,
         ),
         new Delete(

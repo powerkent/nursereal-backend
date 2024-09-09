@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Security;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
-use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,11 @@ class JwtAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): SelfValidatingPassport
     {
-        $token = str_replace('Bearer ', '', $request->headers->get('Authorization'));
+        if (null === $auth = $request->headers->get('Authorization')) {
+            throw new AuthenticationException('Authorization header missing');
+        }
+
+        $token = str_replace('Bearer ', '', $auth);
 
         try {
             $payload = $this->encoder->decode($token);
@@ -42,12 +46,7 @@ class JwtAuthenticator extends AbstractAuthenticator
         }
     }
 
-    public function createAuthenticatedToken($user, $firewallName): PostAuthenticationToken
-    {
-        return new PostAuthenticationToken($user, $firewallName, $user->getRoles());
-    }
-
-    public function onAuthenticationSuccess(Request $request, $token, $firewallName): ?Response
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         return null; // Allow the request to continue
     }

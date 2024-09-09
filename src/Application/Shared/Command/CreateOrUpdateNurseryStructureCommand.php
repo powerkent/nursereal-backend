@@ -6,7 +6,7 @@ namespace Nursery\Application\Shared\Command;
 
 use Nursery\Domain\Shared\Command\AbstractCreateCommand;
 
-final class CreateNurseryStructureCommand extends AbstractCreateCommand
+final class CreateOrUpdateNurseryStructureCommand extends AbstractCreateCommand
 {
     public static function create(array $primitives): static
     {
