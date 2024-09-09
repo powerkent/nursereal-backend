@@ -22,9 +22,13 @@ final class CustomerInput
         public string $lastname,
         #[Groups(['customer:item'])]
         #[Assert\Email]
+        #[ApiProperty(openapiContext: ['example' => 'parent@example.com'])]
         public ?string $email,
         #[Groups(['customer:item'])]
-        #[Assert\NotBlank(message: 'Customer requires a phone number.')]
+        #[Assert\NotBlank(message: 'Customer requires a password.')]
+        public string $password,
+        #[Groups(['customer:item'])]
+        #[ApiProperty(openapiContext: ['example' => 33770487448])]
         public int $phoneNumber,
         #[Groups(['customer:item'])]
         #[ApiProperty(openapiContext: [

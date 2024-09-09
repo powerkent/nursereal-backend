@@ -16,7 +16,6 @@ use Nursery\Domain\Shared\Serializer\NormalizerInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use function dump;
 
 final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandlerInterface
 {
@@ -39,30 +38,37 @@ final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandler
         if (null !== $agent) {
             $createdAt = $agent->getCreatedAt();
             unset($command->primitives['nurseryStructures'], $command->primitives['createdAt'], $command->primitives['updatedAt']);
-            $agent = $this->normalizer->denormalize($command->primitives, Agent::class, context: ['object_to_populate' => $agent]); ;
+            $agent = $this->normalizer->denormalize($command->primitives, Agent::class, context: ['object_to_populate' => $agent]);
             $agent
                 ->setPassword($this->passwordHasher->hashPassword($agent, $password))
                 ->setCreatedAt($createdAt)
                 ->setUpdatedAt(new DateTimeImmutable());
 
             $this->setNurseryStructure($nurseryStructures, $agent);
+
             return $this->agentRepository->update($agent);
         }
 
-        $agent = (new Agent(...$command->primitives))
+        unset($command->primitives['nurseryStructures']);
+        $agent = new Agent(...$command->primitives);
+        $agent
             ->setPassword($this->passwordHasher->hashPassword($agent, $password))
             ->setCreatedAt(new DateTimeImmutable())
             ->setUpdatedAt(null);
 
         $this->setNurseryStructure($nurseryStructures, $agent);
+
         return $this->agentRepository->update($agent);
     }
 
-    private function setNurseryStructure(?NurseryStructure $nurseryStructures, Agent $agent): void
+    /**
+     * @param list<string> $nurseryStructures
+     */
+    private function setNurseryStructure(array $nurseryStructures, Agent $agent): void
     {
         if (!empty($nurseryStructures)) {
             foreach ($nurseryStructures as $nurseryStructureUuid) {
-                $nurseryStructure = $this->queryBus->ask(new FindNurseryStructureByUuidQuery((string) $nurseryStructureUuid->uuid));
+                $nurseryStructure = $this->queryBus->ask(new FindNurseryStructureByUuidQuery($nurseryStructureUuid));
                 if (null === $nurseryStructure) {
                     throw new EntityNotFoundException(NurseryStructure::class, $nurseryStructureUuid, 'uuid');
                 }

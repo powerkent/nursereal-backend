@@ -80,10 +80,10 @@ final class AgentResource
         #[Groups(['agent:item', 'agent:list'])]
         public DateTimeInterface $createdAt,
         #[Groups(['agent:item', 'agent:list'])]
+        public ?DateTimeInterface $updatedAt = null,
+        #[Groups(['agent:item', 'agent:list'])]
         /** @var list<NurseryStructureView> $nurseryStructures */
         public ?array $nurseryStructures = null,
-        #[Groups(['agent:item', 'agent:list'])]
-        public ?DateTimeInterface $updatedAt = null,
     ) {
     }
 }

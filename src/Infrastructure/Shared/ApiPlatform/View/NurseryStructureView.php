@@ -11,17 +11,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class NurseryStructureView
 {
     public function __construct(
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
         public UuidInterface $uuid,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
         public string $name,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
         public string $address,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
         public DateTimeInterface $createdAt,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
         public ?DateTimeInterface $updatedAt,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
         public ?DateTimeInterface $startAt,
     ) {
     }
