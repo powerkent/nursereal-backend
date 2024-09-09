@@ -20,7 +20,7 @@ final readonly class FindTreatmentByChildrenQueryHandler implements QueryHandler
     public function __invoke(FindTreatmentByChildrenQuery $query): ?array
     {
         if (empty($query->filters['childrenIds'])) {
-            return $this->treatmentRepository->searchByFilter();
+            return $this->treatmentRepository->all();
         }
 
         return $this->treatmentRepository->searchByFilter($query->filters['childrenIds']);

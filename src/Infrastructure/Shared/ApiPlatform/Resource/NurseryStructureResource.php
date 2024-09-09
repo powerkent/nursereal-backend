@@ -10,9 +10,9 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
-use Nursery\Infrastructure\Shared\ApiPlatform\Input\NurseryStructureInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructureDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructureProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructureCollectionProvider;
@@ -39,7 +39,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
             normalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:post:read']],
             denormalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:post:write']],
             security: "is_granted('".Roles::Manager->value."')",
-            input: NurseryStructureInput::class,
+            processor: NurseryStructureProcessor::class,
+        ),
+        new Put(
+            normalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:put:read']],
+            denormalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:put:write']],
+            security: "is_granted('".Roles::Manager->value."')",
+            provider: NurseryStructureProvider::class,
             processor: NurseryStructureProcessor::class,
         ),
         new Delete(
@@ -56,19 +62,24 @@ final class NurseryStructureResource
      * @param list<AgentView>|null $agents
      */
     public function __construct(
-        #[ApiProperty(identifier: true)]
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public UuidInterface $uuid,
+
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public string $name,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public string $address,
+        #[ApiProperty(identifier: true)]
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public DateTimeInterface $createdAt,
+        public ?UuidInterface $uuid = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?DateTimeInterface $updatedAt,
+        public ?DateTimeInterface $createdAt = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?DateTimeInterface $startAt,
+        public ?DateTimeInterface $updatedAt = null,
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        public ?DateTimeInterface $openingHour = null ,
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        public ?DateTimeInterface $closingHour = null,
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        public ?array $openingDays = null,
         #[Groups(['nurseryStructure:item'])]
         /** @var list<AgentView>|null $agents */
         public ?array $agents = null,

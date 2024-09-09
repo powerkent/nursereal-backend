@@ -15,11 +15,15 @@
 
         <field name="address" />
 
+        <field name="openingHour" type="time"  />
+
+        <field name="closingHour" type="time"  />
+
+        <field name="openingDays" type="json" />
+
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
-
-        <field name="startAt" type="datetime" nullable="true" />
 
         <many-to-many field="agents" target-entity="Nursery\Domain\Shared\Model\Agent" inversed-by="nurseryStructures">
             <join-table name="nursery_structure_agent">

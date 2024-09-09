@@ -36,6 +36,8 @@ parameters:
               - { type: className, regex: ^Doctrine\\(?!(Common\\Collections)|(Common\\Util)) }
               - { type: className, regex: ^PHPStan\\ }
               - { type: className, regex: ^PhpParser\\ }
+              - { type: className, regex: ^Lexik\\Bundle\\JWTAuthenticationBundle\\Encoder\\JWTEncoderInterface$ }
+              - { type: className, regex: ^Lexik\\Bundle\\JWTAuthenticationBundle\\Event\\JWTCreatedEvent$ }
 
         - name: Helpers
           collectors:

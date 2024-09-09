@@ -29,6 +29,7 @@ parameters:
               - { type: className, regex: ^Webmozart\\ }
               - { type: className, regex: ^PHPStan\\ }
               - { type: className, regex: ^PhpParser\\ }
+              - { type: className, regex: ^Lexik\\ }
 
     ruleset:
         Nursery: [ Shared, Vendors ]

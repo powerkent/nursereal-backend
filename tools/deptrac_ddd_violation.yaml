@@ -8,3 +8,7 @@ parameters:
             - Doctrine\ORM\Mapping
         Nursery\Domain\Shared\Model\Customer:
             - Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
+        Nursery\Application\Shared\Command\CreateOrUpdateAgentCommandHandler:
+            - Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface
+        Nursery\Application\Shared\Command\CreateOrUpdateCustomerCommandHandler:
+            - Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface

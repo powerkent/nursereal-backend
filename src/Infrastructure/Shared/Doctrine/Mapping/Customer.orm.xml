@@ -17,7 +17,9 @@
 
         <field name="email" type="text" length="65535" nullable="true" />
 
-        <field name="phoneNumber" type="integer" />
+        <field name="password" length="320" />
+
+        <field name="phoneNumber" type="bigint" />
 
         <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child" fetch="LAZY" inversed-by="customers" orphan-removal="false">
             <join-table name="customer_child">
