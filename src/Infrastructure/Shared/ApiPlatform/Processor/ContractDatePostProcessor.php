@@ -46,12 +46,12 @@ final class ContractDatePostProcessor implements ProcessorInterface
         if (!is_string($child = $query->get('child'))) {
             throw new MissingQueryStringPropertyException(Child::class, 'child');
         }
-        $childId = (int) explode(':', $child)[0];
+        $childUuid = explode(':', $child)[0];
 
-        $child = $this->queryBus->ask(new FindChildByUuidOrIdQuery(id: $childId));
+        $child = $this->queryBus->ask(new FindChildByUuidOrIdQuery(uuid: $childUuid));
 
         if (null === $child) {
-            throw new EntityNotFoundException(Child::class, $childId);
+            throw new EntityNotFoundException(Child::class, $childUuid);
         }
 
         $contractDates = array_map(function (ContractDatePayload $contractDatePayload) use ($child) {
@@ -61,6 +61,9 @@ final class ContractDatePostProcessor implements ProcessorInterface
                 child: $child,
             );
         }, $data->contractDates);
+
+
+        $child->setContractDates($contractDates);
 
         $child = $this->commandBus->dispatch(new PersistChildCommand($child));
 

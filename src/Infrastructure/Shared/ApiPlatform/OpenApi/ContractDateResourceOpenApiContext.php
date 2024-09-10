@@ -22,7 +22,7 @@ final readonly class ContractDateResourceOpenApiContext implements OpenApiContex
         $children = $this->childRepository->all();
         $childrenValues = [];
         foreach ($children as $child) {
-            $childrenValues[] = sprintf('%d: %s %s', $child->getId(), $child->getFirstname(), $child->getLastname());
+            $childrenValues[] = sprintf('%s: %s %s', $child->getUuid(), $child->getFirstname(), $child->getLastname());
         }
 
         return [

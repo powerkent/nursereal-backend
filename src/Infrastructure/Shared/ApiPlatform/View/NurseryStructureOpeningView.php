@@ -10,11 +10,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class NurseryStructureOpeningView
 {
     public function __construct(
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list', 'child:item', 'child:list'])]
         public string $openingHour,
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list', 'child:item', 'child:list'])]
         public string $closingHour,
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list', 'child:item', 'child:list'])]
         public OpeningDays $openingDay,
     ) {
     }
