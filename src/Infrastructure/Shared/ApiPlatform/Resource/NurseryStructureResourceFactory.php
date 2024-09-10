@@ -9,11 +9,14 @@ use Nursery\Application\Shared\Query\FindChildrenByNurseryStructureQuery;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\NurseryStructure;
+use Nursery\Domain\Shared\Model\NurseryStructureOpening;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\AgentView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\AgentViewFactory;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\ChildView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\ChildViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructureOpeningView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructureOpeningViewFactory;
 use function array_map;
 
 final readonly class NurseryStructureResourceFactory
@@ -22,6 +25,7 @@ final readonly class NurseryStructureResourceFactory
         private QueryBusInterface $queryBus,
         private ChildViewFactory $childViewFactory,
         private AgentViewFactory $agentViewFactory,
+        private NurseryStructureOpeningViewFactory $nurseryStructureOpeningViewFactory,
     ) {
     }
 
@@ -36,9 +40,7 @@ final readonly class NurseryStructureResourceFactory
             address: $nurseryStructure->getAddress(),
             createdAt: $nurseryStructure->getCreatedAt(),
             updatedAt: $nurseryStructure->getUpdatedAt(),
-            openingHour: $nurseryStructure->getOpeningHour(),
-            closingHour: $nurseryStructure->getClosingHour(),
-            openingDays: $nurseryStructure->getOpeningDays(),
+            openings: array_map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening), $nurseryStructure->getNurseryStructureOpenings()->toArray()),
             agents: array_map(fn (Agent $agent): AgentView => $this->agentViewFactory->fromModel($agent), $agents),
             children: array_map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child), $children),
         );

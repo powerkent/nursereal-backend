@@ -13,12 +13,14 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
+use Nursery\Infrastructure\Shared\ApiPlatform\Input\NurseryStructureInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructureDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructureProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructureCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructureProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\AgentView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\ChildView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructureOpeningView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -39,12 +41,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
             normalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:post:read']],
             denormalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:post:write']],
             security: "is_granted('".Roles::Manager->value."')",
+            input: NurseryStructureInput::class,
             processor: NurseryStructureProcessor::class,
         ),
         new Put(
             normalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:put:read']],
             denormalizationContext: ['groups' => ['nurseryStructure:item', 'nurseryStructure:put:write']],
             security: "is_granted('".Roles::Manager->value."')",
+            input: NurseryStructureInput::class,
             provider: NurseryStructureProvider::class,
             processor: NurseryStructureProcessor::class,
         ),
@@ -58,28 +62,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class NurseryStructureResource
 {
     /**
-     * @param list<ChildView>|null $children
-     * @param list<AgentView>|null $agents
+     * @param list<NurseryStructureOpeningView>|null $openings
+     * @param list<AgentView>|null                   $agents
+     * @param list<ChildView>|null                   $children
      */
     public function __construct(
-
+        #[ApiProperty(identifier: true)]
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        public UuidInterface $uuid,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public string $name,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public string $address,
-        #[ApiProperty(identifier: true)]
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?UuidInterface $uuid = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?DateTimeInterface $createdAt = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?DateTimeInterface $updatedAt = null,
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?DateTimeInterface $openingHour = null ,
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?DateTimeInterface $closingHour = null,
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?array $openingDays = null,
+        #[Groups(['nurseryStructure:item'])]
+        /** @var list<NurseryStructureOpeningView>|null $openings */
+        public ?array $openings = null,
         #[Groups(['nurseryStructure:item'])]
         /** @var list<AgentView>|null $agents */
         public ?array $agents = null,

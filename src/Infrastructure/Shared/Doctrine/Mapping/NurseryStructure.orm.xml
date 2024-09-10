@@ -15,15 +15,16 @@
 
         <field name="address" />
 
-        <field name="openingHour" type="time"  />
-
-        <field name="closingHour" type="time"  />
-
-        <field name="openingDays" type="json" />
-
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
+
+        <one-to-many field="openings" target-entity="Nursery\Domain\Shared\Model\NurseryStructureOpening" mapped-by="nurseryStructure" orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
 
         <many-to-many field="agents" target-entity="Nursery\Domain\Shared\Model\Agent" inversed-by="nurseryStructures">
             <join-table name="nursery_structure_agent">

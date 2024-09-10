@@ -7,7 +7,6 @@ namespace Nursery\Domain\Shared\Model;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Nursery\Domain\Shared\Enum\OpeningDays;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
 
@@ -18,25 +17,27 @@ class NurseryStructure
     /** @var Collection<int, Agent> */
     protected Collection $agents;
 
+    /** @var Collection<int, NurseryStructureOpening> */
+    protected Collection $openings;
+
     /**
-     * @param array<int, Agent>|Collection<int, Agent> $agents
-     * @param list<OpeningDays>                        $openingDays
+     * @param array<int, Agent>|Collection<int, Agent>                                     $agents
+     * @param array<int, NurseryStructureOpening>|Collection<int, NurseryStructureOpening> $openings
      */
     public function __construct(
         protected UuidInterface $uuid,
         protected string $name,
         protected string $address,
-        protected DateTimeInterface $openingHour,
-        protected DateTimeInterface $closingHour,
-        protected array $openingDays,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?DateTimeInterface $startAt = null,
+        array|Collection $openings = [],
         array|Collection $agents = [],
     ) {
         Assert::stringNotEmpty($this->name);
         Assert::stringNotEmpty($this->address);
 
+        $this->openings = is_array($openings) ? new ArrayCollection($openings) : $openings;
         $this->agents = is_array($agents) ? new ArrayCollection($agents) : $agents;
     }
 
@@ -81,48 +82,6 @@ class NurseryStructure
         return $this;
     }
 
-    public function getOpeningHour(): DateTimeInterface
-    {
-        return $this->openingHour;
-    }
-
-    public function setOpeningHour(DateTimeInterface $openingHour): self
-    {
-        $this->openingHour = $openingHour;
-
-        return $this;
-    }
-
-    public function getClosingHour(): DateTimeInterface
-    {
-        return $this->closingHour;
-    }
-
-    public function setClosingHour(DateTimeInterface $closingHour): self
-    {
-        $this->closingHour = $closingHour;
-
-        return $this;
-    }
-
-    /**
-     * @return list<OpeningDays>
-     */
-    public function getOpeningDays(): array
-    {
-        return $this->openingDays;
-    }
-
-    /**
-     * @param list<OpeningDays> $openingDays
-     */
-    public function setOpeningDays(array $openingDays): self
-    {
-        $this->openingDays = $openingDays;
-
-        return $this;
-    }
-
     public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
@@ -143,18 +102,6 @@ class NurseryStructure
     public function setUpdatedAt(?DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getStartAt(): ?DateTimeInterface
-    {
-        return $this->startAt;
-    }
-
-    public function setStartAt(?DateTimeInterface $startAt): self
-    {
-        $this->startAt = $startAt;
 
         return $this;
     }
@@ -190,6 +137,42 @@ class NurseryStructure
     {
         if ($this->agents->contains($agent)) {
             $this->agents->removeElement($agent);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, NurseryStructureOpening>
+     */
+    public function getNurseryStructureOpenings(): Collection
+    {
+        return $this->openings;
+    }
+
+    /**
+     * @param array<int, NurseryStructureOpening>|Collection<int, NurseryStructureOpening> $openings
+     */
+    public function setNurseryStructureOpenings(Collection|array $openings): self
+    {
+        $this->openings = $openings instanceof Collection ? $openings : new ArrayCollection($openings);
+
+        return $this;
+    }
+
+    public function addNurseryStructureOpening(NurseryStructureOpening $nurseryStructureOpening): self
+    {
+        if (!$this->openings->contains($nurseryStructureOpening)) {
+            $this->openings->add($nurseryStructureOpening);
+        }
+
+        return $this;
+    }
+
+    public function removeNurseryStructureOpening(NurseryStructureOpening $nurseryStructureOpening): self
+    {
+        if ($this->openings->contains($nurseryStructureOpening)) {
+            $this->openings->removeElement($nurseryStructureOpening);
         }
 
         return $this;
