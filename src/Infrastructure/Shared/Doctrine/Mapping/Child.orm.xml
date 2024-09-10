@@ -17,12 +17,12 @@
 
         <field name="birthday" type="datetime" />
 
-        <one-to-one field="nurseryStructure" target-entity="Nursery\Domain\Shared\Model\NurseryStructure" orphan-removal="true">
+        <many-to-one field="nurseryStructure" target-entity="Nursery\Domain\Shared\Model\NurseryStructure">
             <join-column name="nursery_structure_id" />
             <cascade>
                 <cascade-persist />
             </cascade>
-        </one-to-one>
+        </many-to-one>
 
         <field name="createdAt" type="datetime" />
 

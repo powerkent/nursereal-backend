@@ -35,9 +35,9 @@ final class ContractDateProvider extends AbstractProvider
             throw new MissingQueryStringPropertyException(Child::class, 'child');
         }
 
-        $childId = (int) explode(':', $child)[0];
+        $childUuid = explode(':', $child)[0];
 
-        return $this->queryBus->ask(new FindChildByUuidOrIdQuery(id: $childId));
+        return $this->queryBus->ask(new FindChildByUuidOrIdQuery(uuid: $childUuid));
     }
 
     /**

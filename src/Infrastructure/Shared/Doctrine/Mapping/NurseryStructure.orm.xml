@@ -19,7 +19,12 @@
 
         <field name="updatedAt" type="datetime" nullable="true" />
 
-        <field name="startAt" type="datetime" nullable="true" />
+        <one-to-many field="openings" target-entity="Nursery\Domain\Shared\Model\NurseryStructureOpening" mapped-by="nurseryStructure" orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
 
         <many-to-many field="agents" target-entity="Nursery\Domain\Shared\Model\Agent" inversed-by="nurseryStructures">
             <join-table name="nursery_structure_agent">
