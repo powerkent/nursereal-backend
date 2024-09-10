@@ -7,6 +7,7 @@ namespace Nursery\Domain\Shared\Model;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Shared\Enum\OpeningDays;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
 
@@ -19,11 +20,15 @@ class NurseryStructure
 
     /**
      * @param array<int, Agent>|Collection<int, Agent> $agents
+     * @param list<OpeningDays>                        $openingDays
      */
     public function __construct(
         protected UuidInterface $uuid,
         protected string $name,
         protected string $address,
+        protected DateTimeInterface $openingHour,
+        protected DateTimeInterface $closingHour,
+        protected array $openingDays,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?DateTimeInterface $startAt = null,
@@ -72,6 +77,48 @@ class NurseryStructure
     public function setAddress(string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getOpeningHour(): DateTimeInterface
+    {
+        return $this->openingHour;
+    }
+
+    public function setOpeningHour(DateTimeInterface $openingHour): self
+    {
+        $this->openingHour = $openingHour;
+
+        return $this;
+    }
+
+    public function getClosingHour(): DateTimeInterface
+    {
+        return $this->closingHour;
+    }
+
+    public function setClosingHour(DateTimeInterface $closingHour): self
+    {
+        $this->closingHour = $closingHour;
+
+        return $this;
+    }
+
+    /**
+     * @return list<OpeningDays>
+     */
+    public function getOpeningDays(): array
+    {
+        return $this->openingDays;
+    }
+
+    /**
+     * @param list<OpeningDays> $openingDays
+     */
+    public function setOpeningDays(array $openingDays): self
+    {
+        $this->openingDays = $openingDays;
 
         return $this;
     }

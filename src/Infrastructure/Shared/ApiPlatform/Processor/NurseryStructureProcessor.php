@@ -8,15 +8,16 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use Nursery\Application\Shared\Command\CreateOrUpdateNurseryStructureCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
-use Nursery\Infrastructure\Shared\ApiPlatform\Input\NurseryStructureInput;
+use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\NurseryStructureOpenApiContext;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructureResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructureResourceFactory;
 use Ramsey\Uuid\Uuid;
+use function dump;
 
 /**
- * @implements ProcessorInterface<NurseryStructureInput, NurseryStructureResource>
+ * @implements ProcessorInterface<NurseryStructureOpenApiContext, NurseryStructureResource>
  */
-final class NurseryStructureProcessor implements ProcessorInterface
+final readonly class NurseryStructureProcessor implements ProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,
@@ -24,16 +25,15 @@ final class NurseryStructureProcessor implements ProcessorInterface
     ) {
     }
 
-    /**
-     * @param NurseryStructureInput $data
-     */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): NurseryStructureResource
     {
         $primitives = [
             'uuid' => $uriVariables['uuid'] ?? Uuid::uuid4(),
             'name' => $data->name,
             'address' => $data->address,
-            'startAt' => $data->startAt,
+            'openingHour' => $data->openingHour,
+            'closingHour' => $data->closingHour,
+            'openingDays' => $data->openingDays,
         ];
 
         $activity = $this->commandBus->dispatch(CreateOrUpdateNurseryStructureCommand::create($primitives));

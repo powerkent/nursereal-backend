@@ -36,7 +36,9 @@ final readonly class NurseryStructureResourceFactory
             address: $nurseryStructure->getAddress(),
             createdAt: $nurseryStructure->getCreatedAt(),
             updatedAt: $nurseryStructure->getUpdatedAt(),
-            startAt: $nurseryStructure->getStartAt(),
+            openingHour: $nurseryStructure->getOpeningHour(),
+            closingHour: $nurseryStructure->getClosingHour(),
+            openingDays: $nurseryStructure->getOpeningDays(),
             agents: array_map(fn (Agent $agent): AgentView => $this->agentViewFactory->fromModel($agent), $agents),
             children: array_map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child), $children),
         );
