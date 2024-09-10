@@ -6,8 +6,10 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use DateTimeImmutable;
 use Nursery\Application\Shared\Command\CreateOrUpdateNurseryStructureCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
+use Nursery\Domain\Shared\Enum\OpeningDays;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\NurseryStructureInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructureResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructureResourceFactory;
@@ -16,7 +18,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @implements ProcessorInterface<NurseryStructureInput, NurseryStructureResource>
  */
-final class NurseryStructureProcessor implements ProcessorInterface
+final readonly class NurseryStructureProcessor implements ProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,
@@ -33,11 +35,17 @@ final class NurseryStructureProcessor implements ProcessorInterface
             'uuid' => $uriVariables['uuid'] ?? Uuid::uuid4(),
             'name' => $data->name,
             'address' => $data->address,
-            'startAt' => $data->startAt,
         ];
+        foreach ($data->openings as $opening) {
+            $primitives['openings'][] = [
+                'openingHour' => new DateTimeImmutable($opening->openingHour),
+                'closingHour' => new DateTimeImmutable($opening->closingHour),
+                'openingDay' => OpeningDays::from($opening->openingDay),
+            ];
+        }
 
-        $activity = $this->commandBus->dispatch(CreateOrUpdateNurseryStructureCommand::create($primitives));
+        $nurseryStructure = $this->commandBus->dispatch(CreateOrUpdateNurseryStructureCommand::create($primitives));
 
-        return $this->nurseryStructureResourceFactory->fromModel($activity);
+        return $this->nurseryStructureResourceFactory->fromModel($nurseryStructure);
     }
 }

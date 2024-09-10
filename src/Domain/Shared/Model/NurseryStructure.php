@@ -17,8 +17,12 @@ class NurseryStructure
     /** @var Collection<int, Agent> */
     protected Collection $agents;
 
+    /** @var Collection<int, NurseryStructureOpening> */
+    protected Collection $openings;
+
     /**
-     * @param array<int, Agent>|Collection<int, Agent> $agents
+     * @param array<int, Agent>|Collection<int, Agent>                                     $agents
+     * @param array<int, NurseryStructureOpening>|Collection<int, NurseryStructureOpening> $openings
      */
     public function __construct(
         protected UuidInterface $uuid,
@@ -27,11 +31,13 @@ class NurseryStructure
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?DateTimeInterface $startAt = null,
+        array|Collection $openings = [],
         array|Collection $agents = [],
     ) {
         Assert::stringNotEmpty($this->name);
         Assert::stringNotEmpty($this->address);
 
+        $this->openings = is_array($openings) ? new ArrayCollection($openings) : $openings;
         $this->agents = is_array($agents) ? new ArrayCollection($agents) : $agents;
     }
 
@@ -100,18 +106,6 @@ class NurseryStructure
         return $this;
     }
 
-    public function getStartAt(): ?DateTimeInterface
-    {
-        return $this->startAt;
-    }
-
-    public function setStartAt(?DateTimeInterface $startAt): self
-    {
-        $this->startAt = $startAt;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Agent>
      */
@@ -143,6 +137,42 @@ class NurseryStructure
     {
         if ($this->agents->contains($agent)) {
             $this->agents->removeElement($agent);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, NurseryStructureOpening>
+     */
+    public function getNurseryStructureOpenings(): Collection
+    {
+        return $this->openings;
+    }
+
+    /**
+     * @param array<int, NurseryStructureOpening>|Collection<int, NurseryStructureOpening> $openings
+     */
+    public function setNurseryStructureOpenings(Collection|array $openings): self
+    {
+        $this->openings = $openings instanceof Collection ? $openings : new ArrayCollection($openings);
+
+        return $this;
+    }
+
+    public function addNurseryStructureOpening(NurseryStructureOpening $nurseryStructureOpening): self
+    {
+        if (!$this->openings->contains($nurseryStructureOpening)) {
+            $this->openings->add($nurseryStructureOpening);
+        }
+
+        return $this;
+    }
+
+    public function removeNurseryStructureOpening(NurseryStructureOpening $nurseryStructureOpening): self
+    {
+        if ($this->openings->contains($nurseryStructureOpening)) {
+            $this->openings->removeElement($nurseryStructureOpening);
         }
 
         return $this;

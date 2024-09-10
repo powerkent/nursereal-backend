@@ -16,7 +16,6 @@ final class NurseryStructureViewFactory
             address: $nurseryStructure->getAddress(),
             createdAt: $nurseryStructure->getCreatedAt(),
             updatedAt: $nurseryStructure->getUpdatedAt(),
-            startAt: $nurseryStructure->getStartAt(),
         );
     }
 }
