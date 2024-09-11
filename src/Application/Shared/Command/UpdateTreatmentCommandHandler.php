@@ -31,7 +31,7 @@ final readonly class UpdateTreatmentCommandHandler implements CommandHandlerInte
         }
 
         $child = $this->queryBus->ask(new FindChildByUuidOrIdQuery($treatment->getChild()->getUuid()));
-        $this->commandBus->dispatch(new DeleteTreatmentByUuidQuery($treatment->getUuid()));
+        $this->commandBus->dispatch(new DeleteTreatmentByUuidCommand($treatment->getUuid()));
 
         $command->primitives['child'] = $child;
 

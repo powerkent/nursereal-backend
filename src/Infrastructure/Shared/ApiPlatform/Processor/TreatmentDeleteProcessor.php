@@ -6,7 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Nursery\Application\Shared\Command\DeleteTreatmentByUuidQuery;
+use Nursery\Application\Shared\Command\DeleteTreatmentByUuidCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 
 /**
@@ -21,6 +21,6 @@ final readonly class TreatmentDeleteProcessor implements ProcessorInterface
 
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): bool
     {
-        return $this->commandBus->dispatch(new DeleteTreatmentByUuidQuery($uriVariables['uuid']));
+        return $this->commandBus->dispatch(new DeleteTreatmentByUuidCommand($uriVariables['uuid']));
     }
 }

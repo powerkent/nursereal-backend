@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use ApiPlatform\Exception\InvalidArgumentException;
 use Nursery\Domain\Shared\Exception\ContractDateShouldHaveSameDayDateException;
+use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Exception\MissingPropertyException;
 use Nursery\Domain\Shared\Exception\OnlyOneChildPerContractCalendarException;
 use Nursery\Domain\Shared\Exception\SeveralChildrenOnSameTreatmentException;
@@ -38,6 +39,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ],
         'exception_to_status' => [
+            EntityNotFoundException::class => 400,
             InvalidArgumentException::class => 400,
             ExtraAttributesException::class => 400,
             MissingConstructorArgumentsException::class => 400,

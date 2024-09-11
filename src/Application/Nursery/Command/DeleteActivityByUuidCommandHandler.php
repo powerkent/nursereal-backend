@@ -12,14 +12,14 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use function is_string;
 
-final readonly class DeleteActivityByUuidQueryHandler implements CommandHandlerInterface
+final readonly class DeleteActivityByUuidCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private ActivityRepositoryInterface $activityRepository,
     ) {
     }
 
-    public function __invoke(DeleteActivityByUuidQuery $command): bool
+    public function __invoke(DeleteActivityByUuidCommand $command): bool
     {
         $activity = $this->activityRepository->searchByUuid(is_string($command->uuid) ? Uuid::fromString($command->uuid) : $command->uuid);
 

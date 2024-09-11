@@ -8,7 +8,7 @@ use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
 use Nursery\Domain\Shared\Repository\ContractDateRepositoryInterface;
 
-final readonly class DeleteContractDateByIdsQueryHandler implements CommandHandlerInterface
+final readonly class DeleteContractDateByIdsCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private ChildRepositoryInterface $childRepository,
@@ -16,7 +16,7 @@ final readonly class DeleteContractDateByIdsQueryHandler implements CommandHandl
     ) {
     }
 
-    public function __invoke(DeleteContractDateByIdsQuery $command): bool
+    public function __invoke(DeleteContractDateByIdsCommand $command): bool
     {
         $child = $command->contract->getChild();
 

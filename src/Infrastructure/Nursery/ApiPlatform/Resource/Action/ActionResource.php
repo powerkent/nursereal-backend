@@ -57,6 +57,7 @@ final class ActionResource
         #[ApiProperty(identifier: true)]
         #[Groups(['action:item', 'action:list'])]
         public UuidInterface $uuid,
+        #[ApiProperty(identifier: false)]
         #[Groups(['action:item', 'action:list'])]
         public ?int $id,
         #[Groups(['action:item', 'action:list'])]

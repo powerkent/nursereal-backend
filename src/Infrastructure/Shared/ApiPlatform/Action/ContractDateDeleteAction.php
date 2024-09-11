@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Action;
 
-use Nursery\Application\Shared\Command\DeleteContractDateByIdsQuery;
+use Nursery\Application\Shared\Command\DeleteContractDateByIdsCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
-use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Exception\MissingPropertyException;
-use Nursery\Domain\Shared\Model\ContractDate;
 use Nursery\Domain\Shared\Repository\ContractDateRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -32,10 +30,10 @@ final readonly class ContractDateDeleteAction
             $contract = $this->contractDateRepository->search($contactDateId);
 
             if (null === $contract) {
-                throw new EntityNotFoundException(ContractDate::class, $contactDateId, 'id');
+                continue;
             }
 
-            $this->commandBus->dispatch(new DeleteContractDateByIdsQuery($contract));
+            $this->commandBus->dispatch(new DeleteContractDateByIdsCommand($contract));
         }
     }
 }

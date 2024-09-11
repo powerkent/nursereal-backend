@@ -69,6 +69,9 @@ final class ChildResource
         #[ApiProperty(identifier: true)]
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public UuidInterface $uuid,
+        #[ApiProperty(identifier: false)]
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public ?int $id,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public string $firstname,
         #[Groups(['child:item', 'child:list', 'customer:item'])]

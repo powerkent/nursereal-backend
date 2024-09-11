@@ -6,7 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Nursery\Application\Shared\Command\DeleteNurseryStructureByUuidQuery;
+use Nursery\Application\Shared\Command\DeleteNurseryStructureByUuidCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 
 /**
@@ -21,6 +21,6 @@ final readonly class NurseryStructureDeleteProcessor implements ProcessorInterfa
 
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): bool
     {
-        return $this->commandBus->dispatch(new DeleteNurseryStructureByUuidQuery($uriVariables['uuid']));
+        return $this->commandBus->dispatch(new DeleteNurseryStructureByUuidCommand($uriVariables['uuid']));
     }
 }

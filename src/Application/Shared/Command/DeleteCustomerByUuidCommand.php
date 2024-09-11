@@ -7,7 +7,7 @@ namespace Nursery\Application\Shared\Command;
 use Nursery\Domain\Shared\Command\CommandInterface;
 use Ramsey\Uuid\UuidInterface;
 
-final readonly class DeleteCustomerByUuidQuery implements CommandInterface
+final readonly class DeleteCustomerByUuidCommand implements CommandInterface
 {
     public function __construct(public UuidInterface|string $uuid)
     {
