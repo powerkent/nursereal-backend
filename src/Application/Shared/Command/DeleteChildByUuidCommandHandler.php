@@ -6,27 +6,27 @@ namespace Nursery\Application\Shared\Command;
 
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Model\Child;
-use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
+use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final readonly class DeleteAgentByUuidQueryHandler implements CommandHandlerInterface
+final readonly class DeleteChildByUuidCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private AgentRepositoryInterface $agentRepository,
+        private ChildRepositoryInterface $childRepository,
     ) {
     }
 
-    public function __invoke(DeleteAgentByUuidQuery $command): bool
+    public function __invoke(DeleteChildByUuidCommand $command): bool
     {
-        $agent = $this->agentRepository->searchByUuid(is_string($command->uuid) ? Uuid::fromString($command->uuid) : $command->uuid);
+        $child = $this->childRepository->searchByUuid(is_string($command->uuid) ? Uuid::fromString($command->uuid) : $command->uuid);
 
-        if (null === $agent) {
+        if (null === $child) {
             throw new EntityNotFoundException(Child::class, 'uuid', !$command->uuid instanceof UuidInterface ? $command->uuid : $command->uuid->toString());
         }
 
-        $this->agentRepository->delete($agent);
+        $this->childRepository->delete($child);
 
         return true;
     }

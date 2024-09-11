@@ -36,6 +36,7 @@ final readonly class NurseryStructureResourceFactory
 
         return new NurseryStructureResource(
             uuid: $nurseryStructure->getUuid(),
+            id: $nurseryStructure->getId(),
             name: $nurseryStructure->getName(),
             address: $nurseryStructure->getAddress(),
             createdAt: $nurseryStructure->getCreatedAt(),

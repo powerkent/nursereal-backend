@@ -6,50 +6,30 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\OpenApi;
 
 use ApiPlatform\OpenApi\Model\RequestBody;
 use ArrayObject;
-use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
 
 /**
  * @codeCoverageIgnore
  */
 final readonly class ContractDateResourceOpenApiContext implements OpenApiContextInterface
 {
-    public function __construct(private ChildRepositoryInterface $childRepository)
-    {
-    }
-
     public function operations(): array
     {
-        $children = $this->childRepository->all();
-        $childrenValues = [];
-        foreach ($children as $child) {
-            $childrenValues[] = sprintf('%s: %s %s', $child->getUuid(), $child->getFirstname(), $child->getLastname());
-        }
-
         return [
             'GET /api/contract_dates' => [
                 'parameters' => [
                     [
-                        'name' => 'child',
+                        'name' => 'nurseryStructureId',
                         'in' => 'query',
-                        'required' => true,
-                        'schema' => ['type' => 'array', 'items' => ['type' => 'string', 'enum' => $childrenValues]],
+                        'schema' => ['type' => 'integer'],
                     ],
-                ],
-            ],
-            'POST /api/contract_dates' => [
-                'parameters' => [
                     [
-                        'name' => 'child',
+                        'name' => 'childId',
                         'in' => 'query',
-                        'required' => true,
-                        'schema' => ['type' => 'array', 'items' => ['type' => 'string', 'enum' => $childrenValues]],
+                        'schema' => ['type' => 'integer'],
                     ],
                 ],
             ],
             'DELETE /api/contract_dates' => [
-                'operation_id' => 'delete_contract_dates',
-                'summary' => 'Delete contract date for a child',
-                'description' => 'Delete contract date for a child',
                 'requestBody'  => new RequestBody(
                     content: new ArrayObject([
                         'application/ld+json' => [

@@ -28,6 +28,7 @@ final readonly class ChildResourceFactory
     {
         return new ChildResource(
             uuid: $child->getUuid(),
+            id: $child->getId(),
             firstname: $child->getFirstname(),
             lastname: $child->getLastname(),
             birthday: $child->getBirthday(),

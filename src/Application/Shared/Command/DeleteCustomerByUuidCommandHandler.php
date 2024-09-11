@@ -11,14 +11,14 @@ use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final readonly class DeleteCustomerByUuidQueryHandler implements CommandHandlerInterface
+final readonly class DeleteCustomerByUuidCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private CustomerRepositoryInterface $customerRepository,
     ) {
     }
 
-    public function __invoke(DeleteCustomerByUuidQuery $command): bool
+    public function __invoke(DeleteCustomerByUuidCommand $command): bool
     {
         $customer = $this->customerRepository->searchByUuid(is_string($command->uuid) ? Uuid::fromString($command->uuid) : $command->uuid);
 

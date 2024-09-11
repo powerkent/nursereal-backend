@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class NurseryStructureView
 {
     /**
-     * @param list<NurseryStructureOpeningView> $opening
+     * @param list<NurseryStructureOpeningView>|null $opening
      */
     public function __construct(
         #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
@@ -23,8 +23,10 @@ class NurseryStructureView
         #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
         public DateTimeInterface $createdAt,
         #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
-        /** @var list<NurseryStructureOpeningView> $opening */
-        public array $opening,
+        public ?DateTimeInterface $updatedAt = null,
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
+        /** @var list<NurseryStructureOpeningView>|null $opening */
+        public ?array $opening = null,
     ) {
     }
 }

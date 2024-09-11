@@ -12,14 +12,14 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use function is_string;
 
-final readonly class DeleteTreatmentByUuidQueryHandler implements CommandHandlerInterface
+final readonly class DeleteTreatmentByUuidCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private TreatmentRepositoryInterface $treatmentRepository,
     ) {
     }
 
-    public function __invoke(DeleteTreatmentByUuidQuery $command): bool
+    public function __invoke(DeleteTreatmentByUuidCommand $command): bool
     {
         $treatment = $this->treatmentRepository->searchByUuid(is_string($command->uuid) ? Uuid::fromString($command->uuid) : $command->uuid);
 

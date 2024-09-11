@@ -11,14 +11,14 @@ use Nursery\Domain\Shared\Repository\NurseryStructureRepositoryInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final readonly class DeleteNurseryStructureByUuidQueryHandler implements CommandHandlerInterface
+final readonly class DeleteNurseryStructureByUuidCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private NurseryStructureRepositoryInterface $nurseryStructureRepository,
     ) {
     }
 
-    public function __invoke(DeleteNurseryStructureByUuidQuery $command): bool
+    public function __invoke(DeleteNurseryStructureByUuidCommand $command): bool
     {
         $nurseryStructure = $this->nurseryStructureRepository->searchByUuid(is_string($command->uuid) ? Uuid::fromString($command->uuid) : $command->uuid);
 

@@ -71,6 +71,9 @@ final class NurseryStructureResource
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public UuidInterface $uuid,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        #[ApiProperty(identifier: false)]
+        public ?int $id,
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public string $name,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public string $address,
