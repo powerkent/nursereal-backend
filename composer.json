@@ -78,7 +78,8 @@
         "symfony/stopwatch": "^7.1",
         "symfony/var-dumper": "^7.1",
         "symfony/web-profiler-bundle": "^7.1",
-        "symplify/config-transformer": "*"
+        "symplify/config-transformer": "*",
+        "zenstruck/foundry": "^2.0"
     },
     "scripts": {
         "auto-scripts": {

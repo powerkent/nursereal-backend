@@ -21,4 +21,12 @@ enum OpeningDays: string
     {
         return array_map(fn (OpeningDays $o): string => $o->value, self::cases());
     }
+
+    /**
+     * @return list<OpeningDays>
+     */
+    public static function names(): array
+    {
+        return array_map(fn (OpeningDays $o): OpeningDays => $o, self::cases());
+    }
 }

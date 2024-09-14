@@ -43,7 +43,19 @@
             </cascade>
         </one-to-many>
 
-        <many-to-many field="customers" target-entity="Nursery\Domain\Shared\Model\Customer" mapped-by="children" fetch="LAZY" />
+        <many-to-many field="customers" target-entity="Nursery\Domain\Shared\Model\Customer">
+            <join-table name="customer_child">
+                <join-columns>
+                    <join-column name="child_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="customer_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-many>
 
         <one-to-many field="contractDates" target-entity="Nursery\Domain\Shared\Model\ContractDate" mapped-by="child">
             <cascade>

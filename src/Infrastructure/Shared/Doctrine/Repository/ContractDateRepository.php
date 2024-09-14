@@ -19,9 +19,6 @@ class ContractDateRepository extends AbstractRepository implements ContractDateR
         return ContractDate::class;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function searchByDate(Child $child, DateTimeInterface $start): array
     {
         $connection = $this->getEntityManager()->getConnection();

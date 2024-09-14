@@ -17,6 +17,9 @@
 
         <many-to-one field="nurseryStructure" target-entity="Nursery\Domain\Shared\Model\NurseryStructure" inversed-by="openings">
             <join-column name="nursery_structure_id" referenced-column-name="id" nullable="false" />
+            <cascade>
+                <cascade-persist />
+            </cascade>
         </many-to-one>
     </entity>
 </doctrine-mapping>
