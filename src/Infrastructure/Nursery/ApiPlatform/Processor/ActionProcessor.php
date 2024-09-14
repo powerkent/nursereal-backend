@@ -42,6 +42,7 @@ final class ActionProcessor implements ProcessorInterface
         $primitives = [
             'uuid' => Uuid::uuid4(),
             'createdAt' => new DateTimeImmutable(),
+            'updatedAt' => null,
             'children' => array_map(fn (array $child): Child => $this->queryBus->ask(new FindChildByUuidOrIdQuery($child['uuid'])), $data->children),
             'comment' => $data->comment,
             'query' => $query,

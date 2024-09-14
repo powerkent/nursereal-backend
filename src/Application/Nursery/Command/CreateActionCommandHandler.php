@@ -75,7 +75,7 @@ final readonly class CreateActionCommandHandler implements CommandHandlerInterfa
                 break;
             case ActionType::Care:
                 $careTypes = $query->getIterator()->getArrayCopy()['care'];
-                $command->primitives['careTypes'] = array_map(fn (string $careType): CareType => CareType::from($careType), $careTypes);
+                $command->primitives['types'] = array_map(fn (string $careType): CareType => CareType::from($careType), $careTypes);
 
                 $this->removeUnusedPrimitives($command->primitives);
 
