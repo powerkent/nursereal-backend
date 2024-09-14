@@ -21,6 +21,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'orm' => [
             'default_entity_manager' => 'default',
             'auto_generate_proxy_classes' => true,
+            'proxy_dir' => '%kernel.cache_dir%/doctrine/orm/Proxies',
+            'proxy_namespace' => 'Proxies',
             'entity_managers' => [
                 'default' => [
                     'connection' => 'default',

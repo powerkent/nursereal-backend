@@ -93,6 +93,10 @@ db-manager:
 ## Reset database
 db-reset: db-create db-migrate db-manager
 
+## Fixtures
+db-fixtures:
+	@$(SYMFONY) doctrine:fixtures:load -nq
+
 
 ####################################### MESSENGER #######################################
 
