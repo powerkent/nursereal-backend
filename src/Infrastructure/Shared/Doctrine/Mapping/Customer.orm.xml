@@ -21,15 +21,7 @@
 
         <field name="phoneNumber" type="bigint" />
 
-        <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child" fetch="LAZY" inversed-by="customers" orphan-removal="false">
-            <join-table name="customer_child">
-                <join-columns>
-                    <join-column name="customer_id" referenced-column-name="id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="child_id" referenced-column-name="id" />
-                </inverse-join-columns>
-            </join-table>
+        <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child" mapped-by="customers" fetch="LAZY">
             <cascade>
                 <cascade-persist />
             </cascade>
