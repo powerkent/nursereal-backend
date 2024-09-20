@@ -20,6 +20,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'mapping' => [
             'paths' => [
                 '%kernel.project_dir%/src/Infrastructure/Nursery/ApiPlatform/Resource',
+                '%kernel.project_dir%/src/Infrastructure/Chat/ApiPlatform/Resource',
                 '%kernel.project_dir%/src/Infrastructure/Shared/ApiPlatform/Resource',
             ],
         ],

@@ -22,7 +22,7 @@ class ChildFixtures extends Fixture
         AgentFactory::createMany(4, ['nurseryStructures' => [$nursery1]]);
         AgentFactory::createMany(4, ['nurseryStructures' => [$nursery2]]);
 
-        for ($i = 0; $i < 24; $i++) {
+        for ($i = 0; $i < 24; ++$i) {
             $nursery = $nursery1;
             if ($i > 12) {
                 $nursery = $nursery2;

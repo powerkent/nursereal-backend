@@ -19,6 +19,7 @@ final readonly class AgentResourceFactory
     {
         return new AgentResource(
             uuid: $agent->getUuid(),
+            id: $agent->getId(),
             firstname: $agent->getFirstname(),
             lastname: $agent->getLastname(),
             email: $agent->getEmail(),

@@ -35,6 +35,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                             'dir' => '%kernel.project_dir%/src/Infrastructure/Nursery/Doctrine/Mapping',
                             'prefix' => 'Nursery\Domain\Nursery\Model',
                         ],
+                        'Chat' => [
+                            'is_bundle' => false,
+                            'type' => 'xml',
+                            'dir' => '%kernel.project_dir%/src/Infrastructure/Chat/Doctrine/Mapping',
+                            'prefix' => 'Nursery\Domain\Chat\Model',
+                        ],
                         'Shared' => [
                             'is_bundle' => false,
                             'type' => 'xml',

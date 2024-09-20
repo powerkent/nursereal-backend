@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Nursery\Domain\Chat\Model\Member" table="chat_member">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="type" enum-type="Nursery\Domain\Chat\Enum\MemberType" />
+
+        <field name="memberId" type="integer" />
+
+        <many-to-many field="channels" target-entity="Nursery\Domain\Chat\Model\Channel" fetch="LAZY" mapped-by="members">
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>

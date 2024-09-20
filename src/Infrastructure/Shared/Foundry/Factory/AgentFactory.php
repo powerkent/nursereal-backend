@@ -29,7 +29,7 @@ final class AgentFactory extends PersistentProxyObjectFactory
             'email' => self::faker()->email(),
             'password' => self::faker()->password(),
             'roles' => [Roles::Agent->value],
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
             'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTime()) : null,
         ];
     }

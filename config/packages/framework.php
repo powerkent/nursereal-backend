@@ -10,5 +10,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'http_method_override' => false,
         'php_errors' => ['log' => E_RECOVERABLE_ERROR],
         'handle_all_throwables' => true,
+        'http_client' => [
+            'default_options' => ['verify_peer' => false],
+        ],
     ]);
 };

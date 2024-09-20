@@ -30,6 +30,7 @@ parameters:
               - { type: className, regex: ^PHPStan\\ }
               - { type: className, regex: ^PhpParser\\ }
               - { type: className, regex: ^Lexik\\ }
+              - { type: className, regex: ^Zenstruck\\ }
 
     ruleset:
         Nursery: [ Shared, Vendors ]

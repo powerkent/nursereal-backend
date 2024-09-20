@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
     $services = $containerConfigurator->services();
 
     $services->defaults()
@@ -13,8 +12,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autoconfigure();
 
     $services->load('Nursery\\Domain\\Nursery\\', __DIR__.'/../../src/Domain/Nursery');
-
     $services->load('Nursery\\Application\\Nursery\\', __DIR__.'/../../src/Application/Nursery');
-
     $services->load('Nursery\\Infrastructure\\Nursery\\', __DIR__.'/../../src/Infrastructure/Nursery');
 };
