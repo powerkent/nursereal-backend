@@ -68,6 +68,9 @@ final class AgentResource
         #[ApiProperty(identifier: true)]
         #[Groups(['agent:item', 'agent:list'])]
         public UuidInterface $uuid,
+        #[ApiProperty(identifier: false)]
+        #[Groups(['agent:item', 'agent:list'])]
+        public ?int $id,
         #[Groups(['agent:item', 'agent:list'])]
         public string $firstname,
         #[Groups(['agent:item', 'agent:list'])]

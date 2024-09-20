@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Exception;
-use Nursery\Application\Shared\Query\FindAgentByUuidQuery;
+use Nursery\Application\Shared\Query\FindAgentByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
@@ -35,7 +35,7 @@ final readonly class AgentPutProcessor implements ProcessorInterface
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): AgentResource
     {
         /** @var ?Agent $agent */
-        $agent = $this->queryBus->ask(new FindAgentByUuidQuery($uriVariables['uuid']));
+        $agent = $this->queryBus->ask(new FindAgentByUuidOrIdQuery($uriVariables['uuid']));
 
         if (null === $agent) {
             throw new EntityNotFoundException(Child::class);

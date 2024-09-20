@@ -38,6 +38,7 @@ parameters:
               - { type: className, regex: ^PhpParser\\ }
               - { type: className, regex: ^Lexik\\Bundle\\JWTAuthenticationBundle\\Encoder\\JWTEncoderInterface$ }
               - { type: className, regex: ^Lexik\\Bundle\\JWTAuthenticationBundle\\Event\\JWTCreatedEvent$ }
+              - { type: className, regex: ^Lcobucci\\JWT\\ }
 
         - name: Helpers
           collectors:

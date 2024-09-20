@@ -18,7 +18,7 @@ final readonly class FindChildByUuidOrIdQuery implements QueryInterface
         public ?int $id = null,
     ) {
         if (null === $this->uuid && null === $this->id) {
-            throw new Exception('unable to find child by uuid or id without uuid or id.');
+            throw new Exception('unable to find child by uuid or id without uuid and id.');
         }
     }
 }

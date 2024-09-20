@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
-use Nursery\Application\Shared\Query\FindCustomerByUuidQuery;
+use Nursery\Application\Shared\Query\FindCustomerByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Customer;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\CustomerResource;
@@ -24,7 +24,7 @@ final class CustomerProvider extends AbstractProvider
 
     protected function item(Operation $operation, array $uriVariables = [], array $context = []): ?Customer
     {
-        return $this->queryBus->ask(new FindCustomerByUuidQuery(uuid: $uriVariables['uuid']));
+        return $this->queryBus->ask(new FindCustomerByUuidOrIdQuery(uuid: $uriVariables['uuid']));
     }
 
     /**
