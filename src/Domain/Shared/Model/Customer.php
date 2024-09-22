@@ -36,6 +36,7 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         protected int $phoneNumber,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
+        protected ?string $photo = null,
         array|Collection $children = [],
         array $roles = [],
     ) {
@@ -196,6 +197,18 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
     public function setPassword(string $hashedPassword): self
     {
         $this->password = $hashedPassword;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

@@ -30,6 +30,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'patch_formats' => [
             'json' => ['application/merge-patch+json'],
         ],
+        'formats' => [
+            'jsonld' => ['application/ld+json'],
+            'json' => ['application/json'],
+            'multipart' => ['multipart/form-data'],
+        ],
         'swagger' => [
             'versions' => [3],
             'api_keys' => [

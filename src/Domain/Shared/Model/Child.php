@@ -37,6 +37,7 @@ class Child
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?IRP $irp = null,
+        protected ?string $photo = null,
         array|Collection $treatments = [],
         array|Collection $customers = [],
         array|Collection $contractDates = [],
@@ -256,6 +257,18 @@ class Child
         if ($this->contractDates->contains($contractDate)) {
             $this->contractDates->removeElement($contractDate);
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

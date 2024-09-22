@@ -63,5 +63,7 @@
                 <cascade-remove />
             </cascade>
         </one-to-many>
+
+        <field name="photo" length="500" nullable="true" />
     </entity>
 </doctrine-mapping>

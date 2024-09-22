@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
+use Nursery\Infrastructure\Shared\ApiPlatform\Action\AddAvatarAction;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AgentDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AgentPostProcessor;
@@ -55,6 +56,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: "is_granted('".Roles::Manager->value."')",
             provider: AgentProvider::class,
             processor: AgentDeleteProcessor::class,
+        ),
+        new Post(
+            uriTemplate: 'agents/{uuid}/avatar',
+            inputFormats: ['multipart' => ['multipart/form-data']],
+//            outputFormats: ['jsonld' => ['application/ld+json']],
+            controller: AddAvatarAction::class,
+            provider: AgentProvider::class,
         ),
     ],
 )]

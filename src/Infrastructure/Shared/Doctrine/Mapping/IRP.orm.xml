@@ -18,5 +18,7 @@
         <field name="startAt" type="datetime" />
 
         <field name="endAt" type="datetime" nullable="true" />
+
+        <field name="document" length="500" nullable="true" />
     </entity>
 </doctrine-mapping>

@@ -39,6 +39,7 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?string $password = null,
+        protected ?string $photo = null,
         array|Collection $nurseryStructures = [],
         array $roles = [],
     ) {
@@ -207,6 +208,17 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $hashedPassword): self
     {
         $this->password = $hashedPassword;
+
+        return $this;
+    }
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

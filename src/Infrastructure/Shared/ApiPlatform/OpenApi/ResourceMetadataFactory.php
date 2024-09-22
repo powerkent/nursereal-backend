@@ -10,6 +10,7 @@ use ApiPlatform\OpenApi\Model\PathItem;
 use ApiPlatform\OpenApi\Model\Paths;
 use ApiPlatform\OpenApi\OpenApi;
 use RuntimeException;
+use function var_dump;
 
 final class ResourceMetadataFactory implements OpenApiFactoryInterface
 {

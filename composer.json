@@ -8,6 +8,7 @@
     "require": {
         "php": ">=8.2",
         "api-platform/core": "^3.3",
+        "aws/aws-sdk-php": "^3.322",
         "composer/package-versions-deprecated": "1.11.99.5",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2",

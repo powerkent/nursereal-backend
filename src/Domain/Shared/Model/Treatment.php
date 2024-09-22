@@ -28,6 +28,7 @@ class Treatment
         protected DateTimeInterface $createdAt,
         protected DateTimeInterface $startAt,
         protected ?DateTimeInterface $endAt = null,
+        protected ?string $prescription = null,
         array|Collection $dosages = [],
     ) {
         Assert::stringNotEmpty($this->name);
@@ -159,6 +160,18 @@ class Treatment
             $this->dosages->removeElement($dosage);
             $dosage->setTreatment(null);
         }
+
+        return $this;
+    }
+
+    public function getPrescription(): ?string
+    {
+        return $this->prescription;
+    }
+
+    public function setPrescription(?string $prescription): self
+    {
+        $this->prescription = $prescription;
 
         return $this;
     }

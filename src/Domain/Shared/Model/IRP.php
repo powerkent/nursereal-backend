@@ -17,6 +17,7 @@ class IRP
         protected DateTimeInterface $createdAt,
         protected DateTimeInterface $startAt,
         protected ?DateTimeInterface $endAt = null,
+        protected ?string $document = null,
     ) {
         Assert::stringNotEmpty($this->name);
         Assert::stringNotEmpty($this->description);
@@ -83,6 +84,18 @@ class IRP
     public function setEndAt(DateTimeInterface $endAt): self
     {
         $this->endAt = $endAt;
+
+        return $this;
+    }
+
+    public function getDocument(): ?string
+    {
+        return $this->document;
+    }
+
+    public function setDocument(?string $document): self
+    {
+        $this->document = $document;
 
         return $this;
     }

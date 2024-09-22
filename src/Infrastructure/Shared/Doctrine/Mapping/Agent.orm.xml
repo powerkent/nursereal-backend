@@ -27,5 +27,7 @@
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
+
+        <field name="photo" length="500" nullable="true" />
     </entity>
 </doctrine-mapping>

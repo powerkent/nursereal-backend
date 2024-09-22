@@ -31,5 +31,7 @@
         </one-to-many>
 
         <field name="endAt" type="datetime" nullable="true" />
+
+        <field name="prescription" length="500" nullable="true" />
     </entity>
 </doctrine-mapping>
