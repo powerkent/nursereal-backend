@@ -44,13 +44,10 @@
         "symfony/stimulus-bundle": "^2.18",
         "symfony/string": "^7.1",
         "symfony/translation": "^7.1",
-        "symfony/twig-bundle": "^7.1",
         "symfony/ux-turbo": "^2.18",
         "symfony/validator": "^7.1",
         "symfony/web-link": "^7.1",
-        "symfony/yaml": "^7.1",
-        "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "symfony/yaml": "^7.1"
     },
     "config": {
         "optimize-autoloader": true,
