@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Nursery\Domain\Chat\Security\JwtSignerInterface;
 use Nursery\Infrastructure\Chat\Mercure\Provider\JwtProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\env;

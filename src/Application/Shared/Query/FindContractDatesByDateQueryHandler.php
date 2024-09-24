@@ -18,6 +18,6 @@ final readonly class FindContractDatesByDateQueryHandler implements QueryHandler
      */
     public function __invoke(FindContractDatesByDateQuery $query): array
     {
-        return $this->contractDateRepository->searchByDate($query->child, $query->start);
+        return $this->contractDateRepository->searchByDate($query->start, $query->child);
     }
 }

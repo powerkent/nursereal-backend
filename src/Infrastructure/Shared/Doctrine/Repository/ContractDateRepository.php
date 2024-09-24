@@ -19,21 +19,25 @@ class ContractDateRepository extends AbstractRepository implements ContractDateR
         return ContractDate::class;
     }
 
-    public function searchByDate(Child $child, DateTimeInterface $start): array
+    public function searchByDate(DateTimeInterface $start, ?Child $child = null): array
     {
         $connection = $this->getEntityManager()->getConnection();
 
         $stmt = $connection->prepare(
             'SELECT *
             FROM contract_date cd
-            WHERE cd.child_id = :childId
-            AND DATE(cd.start) = :startDate'
+            WHERE DATE(cd.start) = :startDate'.(null !== $child ? ' AND cd.child_id = :child' : '')
         );
 
-        $results = $stmt->executeQuery([
-            'childId'   => $child->getId(),
+        $params = [
             'startDate' => $start->format('Y-m-d'),
-        ]);
+        ];
+
+        if (null !== $child) {
+            $params['child'] = $child->getId();
+        }
+
+        $results = $stmt->executeQuery($params);
 
         return $results->fetchAllAssociative();
     }

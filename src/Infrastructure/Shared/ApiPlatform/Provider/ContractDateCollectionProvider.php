@@ -6,7 +6,9 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
+use DateTimeImmutable;
 use Nursery\Application\Shared\Query\FindChildrenByCriteriaQuery;
+use Nursery\Application\Shared\Query\FindContractDatesByDateQuery;
 use Nursery\Domain\Shared\Criteria\Criteria;
 use Nursery\Domain\Shared\Filter\ChildFilter;
 use Nursery\Domain\Shared\Filter\NurseryStructureFilter;
@@ -14,6 +16,7 @@ use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDateResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDateResourceFactory;
+use function dump;
 
 /**
  * @extends AbstractCollectionProvider<Child, ContractDateResource>
@@ -41,7 +44,16 @@ final class ContractDateCollectionProvider extends AbstractCollectionProvider
             $filters[] = new ChildFilter((int) $child);
         }
 
-        return $this->queryBus->ask(new FindChildrenByCriteriaQuery(new Criteria($filters)));
+        $children = $this->queryBus->ask(new FindChildrenByCriteriaQuery(new Criteria($filters)));
+        dump($children);
+
+        if (null !== ($context['filters']['isToday'] ?? null)) {
+            $children = array_filter($children, fn (Child $child): bool => !empty($this->queryBus->ask(new FindContractDatesByDateQuery(new DateTimeImmutable(), $child))));
+        }
+
+        dump($children);
+
+        return $children;
     }
 
     /**
