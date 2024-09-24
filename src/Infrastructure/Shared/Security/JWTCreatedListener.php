@@ -18,6 +18,9 @@ class JWTCreatedListener
         /* @phpstan-ignore-next-line  */
         $payload['id'] = $user->getId();
 
+        /* @phpstan-ignore-next-line  */
+        $payload['uuid'] = $user->getUuid();
+
         $event->setData($payload);
     }
 }

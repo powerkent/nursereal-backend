@@ -21,6 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     shortName: 'ContractDate',
     operations: [
         new GetCollection(
+            paginationEnabled: false,
             normalizationContext: ['groups' => ['contract:list']],
             provider: ContractDateCollectionProvider::class,
         ),

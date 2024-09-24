@@ -39,32 +39,32 @@ final class NurseryStructureFactory extends PersistentProxyObjectFactory
             $nurseryStructure->setNurseryStructureOpenings(
                 [
                     new NurseryStructureOpening(
-                        openingHour: new DateTime('2024-10-01 08:00:00'),
-                        closingHour: new DateTime('2024-10-01 18:00:00'),
+                        openingHour: new DateTime('2024-10-01 07:00:00'),
+                        closingHour: new DateTime('2024-10-01 19:00:00'),
                         openingDay: OpeningDays::Monday,
                         nurseryStructure: $nurseryStructure,
                     ),
                     new NurseryStructureOpening(
-                        openingHour: new DateTime('2024-10-01 08:00:00'),
-                        closingHour: new DateTime('2024-10-01 18:00:00'),
+                        openingHour: new DateTime('2024-10-01 07:00:00'),
+                        closingHour: new DateTime('2024-10-01 19:00:00'),
                         openingDay: OpeningDays::Tuesday,
                         nurseryStructure: $nurseryStructure,
                     ),
                     new NurseryStructureOpening(
-                        openingHour: new DateTime('2024-10-01 08:00:00'),
-                        closingHour: new DateTime('2024-10-01 18:00:00'),
+                        openingHour: new DateTime('2024-10-01 07:00:00'),
+                        closingHour: new DateTime('2024-10-01 19:00:00'),
                         openingDay: OpeningDays::Wednesday,
                         nurseryStructure: $nurseryStructure,
                     ),
                     new NurseryStructureOpening(
-                        openingHour: new DateTime('2024-10-01 08:00:00'),
-                        closingHour: new DateTime('2024-10-01 18:00:00'),
+                        openingHour: new DateTime('2024-10-01 07:00:00'),
+                        closingHour: new DateTime('2024-10-01 19:00:00'),
                         openingDay: OpeningDays::Thursday,
                         nurseryStructure: $nurseryStructure,
                     ),
                     new NurseryStructureOpening(
-                        openingHour: new DateTime('2024-10-01 08:00:00'),
-                        closingHour: new DateTime('2024-10-01 18:00:00'),
+                        openingHour: new DateTime('2024-10-01 07:00:00'),
+                        closingHour: new DateTime('2024-10-01 19:00:00'),
                         openingDay: OpeningDays::Friday,
                         nurseryStructure: $nurseryStructure,
                     ),

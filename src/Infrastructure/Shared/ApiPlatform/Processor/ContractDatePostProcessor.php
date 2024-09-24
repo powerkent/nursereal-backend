@@ -47,7 +47,7 @@ final class ContractDatePostProcessor implements ProcessorInterface
 
         $contractDates = [];
         foreach ($data->contractDates as $contractDate) {
-            $contractDateExists = $this->queryBus->ask(new FindContractDatesByDateQuery($child, $contractDate->contractTimeStart));
+            $contractDateExists = $this->queryBus->ask(new FindContractDatesByDateQuery($contractDate->contractTimeStart, $child));
             if ([] !== $contractDateExists) {
                 foreach ($contractDateExists as $contractDateExist) {
                     $this->commandBus->dispatch(new DeleteContractDateByIdCommand($contractDateExist['id']));

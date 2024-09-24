@@ -27,6 +27,11 @@ final readonly class ContractDateResourceOpenApiContext implements OpenApiContex
                         'in' => 'query',
                         'schema' => ['type' => 'integer'],
                     ],
+                    [
+                        'name' => 'isToday',
+                        'in' => 'query',
+                        'schema' => ['type' => 'boolean'],
+                    ],
                 ],
             ],
             'DELETE /api/contract_dates' => [

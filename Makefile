@@ -90,12 +90,18 @@ db-migrate:
 db-manager:
 	@$(SYMFONY) app:create:manager
 
+## Create agent
+db-agent:
+	@$(SYMFONY) app:create:agent
+
 ## Reset database
-db-reset: db-create db-migrate db-manager
+db-reset: db-create db-migrate db-manager db-agent
 
 ## Fixtures
 db-fixtures:
 	@$(SYMFONY) doctrine:fixtures:load -nq
+	@$(SYMFONY) app:create:manager
+	@$(SYMFONY) app:create:agent
 
 
 ####################################### MESSENGER #######################################

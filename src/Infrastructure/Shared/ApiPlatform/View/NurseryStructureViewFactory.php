@@ -18,6 +18,7 @@ final class NurseryStructureViewFactory
     {
         return new NurseryStructureView(
             uuid: $nurseryStructure->getUuid(),
+            id: $nurseryStructure->getId(),
             name: $nurseryStructure->getName(),
             address: $nurseryStructure->getAddress(),
             createdAt: $nurseryStructure->getCreatedAt(),

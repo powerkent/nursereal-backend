@@ -11,8 +11,8 @@ use Nursery\Domain\Shared\Query\QueryInterface;
 final class FindContractDatesByDateQuery implements QueryInterface
 {
     public function __construct(
-        public Child $child,
-        public DateTimeInterface $start
+        public DateTimeInterface $start,
+        public ?Child $child = null,
     ) {
     }
 }

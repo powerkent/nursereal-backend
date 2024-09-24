@@ -16,5 +16,5 @@ interface ContractDateRepositoryInterface extends RepositoryInterface
     /**
      * @return array<int, array<string, mixed>>
      */
-    public function searchByDate(Child $child, DateTimeInterface $start): array;
+    public function searchByDate(DateTimeInterface $start, ?Child $child = null): array;
 }
