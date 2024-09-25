@@ -74,7 +74,7 @@ class ChildFixtures extends Fixture
 
     private function isWeekend(DateTime $date): bool
     {
-        /** @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line  */
         return (date('N', strtotime($date->format(DateTimeInterface::ATOM))) >= 6);
     }
 }

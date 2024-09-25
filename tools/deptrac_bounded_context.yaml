@@ -1,8 +1,4 @@
-imports:
-    - deptrac_bounded_context_violation.yaml
-
-
-parameters:
+deptrac:
     paths:
         - ../src
 
@@ -10,28 +6,46 @@ parameters:
         - name: Nursery
           collectors:
               - type: directory
-                regex: src/[^/]+/Nursery/.*
+                value: '^src/[^/]+/Nursery/.*'
+
+        - name: Chat
+          collectors:
+            - type: directory
+              value: '^src/[^/]+/Chat/.*'
 
         - name: Shared
           collectors:
               - type: directory
-                regex: src/[^/]+/Shared/.*
+                value: '^src/[^/]+/Shared/.*'
 
         - name: Vendors
           collectors:
-              - { type: className, regex: ^BackedEnum$ }
-              - { type: className, regex: ^ApiPlatform\\ }
-              - { type: className, regex: ^Psr\\ }
-              - { type: className, regex: ^Symfony\\ }
-              - { type: className, regex: ^Doctrine\\ }
-              - { type: className, regex: ^Ramsey\\ }
-              - { type: className, regex: ^Faker\\ }
-              - { type: className, regex: ^Webmozart\\ }
-              - { type: className, regex: ^PHPStan\\ }
-              - { type: className, regex: ^PhpParser\\ }
-              - { type: className, regex: ^Lexik\\ }
-              - { type: className, regex: ^Zenstruck\\ }
+              - type: classNameRegex
+                value: '#^BackedEnum$#'
+              - type: classNameRegex
+                value: '#^ApiPlatform\\#'
+              - type: classNameRegex
+                value: '#^Psr\\#'
+              - type: classNameRegex
+                value: '#^Symfony\\#'
+              - type: classNameRegex
+                value: '#^Doctrine\\#'
+              - type: classNameRegex
+                value: '#^Ramsey\\#'
+              - type: classNameRegex
+                value: '#^Faker\\#'
+              - type: classNameRegex
+                value: '#^Webmozart\\#'
+              - type: classNameRegex
+                value: '#^PHPStan\\#'
+              - type: classNameRegex
+                value: '#^PhpParser\\#'
+              - type: classNameRegex
+                value: '#^Lexik\\#'
+              - type: classNameRegex
+                value: '#^Zenstruck\\#'
 
     ruleset:
+        Chat: [ Shared, Vendors ]
         Nursery: [ Shared, Vendors ]
         Shared: [ Vendors ]

@@ -145,10 +145,16 @@ phpstan:
 ## check ddd and bounded context dependencies
 deptrac:
 	@echo "\n\e[7mChecking DDD layers...\e[0m"
-	@$(EXEC) vendor/bin/deptrac analyze --fail-on-uncovered --report-uncovered --no-progress --cache-file tools/.deptrac_ddd.cache --config-file tools/deptrac_ddd.yaml
+	@$(EXEC) vendor/bin/deptrac --cache-file=tools/.deptrac_ddd.cache --config-file=tools/deptrac_ddd.yaml
 
 	@echo "\n\e[7mChecking Bounded context layers...\e[0m"
-	@$(EXEC) vendor/bin/deptrac analyze --fail-on-uncovered --report-uncovered --no-progress --cache-file tools/.deptrac_bounded_context.cache --config-file tools/deptrac_bounded_context.yaml
+	@$(EXEC) vendor/bin/deptrac --cache-file=tools/.deptrac_bounded_context.cache --config-file=tools/deptrac_bounded_context.yaml
 
+## Run security analysis
+security:
+	@$(EXEC) composer audit
 
-.PHONY: cc fix-cs phpstan deptrac
+## Run tools
+check: cc fix-cs phpstan deptrac security
+
+.PHONY: cc fix-cs phpstan deptrac security
