@@ -26,6 +26,7 @@
         "symfony/expression-language": "^7.1",
         "symfony/flex": "*",
         "symfony/form": "^7.1",
+        "symfony/framework-bundle": "*",
         "symfony/http-client": "^7.1",
         "symfony/intl": "^7.1",
         "symfony/mailer": "^7.1",
@@ -47,6 +48,7 @@
         "symfony/ux-turbo": "^2.18",
         "symfony/validator": "^7.1",
         "symfony/web-link": "^7.1",
+        "symfony/workflow": "^7.1",
         "symfony/yaml": "^7.1"
     },
     "config": {

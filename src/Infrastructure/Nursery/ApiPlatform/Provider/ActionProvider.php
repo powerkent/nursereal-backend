@@ -25,9 +25,7 @@ final class ActionProvider extends AbstractProvider
 
     protected function item(Operation $operation, array $uriVariables = [], array $context = []): ?Action
     {
-        dump($action = $this->queryBus->ask(new FindActionByUuidQuery(uuid: $uriVariables['uuid'])));
-
-        return $action;
+        return $this->queryBus->ask(new FindActionByUuidQuery(uuid: $uriVariables['uuid']));
     }
 
     /**

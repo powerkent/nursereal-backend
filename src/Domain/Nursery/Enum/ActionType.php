@@ -14,6 +14,8 @@ enum ActionType: string implements SubTypeActionInterface
     case Rest = 'rest';
     case Treatment = 'treatment';
     case Presence = 'presence';
+    case Lunch = 'lunch';
+    case Milk = 'milk';
 
     /**
      * @return list<string>
@@ -32,6 +34,7 @@ enum ActionType: string implements SubTypeActionInterface
             self::Care => CareType::values(),
             self::Diaper => DiaperQuality::values(),
             self::Rest => RestQuality::values(),
+            self::Lunch => LunchQuality::values(),
             default => null,
         };
     }

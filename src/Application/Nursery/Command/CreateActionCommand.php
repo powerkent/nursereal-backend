@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Nursery\Application\Nursery\Command;
 
-use Nursery\Domain\Shared\Command\AbstractCreateCommand;
+use Nursery\Domain\Nursery\Model\Action;
+use Nursery\Domain\Shared\Command\CommandInterface;
 
-final class CreateActionCommand extends AbstractCreateCommand
+final class CreateActionCommand implements CommandInterface
 {
-    public static function create(array $primitives): static
+    public function __construct(public Action $action)
     {
-        return new self($primitives);
     }
 }

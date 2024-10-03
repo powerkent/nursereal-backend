@@ -4,41 +4,43 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Input;
 
-use ApiPlatform\Metadata\ApiProperty;
-use DateTimeInterface;
+use Nursery\Domain\Nursery\Enum\ActionType;
+use Nursery\Domain\Nursery\Processor\ActionInputInterface;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\ActivityPayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\CarePayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\DiaperPayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\LunchPayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\MilkPayload;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\PresencePayload;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\RestPayload;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\TreatmentPayload;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-final class ActionInput
+final class ActionInput implements ActionInputInterface
 {
-    /**
-     * @param array<array<string, string>> $children
-     */
     public function __construct(
+        #[Groups(['action:post:write'])]
+        public ?string $childUuid,
         #[Groups(['action:item'])]
-        #[ApiProperty(openapiContext: [
-            'type' => 'array',
-            'items' => [
-                'type' => 'object',
-                'properties' => [
-                    'uuid' => ['type' => 'string'],
-                ],
-            ],
-            'example' => [['uuid' => 'ecef809d-6731-4b21-906f-524288122c89'], ['uuid' => '34f17460-f0ba-4e5c-a165-4d9807326596']],
-        ])]
-        public array $children,
+        public ActionType $actionType,
         #[Groups(['action:item'])]
         public ?string $comment = null,
         #[Groups(['action:item'])]
         public ?ActivityPayload $activity = null,
         #[Groups(['action:item'])]
-        public ?DateTimeInterface $restEndTime = null,
+        public ?CarePayload $care = null,
         #[Groups(['action:item'])]
-        public ?TreatmentPayload $treatment = null,
+        public ?DiaperPayload $diaper = null,
+        #[Groups(['action:item'])]
+        public ?LunchPayload $lunch = null,
+        #[Groups(['action:item'])]
+        public ?MilkPayload $milk = null,
         #[Groups(['action:item'])]
         public ?PresencePayload $presence = null,
+        #[Groups(['action:item'])]
+        public ?RestPayload $rest = null,
+        #[Groups(['action:item'])]
+        public ?TreatmentPayload $treatment = null,
     ) {
     }
 }

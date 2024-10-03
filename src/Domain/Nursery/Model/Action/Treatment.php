@@ -5,22 +5,23 @@ declare(strict_types=1);
 namespace Nursery\Domain\Nursery\Model\Action;
 
 use DateTimeInterface;
+use Nursery\Domain\Nursery\Enum\ActionState;
+use Nursery\Domain\Nursery\Enum\ActionType;
+use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Nursery\Model\Action;
 use Ramsey\Uuid\UuidInterface;
 use Nursery\Domain\Shared\Model\Treatment as WhatTreatment;
-use Doctrine\Common\Collections\Collection;
 
 class Treatment extends Action
 {
-    /**
-     * @param array<int, Child>|Collection<int, Child> $children
-     */
     public function __construct(
         UuidInterface $uuid,
+        ActionState $state,
         DateTimeInterface $createdAt,
         ?DateTimeInterface $updatedAt,
-        Collection|array $children,
+        Child $child,
+        Agent $agent,
         ?string $comment,
         protected WhatTreatment $treatment,
         protected ?string $dose,
@@ -29,11 +30,15 @@ class Treatment extends Action
     ) {
         parent::__construct(
             uuid: $uuid,
+            state: $state,
             createdAt: $createdAt,
             updatedAt: $updatedAt,
-            children: $children,
+            child: $child,
+            agent: $agent,
             comment: $comment,
         );
+
+        $this->type = ActionType::Treatment;
     }
 
     public function getTreatment(): WhatTreatment

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Nursery\Domain\Nursery\Model\Action;
 
 use DateTimeInterface;
-use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Nursery\Enum\ActionState;
+use Nursery\Domain\Nursery\Enum\ActionType;
+use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Nursery\Enum\DiaperQuality;
 use Nursery\Domain\Nursery\Model\Action;
@@ -13,24 +15,26 @@ use Ramsey\Uuid\UuidInterface;
 
 class Diaper extends Action
 {
-    /**
-     * @param array<int, Child>|Collection<int, Child> $children
-     */
     public function __construct(
         UuidInterface $uuid,
+        ActionState $state,
         DateTimeInterface $createdAt,
         ?DateTimeInterface $updatedAt,
-        Collection|array $children,
+        Child $child,
+        Agent $agent,
         ?string $comment,
         protected DiaperQuality $quality,
     ) {
         parent::__construct(
             uuid: $uuid,
+            state: $state,
             createdAt: $createdAt,
             updatedAt: $updatedAt,
-            children: $children,
+            child: $child,
+            agent: $agent,
             comment: $comment,
         );
+        $this->type = ActionType::Diaper;
     }
 
     public function getQuality(): DiaperQuality

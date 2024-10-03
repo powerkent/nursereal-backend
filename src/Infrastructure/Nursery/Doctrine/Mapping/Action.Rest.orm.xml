@@ -9,6 +9,10 @@
 
         <field name="endDateTime" type="datetime" nullable="true" />
 
-        <field name="quality" enum-type="Nursery\Domain\Nursery\Enum\RestQuality" />
+        <field name="quality" enum-type="Nursery\Domain\Nursery\Enum\RestQuality" nullable="true" />
+
+        <many-to-one field="completedAgent" target-entity="Nursery\Domain\Shared\Model\Agent">
+            <join-column name="completed_agent_id" referenced-column-name="id" nullable="true" />
+        </many-to-one>
     </entity>
 </doctrine-mapping>

@@ -33,9 +33,11 @@ final readonly class FindActionByChildrenAndActionTypeQueryHandler implements Qu
                 ActionType::Activity => Action\Activity::class,
                 ActionType::Care => Action\Care::class,
                 ActionType::Diaper => Action\Diaper::class,
+                ActionType::Lunch => Action\Lunch::class,
+                ActionType::Milk => Action\Milk::class,
+                ActionType::Presence => Action\Presence::class,
                 ActionType::Rest => Action\Rest::class,
                 ActionType::Treatment => Action\Treatment::class,
-                ActionType::Presence => Action\Presence::class,
             };
         }, $query->filters['actionTypes']);
 
