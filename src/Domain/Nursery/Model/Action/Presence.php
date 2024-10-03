@@ -5,67 +5,50 @@ declare(strict_types=1);
 namespace Nursery\Domain\Nursery\Model\Action;
 
 use DateTimeInterface;
-use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Nursery\Enum\ActionState;
+use Nursery\Domain\Nursery\Enum\ActionType;
+use Nursery\Domain\Nursery\Model\CompletedActionInterface;
+use Nursery\Domain\Nursery\Model\CompletedActionTrait;
+use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Nursery\Model\Action;
 use Ramsey\Uuid\UuidInterface;
 
-class Presence extends Action
+class Presence extends Action implements CompletedActionInterface
 {
-    /**
-     * @param array<int, Child>|Collection<int, Child> $children
-     */
+    use CompletedActionTrait;
+
     public function __construct(
         UuidInterface $uuid,
+        ActionState $state,
         DateTimeInterface $createdAt,
         ?DateTimeInterface $updatedAt,
-        Collection|array $children,
+        Child $child,
+        Agent $agent,
         ?string $comment,
-        protected ?DateTimeInterface $arrivalDateTime = null,
-        protected ?DateTimeInterface $endDateTime = null,
-        protected bool $isHere = false,
+        protected bool $isAbsent = true,
     ) {
         parent::__construct(
             uuid     : $uuid,
+            state    : $state,
             createdAt: $createdAt,
             updatedAt: $updatedAt,
-            children : $children,
+            child    : $child,
+            agent    : $agent,
             comment  : $comment,
         );
+
+        $this->type = ActionType::Presence;
     }
 
-    public function getArrivalDateTime(): ?DateTimeInterface
+    public function isAbsent(): bool
     {
-        return $this->arrivalDateTime;
+        return $this->isAbsent;
     }
 
-    public function setArrivalDateTime(?DateTimeInterface $arrivalDateTime): self
+    public function setIsAbsent(bool $isAbsent): self
     {
-        $this->arrivalDateTime = $arrivalDateTime;
-
-        return $this;
-    }
-
-    public function getEndDateTime(): ?DateTimeInterface
-    {
-        return $this->endDateTime;
-    }
-
-    public function setEndDateTime(?DateTimeInterface $endDateTime): self
-    {
-        $this->endDateTime = $endDateTime;
-
-        return $this;
-    }
-
-    public function isHere(): bool
-    {
-        return $this->isHere;
-    }
-
-    public function setIsHere(bool $isHere): self
-    {
-        $this->isHere = $isHere;
+        $this->isAbsent = $isAbsent;
 
         return $this;
     }

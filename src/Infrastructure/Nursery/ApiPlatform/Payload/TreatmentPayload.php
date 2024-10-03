@@ -13,7 +13,7 @@ class TreatmentPayload
 {
     public function __construct(
         #[Groups(['action:item'])]
-        public UuidInterface $treatmentUuid,
+        public UuidInterface $uuid,
         #[Groups(['action:item'])]
         public ?string $dose = null,
         #[Groups(['action:item'])]

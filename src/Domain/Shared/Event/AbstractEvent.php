@@ -13,7 +13,7 @@ abstract class AbstractEvent implements EventInterface
     public string $occurredOn;
 
     public function __construct(
-        public UuidInterface|string $entityUuid,
+        public UuidInterface|string $uuid,
     ) {
         $this->occurredOn = (new DateTimeImmutable())->format(DateTimeInterface::ATOM);
     }

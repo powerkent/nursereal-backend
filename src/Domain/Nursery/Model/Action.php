@@ -5,29 +5,32 @@ declare(strict_types=1);
 namespace Nursery\Domain\Nursery\Model;
 
 use DateTimeInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Nursery\Enum\ActionState;
+use Nursery\Domain\Nursery\Enum\ActionType;
+use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Ramsey\Uuid\UuidInterface;
 
 abstract class Action
 {
+    protected ActionType $type;
+
     protected ?int $id = null;
 
-    /** @var Collection<int, Child> */
-    protected Collection $children;
-
-    /**
-     * @param array<int, Child>|Collection<int, Child> $children
-     */
     public function __construct(
         protected UuidInterface $uuid,
+        protected ActionState $state,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt,
-        Collection|array $children,
+        protected Child $child,
+        protected Agent $agent,
         protected ?string $comment = null,
     ) {
-        $this->children = is_array($children) ? new ArrayCollection($children) : $children;
+    }
+
+    public function getType(): ActionType
+    {
+        return $this->type;
     }
 
     public function getId(): ?int
@@ -50,6 +53,18 @@ abstract class Action
     public function setUuid(UuidInterface $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getState(): ActionState
+    {
+        return $this->state;
+    }
+
+    public function setState(ActionState $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
@@ -90,38 +105,26 @@ abstract class Action
         return $this;
     }
 
-    /**
-     * @return Collection<int, Child>
-     */
-    public function getChildren(): Collection
+    public function getChild(): Child
     {
-        return $this->children;
+        return $this->child;
     }
 
-    /**
-     * @param array<int, Child>|Collection<int, Child> $children
-     */
-    public function setChildren(Collection|array $children): self
+    public function setChild(Child $child): self
     {
-        $this->children = $children instanceof Collection ? $children : new ArrayCollection($children);
+        $this->child = $child;
 
         return $this;
     }
 
-    public function addChild(Child $child): self
+    public function getAgent(): Agent
     {
-        if (!$this->children->contains($child)) {
-            $this->children->add($child);
-        }
-
-        return $this;
+        return $this->agent;
     }
 
-    public function removeChild(Child $child): self
+    public function setAgent(Agent $agent): self
     {
-        if ($this->children->contains($child)) {
-            $this->children->removeElement($child);
-        }
+        $this->agent = $agent;
 
         return $this;
     }

@@ -12,8 +12,10 @@ class RestPayload
 {
     public function __construct(
         #[Groups(['action:item'])]
-        public ?DateTimeInterface $endTime = null,
-        #[Groups(['action:item'])]
+        public ?DateTimeInterface $startDateTime = null,
+        #[Groups(['action:put:write'])]
+        public ?DateTimeInterface $endDateTime = null,
+        #[Groups(['action:put:write'])]
         public ?RestQuality $restQuality = null,
     ) {
     }

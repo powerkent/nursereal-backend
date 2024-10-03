@@ -11,11 +11,11 @@ class PresencePayload
 {
     public function __construct(
         #[Groups(['action:item'])]
-        public ?DateTimeInterface $arrivalTime = null,
+        public DateTimeInterface $startDateTime,
+        #[Groups(['action:put:write'])]
+        public ?DateTimeInterface $endDateTime,
         #[Groups(['action:item'])]
-        public ?DateTimeInterface $endTime = null,
-        #[Groups(['action:item'])]
-        public ?bool $isHere = false,
+        public ?bool $isAbsent,
     ) {
     }
 }

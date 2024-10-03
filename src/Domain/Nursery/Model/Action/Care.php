@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Nursery\Domain\Nursery\Model\Action;
 
 use DateTimeInterface;
-use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Nursery\Enum\ActionState;
+use Nursery\Domain\Nursery\Enum\ActionType;
+use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Nursery\Enum\CareType;
@@ -19,26 +21,30 @@ class Care extends Action
     protected array $types = [];
 
     /**
-     * @param array<int, Child>|Collection<int, Child> $children
-     * @param array<int, CareType>                     $types
+     * @param array<int, CareType> $types
      */
     public function __construct(
         UuidInterface $uuid,
+        ActionState $state,
         DateTimeInterface $createdAt,
         ?DateTimeInterface $updatedAt,
-        Collection|array $children,
+        Child $child,
+        Agent $agent,
         ?string $comment,
         array $types = [],
     ) {
         parent::__construct(
             uuid: $uuid,
+            state: $state,
             createdAt: $createdAt,
             updatedAt: $updatedAt,
-            children: $children,
+            child: $child,
+            agent: $agent,
             comment: $comment,
         );
 
         $this->types = $types;
+        $this->type = ActionType::Care;
     }
 
     /**

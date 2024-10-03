@@ -8,5 +8,13 @@
         <one-to-one field="activity" target-entity="Nursery\Domain\Nursery\Model\Activity">
             <join-column name="activity_id" referenced-column-name="id" nullable="false" />
         </one-to-one>
+
+        <field name="startDateTime" type="datetime" />
+
+        <field name="endDateTime" type="datetime" nullable="true" />
+
+        <many-to-one field="completedAgent" target-entity="Nursery\Domain\Shared\Model\Agent">
+            <join-column name="completed_agent_id" referenced-column-name="id" nullable="true" />
+        </many-to-one>
     </entity>
 </doctrine-mapping>

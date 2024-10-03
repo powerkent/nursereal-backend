@@ -5,7 +5,7 @@
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Nursery\Domain\Nursery\Model\Action" table="action" inheritance-type="JOINED">
-        <discriminator-column name="type"  type="string"/>
+        <discriminator-column name="action_type"  type="string"/>
         <discriminator-map>
             <discriminator-mapping value="activity" class="Nursery\Domain\Nursery\Model\Action\Activity" />
             <discriminator-mapping value="care" class="Nursery\Domain\Nursery\Model\Action\Care" />
@@ -13,6 +13,8 @@
             <discriminator-mapping value="presence" class="Nursery\Domain\Nursery\Model\Action\Presence" />
             <discriminator-mapping value="rest" class="Nursery\Domain\Nursery\Model\Action\Rest" />
             <discriminator-mapping value="treatment" class="Nursery\Domain\Nursery\Model\Action\Treatment" />
+            <discriminator-mapping value="lunch" class="Nursery\Domain\Nursery\Model\Action\Lunch" />
+            <discriminator-mapping value="milk" class="Nursery\Domain\Nursery\Model\Action\Milk" />
         </discriminator-map>
 
         <id name="id" type="integer">
@@ -21,20 +23,21 @@
 
         <field name="uuid" type="uuid" unique="true" />
 
+        <field name="state" enum-type="Nursery\Domain\Nursery\Enum\ActionState" />
+
+        <field name="type" enum-type="Nursery\Domain\Nursery\Enum\ActionType" />
+
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
 
-        <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child">
-            <join-table name="child_action">
-                <join-columns>
-                    <join-column name="action_id" referenced-column-name="id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="child_id" referenced-column-name="id" />
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <many-to-one field="child" target-entity="Nursery\Domain\Shared\Model\Child">
+            <join-column name="child_id" referenced-column-name="id" nullable="false" />
+        </many-to-one>
+
+        <many-to-one field="agent" target-entity="Nursery\Domain\Shared\Model\Agent">
+            <join-column name="agent_id" referenced-column-name="id" nullable="false" />
+        </many-to-one>
 
         <field name="comment" nullable="true" />
     </entity>
