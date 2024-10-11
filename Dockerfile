@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.2
+ARG PHP_VERSION=8.3
 ARG COMPOSER_VERSION=2
 
 FROM composer:${COMPOSER_VERSION} AS nurs-composer
@@ -31,9 +31,11 @@ FROM nurs-common AS nurs-php-dev
 
 COPY docker/app/entrypoint.sh /usr/local/bin/entrypoint
 
-RUN pecl install pcov \
-    && docker-php-ext-enable pcov \
+RUN pecl install pcov xdebug \
+    && docker-php-ext-enable pcov xdebug \
     && chmod +x /usr/local/bin/entrypoint
+
+RUN echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 EXPOSE 8080
 

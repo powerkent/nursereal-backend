@@ -1,0 +1,32 @@
+default:
+    suites:
+        Nursery:
+            paths:
+                features: tests/Infrastructure/Nursery/Behat/Features
+
+            contexts:
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\ApiContext
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\DatabaseContext
+
+        Shared:
+            paths:
+                features: tests/Infrastructure/Shared/Behat/Features
+            contexts:
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\ApiContext
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\DatabaseContext
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\NurseryStructureContext
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\ChildContext
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\CustomerContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                class: Nursery\Infrastructure\Shared\Symfony\Kernel
+
+            bootstrap: tests/bootstrap.php
+
+        Imbo\BehatApiExtension:
+            apiClient:
+                base_uri: http://server:80
+                timeout: 15.0
+                verify: false
