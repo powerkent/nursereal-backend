@@ -73,7 +73,7 @@ final class CustomerResource
         #[Groups(['customer:item', 'customer:list'])]
         public ?string $email,
         #[Groups(['customer:item', 'customer:list'])]
-        public int $phoneNumber,
+        public string $phoneNumber,
         #[Groups(['customer:item', 'customer:list'])]
         /** @var list<ChildView>|null $children */
         public ?array $children = null,

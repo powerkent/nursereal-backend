@@ -8,11 +8,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('framework', [
         'validation' => null,
     ]);
-    if ('test' === $containerConfigurator->env()) {
-        $containerConfigurator->extension('framework', [
-            'validation' => [
-                'not_compromised_password' => false,
-            ],
-        ]);
-    }
 };

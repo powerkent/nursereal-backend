@@ -20,7 +20,7 @@ class CustomerView
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?string $email,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public int $phoneNumber,
+        public string $phoneNumber,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,
     ) {

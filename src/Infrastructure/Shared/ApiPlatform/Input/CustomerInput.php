@@ -28,8 +28,8 @@ final class CustomerInput
         #[Assert\NotBlank(message: 'Customer requires a password.')]
         public string $password,
         #[Groups(['customer:item'])]
-        #[ApiProperty(openapiContext: ['example' => 33770487448])]
-        public int $phoneNumber,
+        #[ApiProperty(openapiContext: ['example' => '0606060606'])]
+        public string $phoneNumber,
         #[Groups(['customer:item'])]
         #[ApiProperty(openapiContext: [
             'type' => 'array',

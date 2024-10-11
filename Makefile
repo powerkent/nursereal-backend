@@ -140,7 +140,7 @@ fix-cs:
 phpstan:
 	@$(EXEC) vendor/bin/phpstan analyze -c tools/phpstan.neon --memory-limit 1G
 
-## check ddd and bounded context dependencies
+## Check ddd and bounded context dependencies
 deptrac:
 	@echo "\n\e[7mChecking DDD layers...\e[0m"
 	@$(EXEC) vendor/bin/deptrac --cache-file=tools/.deptrac_ddd.cache --config-file=tools/deptrac_ddd.yaml
@@ -156,3 +156,18 @@ security:
 check: cc fix-cs phpstan deptrac security
 
 .PHONY: cc fix-cs phpstan deptrac security
+
+
+####################################### TESTS #######################################
+
+
+###
+Tests:
+
+## Behat tests
+behat: db-create db-migrate stop-workers
+	@$(EXEC) vendor/bin/behat -n --strict --format=progress --config tools/behat.yaml
+
+## Behat tests in progress
+behat-test:
+	@$(EXEC) vendor/bin/behat -n --strict --format=progress --config tools/behat.yaml --tags="@test"

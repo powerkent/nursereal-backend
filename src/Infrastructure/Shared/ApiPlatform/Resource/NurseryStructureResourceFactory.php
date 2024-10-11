@@ -6,6 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource;
 
 use Nursery\Application\Shared\Query\FindAgentsByNurseryStructureQuery;
 use Nursery\Application\Shared\Query\FindChildrenByNurseryStructureQuery;
+use Nursery\Application\Shared\Query\FindOpeningsByNurseryStructureQuery;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\NurseryStructure;
@@ -33,6 +34,7 @@ final readonly class NurseryStructureResourceFactory
     {
         $children = $this->queryBus->ask(new FindChildrenByNurseryStructureQuery($nurseryStructure));
         $agents = $this->queryBus->ask(new FindAgentsByNurseryStructureQuery($nurseryStructure));
+        $openings = $this->queryBus->ask(new FindOpeningsByNurseryStructureQuery($nurseryStructure));
 
         return new NurseryStructureResource(
             uuid: $nurseryStructure->getUuid(),
@@ -41,7 +43,7 @@ final readonly class NurseryStructureResourceFactory
             address: $nurseryStructure->getAddress(),
             createdAt: $nurseryStructure->getCreatedAt(),
             updatedAt: $nurseryStructure->getUpdatedAt(),
-            openings: array_map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening), $nurseryStructure->getNurseryStructureOpenings()->toArray()),
+            openings: array_map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening), $openings),
             agents: array_map(fn (Agent $agent): AgentView => $this->agentViewFactory->fromModel($agent), $agents),
             children: array_map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child), $children),
         );

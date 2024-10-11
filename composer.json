@@ -1,12 +1,10 @@
 {
     "name": "powerkent/nursereal-backend",
-    "autoload": {
-        "psr-4": {
-            "Nursery\\": "src/"
-        }
-    },
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "api-platform/core": "^3.3",
         "composer/package-versions-deprecated": "1.11.99.5",
         "doctrine/dbal": "^3",
@@ -51,6 +49,40 @@
         "symfony/workflow": "^7.1",
         "symfony/yaml": "^7.1"
     },
+    "require-dev": {
+        "behat/behat": "^3.14",
+        "dama/doctrine-test-bundle": "^8.2",
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "friends-of-behat/symfony-extension": "^2.6",
+        "friendsofphp/php-cs-fixer": "^3.59",
+        "imbo/behat-api-extension": "^5.0",
+        "matthiasnoback/behat-local-code-coverage-extension": "^0.5.0",
+        "matthiasnoback/live-code-coverage": "^1.6",
+        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan-symfony": "^1.4",
+        "phpunit/phpcov": "^8.2",
+        "phpunit/phpunit": "^9.6",
+        "qossmic/deptrac": "^2.0",
+        "symfony/browser-kit": "^7.1",
+        "symfony/debug-bundle": "^7.1",
+        "symfony/maker-bundle": "^1.61",
+        "symfony/phpunit-bridge": "^7.1",
+        "symfony/stopwatch": "^7.1",
+        "symfony/var-dumper": "^7.1",
+        "symfony/web-profiler-bundle": "^7.1",
+        "symplify/config-transformer": "*",
+        "zenstruck/foundry": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nursery\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nursery\\Tests\\": "tests/"
+        }
+    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": {
@@ -62,24 +94,6 @@
             "symfony/flex": true,
             "symfony/runtime": true
         }
-    },
-    "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.6",
-        "friendsofphp/php-cs-fixer": "^3.59",
-        "imbo/behat-api-extension": "^5.0",
-        "phpstan/phpstan": "^1.11",
-        "phpstan/phpstan-symfony": "^1.4",
-        "phpunit/phpunit": "^9.5",
-        "qossmic/deptrac": "^2.0",
-        "symfony/browser-kit": "^7.1",
-        "symfony/debug-bundle": "^7.1",
-        "symfony/maker-bundle": "^1.61",
-        "symfony/phpunit-bridge": "^7.1",
-        "symfony/stopwatch": "^7.1",
-        "symfony/var-dumper": "^7.1",
-        "symfony/web-profiler-bundle": "^7.1",
-        "symplify/config-transformer": "*",
-        "zenstruck/foundry": "^2.0"
     },
     "scripts": {
         "auto-scripts": {
@@ -98,7 +112,8 @@
     },
     "extra": {
         "symfony": {
-            "docker": false
+            "allow-contrib": false,
+            "require": "7.1.*"
         }
     }
 }

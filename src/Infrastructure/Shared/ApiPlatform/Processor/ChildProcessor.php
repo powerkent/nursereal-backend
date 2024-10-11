@@ -57,7 +57,12 @@ final readonly class ChildProcessor implements ChildProcessorInterface
             ];
         }
 
-        $child = $this->createOrUpdateChild($primitives);
+        /** @var Child $child */
+        [$child, $command] = $this->createOrUpdateChild($primitives);
+
+        if ($command instanceof CreateChildCommand && empty($data->treatments)) {
+            return $child;
+        }
 
         $primitives = [
             'uuid' => $child->getUuid(),
@@ -104,15 +109,16 @@ final readonly class ChildProcessor implements ChildProcessorInterface
     }
 
     /**
-     * @param array<string, mixed> $primitives
+     * @param  array<string, mixed> $primitives
+     * @return array<int, mixed>
      */
-    private function createOrUpdateChild(array $primitives): Child
+    private function createOrUpdateChild(array $primitives): array
     {
         $command = (null === $this->queryBus->ask(new FindChildByUuidOrIdQuery($primitives['uuid'])))
             ? CreateChildCommand::create($primitives)
             : UpdateChildCommand::create($primitives)
         ;
 
-        return $this->commandBus->dispatch($command);
+        return [$this->commandBus->dispatch($command), $command];
     }
 }
