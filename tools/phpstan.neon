@@ -1,0 +1,19 @@
+includes:
+    - ../vendor/phpstan/phpstan-symfony/extension.neon
+
+rules:
+    - Nursery\Infrastructure\Shared\PhpStan\Rule\SuffixInterfacesWithInterfaceRule
+    - Nursery\Infrastructure\Shared\PhpStan\Rule\SuffixTraitsWithTraitRule
+parameters:
+    level: 8
+    paths:
+        - ../src
+        - ../tests
+    excludePaths:
+        - ../src/Infrastructure/Nursery/ApiPlatform/Processor/ActionProcessor
+
+    symfony:
+        containerXmlPath: ../var/cache/dev/Nursery_Infrastructure_Shared_Symfony_KernelDevDebugContainer.xml
+    scanDirectories:
+            - ../var/cache/dev/Symfony/Config
+

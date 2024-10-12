@@ -1,0 +1,80 @@
+name: Nursereal CI Pipeline
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+
+        env:
+            JWT_PASSPHRASE: ${{ secrets.JWT_PASSPHRASE }}
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
+
+            - name: Create JWT Private Key
+              run: |
+                  mkdir -p config/jwt
+                  echo "${{ secrets.JWT_PRIVATE_KEY }}" > config/jwt/private.pem
+              shell: bash
+
+            - name: Create JWT Private Key
+              run: |
+                  mkdir -p config/jwt
+                  echo "${{ secrets.JWT_PUBLIC_KEY }}" > config/jwt/public.pem
+              shell: bash
+
+            - name: Set Permissions for JWT Keys
+              run: |
+                  chmod 600 config/jwt/private.pem
+                  chmod 644 config/jwt/public.pem
+
+            - name: Build Docker Images
+              run: docker compose -f docker-compose.yaml -f docker-compose.override.yaml build
+
+            - name: Start Services
+              run: docker compose -f docker-compose.yaml -f docker-compose.override.yaml up -d
+
+            - name: Wait for Database
+              run: |
+                  echo "Waiting for database to be ready..."
+                  until docker compose exec database mysqladmin ping -h"database" --silent; do
+                    sleep 5
+                  done
+                  echo "Database is ready!"
+
+            - name: Run Composer Install
+              run: docker compose exec app composer install --prefer-dist --no-progress --no-suggest --no-interaction
+
+            - name: Run Database Migrations
+              run: docker compose exec app php bin/console doctrine:migrations:migrate --no-interaction
+
+            - name: Run PHP CS Fixer
+              run: docker compose exec app vendor/bin/php-cs-fixer fix --config tools/.php-cs-fixer.dist.php --dry-run --diff
+
+            - name: Run PHPStan
+              run: docker compose exec app vendor/bin/phpstan analyse -c tools/phpstan.neon --no-progress --memory-limit 1G
+
+            - name: Run Composer Audit
+              run: docker compose exec app composer audit --format=json
+
+            - name: Run Behat Tests
+              run: |
+                  docker compose exec -T -u www-data app php -d memory_limit=1G vendor/bin/behat -n --strict --format=progress --config tools/behat.yaml
+
+            - name: Tear Down Services
+              if: always()
+              run: docker compose down
+
+            - name: Remove Docker images
+              if: always()
+              run: docker image prune -a -f
