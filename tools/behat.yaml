@@ -17,6 +17,8 @@ default:
                 - Nursery\Tests\Infrastructure\Shared\Behat\Context\NurseryStructureContext
                 - Nursery\Tests\Infrastructure\Shared\Behat\Context\ChildContext
                 - Nursery\Tests\Infrastructure\Shared\Behat\Context\CustomerContext
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\IRPContext
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\TreatmentContext
 
     extensions:
         FriendsOfBehat\SymfonyExtension:

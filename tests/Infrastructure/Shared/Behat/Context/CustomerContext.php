@@ -5,17 +5,11 @@ declare(strict_types=1);
 namespace Nursery\Tests\Infrastructure\Shared\Behat\Context;
 
 use Behat\Behat\Context\Context;
-use CurationDispatcher\Infrastructure\CurationDispatcher\Foundry\Factory\ProductFactory;
 use DateTimeImmutable;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Nursery\Domain\Shared\Model\NurseryStructure;
-use Nursery\Infrastructure\Shared\Foundry\Factory\ChildFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\CustomerFactory;
-use Nursery\Infrastructure\Shared\Foundry\Factory\NurseryStructureFactory;
 use Nursery\Tests\Infrastructure\Shared\Behat\Storage;
 use Ramsey\Uuid\Uuid;
-
 
 final readonly class CustomerContext implements Context
 {

@@ -68,8 +68,7 @@ jobs:
               run: docker compose exec app composer audit --format=json
 
             - name: Run Behat Tests
-              run: |
-                  docker compose exec -T -u www-data app php -d memory_limit=1G vendor/bin/behat -n --strict --format=progress --config tools/behat.yaml
+              run: docker compose exec -T -u www-data app php -d memory_limit=1G vendor/bin/behat -n --strict --format=progress --config tools/behat.yaml
 
             - name: Tear Down Services
               if: always()

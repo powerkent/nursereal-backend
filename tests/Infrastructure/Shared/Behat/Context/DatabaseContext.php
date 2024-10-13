@@ -17,7 +17,7 @@ use function Zenstruck\Foundry\faker;
 
 final class DatabaseContext implements Context
 {
-        public function __construct(
+    public function __construct(
         private EntityManagerInterface $entityManager,
     ) {
     }
@@ -43,7 +43,7 @@ final class DatabaseContext implements Context
         $databaseCount = (int) $this->entityManager->getConnection()->executeQuery($query)->fetchOne();
 
         if ($count !== $databaseCount) {
-            throw new \LogicException(sprintf('%d "%s" entries found but %d expected.', $databaseCount, $table, $count));
+            throw new LogicException(sprintf('%d "%s" entries found but %d expected.', $databaseCount, $table, $count));
         }
     }
 
@@ -56,7 +56,7 @@ final class DatabaseContext implements Context
     public function insertInTable(TableNode $nodes, string $table, int $count = 1): void
     {
         if ([] === $nodesTable = $nodes->getTable()) {
-            throw new \LogicException('The nodes table cannot be empty.');
+            throw new LogicException('The nodes table cannot be empty.');
         }
 
         for ($i = 0; $i < $count; ++$i) {
@@ -108,7 +108,7 @@ final class DatabaseContext implements Context
                 return " $key IS NOT NULL";
             }
 
-            $params['value_' . $i] = $value;
+            $params['value_'.$i] = $value;
 
             return " CAST($key AS CHAR) = :value_$i";
         }, $nodes->getTable()));

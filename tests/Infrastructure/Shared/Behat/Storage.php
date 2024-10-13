@@ -7,7 +7,10 @@ namespace Nursery\Tests\Infrastructure\Shared\Behat;
 use Doctrine\ORM\EntityManagerInterface;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\Customer;
+use Nursery\Domain\Shared\Model\Dosage;
+use Nursery\Domain\Shared\Model\IRP;
 use Nursery\Domain\Shared\Model\NurseryStructure;
+use Nursery\Domain\Shared\Model\Treatment;
 use RuntimeException;
 use Zenstruck\Foundry\Persistence\Proxy;
 use function get_class;
@@ -101,5 +104,53 @@ final class Storage
     public function setCustomer(Proxy $customer): void
     {
         $this->storeEntity($customer);
+    }
+
+    /**
+     * @return Proxy<IRP>
+     */
+    public function getIRP(): Proxy
+    {
+        return $this->findEntity(IRP::class);
+    }
+
+    /**
+     * @param Proxy<IRP> $irp
+     */
+    public function setIRP(Proxy $irp): void
+    {
+        $this->storeEntity($irp);
+    }
+
+    /**
+     * @return Proxy<Treatment>
+     */
+    public function getTreatment(): Proxy
+    {
+        return $this->findEntity(Treatment::class);
+    }
+
+    /**
+     * @param Proxy<Treatment> $treatment
+     */
+    public function setTreatment(Proxy $treatment): void
+    {
+        $this->storeEntity($treatment);
+    }
+
+    /**
+     * @return Proxy<Dosage>
+     */
+    public function getDosage(): Proxy
+    {
+        return $this->findEntity(Dosage::class);
+    }
+
+    /**
+     * @param Proxy<Dosage> $dosage
+     */
+    public function setDosage(Proxy $dosage): void
+    {
+        $this->storeEntity($dosage);
     }
 }
