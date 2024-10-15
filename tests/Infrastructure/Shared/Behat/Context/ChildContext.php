@@ -6,14 +6,12 @@ namespace Nursery\Tests\Infrastructure\Shared\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use DateTimeImmutable;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Infrastructure\Shared\Foundry\Factory\ChildFactory;
+use Nursery\Infrastructure\Shared\Foundry\Factory\IRPFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\NurseryStructureFactory;
 use Nursery\Tests\Infrastructure\Shared\Behat\Storage;
 use Ramsey\Uuid\Uuid;
-
 
 final readonly class ChildContext implements Context
 {
@@ -92,6 +90,16 @@ final readonly class ChildContext implements Context
     {
         $child = $this->storage->getChild();
         $child->_set('nurseryStructure', NurseryStructureFactory::find(['uuid' => $uuid])->_real());
+        $child->_save();
+    }
+
+    /**
+     * @Given that child is linked to IPR with name :name
+     */
+    public function updateChildIRP(string $name): void
+    {
+        $child = $this->storage->getChild();
+        $child->_set('irp', IRPFactory::find(['name' => $name])->_real());
         $child->_save();
     }
 }

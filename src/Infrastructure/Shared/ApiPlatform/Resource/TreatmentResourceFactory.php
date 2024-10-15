@@ -28,7 +28,7 @@ final readonly class TreatmentResourceFactory
             createdAt: $treatment->getCreatedAt(),
             startAt: $treatment->getStartAt(),
             endAt: $treatment->getEndAt(),
-            dosages: $treatment->getDosages()?->map(fn (Dosage $dosage): dosageView => $this->dosageViewFactory->fromModel($dosage))->toArray(),
+            dosages: $treatment->getDosages()->map(fn (Dosage $dosage): dosageView => $this->dosageViewFactory->fromModel($dosage))->toArray(),
         );
     }
 }

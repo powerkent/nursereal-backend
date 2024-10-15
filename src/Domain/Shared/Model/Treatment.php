@@ -126,9 +126,9 @@ class Treatment
     }
 
     /**
-     * @return Collection<int, Dosage>|null
+     * @return Collection<int, Dosage>
      */
-    public function getDosages(): ?Collection
+    public function getDosages(): Collection
     {
         return $this->dosages;
     }

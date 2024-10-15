@@ -257,7 +257,6 @@ Feature:
         }
         """
 
-        @test
     Scenario: I can put a child
         Given there is a child with uuid "00000000-0000-0000-0000-000000000001"
         And that child has firstname Quentin

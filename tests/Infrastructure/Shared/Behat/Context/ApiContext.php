@@ -14,8 +14,6 @@ use Psr\Http\Message\ResponseInterface;
 use Ramsey\Uuid\Uuid;
 use function sprintf;
 
-
-
 class ApiContext extends BaseApiContext
 {
     private ?string $token = null;
@@ -24,7 +22,7 @@ class ApiContext extends BaseApiContext
     {
     }
 
-    public function requestPath(string $path, string $method = null): static
+    public function requestPath(string $path, ?string $method = null): static
     {
         if ($this->token) {
             $this->setRequestHeader('Authorization', sprintf('Bearer %s', $this->token));
@@ -45,7 +43,7 @@ class ApiContext extends BaseApiContext
             'json' => [
                 'email' => $email,
                 'password' => $password,
-            ]
+            ],
         ]);
 
         $data = json_decode($response->getBody()->getContents(), true);
@@ -96,7 +94,7 @@ class ApiContext extends BaseApiContext
     public function getAuthenticatedHeaders(): array
     {
         return [
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer '.$this->token,
             'Accept' => 'application/json',
         ];
     }
@@ -128,4 +126,3 @@ class ApiContext extends BaseApiContext
         dump($request->getMethod(), $request->getHeaders(), (string) $request->getBody());
     }
 }
-

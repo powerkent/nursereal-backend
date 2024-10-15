@@ -23,7 +23,7 @@ final class TreatmentViewFactory
             createdAt: $treatment->getCreatedAt(),
             startAt: $treatment->getStartAt(),
             endAt: $treatment->getEndAt(),
-            dosages: $treatment->getDosages()?->map(fn (Dosage $dosage): DosageView => $this->dosageViewFactory->fromModel($dosage))->toArray(),
+            dosages: $treatment->getDosages()->map(fn (Dosage $dosage): DosageView => $this->dosageViewFactory->fromModel($dosage))->toArray(),
         );
     }
 }

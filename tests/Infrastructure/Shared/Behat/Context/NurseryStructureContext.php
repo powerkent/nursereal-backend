@@ -6,13 +6,10 @@ namespace Nursery\Tests\Infrastructure\Shared\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use DateTimeImmutable;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Infrastructure\Shared\Foundry\Factory\NurseryStructureFactory;
 use Nursery\Tests\Infrastructure\Shared\Behat\Storage;
 use Ramsey\Uuid\Uuid;
-
 
 final readonly class NurseryStructureContext implements Context
 {
@@ -73,4 +70,3 @@ final readonly class NurseryStructureContext implements Context
         $nurseryStructure->_save();
     }
 }
-
