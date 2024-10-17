@@ -7,6 +7,11 @@ services:
         environment:
             XDEBUG_MODE: debug,develop
             XDEBUG_CONFIG: remote_enable=1 remote_autostart=1
+            AWS_ACCESS_KEY_ID: test
+            AWS_SECRET_ACCESS_KEY: test
+            AWS_REGION: us-east-1
+            AWS_BUCKET_NAME: mon-bucket
+            AWS_ENDPOINT: http://localstack:4566
         volumes:
             - ./:/var/www/html
             - ./docker/app/conf.d/opcache_preload_prod.ini:/usr/local/etc/php/conf.d/opcache_preload_prod.ini
