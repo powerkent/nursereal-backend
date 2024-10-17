@@ -26,7 +26,10 @@ This service enables daycare centers to efficiently manage children, parents, an
 
 - Api Platform
 - Symfony
+- Doctrine
 - DDD
+- Mercure
+- Localstack
 
 ## License
 

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Aws\S3\S3Client;
 use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\ResourceMetadataFactory;
 use Nursery\Infrastructure\Shared\Security\JWTCreatedListener;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -32,4 +33,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'event' => 'lexik_jwt_authentication.on_jwt_created',
             'method' => 'onJWTCreated',
         ]);
+
+    $services->set(S3Client::class)
+        ->args([[
+            'credentials' => [
+                'key'    => '%env(AWS_ACCESS_KEY_ID)%',
+                'secret' => '%env(AWS_SECRET_ACCESS_KEY)%',
+            ],
+            'region'  => '%env(AWS_REGION)%',
+            'version' => 'latest',
+            'endpoint' => '%env(default::AWS_ENDPOINT)%',
+            'use_path_style_endpoint' => true,
+        ]]);
 };

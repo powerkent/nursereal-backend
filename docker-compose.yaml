@@ -9,6 +9,8 @@ services:
         restart: on-failure
         volumes:
             - ./:/var/www/html
+        depends_on:
+            - localstack
 
     server:
         image: nginx:alpine
@@ -44,6 +46,17 @@ services:
         volumes:
             - mercure_data:/data
             - mercure_config:/config
+
+    localstack:
+        image: localstack/localstack
+        container_name: localstack
+        ports:
+            - '4566:4566'
+        environment:
+            - SERVICES=s3
+            - DATA_DIR=/data
+        volumes:
+            - './localstack_data:/data'
 
 volumes:
     mercure_data:
