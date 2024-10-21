@@ -19,6 +19,8 @@ final class ChildInput implements ChildInputDataInterface
      */
     public function __construct(
         #[Groups(['child:item'])]
+        public ?string $avatar,
+        #[Groups(['child:item'])]
         #[Assert\NotBlank(message: 'Child requires a firstname.')]
         public string $firstname,
         #[Groups(['child:item'])]

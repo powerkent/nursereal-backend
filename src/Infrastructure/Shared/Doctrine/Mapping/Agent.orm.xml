@@ -21,6 +21,10 @@
 
         <field name="roles" type="json" />
 
+        <one-to-one field="avatar" target-entity="Nursery\Domain\Shared\Model\Avatar">
+            <join-column name="avatar_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
+        </one-to-one>
+
         <many-to-many field="nurseryStructures" target-entity="Nursery\Domain\Shared\Model\NurseryStructure" mapped-by="agents" fetch="LAZY" />
 
         <field name="createdAt" type="datetime" />

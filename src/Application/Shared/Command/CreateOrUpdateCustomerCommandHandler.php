@@ -40,6 +40,7 @@ final readonly class CreateOrUpdateCustomerCommandHandler implements CommandHand
             return $this->customerRepository->update($customer);
         }
 
+        $command->primitives['avatar'] = null;
         $command->primitives['createdAt'] = new DateTimeImmutable();
         $customer = new Customer(...$command->primitives);
         $customer->setPassword($this->passwordHasher->hashPassword($customer, $password));

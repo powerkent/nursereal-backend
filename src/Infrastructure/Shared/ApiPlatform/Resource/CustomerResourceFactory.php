@@ -19,6 +19,7 @@ final readonly class CustomerResourceFactory
     {
         return new CustomerResource(
             uuid: $customer->getUuid(),
+            avatar: $customer->getAvatar()?->getContentUrl(),
             firstname: $customer->getFirstname(),
             lastname: $customer->getLastname(),
             email: $customer->getEmail(),

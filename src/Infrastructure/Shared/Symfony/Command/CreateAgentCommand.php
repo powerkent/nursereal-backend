@@ -7,6 +7,7 @@ namespace Nursery\Infrastructure\Shared\Symfony\Command;
 use DateTimeImmutable;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
+use Nursery\Infrastructure\Shared\Foundry\Factory\AvatarFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -35,6 +36,7 @@ class CreateAgentCommand extends Command
     {
         $agent = new Agent(
             uuid: Uuid::uuid4(),
+            avatar: AvatarFactory::createOne()->_real(),
             firstname: 'agent',
             lastname: 'agent',
             email: 'b@b.com',

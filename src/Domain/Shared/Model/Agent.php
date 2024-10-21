@@ -33,6 +33,7 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
      */
     public function __construct(
         protected UuidInterface $uuid,
+        protected ?Avatar $avatar,
         protected string $firstname,
         protected string $lastname,
         protected string $email,
@@ -67,6 +68,18 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
     public function setUuid(UuidInterface $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
