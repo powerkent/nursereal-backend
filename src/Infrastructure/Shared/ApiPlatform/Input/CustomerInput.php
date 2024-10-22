@@ -15,6 +15,8 @@ final class CustomerInput
      */
     public function __construct(
         #[Groups(['customer:item'])]
+        public ?string $avatar,
+        #[Groups(['customer:item'])]
         #[Assert\NotBlank(message: 'Customer requires a firstname.')]
         public string $firstname,
         #[Groups(['customer:item'])]

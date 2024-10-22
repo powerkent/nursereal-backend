@@ -15,7 +15,7 @@
         "lcobucci/jwt": "*",
         "league/flysystem": "^3.29",
         "league/flysystem-aws-s3-v3": "^3.29",
-        "league/flysystem-bundle": "^3.3",
+        "league/flysystem-bundle": "*",
         "lexik/jwt-authentication-bundle": "*",
         "nelmio/cors-bundle": "^2.5",
         "phpdocumentor/reflection-docblock": "^5.4",
@@ -51,7 +51,8 @@
         "symfony/validator": "^7.1",
         "symfony/web-link": "^7.1",
         "symfony/workflow": "^7.1",
-        "symfony/yaml": "^7.1"
+        "symfony/yaml": "^7.1",
+        "vich/uploader-bundle": "^2.4"
     },
     "require-dev": {
         "behat/behat": "^3.14",

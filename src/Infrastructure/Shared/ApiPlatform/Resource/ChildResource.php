@@ -73,6 +73,8 @@ final class ChildResource
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?int $id,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public ?string $avatar,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
         public string $firstname,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public string $lastname,

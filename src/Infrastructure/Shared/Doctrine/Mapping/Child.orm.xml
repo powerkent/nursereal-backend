@@ -17,6 +17,10 @@
 
         <field name="birthday" type="datetime" />
 
+        <one-to-one field="avatar" target-entity="Nursery\Domain\Shared\Model\Avatar">
+            <join-column name="avatar_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
+        </one-to-one>
+
         <many-to-one field="nurseryStructure" target-entity="Nursery\Domain\Shared\Model\NurseryStructure">
             <join-column name="nursery_structure_id" />
             <cascade>

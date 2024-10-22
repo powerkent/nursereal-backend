@@ -21,6 +21,10 @@
 
         <field name="phoneNumber" />
 
+        <one-to-one field="avatar" target-entity="Nursery\Domain\Shared\Model\Avatar">
+            <join-column name="avatar_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
+        </one-to-one>
+
         <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child" inversed-by="customers">
             <join-table name="customer_child">
                 <join-columns>

@@ -72,6 +72,8 @@ final class AgentResource
         #[Groups(['agent:item', 'agent:list'])]
         public ?int $id,
         #[Groups(['agent:item', 'agent:list'])]
+        public ?string $avatar,
+        #[Groups(['agent:item', 'agent:list'])]
         public string $firstname,
         #[Groups(['agent:item', 'agent:list'])]
         public string $lastname,

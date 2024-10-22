@@ -67,6 +67,8 @@ final class CustomerResource
         #[Groups(['customer:item', 'customer:list'])]
         public UuidInterface $uuid,
         #[Groups(['customer:item', 'customer:list'])]
+        public ?string $avatar,
+        #[Groups(['customer:item', 'customer:list'])]
         public string $firstname,
         #[Groups(['customer:item', 'customer:list'])]
         public string $lastname,

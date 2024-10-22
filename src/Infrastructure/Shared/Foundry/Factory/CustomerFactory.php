@@ -23,6 +23,7 @@ final class CustomerFactory extends PersistentProxyObjectFactory
     {
         return [
             'uuid' => Uuid::uuid4(),
+            'avatar' => AvatarFactory::createOne(),
             'firstname' => self::faker()->firstName(),
             'lastname' => self::faker()->lastName(),
             'email' => self::faker()->email(),

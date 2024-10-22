@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
     app:
@@ -48,16 +48,17 @@ services:
             - mercure_config:/config
 
     localstack:
-        image: localstack/localstack
-        container_name: localstack
+        container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
+        image: localstack/localstack:s3-latest
         ports:
-            - '4566:4566'
+            - "127.0.0.1:4566:4566"
         environment:
-            - SERVICES=s3
-            - DATA_DIR=/data
+            - DEBUG=${DEBUG:-0}
         volumes:
-            - './localstack_data:/data'
+            - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+            - "/var/run/docker.sock:/var/run/docker.sock"
 
 volumes:
     mercure_data:
     mercure_config:
+    localstack_data:

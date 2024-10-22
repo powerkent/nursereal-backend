@@ -19,6 +19,7 @@ final readonly class CreateChildCommandHandler implements CommandHandlerInterfac
 
     public function __invoke(CreateChildCommand $command): Child
     {
+        $command->primitives['avatar'] = null;
         if (!empty($command->primitives['irp'])) {
             $command->primitives['irp'] = new IRP(...$command->primitives['irp']);
         }
