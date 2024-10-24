@@ -6,14 +6,13 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
-use Nursery\Application\Nursery\Query\FindActionByChildrenAndActionTypeQuery;
+use DateTimeImmutable;
+use Nursery\Application\Nursery\Query\FindActionByFiltersQuery;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResourceFactory;
-use function array_map;
-use function explode;
 
 /**
  * @extends AbstractCollectionProvider<Action, ActionResource>
@@ -32,16 +31,22 @@ class ActionCollectionProvider extends AbstractCollectionProvider
     {
         $filters = [];
 
-        if ([] !== $actions = (array) ($context['filters']['action'] ?? [])) {
-            $filters['actionTypes'] = $actions;
+        if ([] !== $actions = (array) ($context['filters']['actions'] ?? [])) {
+            $filters['actions'] = $actions;
         }
 
         if ([] !== $children = (array) ($context['filters']['children'] ?? [])) {
-            $childrenIds = array_map(fn (string $name): int => (int) explode(':', $name)[0], $children);
-            $filters['childrenIds'] = $childrenIds;
+            $filters['children'] = $children;
         }
 
-        return $this->queryBus->ask(new FindActionByChildrenAndActionTypeQuery($filters));
+        if ([] !== $nurseryStructures = (array) ($context['filters']['nursery_structures'] ?? [])) {
+            $filters['nurseryStructures'] = $nurseryStructures;
+        }
+
+        $filters['startDateTime'] = new DateTimeImmutable($context['filters']['start_date_time']);
+        $filters['endDateTime'] = new DateTimeImmutable($context['filters']['end_date_time']);
+
+        return $this->queryBus->ask(new FindActionByFiltersQuery($filters));
     }
 
     protected function toResource(object $model): object

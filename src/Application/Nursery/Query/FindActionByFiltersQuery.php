@@ -6,7 +6,7 @@ namespace Nursery\Application\Nursery\Query;
 
 use Nursery\Domain\Shared\Query\QueryInterface;
 
-final class FindActionByChildrenAndActionTypeQuery implements QueryInterface
+final class FindActionByFiltersQuery implements QueryInterface
 {
     /**
      * @param array<string, mixed> $filters

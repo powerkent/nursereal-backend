@@ -46,8 +46,9 @@ class ChildFixtures extends Fixture
             $timeEndHour = faker()->numberBetween(15, 19);
             $timeEndMinute = faker()->numberBetween(0, 59);
             $timeEnd = $timeEnd->setTime($timeEndHour, $timeEndMinute);
+            $child = ChildFactory::createOne(['nurseryStructure' => $nursery, 'customers' => $customers])->_real();
             for ($j = 0; $j < 30; ++$j) {
-                $contractDates[] = ContractDateFactory::createOne(['contractTimeStart' => $timeStart, 'contractTimeEnd' => $timeEnd]);
+                $contractDates[] = ContractDateFactory::createOne(['contractTimeStart' => $timeStart, 'contractTimeEnd' => $timeEnd, 'child' => $child])->_real();
                 $timeStart = $timeStart->add(new DateInterval('P1D'));
                 $timeEnd = $timeEnd->add(new DateInterval('P1D'));
                 while ($this->isWeekend($timeStart)) {
@@ -56,7 +57,8 @@ class ChildFixtures extends Fixture
                 }
             }
 
-            ChildFactory::createOne(['nurseryStructure' => $nursery, 'customers' => $customers, 'contractDates' => $contractDates]);
+            $child->setContractDates($contractDates);
+            $manager->persist($child);
         }
 
         $manager->flush();

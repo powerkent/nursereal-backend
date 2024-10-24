@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\Doctrine\Repository;
 
+use DateTimeInterface;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Nursery\Repository\ActionRepositoryInterface;
 use Nursery\Infrastructure\Shared\Doctrine\Repository\AbstractRepository;
@@ -18,24 +19,40 @@ class ActionRepository extends AbstractRepository implements ActionRepositoryInt
         return Action::class;
     }
 
-    public function searchByFilter(array $children = [], array $actionTypes = []): ?array
-    {
+    public function searchByFilter(
+        DateTimeInterface $startDateTime,
+        DateTimeInterface $endDateTime,
+        array $children = [],
+        array $actions = [],
+        array $nurseryStructures = []
+    ): ?array {
         $queryBuilder = $this->createQueryBuilder('o')
-            ->select('o', 'c')
-            ->join('o.children', 'c');
+            ->select('o, c')
+            ->join('o.child', 'c')
+            ->andWhere('o.createdAt BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $startDateTime)
+            ->setParameter('endDate', $endDateTime);
 
         if (!empty($children)) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in('c.id', ':children'))
+            $queryBuilder->andWhere('c.uuid IN (:children)')
                 ->setParameter('children', $children);
         }
 
-        if (!empty($actionTypes)) {
+        if (!empty($nurseryStructures)) {
+            $queryBuilder->join('c.nurseryStructure', 'n')
+                ->andWhere('n.uuid IN (:nurseryStructures)')
+                ->setParameter('nurseryStructures', $nurseryStructures);
+        }
+
+        if (!empty($actions)) {
             $queryBuilder->andWhere($queryBuilder->expr()->orX(
                 ...array_map(function ($type) use ($queryBuilder) {
                     return $queryBuilder->expr()->isInstanceOf('o', $type);
-                }, $actionTypes)
+                }, $actions)
             ));
         }
+
+        dump($queryBuilder->getDQL());
 
         $query = $queryBuilder->getQuery();
 

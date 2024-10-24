@@ -13,7 +13,7 @@ class ContractDate
     public function __construct(
         protected DateTimeInterface $contractTimeStart,
         protected DateTimeInterface $contractTimeEnd,
-        protected Child $child,
+        protected ?Child $child,
     ) {
     }
 
@@ -46,12 +46,12 @@ class ContractDate
         return $this;
     }
 
-    public function getChild(): Child
+    public function getChild(): ?Child
     {
         return $this->child;
     }
 
-    public function setChild(Child $child): self
+    public function setChild(?Child $child): self
     {
         $this->child = $child;
 

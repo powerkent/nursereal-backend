@@ -20,6 +20,7 @@ final readonly class ContractDateResourceFactory
     {
         return new ContractDateResource(
             childUuid : $child->getUuid(),
+            avatar: $child->getAvatar()?->getContentUrl(),
             firstname : $child->getFirstname(),
             lastname  : $child->getLastname(),
             childDates: array_map(fn (ContractDate $contractDate): ChildDatesView => $this->childrenDatesViewFactory->fromModel($contractDate), $child->getContractDates()->toArray()),

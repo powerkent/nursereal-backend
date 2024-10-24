@@ -9,16 +9,16 @@ use Nursery\Domain\Shared\Model\Agent;
 
 trait CompletedActionTrait
 {
-    protected DateTimeInterface $startDateTime;
+    protected ?DateTimeInterface $startDateTime;
     protected ?DateTimeInterface $endDateTime = null;
     protected ?Agent $completedAgent = null;
 
-    public function getStartDateTime(): DateTimeInterface
+    public function getStartDateTime(): ?DateTimeInterface
     {
         return $this->startDateTime;
     }
 
-    public function setStartDateTime(DateTimeInterface $dateTime): self
+    public function setStartDateTime(?DateTimeInterface $dateTime): self
     {
         $this->startDateTime = $dateTime;
 

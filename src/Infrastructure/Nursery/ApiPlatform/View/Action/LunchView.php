@@ -12,7 +12,7 @@ class LunchView
 {
     public function __construct(
         #[Groups(['action:item', 'action:list'])]
-        public DateTimeInterface $startDateTime,
+        public ?DateTimeInterface $startDateTime,
         #[Groups(['action:item', 'action:list'])]
         public ?DateTimeInterface $endDateTime,
         #[Groups(['action:item', 'action:list'])]

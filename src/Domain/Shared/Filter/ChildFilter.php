@@ -8,8 +8,8 @@ use Nursery\Domain\Shared\Criteria\EqualsFilter;
 
 final class ChildFilter extends EqualsFilter
 {
-    public function __construct(int $childId)
+    public function __construct(string $child)
     {
-        parent::__construct('id', $childId);
+        parent::__construct('uuid', $child);
     }
 }
