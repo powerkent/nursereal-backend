@@ -902,7 +902,7 @@ Feature:
         }
         """
         And the "Content-Type" request header is "application/ld+json"
-        When I request "/api/treatments?childUuid=00000000-0000-0000-0000-000000000001" using HTTP POST
+        When I request "/api/treatments?child_uuid=00000000-0000-0000-0000-000000000001" using HTTP POST
         Then the response code is 201
         And the response body contains JSON:
         """

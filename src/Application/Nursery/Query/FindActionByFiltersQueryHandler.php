@@ -9,7 +9,7 @@ use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Query\QueryHandlerInterface;
 use Nursery\Domain\Nursery\Repository\ActionRepositoryInterface;
 
-final readonly class FindActionByChildrenAndActionTypeQueryHandler implements QueryHandlerInterface
+final readonly class FindActionByFiltersQueryHandler implements QueryHandlerInterface
 {
     public function __construct(private ActionRepositoryInterface $actionRepository)
     {
@@ -18,17 +18,9 @@ final readonly class FindActionByChildrenAndActionTypeQueryHandler implements Qu
     /**
      * @return array<int, Action>|null
      */
-    public function __invoke(FindActionByChildrenAndActionTypeQuery $query): ?array
+    public function __invoke(FindActionByFiltersQuery $query): ?array
     {
-        if (empty($query->filters['childrenIds']) && empty($query->filters['actionTypes'])) {
-            return $this->actionRepository->searchByFilter();
-        }
-
-        if (!empty($query->filters['childrenIds'] && empty($query->filters['actionTypes']))) {
-            return $this->actionRepository->searchByFilter($query->filters['childrenIds']);
-        }
-
-        $actionTypes = array_map(function (string $actionType): string {
+        $actions = array_map(function (string $actionType): string {
             return match (ActionType::from($actionType)) {
                 ActionType::Activity => Action\Activity::class,
                 ActionType::Care => Action\Care::class,
@@ -39,8 +31,14 @@ final readonly class FindActionByChildrenAndActionTypeQueryHandler implements Qu
                 ActionType::Rest => Action\Rest::class,
                 ActionType::Treatment => Action\Treatment::class,
             };
-        }, $query->filters['actionTypes']);
+        }, $query->filters['actions']);
 
-        return $this->actionRepository->searchByFilter($query->filters['childrenIds'], $actionTypes);
+        return $this->actionRepository->searchByFilter(
+            startDateTime: $query->filters['startDateTime'],
+            endDateTime: $query->filters['endDateTime'],
+            children: $query->filters['children'] ?? [],
+            actions: $actions,
+            nurseryStructures: $query->filters['nurseryStructures'] ?? [],
+        );
     }
 }

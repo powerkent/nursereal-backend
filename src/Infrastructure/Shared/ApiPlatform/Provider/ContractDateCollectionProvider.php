@@ -16,7 +16,6 @@ use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDateResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDateResourceFactory;
-use function dump;
 
 /**
  * @extends AbstractCollectionProvider<Child, ContractDateResource>
@@ -36,22 +35,19 @@ final class ContractDateCollectionProvider extends AbstractCollectionProvider
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable
     {
-        if (null !== $nurseryStructure = ($context['filters']['nurseryStructureId'] ?? null)) {
-            $filters[] = new NurseryStructureFilter((int) $nurseryStructure);
+        if (null !== $nurseryStructureUuid = ($context['filters']['nursery_structure_uuid'] ?? null)) {
+            $filters[] = new NurseryStructureFilter([$nurseryStructureUuid]);
         }
 
-        if (null !== $child = ($context['filters']['childId'] ?? null)) {
-            $filters[] = new ChildFilter((int) $child);
+        if (null !== $childUuid = ($context['filters']['child_uuid'] ?? null)) {
+            $filters[] = new ChildFilter($childUuid);
         }
 
         $children = $this->queryBus->ask(new FindChildrenByCriteriaQuery(new Criteria($filters)));
-        dump($children);
 
-        if (null !== ($context['filters']['isToday'] ?? null)) {
+        if (null !== ($context['filters']['is_today'] ?? null)) {
             $children = array_filter($children, fn (Child $child): bool => !empty($this->queryBus->ask(new FindContractDatesByDateQuery(new DateTimeImmutable(), $child))));
         }
-
-        dump($children);
 
         return $children;
     }

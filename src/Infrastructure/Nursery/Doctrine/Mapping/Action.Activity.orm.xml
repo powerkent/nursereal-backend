@@ -9,7 +9,7 @@
             <join-column name="activity_id" referenced-column-name="id" nullable="false" />
         </one-to-one>
 
-        <field name="startDateTime" type="datetime" />
+        <field name="startDateTime" type="datetime" nullable="true"  />
 
         <field name="endDateTime" type="datetime" nullable="true" />
 

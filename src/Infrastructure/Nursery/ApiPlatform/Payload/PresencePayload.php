@@ -11,7 +11,7 @@ class PresencePayload
 {
     public function __construct(
         #[Groups(['action:item'])]
-        public DateTimeInterface $startDateTime,
+        public ?DateTimeInterface $startDateTime,
         #[Groups(['action:put:write'])]
         public ?DateTimeInterface $endDateTime,
         #[Groups(['action:item'])]

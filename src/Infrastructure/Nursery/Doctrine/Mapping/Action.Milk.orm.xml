@@ -5,7 +5,7 @@
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Nursery\Domain\Nursery\Model\Action\Milk" table="action_milk">
-        <field name="startDateTime" type="datetime" />
+        <field name="startDateTime" type="datetime" nullable="true" />
 
         <field name="endDateTime" type="datetime" nullable="true" />
 

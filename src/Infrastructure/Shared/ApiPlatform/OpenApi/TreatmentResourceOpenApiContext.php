@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\OpenApi;
 
+use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
 
 /**
@@ -18,10 +19,7 @@ final class TreatmentResourceOpenApiContext implements OpenApiContextInterface
     public function operations(): array
     {
         $children = $this->childRepository->all();
-        $childrenValues = [];
-        foreach ($children as $child) {
-            $childrenValues[] = $child->getId().': '.$child->getFirstname().' '.$child->getLastname();
-        }
+        $childrenValues = array_map(fn (Child $c) => $c->getUuid()->toString(), $children);
 
         return [
             'GET /api/treatments' => [
@@ -37,7 +35,7 @@ final class TreatmentResourceOpenApiContext implements OpenApiContextInterface
             'POST /api/treatments' => [
                 'parameters' => [
                     [
-                        'name' => 'childUuid',
+                        'name' => 'child_uuid',
                         'in' => 'query',
                         'required' => true,
                         'schema' => ['type' => 'string'],

@@ -13,6 +13,7 @@ final class ChildViewFactory
         return new ChildView(
             uuid: $child->getUuid(),
             id: $child->getId(),
+            avatar: $child->getAvatar()?->getContentUrl(),
             firstname: $child->getFirstname(),
             lastname: $child->getLastname(),
         );

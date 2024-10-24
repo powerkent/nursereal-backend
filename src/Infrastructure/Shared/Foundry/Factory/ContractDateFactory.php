@@ -22,7 +22,7 @@ final class ContractDateFactory extends PersistentProxyObjectFactory
         return [
             'contractTimeStart' => self::faker()->dateTime(),
             'contractTimeEnd' => self::faker()->dateTime(),
-            'child' => ChildFactory::randomOrCreate(),
+            'child' => null,
         ];
     }
 }

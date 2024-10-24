@@ -47,6 +47,8 @@ final class ContractDateResource
         #[Groups(['contract:item', 'contract:list'])]
         public UuidInterface $childUuid,
         #[Groups(['contract:item', 'contract:list'])]
+        public ?string $avatar,
+        #[Groups(['contract:item', 'contract:list'])]
         public string $firstname,
         #[Groups(['contract:item', 'contract:list'])]
         public string $lastname,

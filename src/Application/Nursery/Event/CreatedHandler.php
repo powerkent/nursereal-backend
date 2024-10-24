@@ -10,6 +10,7 @@ use Nursery\Domain\Nursery\Event\Created;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Nursery\Model\Action\Care;
 use Nursery\Domain\Nursery\Model\Action\Diaper;
+use Nursery\Domain\Nursery\Model\Action\Presence;
 use Nursery\Domain\Nursery\Model\Action\Treatment;
 use Nursery\Domain\Nursery\Repository\ActionRepositoryInterface;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
@@ -37,7 +38,8 @@ final readonly class CreatedHandler implements EventHandlerInterface
         $transition = match (true) {
             $action instanceof Treatment,
             $action instanceof Diaper,
-            $action instanceof Care => ActionTransition::ActionCompleted,
+            $action instanceof Care,
+            $action instanceof Presence && $action->isAbsent() => ActionTransition::ActionCompleted,
             default => ActionTransition::ActionInProgress,
         };
 

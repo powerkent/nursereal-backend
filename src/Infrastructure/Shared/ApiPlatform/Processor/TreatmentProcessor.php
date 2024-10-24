@@ -39,7 +39,7 @@ final readonly class TreatmentProcessor implements ProcessorInterface
         $query = $context['request']->query;
 
         /** @var ?Child $child */
-        $child = $this->queryBus->ask(new FindChildByUuidOrIdQuery((string) $query->get('childUuid')));
+        $child = $this->queryBus->ask(new FindChildByUuidOrIdQuery((string) $query->get('child_uuid')));
 
         if (null === $child) {
             throw new EntityNotFoundException(Child::class);

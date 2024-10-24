@@ -19,6 +19,9 @@ final readonly class DeleteContractDateByIdsCommandHandler implements CommandHan
     public function __invoke(DeleteContractDateByIdsCommand $command): bool
     {
         $child = $command->contract->getChild();
+        if (null === $child) {
+            return false;
+        }
 
         $child->removeContractDate($command->contract);
 

@@ -15,6 +15,8 @@ class ChildView
         #[Groups(['action:item', 'action:list'])]
         public ?int $id,
         #[Groups(['action:item', 'action:list'])]
+        public ?string $avatar,
+        #[Groups(['action:item', 'action:list'])]
         public string $firstname,
         #[Groups(['action:item', 'action:list'])]
         public string $lastname,

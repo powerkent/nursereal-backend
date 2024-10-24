@@ -18,17 +18,17 @@ final readonly class ContractDateResourceOpenApiContext implements OpenApiContex
             'GET /api/contract_dates' => [
                 'parameters' => [
                     [
-                        'name' => 'nurseryStructureId',
+                        'name' => 'nursery_structure_uuid',
                         'in' => 'query',
-                        'schema' => ['type' => 'integer'],
+                        'schema' => ['type' => 'string'],
                     ],
                     [
-                        'name' => 'childId',
+                        'name' => 'child_uuid',
                         'in' => 'query',
-                        'schema' => ['type' => 'integer'],
+                        'schema' => ['type' => 'string'],
                     ],
                     [
-                        'name' => 'isToday',
+                        'name' => 'is_today',
                         'in' => 'query',
                         'schema' => ['type' => 'boolean'],
                     ],
