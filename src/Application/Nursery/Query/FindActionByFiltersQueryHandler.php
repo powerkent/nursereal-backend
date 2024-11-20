@@ -36,6 +36,7 @@ final readonly class FindActionByFiltersQueryHandler implements QueryHandlerInte
         return $this->actionRepository->searchByFilter(
             startDateTime: $query->filters['startDateTime'],
             endDateTime: $query->filters['endDateTime'],
+            state: $query->filters['state'] ?? null,
             children: $query->filters['children'] ?? [],
             actions: $actions,
             nurseryStructures: $query->filters['nurseryStructures'] ?? [],

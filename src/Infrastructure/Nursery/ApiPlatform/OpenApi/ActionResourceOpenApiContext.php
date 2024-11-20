@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\OpenApi;
 
+use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\NurseryStructure;
@@ -45,6 +46,11 @@ final class ActionResourceOpenApiContext implements OpenApiContextInterface
                         'in' => 'query',
                         'required' => true,
                         'schema' => ['type' => 'string'],
+                    ],
+                    [
+                        'name' => 'state',
+                        'in' => 'query',
+                        'schema' => ['type' => 'string', 'enum' => ActionState::values()],
                     ],
                     [
                         'name' => 'actions[]',

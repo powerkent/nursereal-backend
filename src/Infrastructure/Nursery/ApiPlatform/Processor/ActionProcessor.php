@@ -71,7 +71,7 @@ final readonly class ActionProcessor implements ActionProcessorInterface
 
         $context = [
             'object_to_populate' => $action,
-            'ignored_attributes' => ['child', 'agent'],
+            'ignored_attributes' => ['child', 'agent', 'activity'],
         ];
 
         switch ($data->actionType) {
@@ -81,16 +81,15 @@ final readonly class ActionProcessor implements ActionProcessorInterface
                 }
 
                 $activity = $this->queryBus->ask(new FindActivityByUuidQuery($data->activity->uuid));
-
+                $primitives['activity'] = $activity;
                 if ($isUpdate) {
                     $action = $this->normalizer->denormalize($primitives, Activity::class, context: $context);
                     $action
-                        ->setActivity($activity)
                         ->setStartDateTime($data->activity->startDateTime)
                         ->setEndDateTime($data->activity->endDateTime);
                 } else {
+                    dump($primitives);
                     $action = (new Activity(...$primitives))
-                        ->setActivity($activity)
                         ->setStartDateTime($data->activity->startDateTime);
                 }
                 break;

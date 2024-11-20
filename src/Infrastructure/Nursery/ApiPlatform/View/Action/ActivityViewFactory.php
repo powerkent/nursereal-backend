@@ -11,11 +11,12 @@ final class ActivityViewFactory
     public function fromModel(Activity $activity): ActivityView
     {
         return new ActivityView(
-            uuid: $activity->getUuid(),
+            uuid: $activity->getActivity()->getUuid(),
             name: $activity->getActivity()->getName(),
             description: $activity->getActivity()->getDescription(),
             comment: $activity->getComment(),
             createdAt: $activity->getCreatedAt(),
+            startDateTime: $activity->getStartDateTime(),
         );
     }
 }

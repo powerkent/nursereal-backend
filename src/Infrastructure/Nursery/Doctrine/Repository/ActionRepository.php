@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Nursery\Doctrine\Repository;
 
 use DateTimeInterface;
+use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Nursery\Repository\ActionRepositoryInterface;
 use Nursery\Infrastructure\Shared\Doctrine\Repository\AbstractRepository;
@@ -22,6 +23,7 @@ class ActionRepository extends AbstractRepository implements ActionRepositoryInt
     public function searchByFilter(
         DateTimeInterface $startDateTime,
         DateTimeInterface $endDateTime,
+        ?ActionState $state = null,
         array $children = [],
         array $actions = [],
         array $nurseryStructures = []
@@ -32,6 +34,11 @@ class ActionRepository extends AbstractRepository implements ActionRepositoryInt
             ->andWhere('o.createdAt BETWEEN :startDate AND :endDate')
             ->setParameter('startDate', $startDateTime)
             ->setParameter('endDate', $endDateTime);
+
+        if (null !== $state) {
+            $queryBuilder->andWhere('o.state = :state')
+                ->setParameter('state', $state->value);
+        }
 
         if (!empty($children)) {
             $queryBuilder->andWhere('c.uuid IN (:children)')
@@ -51,8 +58,6 @@ class ActionRepository extends AbstractRepository implements ActionRepositoryInt
                 }, $actions)
             ));
         }
-
-        dump($queryBuilder->getDQL());
 
         $query = $queryBuilder->getQuery();
 
