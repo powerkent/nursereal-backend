@@ -9,6 +9,7 @@ enum CareType: string implements SubTypeInterface
     case EyeCare = 'eye_care';
     case NoseCare = 'nose_care';
     case EarCare = 'ear_care';
+    case MouthCare = 'mouth_care';
 
     /**
      * @return list<string>

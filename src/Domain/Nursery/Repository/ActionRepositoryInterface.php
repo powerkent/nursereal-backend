@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Domain\Nursery\Repository;
 
 use DateTimeInterface;
+use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Repository\RepositoryInterface;
 
@@ -23,6 +24,7 @@ interface ActionRepositoryInterface extends RepositoryInterface
     public function searchByFilter(
         DateTimeInterface $startDateTime,
         DateTimeInterface $endDateTime,
+        ?ActionState $state = null,
         array $children = [],
         array $actions = [],
         array $nurseryStructures = []

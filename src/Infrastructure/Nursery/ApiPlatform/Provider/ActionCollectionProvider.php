@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
 use DateTimeImmutable;
 use Nursery\Application\Nursery\Query\FindActionByFiltersQuery;
+use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
@@ -41,6 +42,10 @@ class ActionCollectionProvider extends AbstractCollectionProvider
 
         if ([] !== $nurseryStructures = (array) ($context['filters']['nursery_structures'] ?? [])) {
             $filters['nurseryStructures'] = $nurseryStructures;
+        }
+
+        if (null !== $state = ($context['filters']['state'] ?? null)) {
+            $filters['state'] = ActionState::from($state);
         }
 
         $filters['startDateTime'] = new DateTimeImmutable($context['filters']['start_date_time']);

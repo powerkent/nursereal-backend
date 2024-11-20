@@ -21,6 +21,8 @@ class ActivityView
         public ?string $comment,
         #[Groups(['action:item', 'action:list'])]
         public DateTimeInterface $createdAt,
+        #[Groups(['action:item', 'action:list'])]
+        public ?DateTimeInterface $startDateTime,
     ) {
     }
 }
