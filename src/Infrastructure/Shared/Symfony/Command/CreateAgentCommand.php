@@ -42,6 +42,7 @@ class CreateAgentCommand extends Command
             email: 'b@b.com',
             createdAt: new DateTimeImmutable(),
             updatedAt: null,
+            user: 'b',
             password: null,
             nurseryStructures: [],
             roles: ['ROLE_AGENT'],

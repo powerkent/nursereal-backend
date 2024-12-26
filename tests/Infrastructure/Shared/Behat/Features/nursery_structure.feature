@@ -5,7 +5,7 @@ Feature:
 
     Background:
         Given there is a nursery structure with uuid "00000000-0000-0000-0000-000000000001"
-        And an agent exists with email "agent@example.com" and password "password123"
+        And an agent exists with user "agent@example.com" and password "password123"
         And I am authenticated as "agent@example.com" with password "password123"
 
     Scenario: I can create a nursery structure
@@ -91,7 +91,7 @@ Feature:
             | updated_at | 2024-10-04 00:00:00                  |
 
     Scenario: I can POST a new nursery structure
-        Given a manager exists with email "manager@example.com" and password "password123"
+        Given a manager exists with user "manager@example.com" and password "password123"
         And I am authenticated as "manager@example.com" with password "password123"
         And the request body is:
         """
@@ -226,7 +226,7 @@ Feature:
         """
 
         Scenario: I can put a nursery structure
-            Given a manager exists with email "manager@example.com" and password "password123"
+            Given a manager exists with user "manager@example.com" and password "password123"
             And I am authenticated as "manager@example.com" with password "password123"
             And the request body is:
             """
@@ -321,7 +321,8 @@ Feature:
                         "uuid": "@variableType(string)",
                         "firstname": "@variableType(string)",
                         "lastname": "@variableType(string)",
-                        "email": "agent@example.com"
+                        "email": "@variableType(string)",
+                        "user": "agent@example.com"
                     },
                     {
                         "@type": "AgentView",
@@ -329,7 +330,8 @@ Feature:
                         "uuid": "@variableType(string)",
                         "firstname": "@variableType(string)",
                         "lastname": "@variableType(string)",
-                        "email": "manager@example.com"
+                        "email": "@variableType(string)",
+                        "user": "manager@example.com"
                     }
                 ],
                 "children": []
@@ -369,7 +371,7 @@ Feature:
                 | opening_day          | Friday   |
 
         Scenario: I can delete a nursery structure
-            Given a manager exists with email "manager@example.com" and password "password123"
+            Given a manager exists with user "manager@example.com" and password "password123"
             And I am authenticated as "manager@example.com" with password "password123"
             And that nursery structure has name "my nursery structure"
             And that nursery structure has an address "1 rue de la creche"

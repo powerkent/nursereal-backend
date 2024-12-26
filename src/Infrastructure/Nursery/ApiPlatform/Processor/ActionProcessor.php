@@ -8,8 +8,10 @@ use DateTimeImmutable;
 use Nursery\Application\Nursery\Command\UpdateActionCommand;
 use Nursery\Application\Nursery\Query\FindActionByUuidQuery;
 use Nursery\Application\Nursery\Query\FindActivityByUuidQuery;
+use Nursery\Application\Shared\Query\FindAgentByUuidOrIdQuery;
 use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
 use Nursery\Application\Nursery\Command\CreateActionCommand;
+use Nursery\Application\Shared\Query\FindConfigByUuidOrNameQuery;
 use Nursery\Application\Shared\Query\FindTreatmentByUuidQuery;
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Enum\ActionType;
@@ -26,6 +28,7 @@ use Nursery\Domain\Nursery\Processor\ActionProcessorInterface;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Model\Agent;
+use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Model\Treatment;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Domain\Shared\Serializer\NormalizerInterface;
@@ -58,6 +61,10 @@ final readonly class ActionProcessor implements ActionProcessorInterface
 
         /** @var Agent $agent */
         $agent = $this->security->getUser();
+        $config = $this->queryBus->ask(new FindConfigByUuidOrNameQuery(name: Config::AGENT_LOGIN_WITH_PHONE));
+        if (!$config->getValue() && $data->agentUuid) {
+            $agent = $this->queryBus->ask(new FindAgentByUuidOrIdQuery(uuid: $data->agentUuid));
+        }
 
         $primitives = [
             'uuid' => $uuid,

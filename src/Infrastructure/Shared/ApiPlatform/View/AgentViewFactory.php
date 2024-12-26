@@ -15,6 +15,7 @@ final readonly class AgentViewFactory
             firstname: $agent->getFirstname(),
             lastname: $agent->getLastname(),
             email: $agent->getEmail(),
+            user: $agent->getUser(),
         );
     }
 }

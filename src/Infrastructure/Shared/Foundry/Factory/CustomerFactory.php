@@ -27,6 +27,7 @@ final class CustomerFactory extends PersistentProxyObjectFactory
             'firstname' => self::faker()->firstName(),
             'lastname' => self::faker()->lastName(),
             'email' => self::faker()->email(),
+            'user' => self::faker()->name(),
             'password' => self::faker()->password(),
             'phoneNumber' => (int) self::faker()->phoneNumber(),
             'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTime()),

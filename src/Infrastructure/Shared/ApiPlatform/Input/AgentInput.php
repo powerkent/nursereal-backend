@@ -26,6 +26,8 @@ final class AgentInput implements AgentInputInterface
         #[ApiProperty(openapiContext: ['example' => 'agent@example.com'])]
         public string $email,
         #[Groups(['agent:item'])]
+        public string $user,
+        #[Groups(['agent:item'])]
         public string $password,
         #[Groups(['agent:item'])]
         #[ApiProperty(openapiContext: [

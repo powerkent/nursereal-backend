@@ -16,12 +16,12 @@ return function (ContainerConfigurator $container, SecurityConfig $security) {
     $security->provider('agent_provider')
         ->entity()
         ->class('Nursery\Domain\Shared\Model\Agent')
-        ->property('email');
+        ->property('user');
 
     $security->provider('customer_provider')
         ->entity()
         ->class('Nursery\Domain\Shared\Model\Customer')
-        ->property('email');
+        ->property('user');
 
     $security->roleHierarchy('ROLE_MANAGER', ['ROLE_AGENT']);
     $security->roleHierarchy('ROLE_AGENT', ['ROLE_PARENT']);
@@ -34,7 +34,7 @@ return function (ContainerConfigurator $container, SecurityConfig $security) {
         ->provider('agent_provider')
         ->jsonLogin()
         ->checkPath('/api/login/agent')
-        ->usernamePath('email')
+        ->usernamePath('user')
         ->passwordPath('password')
         ->successHandler('lexik_jwt_authentication.handler.authentication_success')
         ->failureHandler('lexik_jwt_authentication.handler.authentication_failure');
@@ -46,7 +46,7 @@ return function (ContainerConfigurator $container, SecurityConfig $security) {
         ->provider('customer_provider')
         ->jsonLogin()
         ->checkPath('/api/login/customer')
-        ->usernamePath('email')
+        ->usernamePath('user')
         ->passwordPath('password')
         ->successHandler('lexik_jwt_authentication.handler.authentication_success')
         ->failureHandler('lexik_jwt_authentication.handler.authentication_failure');

@@ -33,6 +33,7 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         protected string $firstname,
         protected string $lastname,
         protected string $email,
+        protected string $user,
         protected string $password,
         protected string $phoneNumber,
         protected DateTimeInterface $createdAt,
@@ -187,13 +188,25 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this;
     }
 
+    public function getUser(): string
+    {
+        return $this->user;
+    }
+
+    public function setUser(string $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     public function eraseCredentials(): void
     {
     }
 
     public function getUserIdentifier(): string
     {
-        return $this->email;
+        return $this->user;
     }
 
     public function getSalt(): ?string

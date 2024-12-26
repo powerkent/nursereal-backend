@@ -24,6 +24,7 @@ final readonly class AgentResourceFactory
             firstname: $agent->getFirstname(),
             lastname: $agent->getLastname(),
             email: $agent->getEmail(),
+            user: $agent->getUser(),
             roles: $agent->getRoles(),
             createdAt: $agent->getCreatedAt(),
             updatedAt: $agent->getUpdatedAt(),

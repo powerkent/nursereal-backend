@@ -6,6 +6,7 @@ namespace Nursery\Tests\Infrastructure\Shared\Behat;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Nursery\Domain\Shared\Model\Child;
+use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Model\Customer;
 use Nursery\Domain\Shared\Model\Dosage;
 use Nursery\Domain\Shared\Model\IRP;
@@ -152,5 +153,21 @@ final class Storage
     public function setDosage(Proxy $dosage): void
     {
         $this->storeEntity($dosage);
+    }
+
+    /**
+     * @return Proxy<Config>
+     */
+    public function getConfig(): Proxy
+    {
+        return $this->findEntity(Config::class);
+    }
+
+    /**
+     * @param Proxy<Config> $config
+     */
+    public function setConfig(Proxy $config): void
+    {
+        $this->storeEntity($config);
     }
 }

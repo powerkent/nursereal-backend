@@ -20,6 +20,8 @@ final class ActionInput implements ActionInputInterface
 {
     public function __construct(
         #[Groups(['action:post:write'])]
+        public ?string $agentUuid,
+        #[Groups(['action:post:write'])]
         public ?string $childUuid,
         #[Groups(['action:item'])]
         public ActionType $actionType,

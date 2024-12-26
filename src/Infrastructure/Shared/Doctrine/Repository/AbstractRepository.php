@@ -106,6 +106,16 @@ abstract class AbstractRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param array<string, mixed> $filter
+     *
+     * @phpstan-return T|null
+     */
+    public function searchOneByFilter(array $filter): ?object
+    {
+        return $this->findOneBy($filter);
+    }
+
+    /**
      * @phpstan-return iterable<T>
      */
     public function searchByCriteria(Criteria $criteria): iterable

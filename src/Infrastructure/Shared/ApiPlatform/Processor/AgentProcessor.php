@@ -31,6 +31,7 @@ final readonly class AgentProcessor implements AgentProcessorInterface
             'email' => $data->email,
             'createdAt' => new DateTimeImmutable(),
             'updatedAt' => new DateTimeImmutable(),
+            'user' => $data->user,
             'password' => $data->password,
             'nurseryStructures' => $data->nurseryStructures,
             'roles' => $data->roles,

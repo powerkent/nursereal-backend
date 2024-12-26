@@ -11,13 +11,15 @@
 
         <field name="uuid" type="uuid" unique="true" />
 
-        <field name="firstname" length="320" />
+        <field name="firstname" length="320" nullable="true" />
 
-        <field name="lastname" length="320" />
+        <field name="lastname" length="320" nullable="true" />
 
-        <field name="email" length="320" unique="true" />
+        <field name="email" length="320" nullable="true" />
 
-        <field name="password" length="320" />
+        <field name="user" length="320" />
+
+        <field name="password" length="320" nullable="true" />
 
         <field name="roles" type="json" />
 

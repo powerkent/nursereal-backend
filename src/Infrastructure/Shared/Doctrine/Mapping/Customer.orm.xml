@@ -13,9 +13,11 @@
 
         <field name="firstname" />
 
-        <field name="lastname"  />
+        <field name="lastname" />
 
         <field name="email" nullable="true" />
+
+        <field name="user" length="320" />
 
         <field name="password" length="320" />
 

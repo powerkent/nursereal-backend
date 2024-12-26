@@ -27,6 +27,9 @@ final class CustomerInput
         #[ApiProperty(openapiContext: ['example' => 'parent@example.com'])]
         public ?string $email,
         #[Groups(['customer:item'])]
+        #[Assert\NotBlank(message: 'Customer requires a user.')]
+        public string $user,
+        #[Groups(['customer:item'])]
         #[Assert\NotBlank(message: 'Customer requires a password.')]
         public string $password,
         #[Groups(['customer:item'])]
