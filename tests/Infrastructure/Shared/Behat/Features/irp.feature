@@ -5,7 +5,7 @@ Feature:
 
     Background:
         Given there is a nursery structure with uuid "00000000-0000-0000-0000-000000000001"
-        And a manager exists with email "manager@example.com" and password "password123"
+        And a manager exists with user "manager@example.com" and password "password123"
         And I am authenticated as "manager@example.com" with password "password123"
 
     Scenario: I can create a child with an IRP

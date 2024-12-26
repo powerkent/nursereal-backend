@@ -42,6 +42,7 @@ class CreateManagerCommand extends Command
             email: 'a@a.com',
             createdAt: new DateTimeImmutable(),
             updatedAt: null,
+            user: 'a',
             password: null,
             nurseryStructures: [],
             roles: ['ROLE_MANAGER'],

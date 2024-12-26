@@ -13,11 +13,13 @@ class AgentView
         #[Groups(['nurseryStructure:item'])]
         public UuidInterface $uuid,
         #[Groups(['nurseryStructure:item'])]
-        public string $firstname,
+        public ?string $firstname,
         #[Groups(['nurseryStructure:item'])]
-        public string $lastname,
+        public ?string $lastname,
         #[Groups(['nurseryStructure:item'])]
-        public string $email,
+        public ?string $email,
+        #[Groups(['nurseryStructure:item'])]
+        public ?string $user,
     ) {
     }
 }

@@ -10,6 +10,8 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use LogicException;
+use Nursery\Domain\Shared\Model\Config;
+use Ramsey\Uuid\Uuid;
 use function implode;
 use function in_array;
 use function sprintf;
@@ -29,6 +31,9 @@ final class DatabaseContext implements Context
     public function cleanDatabase(): void
     {
         (new ORMPurger($this->entityManager))->purge();
+        $config = new Config(Uuid::uuid4(), Config::AGENT_LOGIN_WITH_PHONE, true);
+        $this->entityManager->persist($config);
+        $this->entityManager->flush();
     }
 
 

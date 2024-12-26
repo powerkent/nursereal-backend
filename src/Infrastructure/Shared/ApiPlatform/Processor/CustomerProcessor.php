@@ -38,6 +38,7 @@ final readonly class CustomerProcessor implements ProcessorInterface
             'firstname' => $data->firstname,
             'lastname' => $data->lastname,
             'email' => $data->email,
+            'user' => $data->user,
             'password' => $data->password,
             'phoneNumber' => $data->phoneNumber,
             'children' => array_map(fn (array $child): Child => $this->queryBus->ask(new FindChildByUuidOrIdQuery($child['uuid'])), $data->children),

@@ -49,6 +49,13 @@ interface RepositoryInterface
     public function search(int $id): ?object;
 
     /**
+     * @phpstan-param array<string, mixed> $filter
+     *
+     * @phpstan-return T|null
+     */
+    public function searchOneByFilter(array $filter): ?object;
+
+    /**
      * @phpstan-return list<T>
      */
     public function all(): array;

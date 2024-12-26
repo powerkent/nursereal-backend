@@ -22,6 +22,7 @@ final readonly class CustomerResourceFactory
             avatar: $customer->getAvatar()?->getContentUrl(),
             firstname: $customer->getFirstname(),
             lastname: $customer->getLastname(),
+            user: $customer->getUser(),
             email: $customer->getEmail(),
             phoneNumber: $customer->getPhoneNumber(),
             children: $customer->getChildren()->map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child))->toArray(),

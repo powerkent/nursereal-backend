@@ -21,6 +21,10 @@ final class NurseryStructureInput
         #[Assert\NotBlank(message: 'Nursery structure requires an address.')]
         public string $address,
         #[Groups(['nurseryStructure:item'])]
+        public ?string $user,
+        #[Groups(['nurseryStructure:item'])]
+        public ?string $password,
+        #[Groups(['nurseryStructure:item'])]
         /** @var list<NurseryStructureOpeningPayload> $openings */
         public array $openings,
     ) {

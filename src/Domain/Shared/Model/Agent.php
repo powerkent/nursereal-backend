@@ -34,18 +34,27 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
     public function __construct(
         protected UuidInterface $uuid,
         protected ?Avatar $avatar,
-        protected string $firstname,
-        protected string $lastname,
-        protected string $email,
+        protected ?string $firstname,
+        protected ?string $lastname,
+        protected ?string $email,
         protected DateTimeInterface $createdAt,
-        protected ?DateTimeInterface $updatedAt = null,
+        protected ?DateTimeInterface $updatedAt,
+        protected string $user,
         protected ?string $password = null,
         array|Collection $nurseryStructures = [],
         array $roles = [],
     ) {
-        Assert::stringNotEmpty($firstname);
-        Assert::stringNotEmpty($lastname);
-        Assert::email($email);
+        if (null !== $this->firstname) {
+            Assert::stringNotEmpty($firstname);
+        }
+
+        if (null !== $this->lastname) {
+            Assert::stringNotEmpty($lastname);
+        }
+
+        if (null !== $this->email) {
+            Assert::email($email);
+        }
 
         $this->roles = $roles;
         if (empty($this->roles)) {
@@ -84,36 +93,36 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getFirstname(): string
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getLastname(): string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
 
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -198,13 +207,25 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUser(): string
+    {
+        return $this->user;
+    }
+
+    public function setUser(string $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     public function eraseCredentials(): void
     {
     }
 
     public function getUserIdentifier(): string
     {
-        return $this->email;
+        return $this->user;
     }
 
     public function getSalt(): ?string

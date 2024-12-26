@@ -5,7 +5,7 @@ Feature:
 
     Background:
         Given there is a nursery structure with uuid "00000000-0000-0000-0000-000000000001"
-        And a manager exists with email "manager@example.com" and password "password123"
+        And a manager exists with user "manager@example.com" and password "password123"
         And I am authenticated as "manager@example.com" with password "password123"
 
     Scenario: I can create a customer
@@ -62,6 +62,7 @@ Feature:
             "firstname": "Quentin",
             "lastname": "Lemoine",
             "email": "parent@example.com",
+            "user": "parent@example.com",
             "password": "pass123",
             "phoneNumber": "0606060606",
             "children": [
@@ -84,6 +85,7 @@ Feature:
            "firstname":"Quentin",
            "lastname":"Lemoine",
            "email":"parent@example.com",
+           "user": "parent@example.com",
            "phoneNumber":"0606060606",
            "children":[
               {
@@ -168,6 +170,7 @@ Feature:
            "firstname":"Henri",
            "lastname":"Bernard",
            "email":"parent@example.com",
+           "user":"parent@example.com",
            "password":"password",
            "phoneNumber":"0707070707",
            "children":[
@@ -190,6 +193,7 @@ Feature:
            "firstname":"Henri",
            "lastname":"Bernard",
            "email":"parent@example.com",
+           "user":"parent@example.com",
            "phoneNumber":"0707070707",
            "children":[
               {

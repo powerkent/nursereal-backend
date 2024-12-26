@@ -73,6 +73,8 @@ final class CustomerResource
         #[Groups(['customer:item', 'customer:list'])]
         public string $lastname,
         #[Groups(['customer:item', 'customer:list'])]
+        public string $user,
+        #[Groups(['customer:item', 'customer:list'])]
         public ?string $email,
         #[Groups(['customer:item', 'customer:list'])]
         public string $phoneNumber,

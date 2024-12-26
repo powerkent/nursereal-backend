@@ -32,16 +32,16 @@ class ApiContext extends BaseApiContext
     }
 
     /**
-     * @Given I am authenticated as :email with password :password
+     * @Given I am authenticated as :user with password :password
      * @throws GuzzleException
      */
-    public function iAmAuthenticatedAs(string $email, string $password): void
+    public function iAmAuthenticatedAs(string $user, string $password): void
     {
         $client = new Client(['base_uri' => 'http://server:80']);
 
         $response = $client->post('/api/login/agent', [
             'json' => [
-                'email' => $email,
+                'user' => $user,
                 'password' => $password,
             ],
         ]);
@@ -51,18 +51,18 @@ class ApiContext extends BaseApiContext
     }
 
     /**
-     * @Given an agent exists with email :email and password :password
+     * @Given an agent exists with user :user and password :password
      */
-    public function anAgentExistsWithUsernameAndPassword(string $email, string $password): void
+    public function anAgentExistsWithUserAndPassword(string $user, string $password): void
     {
         $agentRepository = $this->entityManager->getRepository(Agent::class);
 
-        $existingAgent = $agentRepository->findOneBy(['email' => $email]);
+        $existingAgent = $agentRepository->findOneBy(['user' => $user]);
 
         if (!$existingAgent) {
             AgentFactory::createOne([
                 'uuid' => Uuid::uuid4(),
-                'email' => $email,
+                'user' => $user,
                 'password' => password_hash($password, PASSWORD_BCRYPT),
                 'roles' => ['ROLE_AGENT'],
             ]);
@@ -70,18 +70,18 @@ class ApiContext extends BaseApiContext
     }
 
     /**
-     * @Given a manager exists with email :email and password :password
+     * @Given a manager exists with user :user and password :password
      */
-    public function aManagerExistsWithUsernameAndPassword(string $email, string $password): void
+    public function aManagerExistsWithUsernameAndPassword(string $user, string $password): void
     {
         $agentRepository = $this->entityManager->getRepository(Agent::class);
 
-        $existingAgent = $agentRepository->findOneBy(['email' => $email]);
+        $existingAgent = $agentRepository->findOneBy(['email' => $user]);
 
         if (!$existingAgent) {
             AgentFactory::createOne([
                 'uuid' => Uuid::uuid4(),
-                'email' => $email,
+                'user' => $user,
                 'password' => password_hash($password, PASSWORD_BCRYPT),
                 'roles' => ['ROLE_MANAGER'],
             ]);

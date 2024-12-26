@@ -78,6 +78,8 @@ final class NurseryStructureResource
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public string $address,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        public ?string $user,
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?DateTimeInterface $createdAt = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?DateTimeInterface $updatedAt = null,

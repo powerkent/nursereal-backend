@@ -13,7 +13,9 @@ use Nursery\Infrastructure\Shared\Foundry\Factory\AgentFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\ChildFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\ContractDateFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\CustomerFactory;
+use Nursery\Infrastructure\Shared\Foundry\Factory\DosageFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\NurseryStructureFactory;
+use Nursery\Infrastructure\Shared\Foundry\Factory\TreatmentFactory;
 use function Zenstruck\Foundry\faker;
 
 class ChildFixtures extends Fixture
@@ -47,6 +49,9 @@ class ChildFixtures extends Fixture
             $timeEndMinute = faker()->numberBetween(0, 59);
             $timeEnd = $timeEnd->setTime($timeEndHour, $timeEndMinute);
             $child = ChildFactory::createOne(['nurseryStructure' => $nursery, 'customers' => $customers])->_real();
+            $treatment = TreatmentFactory::createOne()->_real();
+            $treatment->setDosages([DosageFactory::createOne()->_real()]);
+            $child->addTreatment($treatment);
             for ($j = 0; $j < 30; ++$j) {
                 $contractDates[] = ContractDateFactory::createOne(['contractTimeStart' => $timeStart, 'contractTimeEnd' => $timeEnd, 'child' => $child])->_real();
                 $timeStart = $timeStart->add(new DateInterval('P1D'));
