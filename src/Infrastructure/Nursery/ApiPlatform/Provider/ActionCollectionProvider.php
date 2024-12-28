@@ -48,8 +48,16 @@ class ActionCollectionProvider extends AbstractCollectionProvider
             $filters['state'] = ActionState::from($state);
         }
 
+        if (null !== $agents = ($context['filters']['agents'] ?? null)) {
+            $filters['agents'] = $agents;
+        }
+
         $filters['startDateTime'] = new DateTimeImmutable($context['filters']['start_date_time']);
-        $filters['endDateTime'] = new DateTimeImmutable($context['filters']['end_date_time']);
+        if (null === ($context['filters']['end_date_time'] ?? null)) {
+            $filters['endDateTime'] = $filters['startDateTime']->setTime(23, 59, 59);
+        } else {
+            $filters['endDateTime'] = new DateTimeImmutable($context['filters']['end_date_time']);
+        }
 
         return $this->queryBus->ask(new FindActionByFiltersQuery($filters));
     }

@@ -22,6 +22,7 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\MilkViewFactory;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\PresenceViewFactory;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\RestViewFactory;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\TreatmentViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\AgentViewFactory;
 
 final readonly class ActionResourceFactory
 {
@@ -35,6 +36,7 @@ final readonly class ActionResourceFactory
         private PresenceViewFactory $presenceViewFactory,
         private RestViewFactory $restViewFactory,
         private TreatmentViewFactory $treatmentViewFactory,
+        private AgentViewFactory $agentViewFactory,
     ) {
     }
 
@@ -44,6 +46,7 @@ final readonly class ActionResourceFactory
             uuid: $action->getUuid(),
             actionType: $action->getType(),
             createdAt: $action->getCreatedAt(),
+            updatedAt: $action->getUpdatedAt(),
             child: $this->childViewFactory->fromModel($action->getChild()),
             comment: $action->getComment(),
             activity: $action instanceof Activity ? $this->activityViewFactory->fromModel($action) : null,
@@ -54,6 +57,7 @@ final readonly class ActionResourceFactory
             presence: $action instanceof Presence ? $this->presenceViewFactory->fromModel($action) : null,
             rest: $action instanceof Rest ? $this->restViewFactory->fromModel($action) : null,
             treatment: $action instanceof Treatment ? $this->treatmentViewFactory->fromModel($action) : null,
+            agent: $this->agentViewFactory->fromModel($action->getAgent()),
         );
     }
 }

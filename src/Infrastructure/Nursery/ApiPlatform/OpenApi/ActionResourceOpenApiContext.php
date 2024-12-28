@@ -6,8 +6,10 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\OpenApi;
 
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Enum\ActionType;
+use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\NurseryStructure;
+use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
 use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
 use Nursery\Domain\Shared\Repository\NurseryStructureRepositoryInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\OpenApiContextInterface;
@@ -21,6 +23,7 @@ final class ActionResourceOpenApiContext implements OpenApiContextInterface
     public function __construct(
         private ChildRepositoryInterface $childRepository,
         private NurseryStructureRepositoryInterface $nurseryStructureRepository,
+        private AgentRepositoryInterface $agentRepository,
     ) {
     }
 
@@ -31,6 +34,9 @@ final class ActionResourceOpenApiContext implements OpenApiContextInterface
 
         $nurseries = $this->nurseryStructureRepository->all();
         $nurseriesValues = array_map(fn (NurseryStructure $ns) => $ns->getUuid()->toString(), $nurseries);
+
+        $agents = $this->agentRepository->all();
+        $agentsValues = array_map(fn (Agent $agent) => $agent->getUuid()->toString(), $agents);
 
         return [
             'GET /api/actions' => [
@@ -69,6 +75,12 @@ final class ActionResourceOpenApiContext implements OpenApiContextInterface
                         'in' => 'query',
                         'explode' => true,
                         'schema' => ['type' => 'array', 'items' => ['type' => 'string', 'enum' => $nurseriesValues]],
+                    ],
+                    [
+                        'name' => 'agents[]',
+                        'in' => 'query',
+                        'explode' => true,
+                        'schema' => ['type' => 'array', 'items' => ['type' => 'string', 'enum' => $agentsValues]],
                     ],
                 ],
             ],

@@ -30,6 +30,6 @@ return static function (FrameworkConfig $framework): void {
 
     $action->transition()
         ->name(ActionTransition::ActionCompleted->value)
-        ->from([ActionState::NewAction->value, ActionState::ActionInProgress->value])
+        ->from([ActionState::NewAction->value, ActionState::ActionInProgress->value, ActionState::ActionDone->value])
         ->to([ActionState::ActionDone->value]);
 };

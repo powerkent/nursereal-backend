@@ -5,9 +5,14 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\View\Action;
 
 use Nursery\Domain\Nursery\Model\Action\Activity;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\AgentViewFactory;
 
-final class ActivityViewFactory
+final readonly class ActivityViewFactory
 {
+    public function __construct(private AgentViewFactory $agentViewFactory)
+    {
+    }
+
     public function fromModel(Activity $activity): ActivityView
     {
         return new ActivityView(
@@ -15,8 +20,9 @@ final class ActivityViewFactory
             name: $activity->getActivity()->getName(),
             description: $activity->getActivity()->getDescription(),
             comment: $activity->getComment(),
-            createdAt: $activity->getCreatedAt(),
             startDateTime: $activity->getStartDateTime(),
+            endDateTime: $activity->getEndDateTime(),
+            completedAgent: null !== $activity->getCompletedAgent() ? $this->agentViewFactory->fromModel($activity->getCompletedAgent()) : null,
         );
     }
 }

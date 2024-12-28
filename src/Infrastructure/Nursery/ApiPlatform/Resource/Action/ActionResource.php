@@ -6,6 +6,7 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
@@ -13,6 +14,7 @@ use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
 use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Shared\Enum\Roles;
+use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ActionDeleteProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ActionPostProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ActionPutProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\CareView;
@@ -27,6 +29,7 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ActionCollectionProvider
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ActionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\ActivityView;
 use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\ChildView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\AgentView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -56,6 +59,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             provider: ActionProvider::class,
             processor: ActionPutProcessor::class,
         ),
+        new Delete(
+            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
+            provider: ActionProvider::class,
+            processor: ActionDeleteProcessor::class,
+        ),
     ]
 )]
 final class ActionResource
@@ -68,6 +76,8 @@ final class ActionResource
         public ActionType $actionType,
         #[Groups(['action:item', 'action:list'])]
         public DateTimeInterface $createdAt,
+        #[Groups(['action:item', 'action:list'])]
+        public ?DateTimeInterface $updatedAt,
         #[Groups(['action:item', 'action:list'])]
         public ChildView $child,
         #[Groups(['action:item', 'action:list'])]
@@ -88,6 +98,8 @@ final class ActionResource
         public ?RestView $rest = null,
         #[Groups(['action:item', 'action:list'])]
         public ?TreatmentView $treatment = null,
+        #[Groups(['action:item', 'action:list'])]
+        public ?AgentView $agent = null,
     ) {
     }
 }

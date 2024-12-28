@@ -10,15 +10,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class AgentView
 {
     public function __construct(
-        #[Groups(['nurseryStructure:item'])]
+        #[Groups(['nurseryStructure:item', 'action:item', 'action:list'])]
         public UuidInterface $uuid,
-        #[Groups(['nurseryStructure:item'])]
+        #[Groups(['nurseryStructure:item', 'action:item', 'action:list'])]
+        public ?string $avatar,
+        #[Groups(['nurseryStructure:item', 'action:item', 'action:list'])]
         public ?string $firstname,
-        #[Groups(['nurseryStructure:item'])]
+        #[Groups(['nurseryStructure:item', 'action:item', 'action:list'])]
         public ?string $lastname,
-        #[Groups(['nurseryStructure:item'])]
+        #[Groups(['nurseryStructure:item', 'action:item', 'action:list'])]
         public ?string $email,
-        #[Groups(['nurseryStructure:item'])]
+        #[Groups(['nurseryStructure:item', 'action:item', 'action:list'])]
         public ?string $user,
     ) {
     }

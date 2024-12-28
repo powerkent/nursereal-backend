@@ -40,7 +40,7 @@ use Symfony\Component\HttpFoundation\InputBag;
 
 final readonly class ActionProcessor implements ActionProcessorInterface
 {
-    public const DATE_FORMAT = 'Y-m-d H:i:s';
+    public const string DATE_FORMAT = 'Y-m-d H:i:s';
 
     public function __construct(
         private CommandBusInterface $commandBus,
@@ -76,12 +76,16 @@ final readonly class ActionProcessor implements ActionProcessorInterface
             'comment' => $data->comment,
         ];
 
+        if ($isUpdate) {
+            $primitives['updatedAt'] = null === $data->dateTime ? $action->getUpdatedAt()->format(self::DATE_FORMAT) : (new DateTimeImmutable($data->dateTime))->format(self::DATE_FORMAT);
+        }
+
         $context = [
             'object_to_populate' => $action,
-            'ignored_attributes' => ['child', 'agent', 'activity'],
+            'ignored_attributes' => ['child', 'agent', 'activity', 'treatment'],
         ];
 
-        switch ($data->actionType) {
+        switch (ActionType::from($data->actionType)) {
             case ActionType::Activity:
                 if (null === $data->activity?->uuid) {
                     throw new RuntimeException('Unable to find the activity if uuid does not exist');
@@ -93,9 +97,9 @@ final readonly class ActionProcessor implements ActionProcessorInterface
                     $action = $this->normalizer->denormalize($primitives, Activity::class, context: $context);
                     $action
                         ->setStartDateTime($data->activity->startDateTime)
-                        ->setEndDateTime($data->activity->endDateTime);
+                        ->setEndDateTime($data->activity->endDateTime)
+                        ->setCompletedAgent($agent);
                 } else {
-                    dump($primitives);
                     $action = (new Activity(...$primitives))
                         ->setStartDateTime($data->activity->startDateTime);
                 }
@@ -183,11 +187,11 @@ final readonly class ActionProcessor implements ActionProcessorInterface
 
                 $primitives['treatment'] = $treatment;
                 $primitives['dose'] = $data->treatment?->dose;
-                $primitives['dosingTime'] = $data->treatment?->dosingTime;
                 $primitives['temperature'] = $data->treatment?->temperature;
 
                 if ($isUpdate) {
                     $action = $this->normalizer->denormalize($primitives, ActionTreatment::class, context: $context);
+                    $action->setDosingTime($data->treatment->dosingTime);
                 } else {
                     $action = new ActionTreatment(...$primitives);
                 }
