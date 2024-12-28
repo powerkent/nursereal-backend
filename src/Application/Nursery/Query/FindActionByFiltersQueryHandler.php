@@ -20,26 +20,29 @@ final readonly class FindActionByFiltersQueryHandler implements QueryHandlerInte
      */
     public function __invoke(FindActionByFiltersQuery $query): ?array
     {
-        $actions = array_map(function (string $actionType): string {
-            return match (ActionType::from($actionType)) {
-                ActionType::Activity => Action\Activity::class,
-                ActionType::Care => Action\Care::class,
-                ActionType::Diaper => Action\Diaper::class,
-                ActionType::Lunch => Action\Lunch::class,
-                ActionType::Milk => Action\Milk::class,
-                ActionType::Presence => Action\Presence::class,
-                ActionType::Rest => Action\Rest::class,
-                ActionType::Treatment => Action\Treatment::class,
-            };
-        }, $query->filters['actions']);
+        if (isset($query->filters['actions'])) {
+            $actions = array_map(function (string $actionType): string {
+                return match (ActionType::from($actionType)) {
+                    ActionType::Activity => Action\Activity::class,
+                    ActionType::Care => Action\Care::class,
+                    ActionType::Diaper => Action\Diaper::class,
+                    ActionType::Lunch => Action\Lunch::class,
+                    ActionType::Milk => Action\Milk::class,
+                    ActionType::Presence => Action\Presence::class,
+                    ActionType::Rest => Action\Rest::class,
+                    ActionType::Treatment => Action\Treatment::class,
+                };
+            }, $query->filters['actions']);
+        }
 
         return $this->actionRepository->searchByFilter(
             startDateTime: $query->filters['startDateTime'],
             endDateTime: $query->filters['endDateTime'],
             state: $query->filters['state'] ?? null,
             children: $query->filters['children'] ?? [],
-            actions: $actions,
+            actions: $actions ?? [],
             nurseryStructures: $query->filters['nurseryStructures'] ?? [],
+            agents: $query->filters['agents'] ?? [],
         );
     }
 }

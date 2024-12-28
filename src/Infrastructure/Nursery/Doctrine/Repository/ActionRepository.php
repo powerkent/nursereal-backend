@@ -26,7 +26,8 @@ class ActionRepository extends AbstractRepository implements ActionRepositoryInt
         ?ActionState $state = null,
         array $children = [],
         array $actions = [],
-        array $nurseryStructures = []
+        array $nurseryStructures = [],
+        array $agents = [],
     ): ?array {
         $queryBuilder = $this->createQueryBuilder('o')
             ->select('o, c')
@@ -38,6 +39,12 @@ class ActionRepository extends AbstractRepository implements ActionRepositoryInt
         if (null !== $state) {
             $queryBuilder->andWhere('o.state = :state')
                 ->setParameter('state', $state->value);
+        }
+
+        if (!empty($agents)) {
+            $queryBuilder->join('o.agent', 'a')
+                ->andWhere('a.uuid IN (:agents)')
+                ->setParameter('agents', $agents);
         }
 
         if (!empty($children)) {
@@ -60,6 +67,8 @@ class ActionRepository extends AbstractRepository implements ActionRepositoryInt
         }
 
         $query = $queryBuilder->getQuery();
+
+        dump($query->getSQL());
 
         return $query->getResult();
     }

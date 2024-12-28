@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Input;
 
-use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Nursery\Processor\ActionInputInterface;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\ActivityPayload;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Payload\CarePayload;
@@ -19,14 +18,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class ActionInput implements ActionInputInterface
 {
     public function __construct(
-        #[Groups(['action:post:write'])]
+        #[Groups(['action:post:write', 'action:put:write'])]
         public ?string $agentUuid,
-        #[Groups(['action:post:write'])]
+        #[Groups(['action:post:write', 'action:put:write'])]
         public ?string $childUuid,
         #[Groups(['action:item'])]
-        public ActionType $actionType,
+        public string $actionType,
         #[Groups(['action:item'])]
         public ?string $comment = null,
+        #[Groups(['action:item'])]
+        public ?string $dateTime = null,
         #[Groups(['action:item'])]
         public ?ActivityPayload $activity = null,
         #[Groups(['action:item'])]

@@ -5,7 +5,7 @@
                                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Nursery\Domain\Nursery\Model\Action" table="action" inheritance-type="JOINED">
-        <discriminator-column name="action_type"  type="string"/>
+        <discriminator-column name="action_type" type="string"/>
         <discriminator-map>
             <discriminator-mapping value="activity" class="Nursery\Domain\Nursery\Model\Action\Activity" />
             <discriminator-mapping value="care" class="Nursery\Domain\Nursery\Model\Action\Care" />

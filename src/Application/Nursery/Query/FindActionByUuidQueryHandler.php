@@ -18,8 +18,6 @@ final readonly class FindActionByUuidQueryHandler implements QueryHandlerInterfa
 
     final public function __invoke(FindActionByUuidQuery $query): ?Action
     {
-        $action = $this->actionRepository->searchByUuid(!$query->uuid instanceof UuidInterface ? Uuid::fromString($query->uuid) : $query->uuid);
-
-        return $action;
+        return $this->actionRepository->searchByUuid(!$query->uuid instanceof UuidInterface ? Uuid::fromString($query->uuid) : $query->uuid);
     }
 }

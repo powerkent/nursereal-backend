@@ -12,6 +12,7 @@ final readonly class AgentViewFactory
     {
         return new AgentView(
             uuid: $agent->getUuid(),
+            avatar: $agent->getAvatar()?->getContentUrl(),
             firstname: $agent->getFirstname(),
             lastname: $agent->getLastname(),
             email: $agent->getEmail(),

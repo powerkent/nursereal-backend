@@ -18,6 +18,7 @@ interface ActionRepositoryInterface extends RepositoryInterface
      * @param list<int>    $children
      * @param list<string> $actions
      * @param list<string> $nurseryStructures
+     * @param list<string> $agents
      *
      * @return array<Action>|null
      */
@@ -27,6 +28,7 @@ interface ActionRepositoryInterface extends RepositoryInterface
         ?ActionState $state = null,
         array $children = [],
         array $actions = [],
-        array $nurseryStructures = []
+        array $nurseryStructures = [],
+        array $agents = [],
     ): ?array;
 }
