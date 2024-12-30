@@ -146,6 +146,24 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this;
     }
 
+    public function addChild(Child $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children->add($child);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(Child $child): self
+    {
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+        }
+
+        return $this;
+    }
+
     public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;

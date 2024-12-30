@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
 use Nursery\Infrastructure\Shared\Foundry\Factory\AvatarFactory;
+use Nursery\Infrastructure\Shared\Foundry\Factory\NurseryStructureFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -34,6 +35,11 @@ class CreateAgentCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $nurseryStructures = NurseryStructureFactory::randomRange(1, 3);
+        foreach ($nurseryStructures as &$nurseryStructure) {
+            $nurseryStructure = $nurseryStructure->_real();
+        }
+
         $agent = new Agent(
             uuid: Uuid::uuid4(),
             avatar: AvatarFactory::createOne()->_real(),
@@ -44,9 +50,13 @@ class CreateAgentCommand extends Command
             updatedAt: null,
             user: 'b',
             password: null,
-            nurseryStructures: [],
+            nurseryStructures: $nurseryStructures,
             roles: ['ROLE_AGENT'],
         );
+
+        foreach ($nurseryStructures as &$nurseryStructure) {
+            $nurseryStructure->addAgent($agent);
+        }
 
         $agent->setPassword($this->passwordHasher->hashPassword($agent, 'b'));
         $this->agentRepository->save($agent);

@@ -76,8 +76,10 @@ final readonly class ActionProcessor implements ActionProcessorInterface
             'comment' => $data->comment,
         ];
 
-        if ($isUpdate) {
+        if ($isUpdate && null !== $action->getUpdatedAt()) {
             $primitives['updatedAt'] = null === $data->dateTime ? $action->getUpdatedAt()->format(self::DATE_FORMAT) : (new DateTimeImmutable($data->dateTime))->format(self::DATE_FORMAT);
+        } elseif ($isUpdate && null === $action->getUpdatedAt()) {
+            $primitives['updatedAt'] = null === $data->dateTime ? (new DateTimeImmutable())->format(self::DATE_FORMAT) : (new DateTimeImmutable($data->dateTime))->format(self::DATE_FORMAT);
         }
 
         $context = [

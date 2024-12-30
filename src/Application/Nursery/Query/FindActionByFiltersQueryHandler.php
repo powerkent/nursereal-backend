@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Application\Nursery\Query;
 
+use Exception;
 use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Query\QueryHandlerInterface;
@@ -31,6 +32,7 @@ final readonly class FindActionByFiltersQueryHandler implements QueryHandlerInte
                     ActionType::Presence => Action\Presence::class,
                     ActionType::Rest => Action\Rest::class,
                     ActionType::Treatment => Action\Treatment::class,
+                    ActionType::Action => throw new Exception('Unable to process action type.'),
                 };
             }, $query->filters['actions']);
         }

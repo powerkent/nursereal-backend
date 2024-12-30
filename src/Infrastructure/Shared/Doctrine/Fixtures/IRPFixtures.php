@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Doctrine\Fixtures;
 
 use Doctrine\Persistence\ObjectManager;
-use Nursery\Domain\Shared\Model\Config;
-use Nursery\Infrastructure\Shared\Foundry\Factory\ConfigFactory;
+use Nursery\Domain\Shared\Model\IRP;
+use Nursery\Infrastructure\Shared\Foundry\Factory\IRPFactory;
 
-class ConfigFixtures extends AbstractFixtures
+class IRPFixtures extends AbstractFixtures
 {
     public function load(ObjectManager $manager): void
     {
-        ConfigFactory::createOne();
+        IRPFactory::createMany(10);
     }
 
     protected static function modelClass(): string
     {
-        return Config::class;
+        return IRP::class;
     }
 }

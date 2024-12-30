@@ -8,6 +8,7 @@ use function array_map;
 
 enum ActionType: string implements SubTypeActionInterface
 {
+    case Action = 'action';
     case Activity = 'activity';
     case Care = 'care';
     case Diaper = 'diaper';

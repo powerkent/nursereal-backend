@@ -10,9 +10,12 @@ use Exception;
 use Nursery\Infrastructure\Shared\Foundry\Factory\CustomerFactory;
 use Nursery\Tests\Infrastructure\Shared\Behat\Storage;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Test\Factories;
 
 final readonly class CustomerContext implements Context
 {
+    use Factories;
+
     public function __construct(
         private Storage $storage,
     ) {

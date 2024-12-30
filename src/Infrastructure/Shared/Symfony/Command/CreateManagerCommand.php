@@ -7,6 +7,7 @@ namespace Nursery\Infrastructure\Shared\Symfony\Command;
 use DateTimeImmutable;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
+use Nursery\Domain\Shared\Repository\NurseryStructureRepositoryInterface;
 use Nursery\Infrastructure\Shared\Foundry\Factory\AvatarFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -19,8 +20,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CreateManagerCommand extends Command
 {
     public function __construct(
-        private UserPasswordHasherInterface $passwordHasher,
-        private AgentRepositoryInterface $agentRepository,
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly AgentRepositoryInterface $agentRepository,
+        private readonly NurseryStructureRepositoryInterface $nurseryStructureRepository,
         ?string $name = null
     ) {
         parent::__construct($name);
@@ -34,6 +36,8 @@ class CreateManagerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $nurseryStructures = $this->nurseryStructureRepository->all();
+
         $admin = new Agent(
             uuid: Uuid::uuid4(),
             avatar: AvatarFactory::createOne()->_real(),
@@ -44,9 +48,13 @@ class CreateManagerCommand extends Command
             updatedAt: null,
             user: 'a',
             password: null,
-            nurseryStructures: [],
+            nurseryStructures: $nurseryStructures,
             roles: ['ROLE_MANAGER'],
         );
+
+        foreach ($nurseryStructures as $nurseryStructure) {
+            $nurseryStructure->addAgent($admin);
+        }
 
         $admin->setPassword($this->passwordHasher->hashPassword($admin, 'a'));
         $this->agentRepository->save($admin);

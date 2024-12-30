@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Doctrine\Fixtures;
 
 use Doctrine\Persistence\ObjectManager;
-use Nursery\Domain\Shared\Model\Config;
-use Nursery\Infrastructure\Shared\Foundry\Factory\ConfigFactory;
+use Nursery\Domain\Shared\Model\Customer;
+use Nursery\Infrastructure\Shared\Foundry\Factory\CustomerFactory;
 
-class ConfigFixtures extends AbstractFixtures
+class CustomerFixtures extends AbstractFixtures
 {
     public function load(ObjectManager $manager): void
     {
-        ConfigFactory::createOne();
+        CustomerFactory::createMany(24);
     }
 
     protected static function modelClass(): string
     {
-        return Config::class;
+        return Customer::class;
     }
 }
