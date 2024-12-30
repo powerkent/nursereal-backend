@@ -8,10 +8,12 @@ Feature:
         And a manager exists with user "manager@example.com" and password "password123"
         And I am authenticated as "manager@example.com" with password "password123"
 
+        @test
     Scenario: I can create a child
         Given there is a child with uuid "00000000-0000-0000-0000-000000000001"
         And that child has firstname Quentin
         And that child has lastname Lemoine
+        And that child has not IRP
         And that child has a birthday on "1993-06-17"
         And that child has a created date "2024-10-11 00:00:00"
         And that child has an updated date "2024-10-11 12:00:00"

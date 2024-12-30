@@ -6,16 +6,18 @@ namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use DateTimeImmutable;
 use Faker\Factory;
+use Faker\Generator;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
 use Ramsey\Uuid\Uuid;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Agent>
+ * @extends AbstractModelFactory<Agent>
+ *
+ * @codeCoverageIgnore
  */
-final class AgentFactory extends PersistentProxyObjectFactory
+final class AgentFactory extends AbstractModelFactory
 {
     public static function class(): string
     {
@@ -30,8 +32,11 @@ final class AgentFactory extends PersistentProxyObjectFactory
         $firstname = self::faker()->firstName();
         $lastname = self::faker()->lastName();
 
+        /** @var Generator $uniqueGenerator */
+        $uniqueGenerator = self::faker()->unique();
+
         return [
-            'uuid' => Uuid::uuid4(),
+            'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
             'avatar' => AvatarFactory::createOne(['contentUrl' => $faker->imageUrl($firstname, $lastname)]),
             'firstname' => $firstname,
             'lastname' => $lastname,
@@ -39,8 +44,8 @@ final class AgentFactory extends PersistentProxyObjectFactory
             'user' => self::faker()->name(),
             'password' => self::faker()->password(),
             'roles' => [Roles::Agent->value],
-            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTime()) : null,
+            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', 'now')),
+            'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', 'now')) : null,
         ];
     }
 

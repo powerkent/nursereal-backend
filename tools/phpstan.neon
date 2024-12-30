@@ -11,6 +11,7 @@ parameters:
         - ../tests
     excludePaths:
         - ../src/Infrastructure/Nursery/ApiPlatform/Processor/ActionProcessor
+        - ../src/Infrastructure/Shared/Foundry/Factory/AbstractModelFactory.php
 
     symfony:
         containerXmlPath: ../var/cache/dev/Nursery_Infrastructure_Shared_Symfony_KernelDevDebugContainer.xml

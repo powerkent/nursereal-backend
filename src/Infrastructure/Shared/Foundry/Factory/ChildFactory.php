@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
+use DateTimeImmutable;
 use Faker\Factory;
+use Faker\Generator;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
 use Ramsey\Uuid\Uuid;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Child>
+ * @extends AbstractModelFactory<Child>
+ *
+ * @codeCoverageIgnore
  */
-final class ChildFactory extends PersistentProxyObjectFactory
+final class ChildFactory extends AbstractModelFactory
 {
     public static function class(): string
     {
@@ -28,15 +31,22 @@ final class ChildFactory extends PersistentProxyObjectFactory
         $firstname = self::faker()->firstName();
         $lastname = self::faker()->lastName();
 
+        /** @var Generator $uniqueGenerator */
+        $uniqueGenerator = self::faker()->unique();
+
         return [
-            'uuid' => Uuid::uuid4(),
+            'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
             'avatar' => AvatarFactory::createOne(['contentUrl' => $faker->imageUrl($firstname, $lastname)]),
             'firstname' => $firstname,
             'lastname' => $lastname,
-            'birthday' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'updatedAt' => self::faker()->boolean() ? \DateTimeImmutable::createFromMutable(self::faker()->dateTime()) : null,
-            'nurseryStructure' => NurseryStructureFactory::random(),
+            'birthday' => DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'nurseryStructure' => NurseryStructureFactory::randomOrCreate(),
+            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', 'now')),
+            'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', 'now')) : null,
+            'irp' => self::faker()->boolean() ? IRPFactory::createOne() : null,
+            'treatments' => [],
+            'customers' => [],
+            'contractDates' => [],
         ];
     }
 }

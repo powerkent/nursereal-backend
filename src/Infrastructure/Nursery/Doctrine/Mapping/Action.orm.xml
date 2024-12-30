@@ -15,6 +15,7 @@
             <discriminator-mapping value="treatment" class="Nursery\Domain\Nursery\Model\Action\Treatment" />
             <discriminator-mapping value="lunch" class="Nursery\Domain\Nursery\Model\Action\Lunch" />
             <discriminator-mapping value="milk" class="Nursery\Domain\Nursery\Model\Action\Milk" />
+            <discriminator-mapping value="action" class="Nursery\Domain\Nursery\Model\Action" />
         </discriminator-map>
 
         <id name="id" type="integer">

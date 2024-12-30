@@ -8,9 +8,9 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use Nursery\Domain\Nursery\Enum\CareType;
 
-class CareTypeArray extends Type
+class CareTypeArrayType extends Type
 {
-    public const NAME = 'care_type_array';
+    public const string NAME = 'care_type_array';
 
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {

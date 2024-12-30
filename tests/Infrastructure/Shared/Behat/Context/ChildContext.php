@@ -95,11 +95,12 @@ final readonly class ChildContext implements Context
 
     /**
      * @Given that child is linked to IPR with name :name
+     * @Given that child has not IRP
      */
-    public function updateChildIRP(string $name): void
+    public function updateChildIRP(?string $name = null): void
     {
         $child = $this->storage->getChild();
-        $child->_set('irp', IRPFactory::find(['name' => $name])->_real());
+        $child->_set('irp', null !== $name ? IRPFactory::find(['name' => $name])->_real() : null);
         $child->_save();
     }
 }

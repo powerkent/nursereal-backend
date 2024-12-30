@@ -11,7 +11,7 @@ use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Child;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class Action
+class Action
 {
     protected ActionType $type;
 
@@ -26,6 +26,7 @@ abstract class Action
         protected Agent $agent,
         protected ?string $comment = null,
     ) {
+        $this->type = ActionType::Action;
     }
 
     public function getType(): ActionType

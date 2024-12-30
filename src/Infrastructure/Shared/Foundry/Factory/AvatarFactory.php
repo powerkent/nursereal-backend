@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use Faker\Factory;
+use Faker\Generator;
 use Nursery\Domain\Shared\Model\Avatar;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
 use Ramsey\Uuid\Uuid;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Avatar>
+ * @extends AbstractModelFactory<Avatar>
+ *
+ * @codeCoverageIgnore
  */
-final class AvatarFactory extends PersistentProxyObjectFactory
+final class AvatarFactory extends AbstractModelFactory
 {
     public static function class(): string
     {
@@ -25,8 +27,11 @@ final class AvatarFactory extends PersistentProxyObjectFactory
         $faker = Factory::create();
         $faker->addProvider(new CustomImageProvider($faker));
 
+        /** @var Generator $uniqueGenerator */
+        $uniqueGenerator = self::faker()->unique();
+
         return [
-            'uuid' => Uuid::uuid4(),
+            'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
             'contentUrl' => $faker->imageUrl(),
         ];
     }

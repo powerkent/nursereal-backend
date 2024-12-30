@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Nursery\Infrastructure\Shared\Doctrine\DateTime\DateTimeType;
+use Nursery\Infrastructure\Shared\Enum\CareTypeArrayType;
 use Ramsey\Uuid\Doctrine\UuidType;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -13,6 +14,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'types' => [
                 UuidType::NAME => UuidType::class,
                 DateTimeType::DOCTRINE_DATETIME_FORMAT => DateTimeType::class,
+                'care_type_array' => CareTypeArrayType::class,
             ],
             'connections' => [
                 'default' => ['url' => '%env(resolve:DATABASE_URL)%'],

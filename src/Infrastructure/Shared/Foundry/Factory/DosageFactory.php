@@ -6,12 +6,13 @@ namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use DateTimeImmutable;
 use Nursery\Domain\Shared\Model\Dosage;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Dosage>
+ * @extends AbstractModelFactory<Dosage>
+ *
+ * @codeCoverageIgnore
  */
-final class DosageFactory extends PersistentProxyObjectFactory
+final class DosageFactory extends AbstractModelFactory
 {
     public static function class(): string
     {
@@ -22,8 +23,8 @@ final class DosageFactory extends PersistentProxyObjectFactory
     {
         return [
             'treatment' => TreatmentFactory::random(),
-            'dose' => self::faker()->word(),
-            'dosingTime' => DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'dose' => self::faker()->boolean() ? self::faker()->word() : null,
+            'dosingTime' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTime()) : null,
         ];
     }
 }
