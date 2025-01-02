@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\Foundry\Factory;
 
+use DateInterval;
 use DateTimeImmutable;
 use Faker\Generator;
 use Nursery\Domain\Nursery\Enum\ActionState;
@@ -28,17 +29,20 @@ class ActionFactory extends AbstractModelFactory
     /**
      * @return array<string, mixed>
      */
-    protected function defaults(): array
+    public function defaults(): array
     {
         /** @var Generator $uniqueGenerator */
         $uniqueGenerator = self::faker()->unique();
 
+        $date = DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-1 days'));
+        $date->setTime(self::faker()->numberBetween(7, 12), self::faker()->numberBetween(0, 59));
+
         return [
             'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
             'state' => self::faker()->randomElement(ActionState::cases()),
-            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTime(self::faker()->dateTimeBetween('-5 days', '+7 days'))),
-            'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', '+7 days')) : null,
-            'child' => ChildFactory::randomOrCreate(),
+            'createdAt' => $date,
+            'updatedAt' => self::faker()->boolean() ? $date->add(new DateInterval('PT1H')) : null,
+            'child' => ChildFactory::random(),
             'agent' => AgentFactory::randomOrCreate(),
             'comment' => self::faker()->boolean() ? self::faker()->text() : null,
         ];

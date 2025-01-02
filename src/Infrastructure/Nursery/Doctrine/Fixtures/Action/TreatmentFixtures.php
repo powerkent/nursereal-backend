@@ -11,6 +11,7 @@ use Nursery\Infrastructure\Nursery\Foundry\Factory\Action\TreatmentFactory;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\AbstractFixtures;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\AgentFixtures;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\ChildFixtures;
+use Nursery\Infrastructure\Shared\Doctrine\Fixtures\ContractDateFixtures;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\TreatmentFixtures as WhatTreatmentFixtures;
 
 /**
@@ -20,7 +21,7 @@ class TreatmentFixtures extends AbstractFixtures implements DependentFixtureInte
 {
     public function load(ObjectManager $manager): void
     {
-        TreatmentFactory::createMany(10);
+        TreatmentFactory::createMany(30);
     }
 
     protected static function modelClass(): string
@@ -32,6 +33,7 @@ class TreatmentFixtures extends AbstractFixtures implements DependentFixtureInte
     {
         return [
             ChildFixtures::class,
+            ContractDateFixtures::class,
             AgentFixtures::class,
             WhatTreatmentFixtures::class,
         ];

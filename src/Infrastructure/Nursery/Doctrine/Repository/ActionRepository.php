@@ -68,8 +68,6 @@ class ActionRepository extends AbstractRepository implements ActionRepositoryInt
 
         $query = $queryBuilder->getQuery();
 
-        dump($query->getSQL());
-
         return $query->getResult();
     }
 }

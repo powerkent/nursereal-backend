@@ -11,6 +11,7 @@ use Nursery\Infrastructure\Nursery\Foundry\Factory\Action\CareFactory;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\AbstractFixtures;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\AgentFixtures;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\ChildFixtures;
+use Nursery\Infrastructure\Shared\Doctrine\Fixtures\ContractDateFixtures;
 
 /**
  * @codeCoverageIgnore
@@ -19,7 +20,7 @@ class CareFixtures extends AbstractFixtures implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        CareFactory::createMany(10);
+        CareFactory::createMany(30);
     }
 
     protected static function modelClass(): string
@@ -31,6 +32,7 @@ class CareFixtures extends AbstractFixtures implements DependentFixtureInterface
     {
         return [
             ChildFixtures::class,
+            ContractDateFixtures::class,
             AgentFixtures::class,
         ];
     }

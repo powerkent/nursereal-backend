@@ -13,7 +13,7 @@ use Nursery\Infrastructure\Shared\Foundry\Factory\TreatmentFactory as WhatTreatm
  */
 final class TreatmentFactory extends ActionFactory
 {
-    protected function defaults(): array
+    public function defaults(): array
     {
         return array_merge(parent::defaults(), [
             'treatment' => WhatTreatmentFactory::randomOrCreate(),

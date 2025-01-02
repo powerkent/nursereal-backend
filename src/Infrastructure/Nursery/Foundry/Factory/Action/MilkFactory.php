@@ -6,21 +6,22 @@ namespace Nursery\Infrastructure\Nursery\Foundry\Factory\Action;
 
 use Nursery\Domain\Nursery\Model\Action\Milk;
 use Nursery\Infrastructure\Nursery\Foundry\Factory\ActionFactory;
+use Nursery\Infrastructure\Shared\Foundry\Factory\AbstractModelFactory;
 
 /**
+ * @extends AbstractModelFactory<Milk>
+ *
  * @codeCoverageIgnore
  */
-final class MilkFactory extends ActionFactory
+final class MilkFactory extends AbstractModelFactory
 {
-    protected function defaults(): array
-    {
-        return array_merge(parent::defaults(), [
-            'quantity' => self::faker()->boolean() ? self::faker()->randomNumber().' mL' : null,
-        ]);
-    }
-
     public static function class(): string
     {
         return Milk::class;
+    }
+
+    protected function defaults(): array|callable
+    {
+        return (new ActionFactory())->defaults();
     }
 }

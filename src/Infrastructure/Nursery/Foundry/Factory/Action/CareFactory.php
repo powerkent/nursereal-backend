@@ -13,7 +13,7 @@ use Nursery\Infrastructure\Nursery\Foundry\Factory\ActionFactory;
  */
 final class CareFactory extends ActionFactory
 {
-    protected function defaults(): array
+    public function defaults(): array
     {
         return array_merge(parent::defaults(), [
             'types' => self::faker()->randomElements(CareType::cases()),
