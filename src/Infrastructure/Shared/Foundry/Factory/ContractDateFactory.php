@@ -26,9 +26,9 @@ final class ContractDateFactory extends AbstractModelFactory
     protected function defaults(): array|callable
     {
         return function () {
-            $child = ChildFactory::randomOrCreate();
+            $child = ChildFactory::random();
             do {
-                $dateTime = self::faker()->dateTimeBetween('-5 days', '+7 days');
+                $dateTime = self::faker()->dateTimeBetween('-2 days', '+ 2 days');
 
                 $contractTimeStart = clone $dateTime;
                 $contractTimeEnd = clone $dateTime;
@@ -43,8 +43,8 @@ final class ContractDateFactory extends AbstractModelFactory
             self::$usedDates[$key] = true;
 
             return [
-                'contractTimeStart' => $contractTimeStart->setTime(self::faker()->numberBetween(7, 13), self::faker()->numberBetween(0, 59)),
-                'contractTimeEnd' => $contractTimeEnd->setTime(self::faker()->numberBetween(13, 18), self::faker()->numberBetween(0, 59)),
+                'contractTimeStart' => $contractTimeStart->setTime(self::faker()->numberBetween(7, 12), self::faker()->numberBetween(0, 59)),
+                'contractTimeEnd' => $contractTimeEnd->setTime(self::faker()->numberBetween(14, 18), self::faker()->numberBetween(0, 59)),
                 'child' => $child,
             ];
         };

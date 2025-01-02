@@ -6,22 +6,22 @@ namespace Nursery\Infrastructure\Nursery\Foundry\Factory\Action;
 
 use Nursery\Domain\Nursery\Model\Action\Activity;
 use Nursery\Infrastructure\Nursery\Foundry\Factory\ActionFactory;
-use Nursery\Infrastructure\Nursery\Foundry\Factory\ActivityFactory as WhatActivityFactory;
+use Nursery\Infrastructure\Shared\Foundry\Factory\AbstractModelFactory;
 
 /**
+ * @extends AbstractModelFactory<Activity>
+ *
  * @codeCoverageIgnore
  */
-final class ActivityFactory extends ActionFactory
+final class ActivityFactory extends AbstractModelFactory
 {
-    protected function defaults(): array
-    {
-        return array_merge(parent::defaults(), [
-            'activity' => WhatActivityFactory::randomOrCreate(),
-        ]);
-    }
-
     public static function class(): string
     {
         return Activity::class;
+    }
+
+    protected function defaults(): array|callable
+    {
+        return (new ActionFactory())->defaults();
     }
 }

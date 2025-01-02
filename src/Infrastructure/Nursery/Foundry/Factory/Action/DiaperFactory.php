@@ -13,7 +13,7 @@ use Nursery\Infrastructure\Nursery\Foundry\Factory\ActionFactory;
  */
 final class DiaperFactory extends ActionFactory
 {
-    protected function defaults(): array
+    public function defaults(): array
     {
         return array_merge(parent::defaults(), ['quality' => self::faker()->randomElement(DiaperQuality::cases())]);
     }
