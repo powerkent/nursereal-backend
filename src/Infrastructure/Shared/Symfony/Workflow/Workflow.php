@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Nursery\Symfony\Workflow;
+namespace Nursery\Infrastructure\Shared\Symfony\Workflow;
 
-use Nursery\Domain\Nursery\Workflow\WorkflowInterface;
+use Nursery\Domain\Nursery\Exception\NotEnabledTransitionException as DomainNotEnabledTransitionException;
+use Nursery\Domain\Shared\Workflow\WorkflowInterface;
 use Symfony\Component\Workflow\Exception\NotEnabledTransitionException;
 use Symfony\Component\Workflow\Registry;
-use Nursery\Domain\Nursery\Exception\NotEnabledTransitionException as DomainNotEnabledTransitionException;
 
 final readonly class Workflow implements WorkflowInterface
 {

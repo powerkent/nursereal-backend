@@ -24,7 +24,10 @@ final class AgentFactory extends AbstractModelFactory
         return Agent::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         $faker = Factory::create();
         $faker->addProvider(new CustomImageProvider($faker));
@@ -44,8 +47,8 @@ final class AgentFactory extends AbstractModelFactory
             'user' => self::faker()->name(),
             'password' => self::faker()->password(),
             'roles' => [Roles::Agent->value],
-            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', 'now')),
-            'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', 'now')) : null,
+            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')),
+            'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')) : null,
         ];
     }
 

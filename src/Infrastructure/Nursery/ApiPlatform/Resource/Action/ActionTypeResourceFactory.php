@@ -6,7 +6,6 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action;
 
 use Nursery\Application\Nursery\Query\FindActivitiesQuery;
 use Nursery\Domain\Nursery\Enum\ActionType;
-use Nursery\Domain\Nursery\Enum\SubTypeInterface;
 use Nursery\Domain\Nursery\Model\Activity;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 
@@ -18,7 +17,7 @@ final class ActionTypeResourceFactory
 
     public function fromModel(ActionType $actionType): ActionTypeResource
     {
-        /** @var ?SubTypeInterface $subtypes */
+        /** @var array<int, string>|null $subtypes */
         $subtypes = ActionType::getSubTypesByActionType($actionType);
         $actionTypes = [];
         $actionTypes[$actionType->value] = $subtypes;

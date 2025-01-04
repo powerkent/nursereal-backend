@@ -8,8 +8,8 @@ use Nursery\Domain\Nursery\Exception\ActionNotEnabledTransitionException;
 use Nursery\Domain\Nursery\Exception\NotEnabledTransitionException;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Nursery\Repository\ActionRepositoryInterface;
-use Nursery\Domain\Nursery\Workflow\WorkflowInterface;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
+use Nursery\Domain\Shared\Workflow\WorkflowInterface;
 
 final class UpdateActionStateCommandHandler implements CommandHandlerInterface
 {

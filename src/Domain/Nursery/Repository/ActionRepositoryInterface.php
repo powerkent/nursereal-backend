@@ -15,10 +15,10 @@ use Nursery\Domain\Shared\Repository\RepositoryInterface;
 interface ActionRepositoryInterface extends RepositoryInterface
 {
     /**
-     * @param list<int>    $children
-     * @param list<string> $actions
-     * @param list<string> $nurseryStructures
-     * @param list<string> $agents
+     * @param list<int>          $children
+     * @param array<int, string> $actions
+     * @param list<string>       $nurseryStructures
+     * @param list<string>       $agents
      *
      * @return array<Action>|null
      */

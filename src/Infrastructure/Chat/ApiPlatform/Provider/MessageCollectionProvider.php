@@ -32,11 +32,11 @@ final class MessageCollectionProvider extends AbstractCollectionProvider
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): array
     {
-        if (isset($context['filters']['channelId']) && null !== $channelId = (int) $context['filters']['channelId']) {
-            return $this->queryBus->ask(new FindMessagesByChannelIdQuery($channelId));
+        if (null === ($channelId = $context['filters']['channelId'])) {
+            throw new EntityNotFoundException(Message::class, 0, 'id');
         }
 
-        throw new EntityNotFoundException(Message::class, $channelId ?? 0, 'id');
+        return $this->queryBus->ask(new FindMessagesByChannelIdQuery((int) $channelId));
     }
 
     /**

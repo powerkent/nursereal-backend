@@ -28,7 +28,7 @@ final readonly class AgentResourceFactory
             roles: $agent->getRoles(),
             createdAt: $agent->getCreatedAt(),
             updatedAt: $agent->getUpdatedAt(),
-            nurseryStructures: array_map(fn (NurseryStructure $nurseryStructure): NurseryStructureView => $this->nurseryStructureViewFactory->fromModel($nurseryStructure), $agent->getNurseryStructures()->toArray()),
+            nurseryStructures: $agent->getNurseryStructures()->map(fn (NurseryStructure $nurseryStructure): NurseryStructureView => $this->nurseryStructureViewFactory->fromModel($nurseryStructure))->toArray(),
         );
     }
 }

@@ -24,7 +24,10 @@ final class ConfigFactory extends AbstractModelFactory
         return Config::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         /** @var Generator $uniqueGenerator */
         $uniqueGenerator = self::faker()->unique();

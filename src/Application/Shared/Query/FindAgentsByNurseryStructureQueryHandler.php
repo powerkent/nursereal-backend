@@ -15,9 +15,9 @@ final readonly class FindAgentsByNurseryStructureQueryHandler implements QueryHa
     }
 
     /**
-     * @return array<int, Agent>|null
+     * @return array<int, Agent>
      */
-    public function __invoke(FindAgentsByNurseryStructureQuery $query): ?array
+    public function __invoke(FindAgentsByNurseryStructureQuery $query): array
     {
         return $this->agentRepository->searchAgentsByNurseryStructure($query->nurseryStructure);
     }

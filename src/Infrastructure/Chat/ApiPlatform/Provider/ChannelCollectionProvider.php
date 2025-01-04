@@ -34,17 +34,17 @@ final class ChannelCollectionProvider extends AbstractCollectionProvider
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): array
     {
-        if (isset($context['filters']['memberId']) && null !== $memberId = (int) $context['filters']['memberId']) {
-            $channels = $this->queryBus->ask(new FindChannelsByMemberIdQuery($memberId));
-            $chans = [];
-            foreach ($channels as $channel) {
-                $chans[] = $this->queryBus->ask(new FindChannelByIdQuery($channel['id']));
-            }
-
-            return $chans;
+        if (null === ($memberId = $context['filters']['memberId'] ?? null)) {
+            throw new EntityNotFoundException(Member::class, 0, 'id');
         }
 
-        throw new EntityNotFoundException(Member::class, $memberId ?? 0, 'id');
+        $channels = $this->queryBus->ask(new FindChannelsByMemberIdQuery((int) $memberId));
+        $chans = [];
+        foreach ($channels as $channel) {
+            $chans[] = $this->queryBus->ask(new FindChannelByIdQuery($channel['id']));
+        }
+
+        return $chans;
     }
 
     /**

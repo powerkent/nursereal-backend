@@ -22,6 +22,6 @@ final class RestFactory extends AbstractModelFactory
 
     protected function defaults(): array|callable
     {
-        return (new ActionFactory())->defaults();
+        return new ActionFactory()->defaults();
     }
 }

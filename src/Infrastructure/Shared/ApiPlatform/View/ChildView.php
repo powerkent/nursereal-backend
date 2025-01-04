@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class ChildView
 {
     /**
-     * @param list<TreatmentView>|null $treatments
+     * @param array<int, TreatmentView>|null $treatments
      */
     public function __construct(
         #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list', 'treatment:item', 'treatment:list', 'nurseryStructure:item'])]
@@ -27,7 +27,7 @@ class ChildView
         #[Groups(['child:item', 'child:list', 'customer:item', 'customer:list'])]
         public ?IRPView $irp = null,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        /** @var list<TreatmentView>|null $treatments */
+        /** @var array<int, TreatmentView>|null $treatments */
         public ?array $treatments = null,
     ) {
     }

@@ -8,7 +8,6 @@ use Closure;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Exception;
 use Traversable;
-use function is_callable;
 
 /**
  * @template T of object
@@ -34,10 +33,9 @@ final class CastingPaginator extends Paginator
     public function getIterator(): Traversable
     {
         $it = parent::getIterator();
-        if (is_callable($this->castCallable)) {
-            foreach ($it as &$el) {
-                $el = ($this->castCallable)($el);
-            }
+
+        foreach ($it as &$el) {
+            $el = ($this->castCallable)($el);
         }
 
         return $it;

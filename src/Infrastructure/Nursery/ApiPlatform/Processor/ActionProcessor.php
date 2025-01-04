@@ -70,16 +70,16 @@ final readonly class ActionProcessor implements ActionProcessorInterface
             'uuid' => $uuid,
             'state' => $isUpdate ? $action->getState()->value : ActionState::NewAction,
             'createdAt' => $isUpdate ? $action->getCreatedAt()->format(self::DATE_FORMAT) : new DateTimeImmutable(),
-            'updatedAt' => $isUpdate ? (new DateTimeImmutable())->format(self::DATE_FORMAT) : null,
+            'updatedAt' => $isUpdate ? new DateTimeImmutable()->format(self::DATE_FORMAT) : null,
             'child' => $isUpdate ? $action->getChild() : $this->queryBus->ask(new FindChildByUuidOrIdQuery(uuid: $data->childUuid)),
             'agent' => $isUpdate ? $action->getAgent() : $agent,
             'comment' => $data->comment,
         ];
 
         if ($isUpdate && null !== $action->getUpdatedAt()) {
-            $primitives['updatedAt'] = null === $data->dateTime ? $action->getUpdatedAt()->format(self::DATE_FORMAT) : (new DateTimeImmutable($data->dateTime))->format(self::DATE_FORMAT);
+            $primitives['updatedAt'] = null === $data->dateTime ? $action->getUpdatedAt()->format(self::DATE_FORMAT) : new DateTimeImmutable($data->dateTime)->format(self::DATE_FORMAT);
         } elseif ($isUpdate && null === $action->getUpdatedAt()) {
-            $primitives['updatedAt'] = null === $data->dateTime ? (new DateTimeImmutable())->format(self::DATE_FORMAT) : (new DateTimeImmutable($data->dateTime))->format(self::DATE_FORMAT);
+            $primitives['updatedAt'] = null === $data->dateTime ? new DateTimeImmutable()->format(self::DATE_FORMAT) : new DateTimeImmutable($data->dateTime)->format(self::DATE_FORMAT);
         }
 
         $context = [

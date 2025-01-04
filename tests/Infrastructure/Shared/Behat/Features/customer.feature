@@ -23,9 +23,9 @@ Feature:
         {
            "@context":"/api/contexts/Customer",
            "@id":"/api/customers",
-           "@type":"hydra:Collection",
-           "hydra:totalItems":1,
-           "hydra:member":[
+           "@type":"Collection",
+           "totalItems":1,
+           "member":[
               {
                  "@id":"/api/customers/00000000-0000-0000-0000-000000000001",
                  "@type":"Customer",
