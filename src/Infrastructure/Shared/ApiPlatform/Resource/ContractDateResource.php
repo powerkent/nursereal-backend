@@ -41,7 +41,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class ContractDateResource
 {
     /**
-     * @param list<ChildDatesView> $childDates
+     * @param array<int, ChildDatesView> $childDates
      */
     public function __construct(
         #[Groups(['contract:item', 'contract:list'])]
@@ -53,7 +53,7 @@ final class ContractDateResource
         #[Groups(['contract:item', 'contract:list'])]
         public string $lastname,
         #[Groups(['contract:item', 'contract:list'])]
-        /** @var list<ChildDatesView> $childDates */
+        /** @var array<int, ChildDatesView> $childDates */
         public array $childDates = [],
     ) {
     }

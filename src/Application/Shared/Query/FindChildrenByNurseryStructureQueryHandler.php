@@ -15,7 +15,7 @@ final readonly class FindChildrenByNurseryStructureQueryHandler implements Query
     }
 
     /**
-     * @return list<Child>|null
+     * @return array<int, Child>|null
      */
     public function __invoke(FindChildrenByNurseryStructureQuery $query): ?array
     {

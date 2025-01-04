@@ -19,7 +19,7 @@ enum ActionType: string implements SubTypeActionInterface
     case Milk = 'milk';
 
     /**
-     * @return list<string>
+     * @return array<int, string>
      */
     public static function values(): array
     {
@@ -27,7 +27,7 @@ enum ActionType: string implements SubTypeActionInterface
     }
 
     /**
-     * @return list<string>|null
+     * @return array<int, string>|null
      */
     public static function getSubTypesByActionType(ActionType $case): ?array
     {

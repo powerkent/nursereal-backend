@@ -8,7 +8,6 @@ use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\ContractDate;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\ChildDatesView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\ChildrenDatesViewFactory;
-use function array_map;
 
 final readonly class ContractDateResourceFactory
 {
@@ -23,7 +22,7 @@ final readonly class ContractDateResourceFactory
             avatar: $child->getAvatar()?->getContentUrl(),
             firstname : $child->getFirstname(),
             lastname  : $child->getLastname(),
-            childDates: array_map(fn (ContractDate $contractDate): ChildDatesView => $this->childrenDatesViewFactory->fromModel($contractDate), $child->getContractDates()->toArray()),
+            childDates: $child->getContractDates()->map(fn (ContractDate $contractDate): ChildDatesView => $this->childrenDatesViewFactory->fromModel($contractDate))->toArray(),
         );
     }
 }

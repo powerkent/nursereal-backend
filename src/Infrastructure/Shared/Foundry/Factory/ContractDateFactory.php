@@ -16,6 +16,7 @@ final class ContractDateFactory extends AbstractModelFactory
     /**
      * @var array<string, bool>
      */
+    /** @phpstan-ignore-next-line  */
     private static array $usedDates = [];
 
     public static function class(): string
@@ -23,7 +24,7 @@ final class ContractDateFactory extends AbstractModelFactory
         return ContractDate::class;
     }
 
-    protected function defaults(): array|callable
+    protected function defaults(): callable
     {
         return function () {
             $child = ChildFactory::random();

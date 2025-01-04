@@ -19,7 +19,10 @@ final class IRPFactory extends AbstractModelFactory
         return IRP::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         return [
             'name' => self::faker()->name(),

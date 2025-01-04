@@ -15,7 +15,7 @@ abstract class AbstractEvent implements EventInterface
     public function __construct(
         public UuidInterface|string $uuid,
     ) {
-        $this->occurredOn = (new DateTimeImmutable())->format(DateTimeInterface::ATOM);
+        $this->occurredOn = new DateTimeImmutable()->format(DateTimeInterface::ATOM);
     }
 
     abstract public static function eventName(): string;

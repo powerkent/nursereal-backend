@@ -5,16 +5,16 @@ rules:
     - Nursery\Infrastructure\Shared\PhpStan\Rule\SuffixInterfacesWithInterfaceRule
     - Nursery\Infrastructure\Shared\PhpStan\Rule\SuffixTraitsWithTraitRule
 parameters:
+    phpVersion: 80400
     level: 8
     paths:
         - ../src
         - ../tests
     excludePaths:
-        - ../src/Infrastructure/Nursery/ApiPlatform/Processor/ActionProcessor
+        - ../src/Infrastructure/Nursery/ApiPlatform/Processor/ActionProcessor.php
         - ../src/Infrastructure/Shared/Foundry/Factory/AbstractModelFactory.php
 
     symfony:
         containerXmlPath: ../var/cache/dev/Nursery_Infrastructure_Shared_Symfony_KernelDevDebugContainer.xml
     scanDirectories:
-            - ../var/cache/dev/Symfony/Config
-
+        - ../var/cache/dev/Symfony/Config

@@ -26,8 +26,8 @@ final readonly class ChannelResourceFactory
             id: $channel->getId(),
             name: $channel->getName(),
             createdAt: $channel->getCreatedAt(),
-            messages: $channel->getMessages() ? array_map(fn (Message $message): MessageView => $this->messageViewFactory->fromModel($message), $channel->getMessages()->toArray()) : null,
-            members: $channel->getMembers() ? array_map(fn (Member $member): MemberView => $this->memberViewFactory->fromModel($member), $channel->getMembers()->toArray()) : null,
+            messages: $channel->getMessages()->map(fn (Message $message): MessageView => $this->messageViewFactory->fromModel($message))->toArray(),
+            members: $channel->getMembers()->map(fn (Member $member): MemberView => $this->memberViewFactory->fromModel($member))->toArray(),
         );
     }
 }

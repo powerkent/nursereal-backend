@@ -34,12 +34,12 @@ final class MessengerCommandBus implements CommandBusInterface
 
     private function handleSync(CommandInterface $command): mixed
     {
-        return $this->handle((new Envelope($command))->with(new ValidationStamp([])));
+        return $this->handle(new Envelope($command)->with(new ValidationStamp([])));
     }
 
     private function handleRoutable(RoutableCommandInterface $command): void
     {
-        $envelope = (new Envelope($command))->with(new ValidationStamp([]));
+        $envelope = new Envelope($command)->with(new ValidationStamp([]));
 
         $this->messageBus->dispatch($envelope);
     }
