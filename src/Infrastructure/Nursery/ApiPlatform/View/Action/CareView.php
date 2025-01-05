@@ -10,11 +10,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class CareView
 {
     /**
-     * @param list<CareType> $careTypes
+     * @param array<int, CareType> $careTypes
      */
     public function __construct(
         #[Groups(['action:item', 'action:list'])]
-        /** @var list<CareType> $careTypes */
+        /** @var array<int, CareType> $careTypes */
         public array $careTypes,
     ) {
     }

@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class TreatmentView
 {
     /**
-     * @param list<DosageView>|null $dosages
+     * @param array<int, DosageView> $dosages
      */
     public function __construct(
         #[Groups(['child:item', 'child:list', 'customer:item'])]
@@ -29,8 +29,8 @@ class TreatmentView
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?DateTimeInterface $endAt,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        /** @var list<DosageView>|null $dosages */
-        public ?array $dosages,
+        /** @var array<int, DosageView> $dosages */
+        public array $dosages,
     ) {
     }
 }

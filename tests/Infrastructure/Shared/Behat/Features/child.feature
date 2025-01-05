@@ -8,7 +8,6 @@ Feature:
         And a manager exists with user "manager@example.com" and password "password123"
         And I am authenticated as "manager@example.com" with password "password123"
 
-        @test
     Scenario: I can create a child
         Given there is a child with uuid "00000000-0000-0000-0000-000000000001"
         And that child has firstname Quentin
@@ -24,9 +23,9 @@ Feature:
         {
             "@context": "/api/contexts/Child",
             "@id": "/api/children",
-            "@type": "hydra:Collection",
-            "hydra:totalItems": 1,
-            "hydra:member": [
+            "@type": "Collection",
+            "totalItems": 1,
+            "member": [
                 {
                     "@id": "/api/children/00000000-0000-0000-0000-000000000001",
                     "@type": "Child",

@@ -24,7 +24,10 @@ final class NurseryStructureFactory extends AbstractModelFactory
         return NurseryStructure::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         /** @var Generator $uniqueGenerator */
         $uniqueGenerator = self::faker()->unique();
@@ -44,32 +47,32 @@ final class NurseryStructureFactory extends AbstractModelFactory
             $nurseryStructure->setNurseryStructureOpenings(
                 [
                     new NurseryStructureOpening(
-                        openingHour: (new DateTime())->setTime(7, 0),
-                        closingHour: (new DateTime())->setTime(19, 0),
+                        openingHour: new DateTime()->setTime(7, 0),
+                        closingHour: new DateTime()->setTime(19, 0),
                         openingDay: OpeningDays::Monday,
                         nurseryStructure: $nurseryStructure,
                     ),
                     new NurseryStructureOpening(
-                        openingHour: (new DateTime())->setTime(7, 0),
-                        closingHour: (new DateTime())->setTime(19, 0),
+                        openingHour: new DateTime()->setTime(7, 0),
+                        closingHour: new DateTime()->setTime(19, 0),
                         openingDay: OpeningDays::Tuesday,
                         nurseryStructure: $nurseryStructure,
                     ),
                     new NurseryStructureOpening(
-                        openingHour: (new DateTime())->setTime(7, 0),
-                        closingHour: (new DateTime())->setTime(19, 0),
+                        openingHour: new DateTime()->setTime(7, 0),
+                        closingHour: new DateTime()->setTime(19, 0),
                         openingDay: OpeningDays::Wednesday,
                         nurseryStructure: $nurseryStructure,
                     ),
                     new NurseryStructureOpening(
-                        openingHour: (new DateTime())->setTime(7, 0),
-                        closingHour: (new DateTime())->setTime(19, 0),
+                        openingHour: new DateTime()->setTime(7, 0),
+                        closingHour: new DateTime()->setTime(19, 0),
                         openingDay: OpeningDays::Thursday,
                         nurseryStructure: $nurseryStructure,
                     ),
                     new NurseryStructureOpening(
-                        openingHour: (new DateTime())->setTime(7, 0),
-                        closingHour: (new DateTime())->setTime(19, 0),
+                        openingHour: new DateTime()->setTime(7, 0),
+                        closingHour: new DateTime()->setTime(19, 0),
                         openingDay: OpeningDays::Friday,
                         nurseryStructure: $nurseryStructure,
                     ),

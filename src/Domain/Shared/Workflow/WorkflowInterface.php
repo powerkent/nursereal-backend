@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Domain\Nursery\Workflow;
+namespace Nursery\Domain\Shared\Workflow;
 
 use LogicException;
 

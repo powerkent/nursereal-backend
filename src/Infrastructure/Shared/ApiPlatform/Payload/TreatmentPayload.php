@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class TreatmentPayload
 {
     /**
-     * @param list<DosagePayload> $dosages
+     * @param array<int, DosagePayload> $dosages
      */
     public function __construct(
         #[Groups(['child:item', 'treatment:item', 'treatment:list'])]
@@ -24,8 +24,8 @@ final class TreatmentPayload
         #[ApiProperty(openapiContext: ['example' => '2024-01-01 00:00:00'])]
         public ?string $endAt = null,
         #[Groups(['child:item', 'treatment:item', 'treatment:list'])]
-        /** @var list<DosagePayload> $dosages */
-        public ?array $dosages = [],
+        /** @var array<int, DosagePayload> $dosages */
+        public array $dosages = [],
     ) {
     }
 }

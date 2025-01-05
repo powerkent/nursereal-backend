@@ -7,7 +7,9 @@ namespace Nursery\Infrastructure\Shared\PhpStan\Rule;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
+use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * @implements Rule<InClassNode>
@@ -15,7 +17,7 @@ use PHPStan\Rules\Rule;
  */
 final class SuffixTraitsWithTraitRule implements Rule
 {
-    private const ERROR_MESSAGE = 'Trait name "%s" must be suffixed with "Trait"';
+    private const string ERROR_MESSAGE = 'Trait name "%s" must be suffixed with "Trait"';
 
     public function getNodeType(): string
     {
@@ -25,7 +27,7 @@ final class SuffixTraitsWithTraitRule implements Rule
     /**
      * @param InClassNode $node
      *
-     * @return array<string>
+     * @return list<IdentifierRuleError>
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -39,6 +41,6 @@ final class SuffixTraitsWithTraitRule implements Rule
             return [];
         }
 
-        return [sprintf(self::ERROR_MESSAGE, $shortClassName)];
+        return [RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $shortClassName))->identifier('suffix.trait')->build()];
     }
 }

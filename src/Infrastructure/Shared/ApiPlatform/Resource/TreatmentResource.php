@@ -52,7 +52,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class TreatmentResource
 {
     /**
-     * @param list<DosageView>|null $dosages
+     * @param array<int, DosageView> $dosages
      */
     public function __construct(
         #[ApiProperty(identifier: true)]
@@ -71,8 +71,8 @@ final class TreatmentResource
         #[Groups(['treatment:item', 'treatment:list'])]
         public ?DateTimeInterface $endAt = null,
         #[Groups(['treatment:item', 'treatment:list'])]
-        /** @var list<DosageView>|null $dosages */
-        public ?array $dosages = [],
+        /** @var array<int, DosageView> $dosages */
+        public array $dosages = [],
     ) {
     }
 }

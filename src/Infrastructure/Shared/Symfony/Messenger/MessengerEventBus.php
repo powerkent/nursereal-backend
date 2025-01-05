@@ -20,7 +20,7 @@ final class MessengerEventBus implements EventBusInterface
     public function publish(EventInterface ...$events): void
     {
         foreach ($events as $event) {
-            $this->eventBus->dispatch((new Envelope($event))->with(new ValidationStamp([])));
+            $this->eventBus->dispatch(new Envelope($event)->with(new ValidationStamp([])));
         }
     }
 }

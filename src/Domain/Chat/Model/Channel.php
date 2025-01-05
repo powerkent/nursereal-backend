@@ -63,9 +63,9 @@ class Channel
     }
 
     /**
-     * @return Collection<int, Message>|null
+     * @return Collection<int, Message>
      */
-    public function getMessages(): ?Collection
+    public function getMessages(): Collection
     {
         return $this->messages;
     }
@@ -100,9 +100,9 @@ class Channel
     }
 
     /**
-     * @return Collection<int, Member>|null
+     * @return Collection<int, Member>
      */
-    public function getMembers(): ?Collection
+    public function getMembers(): Collection
     {
         return $this->members;
     }

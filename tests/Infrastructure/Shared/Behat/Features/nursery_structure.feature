@@ -20,9 +20,9 @@ Feature:
         {
             "@context": "/api/contexts/NurseryStructure",
             "@id": "/api/nursery_structures",
-            "@type": "hydra:Collection",
-            "hydra:totalItems": 1,
-            "hydra:member": [
+            "@type": "Collection",
+            "totalItems": 1,
+            "member": [
                 {
                     "@id": "/api/nursery_structures/00000000-0000-0000-0000-000000000001",
                     "@type": "NurseryStructure",
@@ -57,9 +57,9 @@ Feature:
         {
             "@context": "\/api\/contexts\/NurseryStructure",
             "@id": "\/api\/nursery_structures",
-            "@type": "hydra:Collection",
-            "hydra:totalItems": 2,
-            "hydra:member": [
+            "@type": "Collection",
+            "totalItems": 2,
+            "member": [
                 {
                     "@id": "\/api\/nursery_structures\/00000000-0000-0000-0000-000000000001",
                     "@type": "NurseryStructure",
