@@ -61,8 +61,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class AgentResource
 {
     /**
-     * @param list<string>               $roles
-     * @param list<NurseryStructureView> $nurseryStructures
+     * @param array<int, string>               $roles
+     * @param array<int, NurseryStructureView> $nurseryStructures
      */
     public function __construct(
         #[ApiProperty(identifier: true)]
@@ -82,15 +82,15 @@ final class AgentResource
         #[Groups(['agent:item', 'agent:list'])]
         public ?string $user,
         #[Groups(['agent:item', 'agent:list'])]
-        /** @var list<string> $roles */
+        /** @var array<int, string> $roles */
         public array $roles,
         #[Groups(['agent:item', 'agent:list'])]
         public DateTimeInterface $createdAt,
         #[Groups(['agent:item', 'agent:list'])]
         public ?DateTimeInterface $updatedAt = null,
         #[Groups(['agent:item', 'agent:list'])]
-        /** @var list<NurseryStructureView> $nurseryStructures */
-        public ?array $nurseryStructures = null,
+        /** @var array<int, NurseryStructureView> $nurseryStructures */
+        public array $nurseryStructures = [],
     ) {
     }
 }

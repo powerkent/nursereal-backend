@@ -25,7 +25,10 @@ final class AgentFactory extends PersistentProxyObjectFactory
         return Agent::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         $faker = Factory::create();
         $faker->addProvider(new CustomImageProvider($faker));

@@ -24,7 +24,10 @@ final class ChildFactory extends PersistentProxyObjectFactory
         return Child::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         $faker = Factory::create();
         $faker->addProvider(new CustomImageProvider($faker));

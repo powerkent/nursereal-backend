@@ -23,7 +23,10 @@ final class AvatarFactory extends PersistentProxyObjectFactory
         return Avatar::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         $faker = Factory::create();
         $faker->addProvider(new CustomImageProvider($faker));

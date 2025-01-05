@@ -31,7 +31,10 @@ final class ActivityFactory extends PersistentProxyObjectFactory
         return Activity::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         /** @var Generator $uniqueGenerator */
         $uniqueGenerator = self::faker()->unique();

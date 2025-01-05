@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 use Nursery\Domain\Shared\Exception\ContractDateShouldHaveSameDayDateException;
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Exception\MissingPropertyException;
@@ -38,6 +39,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ],
             ],
         ],
+        'use_symfony_listeners' => true,
         'exception_to_status' => [
             EntityNotFoundException::class => 400,
             InvalidArgumentException::class => 400,

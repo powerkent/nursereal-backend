@@ -6,6 +6,7 @@ namespace Nursery\Infrastructure\Nursery\Foundry\Factory\Action;
 
 use Nursery\Domain\Nursery\Model\Action\Activity;
 use Nursery\Infrastructure\Nursery\Foundry\Factory\ActionFactory;
+use Nursery\Infrastructure\Nursery\Foundry\Factory\ActivityFactory as WhatActivityFactory;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -22,6 +23,6 @@ final class ActivityFactory extends PersistentProxyObjectFactory
 
     protected function defaults(): array|callable
     {
-        return new ActionFactory()->defaults();
+        return array_merge(new ActionFactory()->defaults(), ['activity' => WhatActivityFactory::randomOrCreate()]);
     }
 }

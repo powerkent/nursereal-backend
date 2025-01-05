@@ -32,5 +32,12 @@
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
+
+        <one-to-many field="clockIns" target-entity="Nursery\Domain\Shared\Model\ClockingIn" mapped-by="agent" orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

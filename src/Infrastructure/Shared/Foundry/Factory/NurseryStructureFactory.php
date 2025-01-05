@@ -25,7 +25,10 @@ final class NurseryStructureFactory extends PersistentProxyObjectFactory
         return NurseryStructure::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         /** @var Generator $uniqueGenerator */
         $uniqueGenerator = self::faker()->unique();

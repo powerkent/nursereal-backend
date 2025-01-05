@@ -34,8 +34,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class ChannelResource
 {
     /**
-     * @param list<MessageView>|null $messages
-     * @param list<MemberView>|null  $members
+     * @param array<int, MessageView> $messages
+     * @param array<int, MemberView>  $members
      */
     public function __construct(
         #[ApiProperty(identifier: true)]
@@ -46,11 +46,11 @@ final class ChannelResource
         #[Groups(['channel:item', 'channel:list'])]
         public DateTimeInterface $createdAt,
         #[Groups(['channel:item'])]
-        /** @var list<MessageView> $messages */
-        public ?array $messages = null,
+        /** @var array<int, MessageView> $messages */
+        public array $messages = [],
         #[Groups(['channel:item', 'channel:list'])]
-        /** @var list<MemberView> $members */
-        public ?array $members = null,
+        /** @var array<int, MemberView> $members */
+        public array $members = [],
     ) {
     }
 }

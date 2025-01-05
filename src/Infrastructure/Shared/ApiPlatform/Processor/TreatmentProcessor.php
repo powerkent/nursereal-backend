@@ -8,13 +8,15 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Exception;
+use InvalidArgumentException;
+use Symfony\Component\HttpFoundation\InputBag;
+use Symfony\Component\HttpFoundation\Request;
 use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Payload\TreatmentPayload;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\TreatmentResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\TreatmentResourceFactory;
-use Symfony\Component\HttpFoundation\InputBag;
 
 /**
  * @implements ProcessorInterface<TreatmentPayload, TreatmentResource>
@@ -34,9 +36,15 @@ final readonly class TreatmentProcessor implements ProcessorInterface
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): TreatmentResource
     {
-        /** @var InputBag $query */
-        /* @phpstan-ignore-next-line */
-        $query = $context['request']->query;
+        /** @var Request|null $request */
+        $request = $context['request'] ?? null;
+
+        if (!$request instanceof Request) {
+            throw new InvalidArgumentException('Invalid request type in context.');
+        }
+
+        /** @var InputBag<string> $query */
+        $query = $request->query;
 
         /** @var ?Child $child */
         $child = $this->queryBus->ask(new FindChildByUuidOrIdQuery((string) $query->get('child_uuid')));

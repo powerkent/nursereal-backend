@@ -1015,9 +1015,9 @@ Feature:
         {
            "@context":"/api/contexts/Treatment",
            "@id":"/api/treatments",
-           "@type":"hydra:Collection",
-           "hydra:totalItems":1,
-           "hydra:member":[
+           "@type":"Collection",
+           "totalItems":1,
+           "member":[
               {
                  "@id":"/api/treatments/00000000-0000-0000-0000-000000000001",
                  "@type":"Treatment",

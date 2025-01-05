@@ -20,7 +20,10 @@ final class DosageFactory extends PersistentProxyObjectFactory
         return Dosage::class;
     }
 
-    protected function defaults(): array|callable
+    /**
+     * @return array<string, mixed>
+     */
+    protected function defaults(): array
     {
         return [
             'treatment' => TreatmentFactory::random(),

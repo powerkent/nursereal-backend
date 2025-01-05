@@ -7,7 +7,7 @@ namespace Nursery\Domain\Nursery\Enum;
 interface SubTypeActionInterface
 {
     /**
-     * @return list<string>|null
+     * @return array<int, string>|null
      */
     public static function getSubTypesByActionType(ActionType $case): ?array;
 }

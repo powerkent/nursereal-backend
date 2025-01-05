@@ -7,6 +7,7 @@ namespace Nursery\Domain\Shared\Model;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use LogicException;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Domain\Shared\User\UserDomainInterface;
 use Ramsey\Uuid\UuidInterface;
@@ -41,9 +42,10 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         array|Collection $children = [],
         array $roles = [],
     ) {
-        Assert::stringNotEmpty($firstname);
-        Assert::stringNotEmpty($lastname);
-        Assert::email($email);
+        Assert::stringNotEmpty($firstname, 'Firstname cannot be empty.');
+        Assert::stringNotEmpty($lastname, 'Lastname cannot be empty.');
+        Assert::email($email, 'Invalid email address.');
+        Assert::stringNotEmpty($user, 'User cannot be empty.');
 
         $this->children = is_array($children) ? new ArrayCollection($children) : $children;
         $this->roles = $roles;
@@ -164,6 +166,10 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
 
     public function getUserIdentifier(): string
     {
+        if (empty($this->user)) {
+            throw new LogicException('User identifier cannot be empty.');
+        }
+
         return $this->user;
     }
 

@@ -6,7 +6,6 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\View;
 
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Model\NurseryStructureOpening;
-use function array_map;
 
 final readonly class NurseryStructureViewFactory
 {
@@ -23,7 +22,7 @@ final readonly class NurseryStructureViewFactory
             address: $nurseryStructure->getAddress(),
             createdAt: $nurseryStructure->getCreatedAt(),
             updatedAt: $nurseryStructure->getUpdatedAt(),
-            opening: array_map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening), $nurseryStructure->getNurseryStructureOpenings()->toArray()),
+            opening: $nurseryStructure->getNurseryStructureOpenings()->map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening))->toArray(),
         );
     }
 }
