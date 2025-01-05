@@ -46,13 +46,6 @@ class Treatment
         return $this->uuid;
     }
 
-    public function setUuid(UuidInterface $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
     public function getChild(): ?Child
     {
         return $this->child;
@@ -106,13 +99,6 @@ class Treatment
         return $this->startAt;
     }
 
-    public function setStartAt(DateTimeInterface $startAt): self
-    {
-        $this->startAt = $startAt;
-
-        return $this;
-    }
-
     public function getEndAt(): ?DateTimeInterface
     {
         return $this->endAt;
@@ -133,31 +119,11 @@ class Treatment
         return $this->dosages;
     }
 
-    /**
-     * @param array<int, Dosage>|Collection<int, Dosage> $dosages
-     */
-    public function setDosages(Collection|array $dosages): self
-    {
-        $this->dosages = $dosages instanceof Collection ? $dosages : new ArrayCollection($dosages);
-
-        return $this;
-    }
-
     public function addDosage(Dosage $dosage): self
     {
         if (!$this->dosages->contains($dosage)) {
             $this->dosages->add($dosage);
             $dosage->setTreatment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDosage(Dosage $dosage): self
-    {
-        if ($this->dosages->contains($dosage)) {
-            $this->dosages->removeElement($dosage);
-            $dosage->setTreatment(null);
         }
 
         return $this;

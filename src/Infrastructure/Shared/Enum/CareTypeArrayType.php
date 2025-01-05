@@ -12,7 +12,7 @@ class CareTypeArrayType extends Type
 {
     public const string NAME = 'care_type_array';
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return 'JSON';
     }

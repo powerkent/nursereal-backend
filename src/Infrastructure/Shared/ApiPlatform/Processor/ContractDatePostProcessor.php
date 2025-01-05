@@ -23,7 +23,7 @@ use Throwable;
 /**
  * @implements ProcessorInterface<ContractDateInput, ContractDateResource>
  */
-final class ContractDatePostProcessor implements ProcessorInterface
+final readonly class ContractDatePostProcessor implements ProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,

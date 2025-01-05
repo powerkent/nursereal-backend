@@ -10,6 +10,6 @@ return function (ContainerConfigurator $container) {
         'public_key' => '%kernel.project_dir%/config/jwt/public.pem',
         'pass_phrase' => '%env(JWT_PASSPHRASE)%',
         'token_ttl' => 3600 * 24,
-        'clock_skew' => 0, // Pour ajuster une éventuelle dérive de l'horloge
+        'clock_skew' => 0,
     ]);
 };

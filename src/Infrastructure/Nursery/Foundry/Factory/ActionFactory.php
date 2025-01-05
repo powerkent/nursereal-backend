@@ -9,17 +9,17 @@ use DateTimeImmutable;
 use Faker\Generator;
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Model\Action;
-use Nursery\Infrastructure\Shared\Foundry\Factory\AbstractModelFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\AgentFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\ChildFactory;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Action>
+ * @extends PersistentProxyObjectFactory<Action>
  *
  * @codeCoverageIgnore
  */
-class ActionFactory extends AbstractModelFactory
+class ActionFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

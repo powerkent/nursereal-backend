@@ -8,13 +8,14 @@ use DateTimeImmutable;
 use Faker\Generator;
 use Nursery\Domain\Shared\Model\Customer;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Customer>
+ * @extends @extends PersistentProxyObjectFactory<Customer>
  *
  * @codeCoverageIgnore
  */
-final class CustomerFactory extends AbstractModelFactory
+final class CustomerFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

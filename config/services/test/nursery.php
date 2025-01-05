@@ -10,9 +10,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->defaults()
         ->autowire()
         ->autoconfigure();
-
-    //    $services->load(
-    //        'Nursery\\Tests\\Infrastructure\\Nursery\\Behat\\',
-    //        __DIR__.'/../../../tests/Infrastructure/Nursery/Behat/*'
-    //    );
 };

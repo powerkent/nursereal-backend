@@ -7,7 +7,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\View;
 use Nursery\Domain\Shared\Model\Dosage;
 use Nursery\Domain\Shared\Model\Treatment;
 
-final class TreatmentViewFactory
+final readonly class TreatmentViewFactory
 {
     public function __construct(private DosageViewFactory $dosageViewFactory)
     {

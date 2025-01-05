@@ -15,7 +15,7 @@ use PHPStan\Rules\Rule;
  */
 final class SuffixTraitsWithTraitRule implements Rule
 {
-    private const ERROR_MESSAGE = 'Trait name "%s" must be suffixed with "Trait"';
+    private const string ERROR_MESSAGE = 'Trait name "%s" must be suffixed with "Trait"';
 
     public function getNodeType(): string
     {

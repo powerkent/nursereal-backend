@@ -18,6 +18,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Input\AvatarInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\AvatarResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\AvatarResourceFactory;
 use Ramsey\Uuid\Uuid;
+use RuntimeException;
 
 /**
  * @implements ProcessorInterface<AvatarInput, AvatarResource>
@@ -50,7 +51,7 @@ final readonly class AvatarProcessor implements ProcessorInterface
         $queryClass = "Nursery\\Application\\Shared\\Query\\Find{$class}ByUuidOrIdQuery";
 
         if (!class_exists($queryClass)) {
-            throw new \RuntimeException("the class $queryClass does not exist.");
+            throw new RuntimeException("the class $queryClass does not exist.");
         }
 
         $object = $this->queryBus->ask(new $queryClass(uuid: $data->objectUuid));
@@ -76,7 +77,7 @@ final readonly class AvatarProcessor implements ProcessorInterface
                 'contentUrl' => $objectUrl,
             ]));
         } catch (AwsException $e) {
-            throw new \RuntimeException('Erreur lors du téléchargement sur S3 : '.$e->getMessage());
+            throw new RuntimeException('Unable to download on S3 : '.$e->getMessage());
         }
 
         $object->setAvatar($avatar);

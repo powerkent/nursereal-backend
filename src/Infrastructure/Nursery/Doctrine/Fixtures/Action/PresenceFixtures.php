@@ -27,7 +27,7 @@ use Nursery\Infrastructure\Shared\Foundry\Factory\ChildFactory;
  */
 class PresenceFixtures extends AbstractFixtures implements DependentFixtureInterface
 {
-    public function __construct(EntityManagerInterface $em, private QueryBusInterface $queryBus)
+    public function __construct(EntityManagerInterface $em, private readonly QueryBusInterface $queryBus)
     {
         parent::__construct($em);
     }
@@ -36,11 +36,11 @@ class PresenceFixtures extends AbstractFixtures implements DependentFixtureInter
     {
         $children = ChildFactory::randomRange(60, 90);
 
-        $now = (new DateTimeImmutable())->format('Y-m-d');
+        $now = new DateTimeImmutable()->format('Y-m-d');
 
         foreach ($children as $child) {
             $child = $child->_real();
-            $contractDates = $this->queryBus->ask((new FindContractDatesByChildQuery($child)));
+            $contractDates = $this->queryBus->ask(new FindContractDatesByChildQuery($child));
             foreach ($contractDates as $contractDate) {
                 $presence = null;
                 $agent = AgentFactory::random()->_real();

@@ -10,7 +10,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\OpenApiContextInterface;
 /**
  * @codeCoverageIgnore
  */
-final class ChannelResourceOpenApiContext implements OpenApiContextInterface
+final readonly class ChannelResourceOpenApiContext implements OpenApiContextInterface
 {
     public function __construct(private MemberRepositoryInterface $memberRepository)
     {

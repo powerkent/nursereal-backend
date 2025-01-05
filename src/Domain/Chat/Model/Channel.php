@@ -71,67 +71,10 @@ class Channel
     }
 
     /**
-     * @param array<int, Message>|Collection<int, Message> $messages
-     */
-    public function setMessages(Collection|array $messages): self
-    {
-        $this->messages = $messages instanceof Collection ? $messages : new ArrayCollection($messages);
-
-        return $this;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages->add($message);
-            $message->setChannel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Member>|null
      */
     public function getMembers(): ?Collection
     {
         return $this->members;
-    }
-
-    /**
-     * @param array<int, Member>|Collection<int, Member> $members
-     */
-    public function setMembers(Collection|array $members): self
-    {
-        $this->members = $members instanceof Collection ? $members : new ArrayCollection($members);
-
-        return $this;
-    }
-
-    public function addMember(Member $member): self
-    {
-        if (!$this->members->contains($member)) {
-            $this->members->add($member);
-        }
-
-        return $this;
-    }
-
-    public function removeMember(Member $member): self
-    {
-        if ($this->members->contains($member)) {
-            $this->members->removeElement($member);
-        }
-
-        return $this;
     }
 }

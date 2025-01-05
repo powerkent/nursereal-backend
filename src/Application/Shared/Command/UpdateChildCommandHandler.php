@@ -13,7 +13,7 @@ use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Ramsey\Uuid\UuidInterface;
 
-final class UpdateChildCommandHandler implements CommandHandlerInterface
+final readonly class UpdateChildCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private ChildRepositoryInterface $childRepository,

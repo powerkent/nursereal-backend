@@ -8,13 +8,14 @@ use DateTimeImmutable;
 use Faker\Generator;
 use Nursery\Domain\Shared\Model\Treatment;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Treatment>
+ * @extends PersistentProxyObjectFactory<Treatment>
  *
  * @codeCoverageIgnore
  */
-final class TreatmentFactory extends AbstractModelFactory
+final class TreatmentFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

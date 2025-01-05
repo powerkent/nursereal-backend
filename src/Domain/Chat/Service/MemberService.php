@@ -9,7 +9,7 @@ use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
 use Nursery\Domain\Shared\Repository\CustomerRepositoryInterface;
 use Nursery\Domain\Shared\User\UserDomainInterface;
 
-class MemberService
+readonly class MemberService
 {
     public function __construct(
         private AgentRepositoryInterface $agentRepository,

@@ -18,6 +18,7 @@ final readonly class FindActionByFiltersQueryHandler implements QueryHandlerInte
 
     /**
      * @return array<int, Action>|null
+     * @throws Exception
      */
     public function __invoke(FindActionByFiltersQuery $query): ?array
     {

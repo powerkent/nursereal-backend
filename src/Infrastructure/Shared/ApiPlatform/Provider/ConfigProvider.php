@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
+use Exception;
 use Nursery\Application\Shared\Query\FindConfigByUuidOrNameQuery;
 use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
@@ -22,6 +23,9 @@ final class ConfigProvider extends AbstractProvider
     ) {
     }
 
+    /**
+     * @throws Exception
+     */
     protected function item(Operation $operation, array $uriVariables = [], array $context = []): ?Config
     {
         return $this->queryBus->ask(new FindConfigByUuidOrNameQuery(uuid: $uriVariables['uuid']));

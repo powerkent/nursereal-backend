@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use ApiPlatform\Exception\InvalidArgumentException;
 use Nursery\Domain\Shared\Exception\ContractDateShouldHaveSameDayDateException;
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Exception\MissingPropertyException;

@@ -12,11 +12,11 @@ class NotEnabledTransitionException extends LogicException
     public readonly object $subject;
     public readonly string $workflowName;
     public readonly string $transitionName;
-    /** @var array <mixed> */
+    /** @var array<int, mixed> */
     public readonly array $context;
 
     /**
-     * @param array <mixed> $context
+     * @param array<int, mixed> $context
      */
     public function __construct(object $subject, string $transitionName, string $workflowName, array $context = [])
     {

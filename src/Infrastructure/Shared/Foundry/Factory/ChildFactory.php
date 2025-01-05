@@ -10,13 +10,14 @@ use Faker\Generator;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Child>
+ * @extends PersistentProxyObjectFactory<Child>
  *
  * @codeCoverageIgnore
  */
-final class ChildFactory extends AbstractModelFactory
+final class ChildFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {
@@ -41,8 +42,8 @@ final class ChildFactory extends AbstractModelFactory
             'lastname' => $lastname,
             'birthday' => DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
             'nurseryStructure' => NurseryStructureFactory::randomOrCreate(),
-            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', 'now')),
-            'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days', 'now')) : null,
+            'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')),
+            'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')) : null,
             'irp' => self::faker()->boolean() ? IRPFactory::createOne() : null,
             'treatments' => [],
             'customers' => [],

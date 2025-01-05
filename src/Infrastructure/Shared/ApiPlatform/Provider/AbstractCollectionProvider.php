@@ -22,7 +22,7 @@ use function array_map;
 abstract class AbstractCollectionProvider implements ProviderInterface
 {
     public function __construct(
-        private Pagination $pagination,
+        private readonly Pagination $pagination,
     ) {
     }
 

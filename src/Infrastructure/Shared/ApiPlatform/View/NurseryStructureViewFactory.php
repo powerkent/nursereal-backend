@@ -8,7 +8,7 @@ use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Model\NurseryStructureOpening;
 use function array_map;
 
-final class NurseryStructureViewFactory
+final readonly class NurseryStructureViewFactory
 {
     public function __construct(private NurseryStructureOpeningViewFactory $nurseryStructureOpeningViewFactory)
     {

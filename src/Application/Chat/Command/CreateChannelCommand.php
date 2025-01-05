@@ -8,7 +8,7 @@ use Nursery\Domain\Shared\Command\AbstractCreateCommand;
 
 final class CreateChannelCommand extends AbstractCreateCommand
 {
-    public static function create(array $primitives): static
+    public static function create(array $primitives): CreateChannelCommand
     {
         return new self($primitives);
     }

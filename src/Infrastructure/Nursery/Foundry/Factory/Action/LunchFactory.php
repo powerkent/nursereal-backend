@@ -6,14 +6,14 @@ namespace Nursery\Infrastructure\Nursery\Foundry\Factory\Action;
 
 use Nursery\Domain\Nursery\Model\Action\Lunch;
 use Nursery\Infrastructure\Nursery\Foundry\Factory\ActionFactory;
-use Nursery\Infrastructure\Shared\Foundry\Factory\AbstractModelFactory;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Lunch>
+ * @extends PersistentProxyObjectFactory<Lunch>
  *
  * @codeCoverageIgnore
  */
-final class LunchFactory extends AbstractModelFactory
+final class LunchFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {
@@ -22,6 +22,6 @@ final class LunchFactory extends AbstractModelFactory
 
     protected function defaults(): array|callable
     {
-        return (new ActionFactory())->defaults();
+        return new ActionFactory()->defaults();
     }
 }

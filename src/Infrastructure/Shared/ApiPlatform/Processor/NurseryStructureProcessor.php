@@ -6,6 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use DateMalformedStringException;
 use DateTimeImmutable;
 use Nursery\Application\Shared\Command\CreateOrUpdateAgentCommand;
 use Nursery\Application\Shared\Command\CreateOrUpdateNurseryStructureCommand;
@@ -33,7 +34,8 @@ final readonly class NurseryStructureProcessor implements ProcessorInterface
     }
 
     /**
-     * @param NurseryStructureInput $data
+     * @param  NurseryStructureInput        $data
+     * @throws DateMalformedStringException
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): NurseryStructureResource
     {

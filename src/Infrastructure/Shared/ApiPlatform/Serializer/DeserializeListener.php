@@ -9,10 +9,11 @@ use ApiPlatform\State\Util\RequestAttributesExtractor;
 use ApiPlatform\Symfony\EventListener\DeserializeListener as DecoratedListener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use function array_merge;
 
-class DeserializeListener
+readonly class DeserializeListener
 {
     public function __construct(
         private DecoratedListener $decorated,
@@ -21,6 +22,9 @@ class DeserializeListener
     ) {
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
@@ -35,6 +39,9 @@ class DeserializeListener
         }
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     private function denormalizeFromRequest(Request $request): void
     {
         $attributes = RequestAttributesExtractor::extractAttributes($request);

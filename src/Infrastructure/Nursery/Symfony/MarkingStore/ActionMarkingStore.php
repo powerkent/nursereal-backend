@@ -13,13 +13,13 @@ use RuntimeException;
 final class ActionMarkingStore implements MarkingStoreInterface
 {
     /**
-     * @param Action $action
+     * @param Action $subject
      */
-    public function getMarking(object $action): Marking
+    public function getMarking(object $subject): Marking
     {
         $marking = new Marking();
 
-        if (null !== $state = $action->getState()) {
+        if (null !== $state = $subject->getState()) {
             $marking->mark($state->value);
         }
 
@@ -27,13 +27,13 @@ final class ActionMarkingStore implements MarkingStoreInterface
     }
 
     /**
-     * @param Action       $action
-     * @param array<mixed> $context
+     * @param Action            $subject
+     * @param array<int, mixed> $context
      */
-    public function setMarking(object $action, Marking $marking, array $context = []): void
+    public function setMarking(object $subject, Marking $marking, array $context = []): void
     {
         /**
-         * @var array<string, int>
+         * @var array<string, int> $places
          */
         $places = $marking->getPlaces();
 
@@ -41,6 +41,6 @@ final class ActionMarkingStore implements MarkingStoreInterface
             throw new RuntimeException("Action's marking doesn't have any place.");
         }
 
-        $action->setState(ActionState::from($state));
+        $subject->setState(ActionState::from($state));
     }
 }

@@ -60,23 +60,9 @@ class Child
         return $this->uuid;
     }
 
-    public function setUuid(UuidInterface $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
     public function getAvatar(): ?Avatar
     {
         return $this->avatar;
-    }
-
-    public function setAvatar(?Avatar $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
     }
 
     public function getFirstname(): string
@@ -118,13 +104,6 @@ class Child
     public function getNurseryStructure(): NurseryStructure
     {
         return $this->nurseryStructure;
-    }
-
-    public function setNurseryStructure(NurseryStructure $nurseryStructure): self
-    {
-        $this->nurseryStructure = $nurseryStructure;
-
-        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -171,16 +150,6 @@ class Child
         return $this->treatments;
     }
 
-    /**
-     * @param array<int, Treatment>|Collection<int, Treatment> $treatments
-     */
-    public function setTreatments(Collection|array $treatments): self
-    {
-        $this->treatments = $treatments instanceof Collection ? $treatments : new ArrayCollection($treatments);
-
-        return $this;
-    }
-
     public function addTreatment(Treatment $treatment): self
     {
         if (!$this->treatments->contains($treatment)) {
@@ -207,34 +176,6 @@ class Child
     public function getCustomers(): Collection
     {
         return $this->customers;
-    }
-
-    /**
-     * @param array<int, Customer>|Collection<int, Customer> $customers
-     */
-    public function setCustomers(Collection|array $customers): self
-    {
-        $this->customers = $customers instanceof Collection ? $customers : new ArrayCollection($customers);
-
-        return $this;
-    }
-
-    public function addCustomer(Customer $customer): self
-    {
-        if (!$this->customers->contains($customer)) {
-            $this->customers->add($customer);
-        }
-
-        return $this;
-    }
-
-    public function removeCustomer(Customer $customer): self
-    {
-        if ($this->customers->contains($customer)) {
-            $this->customers->removeElement($customer);
-        }
-
-        return $this;
     }
 
     /**

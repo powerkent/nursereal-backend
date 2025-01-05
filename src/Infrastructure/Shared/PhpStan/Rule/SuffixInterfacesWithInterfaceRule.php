@@ -15,7 +15,7 @@ use PHPStan\Rules\Rule;
  */
 final class SuffixInterfacesWithInterfaceRule implements Rule
 {
-    private const ERROR_MESSAGE = 'Interface name "%s" must be suffixed with "Interface"';
+    private const string ERROR_MESSAGE = 'Interface name "%s" must be suffixed with "Interface"';
 
     public function getNodeType(): string
     {

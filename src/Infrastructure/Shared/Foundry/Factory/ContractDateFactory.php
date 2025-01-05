@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use Nursery\Domain\Shared\Model\ContractDate;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<ContractDate>
+ * @extends PersistentProxyObjectFactory<ContractDate>
  *
  * @codeCoverageIgnore
  */
-final class ContractDateFactory extends AbstractModelFactory
+final class ContractDateFactory extends PersistentProxyObjectFactory
 {
     /**
      * @var array<string, bool>
@@ -37,7 +38,7 @@ final class ContractDateFactory extends AbstractModelFactory
                 $endDateKey = $contractTimeEnd->format('Y-m-d');
                 $childKey = $child->getId();
 
-                $key = "{$childKey}_{$startDateKey}_{$endDateKey}";
+                $key = "{$childKey}_{$startDateKey}_$endDateKey";
             } while (isset(self::$usedDates[$key]));
 
             self::$usedDates[$key] = true;

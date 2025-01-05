@@ -6,13 +6,13 @@
 
     <entity name="Nursery\Domain\Shared\Model\Treatment" table="treatment">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <field name="uuid" type="uuid" unique="true" />
 
         <many-to-one field="child" target-entity="Nursery\Domain\Shared\Model\Child" inversed-by="treatments">
-            <join-column name="child_id" referenced-column-name="id" nullable="true" on-delete="CASCADE" />
+            <join-column name="child_id"  on-delete="CASCADE" />
             <cascade>
                 <cascade-persist />
             </cascade>

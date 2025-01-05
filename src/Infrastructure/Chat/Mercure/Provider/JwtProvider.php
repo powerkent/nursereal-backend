@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Chat\Mercure\Provider;
 
+use DateMalformedStringException;
 use DateTimeImmutable;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key;
 use Nursery\Domain\Chat\Security\JwtSignerInterface;
+use RuntimeException;
 use Symfony\Component\Mercure\Jwt\TokenProviderInterface;
+use Throwable;
 use Webmozart\Assert\Assert;
 
 final class JwtProvider implements TokenProviderInterface, JwtSignerInterface
@@ -26,6 +29,9 @@ final class JwtProvider implements TokenProviderInterface, JwtSignerInterface
         );
     }
 
+    /**
+     * @throws DateMalformedStringException
+     */
     public function getJwt(): string
     {
         $now = new DateTimeImmutable();
@@ -41,8 +47,8 @@ final class JwtProvider implements TokenProviderInterface, JwtSignerInterface
 
         try {
             return $builder->getToken($this->configuration->signer(), $this->configuration->signingKey())->toString();
-        } catch (\Throwable $e) {
-            throw new \RuntimeException('Failed to generate JWT', 0, $e);
+        } catch (Throwable $e) {
+            throw new RuntimeException('Failed to generate JWT', 0, $e);
         }
     }
 }

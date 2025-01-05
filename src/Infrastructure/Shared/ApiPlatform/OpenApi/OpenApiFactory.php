@@ -8,7 +8,7 @@ use ApiPlatform\OpenApi\Factory\OpenApiFactoryInterface;
 use ApiPlatform\OpenApi\Model\Paths;
 use ApiPlatform\OpenApi\OpenApi;
 
-final class OpenApiFactory implements OpenApiFactoryInterface
+final readonly class OpenApiFactory implements OpenApiFactoryInterface
 {
     public function __construct(private OpenApiFactoryInterface $decorated)
     {

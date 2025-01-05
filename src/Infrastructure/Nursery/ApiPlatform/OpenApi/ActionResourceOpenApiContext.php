@@ -18,7 +18,7 @@ use function array_map;
 /**
  * @codeCoverageIgnore
  */
-final class ActionResourceOpenApiContext implements OpenApiContextInterface
+final readonly class ActionResourceOpenApiContext implements OpenApiContextInterface
 {
     public function __construct(
         private ChildRepositoryInterface $childRepository,

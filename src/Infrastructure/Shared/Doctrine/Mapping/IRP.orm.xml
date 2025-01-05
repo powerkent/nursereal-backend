@@ -6,12 +6,12 @@
 
     <entity name="Nursery\Domain\Shared\Model\IRP" table="irp">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
-        <field name="name" type="string" />
+        <field name="name" />
 
-        <field name="description" type="string" />
+        <field name="description" />
 
         <field name="createdAt" type="datetime" />
 

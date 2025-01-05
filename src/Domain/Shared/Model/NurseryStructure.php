@@ -51,13 +51,6 @@ class NurseryStructure
         return $this->uuid;
     }
 
-    public function setUuid(UuidInterface $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
     public function getName(): string
     {
         return $this->name;
@@ -73,13 +66,6 @@ class NurseryStructure
     public function getAddress(): string
     {
         return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -106,37 +92,10 @@ class NurseryStructure
         return $this;
     }
 
-    /**
-     * @return Collection<int, Agent>
-     */
-    public function getAgents(): Collection
-    {
-        return $this->agents;
-    }
-
-    /**
-     * @param array<int, Agent>|Collection<int, Agent> $agents
-     */
-    public function setNurseryStructures(Collection|array $agents): self
-    {
-        $this->agents = $agents instanceof Collection ? $agents : new ArrayCollection($agents);
-
-        return $this;
-    }
-
     public function addAgent(Agent $agent): self
     {
         if (!$this->agents->contains($agent)) {
             $this->agents->add($agent);
-        }
-
-        return $this;
-    }
-
-    public function removeAgent(Agent $agent): self
-    {
-        if ($this->agents->contains($agent)) {
-            $this->agents->removeElement($agent);
         }
 
         return $this;

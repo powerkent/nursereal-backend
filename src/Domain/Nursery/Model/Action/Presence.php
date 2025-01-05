@@ -45,11 +45,4 @@ class Presence extends Action implements CompletedActionInterface
     {
         return $this->isAbsent;
     }
-
-    public function setIsAbsent(bool $isAbsent): self
-    {
-        $this->isAbsent = $isAbsent;
-
-        return $this;
-    }
 }

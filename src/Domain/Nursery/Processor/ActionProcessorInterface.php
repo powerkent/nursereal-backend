@@ -11,8 +11,7 @@ use Symfony\Component\HttpFoundation\InputBag;
 interface ActionProcessorInterface
 {
     /**
-     * @param ActionInputInterface            $data
      * @param InputBag<bool|float|int|string> $query
      */
-    public function process($data, UuidInterface $uuid, InputBag $query): Action;
+    public function process(ActionInputInterface $data, UuidInterface $uuid, InputBag $query): Action;
 }

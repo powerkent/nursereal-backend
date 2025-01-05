@@ -2,10 +2,10 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                                      https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="Nursery\Domain\Chat\Model\Channel" table="chat_channel">
         <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
+            <generator />
         </id>
 
         <field name="name" />
@@ -17,13 +17,13 @@
             </cascade>
         </one-to-many>
 
-        <many-to-many field="members" target-entity="Nursery\Domain\Chat\Model\Member" fetch="LAZY" inversed-by="channels" orphan-removal="false">
+        <many-to-many field="members" target-entity="Nursery\Domain\Chat\Model\Member" inversed-by="channels">
             <join-table name="chat_channel_member">
                 <join-columns>
-                    <join-column name="channel_id" referenced-column-name="id" />
+                    <join-column name="channel_id" />
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="member_id" referenced-column-name="id" />
+                    <join-column name="member_id" />
                 </inverse-join-columns>
             </join-table>
             <cascade>

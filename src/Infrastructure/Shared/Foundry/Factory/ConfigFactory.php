@@ -7,13 +7,14 @@ namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 use Faker\Generator;
 use Nursery\Domain\Shared\Model\Config;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Config>
+ * @extends PersistentProxyObjectFactory<Config>
  *
  * @codeCoverageIgnore
  */
-final class ConfigFactory extends AbstractModelFactory
+final class ConfigFactory extends PersistentProxyObjectFactory
 {
     private const array NAME = [
         'AGENT_LOGIN_WITH_PHONE',

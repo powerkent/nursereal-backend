@@ -20,8 +20,8 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ActivityResourceFactory;
 class ActivityCollectionProvider extends AbstractCollectionProvider
 {
     public function __construct(
-        private QueryBusInterface $queryBus,
-        private ActivityResourceFactory $activityResourceFactory,
+        private readonly QueryBusInterface $queryBus,
+        private readonly ActivityResourceFactory $activityResourceFactory,
         Pagination $pagination,
     ) {
         parent::__construct($pagination);

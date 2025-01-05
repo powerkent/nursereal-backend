@@ -134,7 +134,7 @@ cc:
 
 ## Code cleaner
 fix-cs:
-	@$(EXEC) vendor/bin/php-cs-fixer fix --config tools/.php-cs-fixer.dist.php  --cache-file tools/.php-cs-fixer.cache
+	@$(EXEC) sh -c "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=tools/.php-cs-fixer.dist.php --cache-file=tools/.php-cs-fixer.cache --verbose"
 
 ## Code analyze
 phpstan:

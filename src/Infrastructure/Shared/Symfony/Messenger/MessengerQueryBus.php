@@ -22,6 +22,6 @@ final class MessengerQueryBus implements QueryBusInterface
 
     public function ask(QueryInterface $query): mixed
     {
-        return $this->handle((new Envelope($query))->with(new ValidationStamp([])));
+        return $this->handle(new Envelope($query)->with(new ValidationStamp([])));
     }
 }

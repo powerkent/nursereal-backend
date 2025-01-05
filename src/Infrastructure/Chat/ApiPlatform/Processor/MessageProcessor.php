@@ -19,6 +19,7 @@ use Nursery\Domain\Shared\User\UserDomainInterface;
 use Nursery\Infrastructure\Chat\ApiPlatform\Input\MessageInput;
 use Nursery\Infrastructure\Chat\ApiPlatform\Resource\MessageResource;
 use Nursery\Infrastructure\Chat\ApiPlatform\Resource\MessageResourceFactory;
+use RuntimeException;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
 
@@ -71,7 +72,7 @@ final readonly class MessageProcessor implements ProcessorInterface
         ]);
 
         if (!$payload) {
-            throw new \RuntimeException('Unable to process message because it\'s not json encodable');
+            throw new RuntimeException('Unable to process message because it\'s not json encodable');
         }
 
         $mercureUpdate = new Update(

@@ -11,14 +11,14 @@ use ApiPlatform\OpenApi\Model\Paths;
 use ApiPlatform\OpenApi\OpenApi;
 use RuntimeException;
 
-final class ResourceMetadataFactory implements OpenApiFactoryInterface
+final readonly class ResourceMetadataFactory implements OpenApiFactoryInterface
 {
     /**
      * @param array<OpenApiContextInterface> $resources
      */
     public function __construct(
         private OpenApiFactoryInterface $decorated,
-        private iterable $resources
+        private iterable $resources,
     ) {
     }
 

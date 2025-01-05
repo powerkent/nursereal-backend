@@ -10,7 +10,7 @@ use Nursery\Domain\Shared\Repository\ChildRepositoryInterface;
 /**
  * @codeCoverageIgnore
  */
-final class TreatmentResourceOpenApiContext implements OpenApiContextInterface
+final readonly class TreatmentResourceOpenApiContext implements OpenApiContextInterface
 {
     public function __construct(private ChildRepositoryInterface $childRepository)
     {

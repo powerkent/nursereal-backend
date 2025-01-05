@@ -21,25 +21,29 @@ use Nursery\Infrastructure\Shared\Doctrine\Fixtures\AgentFixtures;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\ChildFixtures;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\ContractDateFixtures;
 use Nursery\Infrastructure\Shared\Foundry\Factory\AgentFactory;
+use Random\RandomException;
 
 /**
  * @codeCoverageIgnore
  */
 class MilkFixtures extends AbstractFixtures implements DependentFixtureInterface
 {
-    public function __construct(EntityManagerInterface $em, private QueryBusInterface $queryBus)
+    public function __construct(EntityManagerInterface $em, private readonly QueryBusInterface $queryBus)
     {
         parent::__construct($em);
     }
 
+    /**
+     * @throws RandomException
+     */
     public function load(ObjectManager $manager): void
     {
         $presences = PresenceFactory::randomRange(20, 30);
 
-        $now = (new DateTimeImmutable())->format('Y-m-d');
+        $now = new DateTimeImmutable()->format('Y-m-d');
         foreach ($presences as $presence) {
             $presence = $presence->_real();
-            $contractDates = $this->queryBus->ask((new FindContractDatesByChildQuery($presence->getChild())));
+            $contractDates = $this->queryBus->ask(new FindContractDatesByChildQuery($presence->getChild()));
             foreach ($contractDates as $contractDate) {
                 $milk = null;
                 /** @var ContractDate $contractDate */

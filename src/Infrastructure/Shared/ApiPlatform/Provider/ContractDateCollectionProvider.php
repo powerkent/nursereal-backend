@@ -6,6 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
+use DateMalformedStringException;
 use DateTimeImmutable;
 use Nursery\Application\Shared\Query\FindChildrenByCriteriaQuery;
 use Nursery\Application\Shared\Query\FindContractDatesByDateQuery;
@@ -31,7 +32,8 @@ final class ContractDateCollectionProvider extends AbstractCollectionProvider
     }
 
     /**
-     * @param array<string, mixed> $uriVariables
+     * @param  array<string, mixed>         $uriVariables
+     * @throws DateMalformedStringException
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable
     {

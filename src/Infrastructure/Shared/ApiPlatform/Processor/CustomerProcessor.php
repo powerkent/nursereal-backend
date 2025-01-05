@@ -6,6 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use Exception;
 use Nursery\Application\Shared\Command\CreateOrUpdateCustomerCommand;
 use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Child;
@@ -29,7 +30,8 @@ final readonly class CustomerProcessor implements ProcessorInterface
     }
 
     /**
-     * @param CustomerInput $data
+     * @param  CustomerInput $data
+     * @throws Exception
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): CustomerResource
     {
