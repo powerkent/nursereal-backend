@@ -6,14 +6,14 @@ namespace Nursery\Infrastructure\Nursery\Foundry\Factory\Action;
 
 use Nursery\Domain\Nursery\Model\Action\Rest;
 use Nursery\Infrastructure\Nursery\Foundry\Factory\ActionFactory;
-use Nursery\Infrastructure\Shared\Foundry\Factory\AbstractModelFactory;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Rest>
+ * @extends PersistentProxyObjectFactory<Rest>
  *
  * @codeCoverageIgnore
  */
-final class RestFactory extends AbstractModelFactory
+final class RestFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

@@ -6,7 +6,7 @@
 
     <entity name="Nursery\Domain\Shared\Model\Customer" table="customer">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <field name="uuid" type="uuid" unique="true" />
@@ -24,7 +24,7 @@
         <field name="phoneNumber" />
 
         <one-to-one field="avatar" target-entity="Nursery\Domain\Shared\Model\Avatar">
-            <join-column name="avatar_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
+            <join-column name="avatar_id" on-delete="SET NULL"/>
         </one-to-one>
 
         <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child" inversed-by="customers">

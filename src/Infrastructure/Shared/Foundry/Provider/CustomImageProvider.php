@@ -9,7 +9,7 @@ use Faker\Provider\Base;
 
 class CustomImageProvider extends Base
 {
-    private const BACKGROUND_COLORS = [
+    private const array BACKGROUND_COLORS = [
         '0D8ABC',
         'A23E48',
         'F2B43F',
@@ -39,6 +39,6 @@ class CustomImageProvider extends Base
     {
         $background = self::BACKGROUND_COLORS[self::numberBetween(0, count(self::BACKGROUND_COLORS) - 1)];
 
-        return "https://ui-avatars.com/api/?name={$firstname}+{$lastname}&background={$background}";
+        return "https://ui-avatars.com/api/?name=$firstname+$lastname&background=$background";
     }
 }

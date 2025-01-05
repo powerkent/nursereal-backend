@@ -6,13 +6,14 @@ namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use DateTimeImmutable;
 use Nursery\Domain\Shared\Model\IRP;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<IRP>
+ * @extends PersistentProxyObjectFactory<IRP>
  *
  * @codeCoverageIgnore
  */
-final class IRPFactory extends AbstractModelFactory
+final class IRPFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

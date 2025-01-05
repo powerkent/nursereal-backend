@@ -11,7 +11,7 @@ use Nursery\Domain\Shared\Query\QueryBusInterface;
 
 final class ActionTypeResourceFactory
 {
-    public function __construct(private QueryBusInterface $queryBus)
+    public function __construct(private readonly QueryBusInterface $queryBus)
     {
     }
 

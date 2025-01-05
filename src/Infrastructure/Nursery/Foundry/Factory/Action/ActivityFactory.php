@@ -7,14 +7,14 @@ namespace Nursery\Infrastructure\Nursery\Foundry\Factory\Action;
 use Nursery\Domain\Nursery\Model\Action\Activity;
 use Nursery\Infrastructure\Nursery\Foundry\Factory\ActionFactory;
 use Nursery\Infrastructure\Nursery\Foundry\Factory\ActivityFactory as WhatActivityFactory;
-use Nursery\Infrastructure\Shared\Foundry\Factory\AbstractModelFactory;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Activity>
+ * @extends PersistentProxyObjectFactory<Activity>
  *
  * @codeCoverageIgnore
  */
-final class ActivityFactory extends AbstractModelFactory
+final class ActivityFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

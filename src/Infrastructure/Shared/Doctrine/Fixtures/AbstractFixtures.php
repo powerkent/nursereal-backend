@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 
 abstract class AbstractFixtures extends DoctrineFixture
 {
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
         $this->em->getClassMetadata(static::modelClass())->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
     }

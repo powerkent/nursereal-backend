@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Chat\Doctrine\Repository;
 
+use Doctrine\DBAL\Exception;
 use Nursery\Domain\Chat\Model\Channel;
 use Nursery\Domain\Chat\Repository\ChannelRepositoryInterface;
 use Nursery\Infrastructure\Shared\Doctrine\Repository\AbstractRepository;
@@ -18,6 +19,9 @@ class ChannelRepository extends AbstractRepository implements ChannelRepositoryI
         return Channel::class;
     }
 
+    /**
+     * @throws Exception
+     */
     public function searchByMemberId(int $memberId): array
     {
         $connection = $this->getEntityManager()->getConnection();

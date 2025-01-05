@@ -12,7 +12,7 @@ use Nursery\Domain\Shared\Command\CommandBusInterface;
 /**
  * @implements ProcessorInterface<null, boolean>
  */
-final class ActionDeleteProcessor implements ProcessorInterface
+final readonly class ActionDeleteProcessor implements ProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,

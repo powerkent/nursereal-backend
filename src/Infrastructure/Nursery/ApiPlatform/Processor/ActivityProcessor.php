@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @implements ProcessorInterface<ActivityInput, ActivityResource>
  */
-final class ActivityProcessor implements ProcessorInterface
+final readonly class ActivityProcessor implements ProcessorInterface
 {
     public function __construct(
         private CommandBusInterface $commandBus,

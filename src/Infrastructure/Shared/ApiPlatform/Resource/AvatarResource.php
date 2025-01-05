@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
+use ArrayObject;
 use Nursery\Domain\Shared\Enum\Avatar;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AvatarInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AvatarProcessor;
@@ -24,7 +25,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             openapi: new Model\Operation(
                 requestBody: new Model\RequestBody(
                     description: 'Upload an avatar',
-                    content: new \ArrayObject([
+                    content: new ArrayObject([
                         'multipart/form-data' => [
                             'schema' => [
                                 'type' => 'object',

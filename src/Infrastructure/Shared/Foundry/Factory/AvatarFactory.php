@@ -9,13 +9,14 @@ use Faker\Generator;
 use Nursery\Domain\Shared\Model\Avatar;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Avatar>
+ * @extends PersistentProxyObjectFactory
  *
  * @codeCoverageIgnore
  */
-final class AvatarFactory extends AbstractModelFactory
+final class AvatarFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

@@ -7,7 +7,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\View;
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Model\NurseryStructureOpening;
 
-final class NurseryStructureViewFactory
+final readonly class NurseryStructureViewFactory
 {
     public function __construct(private NurseryStructureOpeningViewFactory $nurseryStructureOpeningViewFactory)
     {

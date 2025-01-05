@@ -20,8 +20,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CreateAgentCommand extends Command
 {
     public function __construct(
-        private UserPasswordHasherInterface $passwordHasher,
-        private AgentRepositoryInterface $agentRepository,
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly AgentRepositoryInterface $agentRepository,
         ?string $name = null
     ) {
         parent::__construct($name);
@@ -54,8 +54,8 @@ class CreateAgentCommand extends Command
             roles: ['ROLE_AGENT'],
         );
 
-        foreach ($nurseryStructures as &$nurseryStructure) {
-            $nurseryStructure->addAgent($agent);
+        foreach ($nurseryStructures as $nursery) {
+            $nursery->addAgent($agent);
         }
 
         $agent->setPassword($this->passwordHasher->hashPassword($agent, 'b'));

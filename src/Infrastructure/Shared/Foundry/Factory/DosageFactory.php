@@ -6,13 +6,14 @@ namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use DateTimeImmutable;
 use Nursery\Domain\Shared\Model\Dosage;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Dosage>
+ * @extends PersistentProxyObjectFactory<Dosage>
  *
  * @codeCoverageIgnore
  */
-final class DosageFactory extends AbstractModelFactory
+final class DosageFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

@@ -6,6 +6,7 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
+use DateMalformedStringException;
 use DateTimeImmutable;
 use Nursery\Application\Nursery\Query\FindActionByFiltersQuery;
 use Nursery\Domain\Nursery\Enum\ActionState;
@@ -21,13 +22,16 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResourceFac
 class ActionCollectionProvider extends AbstractCollectionProvider
 {
     public function __construct(
-        private QueryBusInterface $queryBus,
-        private ActionResourceFactory $actionResourceFactory,
+        private readonly QueryBusInterface $queryBus,
+        private readonly ActionResourceFactory $actionResourceFactory,
         Pagination $pagination,
     ) {
         parent::__construct($pagination);
     }
 
+    /**
+     * @throws DateMalformedStringException
+     */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable
     {
         $filters = [];

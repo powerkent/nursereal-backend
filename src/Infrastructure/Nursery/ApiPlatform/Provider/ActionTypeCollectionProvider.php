@@ -17,7 +17,7 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionTypeResourc
 class ActionTypeCollectionProvider extends AbstractCollectionProvider
 {
     public function __construct(
-        private ActionTypeResourceFactory $actionTypeResourceFactory,
+        private readonly ActionTypeResourceFactory $actionTypeResourceFactory,
         Pagination $pagination
     ) {
         parent::__construct($pagination);

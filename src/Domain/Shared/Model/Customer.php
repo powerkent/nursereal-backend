@@ -22,7 +22,7 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
     protected Collection $children;
 
     /** @var array<int, string> */
-    protected array $roles;
+    public array $roles;
 
     /**
      * @param array<int, Child>|Collection<int, Child> $children
@@ -64,23 +64,9 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this->uuid;
     }
 
-    public function setUuid(UuidInterface $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
     public function getAvatar(): ?Avatar
     {
         return $this->avatar;
-    }
-
-    public function setAvatar(?Avatar $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
     }
 
     public function getFirstname(): string
@@ -88,23 +74,9 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
     public function getLastname(): string
     {
         return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -112,22 +84,9 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this->email;
     }
 
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
     public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(string $phoneNumber): self
-    {
-        $this->phoneNumber = $phoneNumber;
-
-        return $this;
     }
 
     /**
@@ -152,15 +111,6 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
     {
         if (!$this->children->contains($child)) {
             $this->children->add($child);
-        }
-
-        return $this;
-    }
-
-    public function removeCustomer(Child $child): self
-    {
-        if ($this->children->contains($child)) {
-            $this->children->removeElement($child);
         }
 
         return $this;
@@ -196,16 +146,6 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
     public function getRoles(): array
     {
         return $this->roles;
-    }
-
-    /**
-     * @param array<int, string> $roles
-     */
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
     }
 
     public function getUser(): string

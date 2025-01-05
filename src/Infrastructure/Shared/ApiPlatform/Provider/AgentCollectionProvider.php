@@ -21,8 +21,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 final class AgentCollectionProvider extends AbstractCollectionProvider
 {
     public function __construct(
-        private QueryBusInterface $queryBus,
-        private AgentResourceFactory $agentResourceFactory,
+        private readonly QueryBusInterface $queryBus,
+        private readonly AgentResourceFactory $agentResourceFactory,
         Pagination $pagination,
     ) {
         parent::__construct($pagination);

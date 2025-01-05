@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Processor;
 
+use DateMalformedStringException;
 use DateTimeImmutable;
+use Exception;
 use Nursery\Application\Nursery\Command\UpdateActionCommand;
 use Nursery\Application\Nursery\Query\FindActionByUuidQuery;
 use Nursery\Application\Nursery\Query\FindActivityByUuidQuery;
@@ -24,6 +26,7 @@ use Nursery\Domain\Nursery\Model\Action\Milk;
 use Nursery\Domain\Nursery\Model\Action\Presence;
 use Nursery\Domain\Nursery\Model\Action\Rest;
 use Nursery\Domain\Nursery\Model\Action\Treatment as ActionTreatment;
+use Nursery\Domain\Nursery\Processor\ActionInputInterface;
 use Nursery\Domain\Nursery\Processor\ActionProcessorInterface;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
@@ -51,9 +54,11 @@ final readonly class ActionProcessor implements ActionProcessorInterface
     }
 
     /**
-     * @param ActionInput $data
+     * @param  ActionInput                  $data
+     * @throws DateMalformedStringException
+     * @throws Exception
      */
-    public function process($data, UuidInterface $uuid, InputBag $query): Action
+    public function process(ActionInputInterface $data, UuidInterface $uuid, InputBag $query): Action
     {
         /** @var ?Action $action */
         $action = $this->queryBus->ask(new FindActionByUuidQuery($uuid));
@@ -102,7 +107,7 @@ final readonly class ActionProcessor implements ActionProcessorInterface
                         ->setEndDateTime($data->activity->endDateTime)
                         ->setCompletedAgent($agent);
                 } else {
-                    $action = (new Activity(...$primitives))
+                    $action = new Activity(...$primitives)
                         ->setStartDateTime($data->activity->startDateTime);
                 }
                 break;
@@ -130,7 +135,7 @@ final readonly class ActionProcessor implements ActionProcessorInterface
                         ->setEndDateTime($data->lunch->endDateTime)
                         ->setCompletedAgent($agent);
                 } else {
-                    $action = (new Lunch(...$primitives))
+                    $action = new Lunch(...$primitives)
                         ->setStartDateTime($data->lunch->startDateTime);
                 }
 
@@ -145,7 +150,7 @@ final readonly class ActionProcessor implements ActionProcessorInterface
                         ->setEndDateTime($data->milk->endDateTime)
                         ->setCompletedAgent($agent);
                 } else {
-                    $action = (new Milk(...$primitives))
+                    $action = new Milk(...$primitives)
                         ->setStartDateTime($data->milk->startDateTime);
                 }
 
@@ -160,7 +165,7 @@ final readonly class ActionProcessor implements ActionProcessorInterface
                         ->setEndDateTime($data->presence->endDateTime)
                         ->setCompletedAgent($agent);
                 } else {
-                    $action = (new Presence(...$primitives))
+                    $action = new Presence(...$primitives)
                         ->setStartDateTime($data->presence->startDateTime);
                 }
 
@@ -175,7 +180,7 @@ final readonly class ActionProcessor implements ActionProcessorInterface
                         ->setCompletedAgent($agent);
                 } else {
                     $primitives['quality'] = $data->rest->restQuality;
-                    $action = (new Rest(...$primitives))
+                    $action = new Rest(...$primitives)
                         ->setStartDateTime($data->rest->startDateTime);
                 }
 
@@ -199,6 +204,8 @@ final readonly class ActionProcessor implements ActionProcessorInterface
                 }
 
                 break;
+            case ActionType::Action:
+                throw new Exception('To be implemented');
         }
 
         return $isUpdate ? $this->commandBus->dispatch(new UpdateActionCommand($action)) : $this->commandBus->dispatch(new CreateActionCommand($action));

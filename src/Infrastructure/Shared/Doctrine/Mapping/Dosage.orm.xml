@@ -6,11 +6,11 @@
 
     <entity name="Nursery\Domain\Shared\Model\Dosage" table="dosage">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <many-to-one field="treatment" target-entity="Nursery\Domain\Shared\Model\Treatment" inversed-by="dosages">
-            <join-column name="treatment_id" referenced-column-name="id" nullable="true" on-delete="CASCADE" />
+            <join-column name="treatment_id" on-delete="CASCADE" />
             <cascade>
                 <cascade-persist />
             </cascade>

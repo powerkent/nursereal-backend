@@ -29,10 +29,10 @@
         <many-to-many field="agents" target-entity="Nursery\Domain\Shared\Model\Agent" inversed-by="nurseryStructures">
             <join-table name="nursery_structure_agent">
                 <join-columns>
-                    <join-column name="nursery_structure_id" referenced-column-name="id" />
+                    <join-column name="nursery_structure_id" />
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="agent_id" referenced-column-name="id" />
+                    <join-column name="agent_id" />
                 </inverse-join-columns>
             </join-table>
             <cascade>

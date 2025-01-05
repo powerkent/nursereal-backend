@@ -11,13 +11,14 @@ use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Agent>
+ * @extends PersistentProxyObjectFactory<Agent>
  *
  * @codeCoverageIgnore
  */
-final class AgentFactory extends AbstractModelFactory
+final class AgentFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

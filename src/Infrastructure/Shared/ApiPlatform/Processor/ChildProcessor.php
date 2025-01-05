@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
+use DateMalformedStringException;
 use DateTimeImmutable;
 use Exception;
 use Nursery\Application\Shared\Command\CreateChildCommand;
@@ -78,6 +79,9 @@ final readonly class ChildProcessor implements ChildProcessorInterface
         return $this->commandBus->dispatch(UpdateChildCommand::create($primitives));
     }
 
+    /**
+     * @throws DateMalformedStringException
+     */
     public function createTreatment(Child $child, TreatmentPayload $treatment): Treatment
     {
         $treatmentArray = [
@@ -111,6 +115,7 @@ final readonly class ChildProcessor implements ChildProcessorInterface
     /**
      * @param  array<string, mixed> $primitives
      * @return array<int, mixed>
+     * @throws Exception
      */
     private function createOrUpdateChild(array $primitives): array
     {

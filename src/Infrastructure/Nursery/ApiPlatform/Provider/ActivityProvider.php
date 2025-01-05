@@ -18,8 +18,8 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ActivityResourceFactory;
 final class ActivityProvider extends AbstractProvider
 {
     public function __construct(
-        private QueryBusInterface $queryBus,
-        private ActivityResourceFactory $activityResourceFactory,
+        private readonly QueryBusInterface $queryBus,
+        private readonly ActivityResourceFactory $activityResourceFactory,
     ) {
     }
 

@@ -28,20 +28,8 @@ class Avatar
         return $this->uuid;
     }
 
-    public function setUuid(UuidInterface $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
     public function getContentUrl(): string
     {
         return $this->contentUrl;
-    }
-
-    public function setContentUrl(string $contentUrl): void
-    {
-        $this->contentUrl = $contentUrl;
     }
 }

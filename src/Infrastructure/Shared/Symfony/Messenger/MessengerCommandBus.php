@@ -8,6 +8,7 @@ use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Domain\Shared\Command\CommandInterface;
 use Nursery\Domain\Shared\Command\RoutableCommandInterface;
 use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\ValidationStamp;
@@ -21,6 +22,9 @@ final class MessengerCommandBus implements CommandBusInterface
         $this->messageBus = $commandBus;
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function dispatch(RoutableCommandInterface $command): mixed
     {
         if ($command instanceof CommandInterface) {
@@ -37,6 +41,9 @@ final class MessengerCommandBus implements CommandBusInterface
         return $this->handle(new Envelope($command)->with(new ValidationStamp([])));
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     private function handleRoutable(RoutableCommandInterface $command): void
     {
         $envelope = new Envelope($command)->with(new ValidationStamp([]));

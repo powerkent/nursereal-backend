@@ -23,7 +23,7 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="json")
      * @var array<int, string>
      */
-    protected array $roles;
+    public array $roles;
 
     /** @var Collection<int, NurseryStructure> */
     protected Collection $nurseryStructures;
@@ -83,13 +83,6 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this->uuid;
     }
 
-    public function setUuid(UuidInterface $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
     public function getAvatar(): ?Avatar
     {
         return $this->avatar;
@@ -107,23 +100,9 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this->firstname;
     }
 
-    public function setFirstname(?string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
     public function getLastname(): ?string
     {
         return $this->lastname;
-    }
-
-    public function setLastname(?string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -189,15 +168,6 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeNurseryStructure(NurseryStructure $nurseryStructure): self
-    {
-        if ($this->nurseryStructures->contains($nurseryStructure)) {
-            $this->nurseryStructures->removeElement($nurseryStructure);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, ClockingIn>
      */
@@ -240,16 +210,6 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         return $this->roles;
-    }
-
-    /**
-     * @param array<int, string> $roles
-     */
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
     }
 
     public function getUser(): string

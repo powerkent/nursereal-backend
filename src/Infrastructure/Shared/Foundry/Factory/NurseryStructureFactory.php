@@ -11,13 +11,14 @@ use Nursery\Domain\Shared\Enum\OpeningDays;
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Model\NurseryStructureOpening;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<NurseryStructure>
+ * @extends PersistentProxyObjectFactory<NurseryStructure>
  *
  * @codeCoverageIgnore
  */
-final class NurseryStructureFactory extends AbstractModelFactory
+final class NurseryStructureFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

@@ -7,7 +7,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\View;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\Treatment;
 
-final class ChildViewFactory
+final readonly class ChildViewFactory
 {
     public function __construct(
         private IRPViewFactory $IRPViewFactory,

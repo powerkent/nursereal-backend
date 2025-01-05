@@ -2,35 +2,38 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Nursery\Symfony\Workflow\MarkingStore;
+namespace Nursery\Infrastructure\Nursery\Symfony\MarkingStore;
 
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Model\Action;
-use RuntimeException;
 use Symfony\Component\Workflow\Marking;
 use Symfony\Component\Workflow\MarkingStore\MarkingStoreInterface;
+use RuntimeException;
 
 final class ActionMarkingStore implements MarkingStoreInterface
 {
     /**
-     * @param Action $clockingIn
+     * @param Action $subject
      */
-    public function getMarking(object $clockingIn): Marking
+    public function getMarking(object $subject): Marking
     {
         $marking = new Marking();
-        $marking->mark($clockingIn->getState()->value);
+
+        if (null !== $state = $subject->getState()) {
+            $marking->mark($state->value);
+        }
 
         return $marking;
     }
 
     /**
-     * @param Action       $clockingIn
-     * @param array<mixed> $context
+     * @param Action            $subject
+     * @param array<int, mixed> $context
      */
-    public function setMarking(object $clockingIn, Marking $marking, array $context = []): void
+    public function setMarking(object $subject, Marking $marking, array $context = []): void
     {
         /**
-         * @var array<string, int>
+         * @var array<string, int> $places
          */
         $places = $marking->getPlaces();
 
@@ -38,6 +41,6 @@ final class ActionMarkingStore implements MarkingStoreInterface
             throw new RuntimeException("Action's marking doesn't have any place.");
         }
 
-        $clockingIn->setState(ActionState::from($state));
+        $subject->setState(ActionState::from($state));
     }
 }

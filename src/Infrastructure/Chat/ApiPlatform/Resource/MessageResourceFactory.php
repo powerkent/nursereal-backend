@@ -8,7 +8,7 @@ use Nursery\Domain\Chat\Model\Message;
 use Nursery\Infrastructure\Chat\ApiPlatform\View\MemberViewFactory;
 use Nursery\Infrastructure\Chat\ApiPlatform\View\ChannelViewFactory;
 
-final class MessageResourceFactory
+final readonly class MessageResourceFactory
 {
     public function __construct(
         private MemberViewFactory $authorViewFactory,

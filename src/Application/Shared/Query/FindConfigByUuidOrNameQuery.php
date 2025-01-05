@@ -10,6 +10,9 @@ use Ramsey\Uuid\UuidInterface;
 
 final readonly class FindConfigByUuidOrNameQuery implements QueryInterface
 {
+    /**
+     * @throws Exception
+     */
     public function __construct(
         public UuidInterface|string|null $uuid = null,
         public ?string $name = null,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Doctrine\Repository;
 
 use DateTimeInterface;
+use Doctrine\DBAL\Exception;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\ContractDate;
 use Nursery\Domain\Shared\Repository\ContractDateRepositoryInterface;
@@ -19,6 +20,9 @@ class ContractDateRepository extends AbstractRepository implements ContractDateR
         return ContractDate::class;
     }
 
+    /**
+     * @throws Exception
+     */
     public function searchByDate(DateTimeInterface $start, ?Child $child = null): array
     {
         $connection = $this->getEntityManager()->getConnection();

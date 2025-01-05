@@ -8,7 +8,7 @@ use Nursery\Domain\Shared\Command\AbstractCreateCommand;
 
 final class CreateTreatmentCommand extends AbstractCreateCommand
 {
-    public static function create(array $primitives): static
+    public static function create(array $primitives): CreateTreatmentCommand
     {
         return new self($primitives);
     }

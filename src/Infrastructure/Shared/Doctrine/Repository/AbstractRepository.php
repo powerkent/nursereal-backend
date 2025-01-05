@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Doctrine\Repository;
 
+use Exception;
 use Nursery\Domain\Shared\Criteria\Criteria;
 use Nursery\Domain\Shared\Criteria\EqualsFilter;
 use Nursery\Domain\Shared\Criteria\MultipleValuesEqualsFilter;
 use Nursery\Domain\Shared\Criteria\MultipleValuesJoinedEqualsFilter;
 use Nursery\Domain\Shared\Criteria\PaginationFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -56,7 +56,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         try {
             $this->getEntityManager()->persist($entity);
             $this->getEntityManager()->flush();
-        } catch (ORMException $exception) {
+        } catch (Exception $exception) {
             $this->logger->critical(
                 '{exception}: {class}, previous exception: {previous}',
                 [

@@ -7,15 +7,15 @@ namespace Nursery\Infrastructure\Nursery\Foundry\Factory;
 use DateTimeImmutable;
 use Faker\Generator;
 use Nursery\Domain\Nursery\Model\Activity;
-use Nursery\Infrastructure\Shared\Foundry\Factory\AbstractModelFactory;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<Activity>
+ * @extends PersistentProxyObjectFactory<Activity>
  *
  * @codeCoverageIgnore
  */
-final class ActivityFactory extends AbstractModelFactory
+final class ActivityFactory extends PersistentProxyObjectFactory
 {
     private const array ACTIVITIES = [
         'Comptines',

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Security;
 
+use Exception;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class JwtAuthenticator extends AbstractAuthenticator
 {
     public function __construct(
-        private JWTEncoderInterface $encoder
+        private readonly JWTEncoderInterface $encoder
     ) {
     }
 
@@ -41,7 +42,7 @@ class JwtAuthenticator extends AbstractAuthenticator
             }
 
             return new SelfValidatingPassport(new UserBadge($payload['username']));
-        } catch (\Exception $e) {
+        } catch (Exception) {
             throw new AuthenticationException('Invalid JWT Token');
         }
     }

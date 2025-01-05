@@ -11,7 +11,7 @@ final class UpdateTreatmentCommand extends AbstractUpdateCommand
     /**
      * @param array<string, mixed> $primitives
      */
-    public static function create(array $primitives): static
+    public static function create(array $primitives): UpdateTreatmentCommand
     {
         return new self($primitives);
     }
