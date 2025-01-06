@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace NurseryStructure;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructure;
 
 use ApiPlatform\Metadata\Operation;
 use Nursery\Application\Shared\Query\NurseryStructure\FindNurseryStructureByUuidQuery;
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure\NurseryStructureResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure\NurseryStructureResourceFactory;
 
 /**
  * @extends AbstractProvider<NurseryStructure, NurseryStructureResource>

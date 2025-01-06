@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Treatment;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment;
 
-use Dosage\DosageView;
-use Dosage\DosageViewFactory;
 use Nursery\Domain\Shared\Model\Dosage;
 use Nursery\Domain\Shared\Model\Treatment;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Dosage\DosageView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Dosage\DosageViewFactory;
 
 final readonly class TreatmentViewFactory
 {

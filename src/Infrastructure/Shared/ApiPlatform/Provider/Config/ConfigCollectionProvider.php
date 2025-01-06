@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Config;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Config;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
@@ -10,6 +10,8 @@ use Nursery\Application\Shared\Query\Config\FindConfigsQuery;
 use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Config\ConfigResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Config\ConfigResourceFactory;
 
 /**
  * @extends AbstractCollectionProvider<Config, ConfigResource>

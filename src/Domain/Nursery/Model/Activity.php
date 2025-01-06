@@ -32,6 +32,13 @@ class Activity
         return $this->uuid;
     }
 
+    public function setUuid(UuidInterface $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->name;

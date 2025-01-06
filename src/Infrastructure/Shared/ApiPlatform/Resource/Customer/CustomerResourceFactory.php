@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Customer;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Customer;
 
-use Child\ChildView;
-use Child\ChildViewFactory;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\Customer;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildViewFactory;
 
 final readonly class CustomerResourceFactory
 {

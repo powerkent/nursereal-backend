@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Nursery\Symfony\MarkingStore;
+namespace Nursery\Infrastructure\Nursery\Symfony\Workflow\MarkingStore;
 
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Model\Action;
@@ -18,24 +18,13 @@ final class ActionMarkingStore implements MarkingStoreInterface
     public function getMarking(object $subject): Marking
     {
         $marking = new Marking();
-<<<<<<< Updated upstream
-
-        if (null !== $state = $subject->getState()) {
-            $marking->mark($state->value);
-        }
-=======
         $marking->mark($subject->getState()->value);
->>>>>>> Stashed changes
 
         return $marking;
     }
 
     /**
-<<<<<<< Updated upstream
      * @param Action            $subject
-=======
-     * @param Action       $subject
->>>>>>> Stashed changes
      * @param array<int, mixed> $context
      */
     public function setMarking(object $subject, Marking $marking, array $context = []): void

@@ -15,7 +15,7 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 final class ContractDateFactory extends PersistentProxyObjectFactory
 {
     /**
-     * @var array<string, bool> $usedDates
+     * @var array<string, bool>
      */
     /** @phpstan-ignore-next-line  */
     private static array $usedDates = [];

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NurseryStructure;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure;
 
 use DateTimeInterface;
 use Ramsey\Uuid\UuidInterface;

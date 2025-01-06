@@ -160,6 +160,7 @@ Feature:
         And there is a customer with uuid "00000000-0000-0000-0000-000000000001"
         And that customer has firstname Quentin
         And that customer has lastname Lemoine
+        And that customer has user qlemoine
         And that customer has an email "quentin.lemoine62580@gmail.com"
         And that customer has a phone number 0606060606
         And that customer has a password "pass123"

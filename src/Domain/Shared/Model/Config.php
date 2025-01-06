@@ -24,9 +24,23 @@ class Config
         return $this->id;
     }
 
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getUuid(): UuidInterface
     {
         return $this->uuid;
+    }
+
+    public function setUuid(UuidInterface $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 
     public function getName(): string

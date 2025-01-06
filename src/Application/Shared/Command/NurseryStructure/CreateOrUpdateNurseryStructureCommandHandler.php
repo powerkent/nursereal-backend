@@ -49,16 +49,16 @@ final readonly class CreateOrUpdateNurseryStructureCommandHandler implements Com
      */
     private function setNurseryStructureOpenings(NurseryStructure $nurseryStructure, array $nurseryStructureOpenings): NurseryStructure
     {
-        if (!$nurseryStructure->getNurseryStructureOpenings()->isEmpty()) {
-            foreach ($nurseryStructure->getNurseryStructureOpenings() as $opening) {
-                $nurseryStructure->removeNurseryStructureOpening($opening);
+        if (!$nurseryStructure->getOpenings()->isEmpty()) {
+            foreach ($nurseryStructure->getOpenings() as $opening) {
+                $nurseryStructure->removeOpening($opening);
                 $this->nurseryStructureOpeningRepository->delete($opening);
             }
         }
 
         foreach ($nurseryStructureOpenings as $opening) {
             $nurseryStructureOpening = new NurseryStructureOpening(...$opening);
-            $nurseryStructure->addNurseryStructureOpening($nurseryStructureOpening);
+            $nurseryStructure->addOpening($nurseryStructureOpening);
             $nurseryStructureOpening->setNurseryStructure($nurseryStructure);
         }
 

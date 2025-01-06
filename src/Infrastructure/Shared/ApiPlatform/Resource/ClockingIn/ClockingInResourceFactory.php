@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ClockingIn;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn;
 
-use AgentViewFactory;
 use Nursery\Domain\Shared\Model\ClockingIn;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentViewFactory;
 
 final readonly class ClockingInResourceFactory
 {

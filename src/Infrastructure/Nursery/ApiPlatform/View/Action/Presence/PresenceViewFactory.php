@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Presence;
 
-use AgentViewFactory;
 use Nursery\Domain\Nursery\Model\Action\Presence;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentViewFactory;
 
 final readonly class PresenceViewFactory
 {

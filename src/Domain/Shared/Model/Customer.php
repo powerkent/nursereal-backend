@@ -59,9 +59,19 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this->id;
     }
 
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
     public function getUuid(): UuidInterface
     {
         return $this->uuid;
+    }
+
+    public function setUuid(UuidInterface $uuid): void
+    {
+        $this->uuid = $uuid;
     }
 
     public function getAvatar(): ?Avatar
@@ -69,9 +79,21 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this->avatar;
     }
 
+    public function setAvatar(?Avatar $avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
     public function getFirstname(): string
     {
         return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
     }
 
     public function getLastname(): string
@@ -84,9 +106,30 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this->email;
     }
 
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
     public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
     }
 
     /**
@@ -146,6 +189,16 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
     public function getRoles(): array
     {
         return $this->roles;
+    }
+
+    /**
+     * @param array<int, string> $roles
+     */
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getUser(): string

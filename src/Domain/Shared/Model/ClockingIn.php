@@ -68,6 +68,13 @@ class ClockingIn
         return $this->nurseryStructure;
     }
 
+    public function setNurseryStructure(NurseryStructure $nurseryStructure): self
+    {
+        $this->nurseryStructure = $nurseryStructure;
+
+        return $this;
+    }
+
     public function getStartDateTime(): DateTimeInterface
     {
         return $this->startDateTime;

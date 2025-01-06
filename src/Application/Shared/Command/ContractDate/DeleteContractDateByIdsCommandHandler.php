@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Nursery\Application\Shared\Command\ContractDate;
 
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
-use Nursery\Domain\Shared\Exception\EntityNotFoundException;
-use Nursery\Domain\Shared\Model\ContractDate;
 use Nursery\Domain\Shared\Repository\ContractDateRepositoryInterface;
 
 final readonly class DeleteContractDateByIdsCommandHandler implements CommandHandlerInterface

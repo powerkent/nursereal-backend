@@ -48,11 +48,46 @@ class Member
         return $this->memberId;
     }
 
+    public function setMemberId(int $memberId): self
+    {
+        $this->memberId = $memberId;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Channel>
      */
     public function getChannels(): Collection
     {
         return $this->channels;
+    }
+
+    /**
+     * @param array<int, Channel>|Collection<int, Channel> $channels
+     */
+    public function setChannels(Collection|array $channels): self
+    {
+        $this->channels = $channels instanceof Collection ? $channels : new ArrayCollection($channels);
+
+        return $this;
+    }
+
+    public function addChannel(Channel $channel): self
+    {
+        if (!$this->channels->contains($channel)) {
+            $this->channels->add($channel);
+        }
+
+        return $this;
+    }
+
+    public function removeChannel(Channel $channel): self
+    {
+        if ($this->channels->contains($channel)) {
+            $this->channels->removeElement($channel);
+        }
+
+        return $this;
     }
 }

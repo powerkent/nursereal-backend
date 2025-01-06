@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Nursery\Application\Shared\Query\Agent;
 
-use Nursery\Application\Shared\Query\Agent\FindAgentsByNurseryStructureQuery;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Query\QueryHandlerInterface;
 use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;

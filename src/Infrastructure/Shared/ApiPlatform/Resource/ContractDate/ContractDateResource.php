@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace ContractDate;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDate;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
-use Child\ChildDatesView;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Action\ContractDateDeleteAction;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ContractDateInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ContractDatePostProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ContractDate\ContractDateCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildDatesView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 

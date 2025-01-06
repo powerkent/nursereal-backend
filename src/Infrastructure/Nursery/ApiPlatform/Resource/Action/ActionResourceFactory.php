@@ -4,13 +4,6 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action;
 
-use ActivityViewFactory;
-use AgentViewFactory;
-use Care\CareViewFactory;
-use Child\ChildViewFactory;
-use Diaper\DiaperViewFactory;
-use Lunch\LunchViewFactory;
-use Milk\MilkViewFactory;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Nursery\Model\Action\Activity;
 use Nursery\Domain\Nursery\Model\Action\Care;
@@ -20,9 +13,16 @@ use Nursery\Domain\Nursery\Model\Action\Milk;
 use Nursery\Domain\Nursery\Model\Action\Presence;
 use Nursery\Domain\Nursery\Model\Action\Rest;
 use Nursery\Domain\Nursery\Model\Action\Treatment;
-use Presence\PresenceViewFactory;
-use Rest\RestViewFactory;
-use Treatment\TreatmentViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Activity\ActivityViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Care\CareViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Child\ChildViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Diaper\DiaperViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Lunch\LunchViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Milk\MilkViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Presence\PresenceViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Rest\RestViewFactory;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Treatment\TreatmentViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentViewFactory;
 
 final readonly class ActionResourceFactory
 {

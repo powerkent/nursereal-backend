@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IRP;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\IRP;
 
 use Nursery\Domain\Shared\Model\IRP;
 

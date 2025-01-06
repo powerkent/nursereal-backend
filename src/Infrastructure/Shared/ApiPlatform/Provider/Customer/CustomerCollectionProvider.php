@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Customer;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Customer;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
@@ -10,6 +10,8 @@ use Nursery\Application\Shared\Query\Customer\FindCustomersQuery;
 use Nursery\Domain\Shared\Model\Customer;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Customer\CustomerResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Customer\CustomerResourceFactory;
 
 /**
  * @extends AbstractCollectionProvider<Customer, CustomerResource>

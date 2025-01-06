@@ -46,9 +46,21 @@ class Treatment extends Action
         return $this->treatment;
     }
 
+    public function setTreatment(WhatTreatment $treatment): self
+    {
+        $this->treatment = $treatment;
+
+        return $this;
+    }
+
     public function getDose(): ?string
     {
         return $this->dose;
+    }
+
+    public function setDose(?string $dose): void
+    {
+        $this->dose = $dose;
     }
 
     public function getDosingTime(): ?DateTimeInterface
@@ -66,5 +78,12 @@ class Treatment extends Action
     public function getTemperature(): ?float
     {
         return $this->temperature;
+    }
+
+    public function setTemperature(?float $temperature): self
+    {
+        $this->temperature = $temperature;
+
+        return $this;
     }
 }

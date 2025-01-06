@@ -40,9 +40,21 @@ class Message
         return $this->author;
     }
 
+    public function setAuthor(Member $author): void
+    {
+        $this->author = $author;
+    }
+
     public function getChannel(): Channel
     {
         return $this->channel;
+    }
+
+    public function setChannel(Channel $channel): self
+    {
+        $this->channel = $channel;
+
+        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface

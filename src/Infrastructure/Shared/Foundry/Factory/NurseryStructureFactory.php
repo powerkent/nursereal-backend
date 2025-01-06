@@ -45,7 +45,7 @@ final class NurseryStructureFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this->afterInstantiate(function (NurseryStructure $nurseryStructure) {
-            $nurseryStructure->setNurseryStructureOpenings(
+            $nurseryStructure->setOpenings(
                 [
                     new NurseryStructureOpening(
                         openingHour: new DateTime()->setTime(7, 0),

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Rest;
 
-use AgentViewFactory;
 use Nursery\Domain\Nursery\Model\Action\Rest;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentViewFactory;
 
 final readonly class RestViewFactory
 {

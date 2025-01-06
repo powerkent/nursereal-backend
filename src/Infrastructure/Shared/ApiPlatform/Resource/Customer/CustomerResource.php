@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Customer;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Customer;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -11,11 +11,13 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use Child\ChildView;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\CustomerInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Customer\CustomerDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Customer\CustomerProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Customer\CustomerCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Customer\CustomerProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 

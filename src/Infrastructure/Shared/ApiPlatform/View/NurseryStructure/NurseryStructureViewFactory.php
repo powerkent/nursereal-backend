@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NurseryStructure;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure;
 
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Model\NurseryStructureOpening;
@@ -21,7 +21,7 @@ final readonly class NurseryStructureViewFactory
             name: $nurseryStructure->getName(),
             address: $nurseryStructure->getAddress(),
             createdAt: $nurseryStructure->getCreatedAt(),
-            opening: $nurseryStructure->getNurseryStructureOpenings()->map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening))->toArray(),
+            opening: $nurseryStructure->getOpenings()->map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening))->toArray(),
             updatedAt: $nurseryStructure->getUpdatedAt(),
         );
     }

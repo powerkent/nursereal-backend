@@ -51,6 +51,13 @@ class Action
         return $this->uuid;
     }
 
+    public function setUuid(UuidInterface $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
     public function getState(): ActionState
     {
         return $this->state;
@@ -92,13 +99,34 @@ class Action
         return $this->comment;
     }
 
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
     public function getChild(): Child
     {
         return $this->child;
     }
 
+    public function setChild(Child $child): self
+    {
+        $this->child = $child;
+
+        return $this;
+    }
+
     public function getAgent(): Agent
     {
         return $this->agent;
+    }
+
+    public function setAgent(Agent $agent): self
+    {
+        $this->agent = $agent;
+
+        return $this;
     }
 }

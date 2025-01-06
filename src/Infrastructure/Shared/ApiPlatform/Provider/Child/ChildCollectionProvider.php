@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Child;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Child;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
@@ -12,6 +12,8 @@ use Nursery\Application\Shared\Query\NurseryStructure\FindNurseryStructureByUuid
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child\ChildResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child\ChildResourceFactory;
 
 /**
  * @extends AbstractCollectionProvider<Child, ChildResource>

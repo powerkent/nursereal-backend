@@ -43,5 +43,7 @@
         </many-to-many>
 
         <field name="createdAt" type="datetime" />
+
+        <field name="updatedAt" type="datetime" nullable="true" />
     </entity>
 </doctrine-mapping>

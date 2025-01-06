@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Treatment;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Treatment;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -10,15 +10,17 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
-use Child\ChildView;
 use DateTimeInterface;
-use Dosage\DosageView;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Payload\TreatmentPayload;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Treatment\TreatmentDeleteProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Treatment\TreatmentProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Treatment\TreatmentCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Treatment\TreatmentProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Dosage\DosageView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use TreatmentDeleteProcessor;
-use TreatmentProcessor;
 
 #[ApiResource(
     shortName: 'Treatment',

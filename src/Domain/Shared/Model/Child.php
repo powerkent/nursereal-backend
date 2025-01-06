@@ -178,6 +178,15 @@ class Child
         return $this->customers;
     }
 
+    public function addCustomer(Customer $customer): self
+    {
+        if (!$this->customers->contains($customer)) {
+            $this->customers->add($customer);
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, ContractDate>
      */

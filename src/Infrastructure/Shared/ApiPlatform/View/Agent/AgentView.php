@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Agent;
 
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;

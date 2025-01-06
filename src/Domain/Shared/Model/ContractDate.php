@@ -27,13 +27,34 @@ class ContractDate
         return $this->contractTimeStart;
     }
 
+    public function setContractTimeStart(DateTimeInterface $contractTimeStart): self
+    {
+        $this->contractTimeStart = $contractTimeStart;
+
+        return $this;
+    }
+
     public function getContractTimeEnd(): DateTimeInterface
     {
         return $this->contractTimeEnd;
     }
 
+    public function setContractTimeEnd(DateTimeInterface $contractTimeEnd): self
+    {
+        $this->contractTimeEnd = $contractTimeEnd;
+
+        return $this;
+    }
+
     public function getChild(): ?Child
     {
         return $this->child;
+    }
+
+    public function setChild(?Child $child): self
+    {
+        $this->child = $child;
+
+        return $this;
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructure;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;

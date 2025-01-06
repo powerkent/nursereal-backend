@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Agent;
 
 use Nursery\Domain\Shared\Model\Agent;
 

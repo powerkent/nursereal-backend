@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dosage;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Dosage;
 
 use Nursery\Domain\Shared\Model\Dosage;
 

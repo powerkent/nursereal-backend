@@ -9,11 +9,7 @@ use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
 use Nursery\Domain\Shared\Repository\CustomerRepositoryInterface;
 use Nursery\Domain\Shared\User\UserDomainInterface;
 
-<<<<<<< Updated upstream
-readonly class MemberService
-=======
 final readonly class MemberService
->>>>>>> Stashed changes
 {
     public function __construct(
         private AgentRepositoryInterface $agentRepository,

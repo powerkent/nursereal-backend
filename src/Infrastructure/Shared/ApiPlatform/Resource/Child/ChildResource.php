@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Child;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -11,18 +11,20 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use Customer\CustomerView;
 use DateTimeInterface;
-use IRP\IRPView;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ChildInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Child\ChildDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Child\ChildPostProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Child\ChildPutProcessor;
-use NurseryStructure\NurseryStructureView;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Child\ChildCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Child\ChildProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Customer\CustomerView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\IRP\IRPView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment\TreatmentView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Treatment\TreatmentView;
 
 #[ApiResource(
     shortName: 'Child',

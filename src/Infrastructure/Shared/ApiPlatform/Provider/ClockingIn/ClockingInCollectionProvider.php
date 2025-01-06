@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ClockingIn;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\ClockingIn;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
@@ -12,6 +12,8 @@ use Nursery\Application\Shared\Query\ClockingIn\FindClockInsByFiltersQuery;
 use Nursery\Domain\Shared\Model\ClockingIn;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn\ClockingInResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn\ClockingInResourceFactory;
 
 /**
  * @extends AbstractCollectionProvider<ClockingIn, ClockingInResource>
@@ -27,7 +29,7 @@ final class ClockingInCollectionProvider extends AbstractCollectionProvider
     }
 
     /**
-     * @param array<string, mixed> $uriVariables
+     * @param  array<string, mixed>         $uriVariables
      * @throws DateMalformedStringException
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable

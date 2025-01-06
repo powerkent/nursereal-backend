@@ -24,7 +24,7 @@ final class ClockingInMarkingStore implements MarkingStoreInterface
     }
 
     /**
-     * @param ClockingIn   $subject
+     * @param ClockingIn        $subject
      * @param array<int, mixed> $context
      */
     public function setMarking(object $subject, Marking $marking, array $context = []): void

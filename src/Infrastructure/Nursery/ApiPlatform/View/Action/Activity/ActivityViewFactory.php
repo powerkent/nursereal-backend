@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Activity;
 
-use AgentViewFactory;
 use Nursery\Domain\Nursery\Model\Action\Activity;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentViewFactory;
 
 final readonly class ActivityViewFactory
 {

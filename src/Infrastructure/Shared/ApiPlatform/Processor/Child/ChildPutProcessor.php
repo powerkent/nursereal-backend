@@ -6,14 +6,14 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor\Child;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Child\ChildResource;
-use Child\ChildResourceFactory;
 use Doctrine\ORM\EntityNotFoundException;
 use Exception;
 use Nursery\Application\Shared\Query\Child\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ChildInput;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child\ChildResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child\ChildResourceFactory;
 
 /**
  * @implements ProcessorInterface<ChildInput, ChildResource>

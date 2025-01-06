@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace NurseryStructure;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure;
 
-use AgentView;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -12,12 +11,16 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use Child\ChildView;
 use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\NurseryStructureInput;
-use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructureDeleteProcessor;
-use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructureProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructure\NurseryStructureDeleteProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructure\NurseryStructureProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructure\NurseryStructureCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructure\NurseryStructureProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureOpeningView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
