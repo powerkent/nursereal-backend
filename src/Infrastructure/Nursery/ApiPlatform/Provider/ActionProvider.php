@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
-use Nursery\Application\Nursery\Query\FindActionByUuidQuery;
+use Nursery\Application\Nursery\Query\Action\FindActionByUuidQuery;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
-use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResourceFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
 
 /**
  * @extends AbstractProvider<Action, ActionResource>

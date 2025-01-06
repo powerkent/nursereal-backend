@@ -16,7 +16,6 @@ class ChildFixtures extends AbstractFixtures implements DependentFixtureInterfac
     {
         $children = ChildFactory::createMany(100);
 
-        $j = 0;
         foreach ($children as $child) {
             $child = $child->_real();
             $randomNumber = rand(0, 2);

@@ -6,7 +6,7 @@
 
     <entity name="Nursery\Domain\Nursery\Model\Action\Activity" table="action_activity">
         <many-to-one field="activity" target-entity="Nursery\Domain\Nursery\Model\Activity">
-            <join-column name="activity_id" referenced-column-name="id" nullable="false" />
+            <join-column name="activity_id" nullable="false" />
         </many-to-one>
 
         <field name="startDateTime" type="datetime" nullable="true"  />
@@ -14,7 +14,7 @@
         <field name="endDateTime" type="datetime" nullable="true" />
 
         <many-to-one field="completedAgent" target-entity="Nursery\Domain\Shared\Model\Agent">
-            <join-column name="completed_agent_id" referenced-column-name="id" nullable="true" />
+            <join-column name="completed_agent_id" />
         </many-to-one>
     </entity>
 </doctrine-mapping>

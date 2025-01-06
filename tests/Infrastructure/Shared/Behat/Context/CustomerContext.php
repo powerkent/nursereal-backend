@@ -88,7 +88,7 @@ final readonly class CustomerContext implements Context
     public function updateCustomerCreatedAt(string $createdAt): void
     {
         $customer = $this->storage->getCustomer();
-        $customer->_set('createdAt', (new DateTimeImmutable($createdAt)));
+        $customer->_set('createdAt', new DateTimeImmutable($createdAt));
         $customer->_save();
     }
 }

@@ -57,7 +57,7 @@ final readonly class ChildContext implements Context
     public function updateChildBirthday(string $birthday): void
     {
         $child = $this->storage->getChild();
-        $child->_set('birthday', (new DateTimeImmutable($birthday)));
+        $child->_set('birthday', new DateTimeImmutable($birthday));
         $child->_save();
     }
 
@@ -68,7 +68,7 @@ final readonly class ChildContext implements Context
     public function updateChildCreatedAt(string $createdAt): void
     {
         $child = $this->storage->getChild();
-        $child->_set('createdAt', (new DateTimeImmutable($createdAt)));
+        $child->_set('createdAt', new DateTimeImmutable($createdAt));
         $child->_save();
     }
 
@@ -79,7 +79,7 @@ final readonly class ChildContext implements Context
     public function updateChildUpdatedAt(string $updatedAt): void
     {
         $child = $this->storage->getChild();
-        $child->_set('updatedAt', (new DateTimeImmutable($updatedAt)));
+        $child->_set('updatedAt', new DateTimeImmutable($updatedAt));
         $child->_save();
     }
 

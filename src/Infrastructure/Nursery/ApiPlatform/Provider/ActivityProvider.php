@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
-use Nursery\Application\Nursery\Query\FindActivityByUuidQuery;
+use Nursery\Application\Nursery\Query\Activity\FindActivityByUuidQuery;
 use Nursery\Domain\Nursery\Model\Activity;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
-use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ActivityResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ActivityResourceFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
 
 /**
  * @extends AbstractProvider<Activity, ActivityResource>

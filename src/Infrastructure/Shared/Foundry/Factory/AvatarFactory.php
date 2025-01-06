@@ -12,7 +12,11 @@ use Ramsey\Uuid\Uuid;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
+<<<<<<< Updated upstream
  * @extends PersistentProxyObjectFactory
+=======
+ * @extends PersistentProxyObjectFactory<Avatar>
+>>>>>>> Stashed changes
  *
  * @codeCoverageIgnore
  */

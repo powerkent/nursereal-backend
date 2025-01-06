@@ -6,13 +6,13 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
-use Nursery\Application\Nursery\Query\FindActivitiesQuery;
-use Nursery\Domain\Shared\Criteria\FilterInterface;
+use Nursery\Application\Nursery\Query\Activity\FindActivitiesQuery;
 use Nursery\Domain\Nursery\Model\Activity;
+use Nursery\Domain\Shared\Criteria\FilterInterface;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
-use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ActivityResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\ActivityResourceFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
 
 /**
  * @extends AbstractCollectionProvider<Activity, ActivityResource>

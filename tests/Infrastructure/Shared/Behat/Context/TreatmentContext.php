@@ -59,7 +59,7 @@ final readonly class TreatmentContext implements Context
     public function updateTreatmentCreatedAt(string $createdAt): void
     {
         $treatment = $this->storage->getTreatment();
-        $treatment->_set('createdAt', (new DateTimeImmutable($createdAt)));
+        $treatment->_set('createdAt', new DateTimeImmutable($createdAt));
         $treatment->_save();
     }
 
@@ -70,7 +70,7 @@ final readonly class TreatmentContext implements Context
     public function updateTreatmentStartAt(string $startAt): void
     {
         $treatment = $this->storage->getTreatment();
-        $treatment->_set('startAt', (new DateTimeImmutable($startAt)));
+        $treatment->_set('startAt', new DateTimeImmutable($startAt));
         $treatment->_save();
     }
 
@@ -81,7 +81,7 @@ final readonly class TreatmentContext implements Context
     public function updateTreatmentEndAt(string $endAt): void
     {
         $treatment = $this->storage->getTreatment();
-        $treatment->_set('endAt', (new DateTimeImmutable($endAt)));
+        $treatment->_set('endAt', new DateTimeImmutable($endAt));
         $treatment->_save();
     }
 

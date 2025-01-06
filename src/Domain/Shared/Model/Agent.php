@@ -88,13 +88,6 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this->avatar;
     }
 
-    public function setAvatar(?Avatar $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -108,13 +101,6 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
     public function getEmail(): ?string
     {
         return $this->email;
-    }
-
-    public function setEmail(?string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -149,16 +135,6 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this->nurseryStructures;
     }
 
-    /**
-     * @param array<int, NurseryStructure>|Collection<int, NurseryStructure> $nurseryStructures
-     */
-    public function setNurseryStructures(Collection|array $nurseryStructures): self
-    {
-        $this->nurseryStructures = $nurseryStructures instanceof Collection ? $nurseryStructures : new ArrayCollection($nurseryStructures);
-
-        return $this;
-    }
-
     public function addNurseryStructure(NurseryStructure $nurseryStructure): self
     {
         if (!$this->nurseryStructures->contains($nurseryStructure)) {
@@ -168,6 +144,7 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+<<<<<<< Updated upstream
     /**
      * @return Collection<int, ClockingIn>
      */
@@ -204,6 +181,8 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+=======
+>>>>>>> Stashed changes
     /**
      * @return array<int, string>
      */

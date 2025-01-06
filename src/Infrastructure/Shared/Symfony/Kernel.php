@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\Symfony;
 
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Types\Type;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Nursery\Domain\Shared\Event\EventHandlerInterface;
@@ -24,6 +25,9 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    /**
+     * @throws Exception
+     */
     public function boot(): void
     {
         parent::boot();

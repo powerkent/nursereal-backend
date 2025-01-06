@@ -24,7 +24,7 @@ final class Storage
      */
     private array $storage = [];
 
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 

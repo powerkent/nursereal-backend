@@ -6,7 +6,7 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Nursery\Application\Nursery\Command\DeleteActivityByUuidCommand;
+use Nursery\Application\Nursery\Command\Activity\DeleteActivityByUuidCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 
 /**

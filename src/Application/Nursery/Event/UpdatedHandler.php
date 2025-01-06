@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Application\Nursery\Event;
 
-use Nursery\Application\Nursery\Command\UpdateActionStateCommand;
+use Nursery\Application\Nursery\Command\Action\UpdateActionStateCommand;
 use Nursery\Domain\Nursery\Enum\ActionTransition;
 use Nursery\Domain\Nursery\Event\Updated;
 use Nursery\Domain\Nursery\Model\Action;

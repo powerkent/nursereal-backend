@@ -10,6 +10,7 @@ use PHPStan\Node\InClassNode;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\ShouldNotHappenException;
 use function sprintf;
 
 /**
@@ -18,7 +19,7 @@ use function sprintf;
  */
 final class PrefixAbstractClassesWithAbstractRule implements Rule
 {
-    private const ERROR_MESSAGE = 'Abstract class name "%s" must be prefixed with "Abstract"';
+    private const string ERROR_MESSAGE = 'Abstract class name "%s" must be prefixed with "Abstract"';
 
     public function getNodeType(): string
     {
@@ -29,6 +30,7 @@ final class PrefixAbstractClassesWithAbstractRule implements Rule
      * @param InClassNode $node
      *
      * @return list<IdentifierRuleError>
+     * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
     {

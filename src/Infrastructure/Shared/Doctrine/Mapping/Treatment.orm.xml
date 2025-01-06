@@ -12,7 +12,11 @@
         <field name="uuid" type="uuid" unique="true" />
 
         <many-to-one field="child" target-entity="Nursery\Domain\Shared\Model\Child" inversed-by="treatments">
+<<<<<<< Updated upstream
             <join-column name="child_id"  on-delete="CASCADE" />
+=======
+            <join-column name="child_id" on-delete="CASCADE" />
+>>>>>>> Stashed changes
             <cascade>
                 <cascade-persist />
             </cascade>

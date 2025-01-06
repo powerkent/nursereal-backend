@@ -9,13 +9,14 @@ use Faker\Generator;
 use Nursery\Domain\Shared\Enum\ClockingInState;
 use Nursery\Domain\Shared\Model\ClockingIn;
 use Ramsey\Uuid\Uuid;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends AbstractModelFactory<ClockingIn>
+ * @extends PersistentProxyObjectFactory<ClockingIn>
  *
  * @codeCoverageIgnore
  */
-final class ClockingInFactory extends AbstractModelFactory
+final class ClockingInFactory extends PersistentProxyObjectFactory
 {
     public static function class(): string
     {

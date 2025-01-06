@@ -13,24 +13,24 @@ use RuntimeException;
 final class ClockingInMarkingStore implements MarkingStoreInterface
 {
     /**
-     * @param ClockingIn $clockingIn
+     * @param ClockingIn $subject
      */
-    public function getMarking(object $clockingIn): Marking
+    public function getMarking(object $subject): Marking
     {
         $marking = new Marking();
-        $marking->mark($clockingIn->getState()->value);
+        $marking->mark($subject->getState()->value);
 
         return $marking;
     }
 
     /**
-     * @param ClockingIn   $clockingIn
-     * @param array<mixed> $context
+     * @param ClockingIn   $subject
+     * @param array<int, mixed> $context
      */
-    public function setMarking(object $clockingIn, Marking $marking, array $context = []): void
+    public function setMarking(object $subject, Marking $marking, array $context = []): void
     {
         /**
-         * @var array<string, int>
+         * @var array<string, int> $places
          */
         $places = $marking->getPlaces();
 
@@ -38,6 +38,6 @@ final class ClockingInMarkingStore implements MarkingStoreInterface
             throw new RuntimeException("Action's marking doesn't have any place.");
         }
 
-        $clockingIn->setState(ClockingInState::from($state));
+        $subject->setState(ClockingInState::from($state));
     }
 }

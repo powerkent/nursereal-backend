@@ -104,13 +104,6 @@ class Treatment
         return $this->endAt;
     }
 
-    public function setEndAt(DateTimeInterface $endAt): self
-    {
-        $this->endAt = $endAt;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Dosage>
      */

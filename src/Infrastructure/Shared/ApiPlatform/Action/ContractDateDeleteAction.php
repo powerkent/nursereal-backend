@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Action;
 
-use Nursery\Application\Shared\Command\DeleteContractDateByIdsCommand;
+use Nursery\Application\Shared\Command\ContractDate\DeleteContractDateByIdsCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Domain\Shared\Exception\MissingPropertyException;
 use Nursery\Domain\Shared\Repository\ContractDateRepositoryInterface;

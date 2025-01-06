@@ -6,8 +6,8 @@ namespace Nursery\Infrastructure\Chat\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
-use Nursery\Application\Chat\Query\FindChannelByIdQuery;
-use Nursery\Application\Chat\Query\FindChannelsByMemberIdQuery;
+use Nursery\Application\Chat\Query\Channel\FindChannelByIdQuery;
+use Nursery\Application\Chat\Query\Channel\FindChannelsByMemberIdQuery;
 use Nursery\Domain\Chat\Model\Channel;
 use Nursery\Domain\Chat\Model\Member;
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
