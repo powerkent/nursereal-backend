@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent;
 
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\NurseryStructure;
-use NurseryStructure\NurseryStructureView;
-use NurseryStructure\NurseryStructureViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureViewFactory;
 
 final readonly class AgentResourceFactory
 {

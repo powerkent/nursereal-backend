@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Child;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Child;
 
 use ApiPlatform\Metadata\Operation;
-<<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Provider/ChildProvider.php
 use Exception;
-use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
-=======
->>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Provider/Child/ChildProvider.php
+use Nursery\Application\Shared\Query\Child\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child\ChildResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child\ChildResourceFactory;
 
 /**
  * @extends AbstractProvider<Child, ChildResource>

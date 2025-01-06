@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -10,12 +11,15 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentPostProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentPutProcessor;
-use NurseryStructure\NurseryStructureView;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent\AgentCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent\AgentProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 

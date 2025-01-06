@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NurseryStructure;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructure;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
@@ -10,6 +10,8 @@ use Nursery\Application\Shared\Query\NurseryStructure\FindNurseryStructuresQuery
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure\NurseryStructureResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure\NurseryStructureResourceFactory;
 
 /**
  * @extends AbstractCollectionProvider<NurseryStructure, NurseryStructureResource>

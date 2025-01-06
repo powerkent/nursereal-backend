@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ContractDate;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDate;
 
-use Child\ChildDatesView;
-use Child\ChildrenDatesViewFactory;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\ContractDate;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildDatesView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildrenDatesViewFactory;
 
 final readonly class ContractDateResourceFactory
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace Nursery\Application\Shared\Workflow\Guard;
 
-use ClockingIn\FindClockInsByFiltersQuery;
 use DateTimeImmutable;
+use Nursery\Application\Shared\Query\ClockingIn\FindClockInsByFiltersQuery;
 use Nursery\Domain\Shared\Enum\ClockingInTransition;
 use Nursery\Domain\Shared\Listener\GuardInterface;
 use Nursery\Domain\Shared\Model\ClockingIn;

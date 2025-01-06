@@ -12,6 +12,7 @@ use Nursery\Domain\Shared\Serializer\NormalizerInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use function dump;
 
 final readonly class CreateOrUpdateCustomerCommandHandler implements CommandHandlerInterface
 {
@@ -30,12 +31,15 @@ final readonly class CreateOrUpdateCustomerCommandHandler implements CommandHand
         $password = $command->primitives['password'];
         if (null !== $customer) {
             $children = $command->primitives['children'];
-            unset($command->primitives['children'], $command->primitives['password']);
-            $customer = $this->normalizer->denormalize($command->primitives, Customer::class, context: ['object_to_populate' => $customer]);
+            unset($command->primitives['children']);
+            dump($command->primitives);
+            $customer = $this->normalizer->denormalize($command->primitives, Customer::class, context: ['object_to_populate' => $customer, 'ignored_attributes' => [$password]]);
+            dump($customer);
             $customer
                 ->setPassword($this->passwordHasher->hashPassword($customer, $password))
                 ->setChildren($children)
                 ->setUpdatedAt(new DateTimeImmutable());
+
 
             return $this->customerRepository->update($customer);
         }

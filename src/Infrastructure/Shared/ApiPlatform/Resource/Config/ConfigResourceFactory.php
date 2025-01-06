@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Config;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Config;
 
 use Nursery\Domain\Shared\Model\Config;
 

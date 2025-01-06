@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Child;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Child;
 
 use ApiPlatform\Metadata\ApiProperty;
 use DateTimeInterface;

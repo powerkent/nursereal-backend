@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Treatment;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Treatment;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
@@ -10,6 +10,8 @@ use Nursery\Application\Shared\Query\Treatment\FindTreatmentByChildrenQuery;
 use Nursery\Domain\Shared\Model\Treatment;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Treatment\TreatmentResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Treatment\TreatmentResourceFactory;
 
 /**
  * @extends AbstractCollectionProvider<Treatment, TreatmentResource>

@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Customer;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Customer;
 
 use ApiPlatform\Metadata\Operation;
 use Exception;
-<<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Provider/CustomerProvider.php
-use Nursery\Application\Shared\Query\FindCustomerByUuidOrIdQuery;
-=======
 use Nursery\Application\Shared\Query\Customer\FindCustomerByUuidOrIdQuery;
->>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Provider/Customer/CustomerProvider.php
 use Nursery\Domain\Shared\Model\Customer;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Customer\CustomerResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Customer\CustomerResourceFactory;
 
 /**
  * @extends AbstractProvider<Customer, CustomerResource>

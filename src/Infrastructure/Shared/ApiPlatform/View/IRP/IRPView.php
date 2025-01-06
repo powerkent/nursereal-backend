@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IRP;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\IRP;
 
 use DateTimeInterface;
 use Symfony\Component\Serializer\Annotation\Groups;

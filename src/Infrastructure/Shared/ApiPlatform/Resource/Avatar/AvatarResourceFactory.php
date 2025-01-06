@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Avatar;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Avatar;
 
 use Nursery\Domain\Shared\Model\Avatar;
 

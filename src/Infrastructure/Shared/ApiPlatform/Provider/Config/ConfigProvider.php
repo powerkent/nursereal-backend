@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Config;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Config;
 
 use ApiPlatform\Metadata\Operation;
 use Exception;
-<<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Provider/ConfigProvider.php
-use Nursery\Application\Shared\Query\FindConfigByUuidOrNameQuery;
-=======
 use Nursery\Application\Shared\Query\Config\FindConfigByUuidOrNameQuery;
->>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Provider/Config/ConfigProvider.php
 use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Config\ConfigResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Config\ConfigResourceFactory;
 
 /**
  * @extends AbstractProvider<Config, ConfigResource>

@@ -7,16 +7,6 @@ namespace Nursery\Infrastructure\Nursery\ApiPlatform\Processor;
 use DateMalformedStringException;
 use DateTimeImmutable;
 use Exception;
-<<<<<<< Updated upstream
-use Nursery\Application\Nursery\Command\UpdateActionCommand;
-use Nursery\Application\Nursery\Query\FindActionByUuidQuery;
-use Nursery\Application\Nursery\Query\FindActivityByUuidQuery;
-use Nursery\Application\Shared\Query\FindAgentByUuidOrIdQuery;
-use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
-use Nursery\Application\Nursery\Command\CreateActionCommand;
-use Nursery\Application\Shared\Query\FindConfigByUuidOrNameQuery;
-use Nursery\Application\Shared\Query\FindTreatmentByUuidQuery;
-=======
 use Nursery\Application\Nursery\Command\Action\CreateActionCommand;
 use Nursery\Application\Nursery\Command\Action\UpdateActionCommand;
 use Nursery\Application\Nursery\Query\Action\FindActionByUuidQuery;
@@ -25,7 +15,6 @@ use Nursery\Application\Shared\Query\Agent\FindAgentByUuidOrIdQuery;
 use Nursery\Application\Shared\Query\Child\FindChildByUuidOrIdQuery;
 use Nursery\Application\Shared\Query\Config\FindConfigByUuidOrNameQuery;
 use Nursery\Application\Shared\Query\Treatment\FindTreatmentByUuidQuery;
->>>>>>> Stashed changes
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Nursery\Model\Action;
@@ -65,11 +54,7 @@ final readonly class ActionProcessor implements ActionProcessorInterface
     }
 
     /**
-<<<<<<< Updated upstream
      * @param  ActionInput                  $data
-=======
-     * @param ActionInput $data
->>>>>>> Stashed changes
      * @throws DateMalformedStringException
      * @throws Exception
      */

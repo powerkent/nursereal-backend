@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructure;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
@@ -17,8 +17,8 @@ use Nursery\Domain\Shared\Enum\OpeningDays;
 use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\NurseryStructureInput;
-use NurseryStructure\NurseryStructureResource;
-use NurseryStructure\NurseryStructureResourceFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure\NurseryStructureResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure\NurseryStructureResourceFactory;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -34,11 +34,7 @@ final readonly class NurseryStructureProcessor implements ProcessorInterface
     }
 
     /**
-<<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Processor/NurseryStructureProcessor.php
      * @param  NurseryStructureInput        $data
-=======
-     * @param NurseryStructureInput $data
->>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Processor/NurseryStructure/NurseryStructureProcessor.php
      * @throws DateMalformedStringException
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): NurseryStructureResource

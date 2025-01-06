@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace ClockingIn;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn;
 
-use AgentView;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
@@ -15,6 +14,9 @@ use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ClockingInInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ClockingInProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ClockingIn\ClockingInCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\ClockingIn\ClockingInProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 

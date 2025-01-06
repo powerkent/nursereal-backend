@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent;
 
 use ApiPlatform\Metadata\Operation;
-<<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Provider/AgentProvider.php
 use Exception;
-use Nursery\Application\Shared\Query\FindAgentByUuidOrIdQuery;
-=======
 use Nursery\Application\Shared\Query\Agent\FindAgentByUuidOrIdQuery;
->>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Provider/Agent/AgentProvider.php
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent\AgentResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent\AgentResourceFactory;
 
 /**
  * @extends AbstractProvider<Agent, AgentResource>

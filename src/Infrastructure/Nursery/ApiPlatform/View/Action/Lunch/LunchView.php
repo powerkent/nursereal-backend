@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Lunch;
 
-use AgentView;
 use DateTimeInterface;
 use Nursery\Domain\Nursery\Enum\LunchQuality;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentView;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 class LunchView

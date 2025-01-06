@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NurseryStructure;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure;
 
 use Nursery\Domain\Shared\Enum\OpeningDays;
 use Symfony\Component\Serializer\Annotation\Groups;

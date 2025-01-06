@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Child;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child;
 
-use Customer\CustomerView;
-use Customer\CustomerViewFactory;
-use IRP\IRPViewFactory;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\Customer;
 use Nursery\Domain\Shared\Model\Treatment;
-use NurseryStructure\NurseryStructureViewFactory;
-use Treatment\TreatmentView;
-use Treatment\TreatmentViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Customer\CustomerView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Customer\CustomerViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\IRP\IRPViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment\TreatmentView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment\TreatmentViewFactory;
 
 final readonly class ChildResourceFactory
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Rest;
 
-use AgentView;
 use DateTimeInterface;
 use Nursery\Domain\Nursery\Enum\RestQuality;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentView;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 class RestView

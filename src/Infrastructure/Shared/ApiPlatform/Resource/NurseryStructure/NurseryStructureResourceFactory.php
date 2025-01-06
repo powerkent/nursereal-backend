@@ -2,12 +2,8 @@
 
 declare(strict_types=1);
 
-namespace NurseryStructure;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure;
 
-use AgentView;
-use AgentViewFactory;
-use Child\ChildView;
-use Child\ChildViewFactory;
 use Nursery\Application\Shared\Query\Agent\FindAgentsByNurseryStructureQuery;
 use Nursery\Application\Shared\Query\Child\FindChildrenByNurseryStructureQuery;
 use Nursery\Application\Shared\Query\Config\FindConfigByUuidOrNameQuery;
@@ -18,6 +14,12 @@ use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Model\NurseryStructureOpening;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureOpeningView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureOpeningViewFactory;
 use function array_map;
 
 final readonly class NurseryStructureResourceFactory

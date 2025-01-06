@@ -29,14 +29,40 @@ class NurseryStructureOpening
         return $this->openingHour;
     }
 
+    public function setOpeningHour(DateTimeInterface $openingHour): self
+    {
+        $this->openingHour = $openingHour;
+
+        return $this;
+    }
+
     public function getClosingHour(): DateTimeInterface
     {
         return $this->closingHour;
     }
 
+    public function setClosingHour(DateTimeInterface $closingHour): self
+    {
+        $this->closingHour = $closingHour;
+
+        return $this;
+    }
+
     public function getOpeningDay(): OpeningDays
     {
         return $this->openingDay;
+    }
+
+    public function setOpeningDays(OpeningDays $openingDay): self
+    {
+        $this->openingDay = $openingDay;
+
+        return $this;
+    }
+
+    public function getNurseryStructure(): ?NurseryStructure
+    {
+        return $this->nurseryStructure;
     }
 
     public function setNurseryStructure(?NurseryStructure $nurseryStructure): self

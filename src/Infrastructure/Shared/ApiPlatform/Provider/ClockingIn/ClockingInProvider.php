@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace ClockingIn;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\ClockingIn;
 
 use ApiPlatform\Metadata\Operation;
 use Nursery\Application\Shared\Query\ClockingIn\FindClockingInByUuidQuery;
 use Nursery\Domain\Shared\Model\ClockingIn;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn\ClockingInResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn\ClockingInResourceFactory;
 
 /**
  * @extends AbstractProvider<ClockingIn, ClockingInResource>

@@ -6,10 +6,10 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor\Child;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Child\ChildResource;
-use Child\ChildResourceFactory;
 use Exception;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ChildInput;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child\ChildResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Child\ChildResourceFactory;
 use Ramsey\Uuid\Uuid;
 
 /**

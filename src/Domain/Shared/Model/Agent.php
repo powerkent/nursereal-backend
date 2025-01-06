@@ -78,9 +78,23 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getUuid(): UuidInterface
     {
         return $this->uuid;
+    }
+
+    public function setUuid(UuidInterface $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 
     public function getAvatar(): ?Avatar
@@ -88,9 +102,23 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this->avatar;
     }
 
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
     public function getFirstname(): ?string
     {
         return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
     }
 
     public function getLastname(): ?string
@@ -98,9 +126,23 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this->lastname;
     }
 
+    public function setLastname(?string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -135,6 +177,16 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this->nurseryStructures;
     }
 
+    /**
+     * @param Collection<int, NurseryStructure> $nurseryStructures
+     */
+    public function setNurseryStructures(Collection $nurseryStructures): self
+    {
+        $this->nurseryStructures = $nurseryStructures;
+
+        return $this;
+    }
+
     public function addNurseryStructure(NurseryStructure $nurseryStructure): self
     {
         if (!$this->nurseryStructures->contains($nurseryStructure)) {
@@ -144,51 +196,22 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-<<<<<<< Updated upstream
-    /**
-     * @return Collection<int, ClockingIn>
-     */
-    public function getClockIns(): Collection
-    {
-        return $this->clockIns;
-    }
-
-    /**
-     * @param array<int, ClockingIn>|Collection<int, ClockingIn> $clockIns
-     */
-    public function setClockIns(Collection|array $clockIns): self
-    {
-        $this->clockIns = $clockIns instanceof Collection ? $clockIns : new ArrayCollection($clockIns);
-
-        return $this;
-    }
-
-    public function addClockingIn(ClockingIn $clockingIn): self
-    {
-        if (!$this->clockIns->contains($clockingIn)) {
-            $this->clockIns->add($clockingIn);
-        }
-
-        return $this;
-    }
-
-    public function removeClockingIn(ClockingIn $clockingIn): self
-    {
-        if ($this->clockIns->contains($clockingIn)) {
-            $this->clockIns->removeElement($clockingIn);
-        }
-
-        return $this;
-    }
-
-=======
->>>>>>> Stashed changes
     /**
      * @return array<int, string>
      */
     public function getRoles(): array
     {
         return $this->roles;
+    }
+
+    /**
+     * @param array<int, string> $roles
+     */
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getUser(): string
@@ -229,6 +252,24 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $hashedPassword): self
     {
         $this->password = $hashedPassword;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ClockingIn>
+     */
+    public function getClockIns(): Collection
+    {
+        return $this->clockIns;
+    }
+
+    /**
+     * @param Collection<int, ClockingIn> $clockIns
+     */
+    public function setClockIns(Collection $clockIns): self
+    {
+        $this->clockIns = $clockIns;
 
         return $this;
     }

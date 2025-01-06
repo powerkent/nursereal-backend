@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Config;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Config;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -11,6 +11,8 @@ use ApiPlatform\Metadata\Put;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ConfigInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\ConfigProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Config\ConfigCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Config\ConfigProvider;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 

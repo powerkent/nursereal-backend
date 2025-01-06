@@ -51,6 +51,13 @@ class NurseryStructure
         return $this->uuid;
     }
 
+    public function setUuid(UuidInterface $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -66,6 +73,13 @@ class NurseryStructure
     public function getAddress(): string
     {
         return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -92,11 +106,14 @@ class NurseryStructure
         return $this;
     }
 
-    public function addAgent(Agent $agent): self
+    public function getStartAt(): ?DateTimeInterface
     {
-        if (!$this->agents->contains($agent)) {
-            $this->agents->add($agent);
-        }
+        return $this->startAt;
+    }
+
+    public function setStartAt(?DateTimeInterface $startAt): self
+    {
+        $this->startAt = $startAt;
 
         return $this;
     }
@@ -104,7 +121,7 @@ class NurseryStructure
     /**
      * @return Collection<int, NurseryStructureOpening>
      */
-    public function getNurseryStructureOpenings(): Collection
+    public function getOpenings(): Collection
     {
         return $this->openings;
     }
@@ -112,14 +129,14 @@ class NurseryStructure
     /**
      * @param array<int, NurseryStructureOpening>|Collection<int, NurseryStructureOpening> $openings
      */
-    public function setNurseryStructureOpenings(Collection|array $openings): self
+    public function setOpenings(Collection|array $openings): self
     {
         $this->openings = $openings instanceof Collection ? $openings : new ArrayCollection($openings);
 
         return $this;
     }
 
-    public function addNurseryStructureOpening(NurseryStructureOpening $nurseryStructureOpening): self
+    public function addOpening(NurseryStructureOpening $nurseryStructureOpening): self
     {
         if (!$this->openings->contains($nurseryStructureOpening)) {
             $this->openings->add($nurseryStructureOpening);
@@ -128,10 +145,37 @@ class NurseryStructure
         return $this;
     }
 
-    public function removeNurseryStructureOpening(NurseryStructureOpening $nurseryStructureOpening): self
+    public function removeOpening(NurseryStructureOpening $nurseryStructureOpening): self
     {
         if ($this->openings->contains($nurseryStructureOpening)) {
             $this->openings->removeElement($nurseryStructureOpening);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Agent>
+     */
+    public function getAgents(): Collection
+    {
+        return $this->agents;
+    }
+
+    /**
+     * @param Collection<int, Agent> $agents
+     */
+    public function setAgents(Collection $agents): self
+    {
+        $this->agents = $agents;
+
+        return $this;
+    }
+
+    public function addAgent(Agent $agent): self
+    {
+        if (!$this->agents->contains($agent)) {
+            $this->agents->add($agent);
         }
 
         return $this;

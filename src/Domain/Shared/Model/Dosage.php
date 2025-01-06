@@ -22,6 +22,11 @@ class Dosage
         return $this->id;
     }
 
+    public function getTreatment(): ?Treatment
+    {
+        return $this->treatment;
+    }
+
     public function setTreatment(?Treatment $treatment): self
     {
         $this->treatment = $treatment;
@@ -34,8 +39,22 @@ class Dosage
         return $this->dose;
     }
 
+    public function setDose(?string $dose): self
+    {
+        $this->dose = $dose;
+
+        return $this;
+    }
+
     public function getDosingTime(): ?DateTimeInterface
     {
         return $this->dosingTime;
+    }
+
+    public function setDosingTime(?DateTimeInterface $dosingTime): self
+    {
+        $this->dosingTime = $dosingTime;
+
+        return $this;
     }
 }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action;
 
-use ActivityView;
-use AgentView;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -13,12 +11,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use Care\CareView;
-use Child\ChildView;
 use DateTimeInterface;
-use Diaper\DiaperView;
-use Lunch\LunchView;
-use Milk\MilkView;
 use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Input\ActionInput;
@@ -27,11 +20,18 @@ use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ActionPostProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Processor\ActionPutProcessor;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ActionCollectionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Provider\ActionProvider;
-use Presence\PresenceView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Activity\ActivityView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Care\CareView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Child\ChildView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Diaper\DiaperView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Lunch\LunchView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Milk\MilkView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Presence\PresenceView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Rest\RestView;
+use Nursery\Infrastructure\Nursery\ApiPlatform\View\Action\Treatment\TreatmentView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentView;
 use Ramsey\Uuid\UuidInterface;
-use Rest\RestView;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Treatment\TreatmentView;
 
 #[ApiResource(
     shortName: 'Action',

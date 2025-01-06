@@ -6,8 +6,6 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use ClockingIn\ClockingInResource;
-use ClockingIn\ClockingInResourceFactory;
 use Exception;
 use Nursery\Application\Shared\Command\ClockingIn\CreateOrUpdateClockingInCommand;
 use Nursery\Application\Shared\Query\Agent\FindAgentByUuidOrIdQuery;
@@ -17,6 +15,8 @@ use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ClockingInInput;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn\ClockingInResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn\ClockingInResourceFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -34,7 +34,7 @@ final readonly class ClockingInProcessor implements ProcessorInterface
     }
 
     /**
-     * @param ClockingInInput $data
+     * @param  ClockingInInput $data
      * @throws Exception
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): ClockingInResource

@@ -41,4 +41,11 @@ class Diaper extends Action
     {
         return $this->quality;
     }
+
+    public function setQuality(DiaperQuality $quality): self
+    {
+        $this->quality = $quality;
+
+        return $this;
+    }
 }

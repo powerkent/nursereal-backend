@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
@@ -11,6 +12,8 @@ use Nursery\Application\Shared\Query\NurseryStructure\FindNurseryStructureByUuid
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent\AgentResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent\AgentResourceFactory;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**

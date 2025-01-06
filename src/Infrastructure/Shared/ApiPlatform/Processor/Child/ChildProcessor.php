@@ -113,7 +113,7 @@ final readonly class ChildProcessor implements ChildProcessorInterface
     }
 
     /**
-     * @param array<string, mixed> $primitives
+     * @param  array<string, mixed> $primitives
      * @return array<int, mixed>
      * @throws Exception
      */

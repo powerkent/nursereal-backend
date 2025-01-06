@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Child;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Child;
 
-use IRP\IRPViewFactory;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\Treatment;
-use Treatment\TreatmentView;
-use Treatment\TreatmentViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\IRP\IRPViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment\TreatmentView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment\TreatmentViewFactory;
 
 final readonly class ChildViewFactory
 {

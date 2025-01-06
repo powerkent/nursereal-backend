@@ -2,19 +2,23 @@
 
 declare(strict_types=1);
 
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor\Treatment;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use DateMalformedStringException;
 use Doctrine\ORM\EntityNotFoundException;
+use Exception;
+use InvalidArgumentException;
 use Nursery\Application\Shared\Query\Child\FindChildByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Payload\TreatmentPayload;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Child\ChildProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Treatment\TreatmentResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Treatment\TreatmentResourceFactory;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
-use Treatment\TreatmentResource;
-use Treatment\TreatmentResourceFactory;
 
 /**
  * @implements ProcessorInterface<TreatmentPayload, TreatmentResource>
@@ -29,8 +33,8 @@ final readonly class TreatmentProcessor implements ProcessorInterface
     }
 
     /**
-     * @param  TreatmentPayload $data
-     * @throws Exception
+     * @param  TreatmentPayload                                                                        $data
+     * @throws DateMalformedStringException|InvalidArgumentException|EntityNotFoundException|Exception
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): TreatmentResource
     {

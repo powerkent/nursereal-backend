@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Treatment;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment;
 
 use DateTimeInterface;
-use Dosage\DosageView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Dosage\DosageView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 

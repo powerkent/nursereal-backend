@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Child;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Child;
 
 use DateTimeInterface;
-use IRP\IRPView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\IRP\IRPView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment\TreatmentView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Treatment\TreatmentView;
 
 class ChildView
 {

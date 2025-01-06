@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace ContractDate;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\ContractDate;
 
 use ApiPlatform\Metadata\Operation;
 use Exception;
-<<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Provider/ContractDateProvider.php
-use Nursery\Application\Shared\Query\FindChildByUuidOrIdQuery;
-=======
 use Nursery\Application\Shared\Query\Child\FindChildByUuidOrIdQuery;
->>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Provider/ContractDate/ContractDateProvider.php
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDate\ContractDateResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDate\ContractDateResourceFactory;
 
 /**
  * @extends AbstractProvider<Child, ContractDateResource>

@@ -52,6 +52,16 @@ final readonly class CustomerContext implements Context
     }
 
     /**
+     * @Given that customer has user :user
+     */
+    public function updateCustomerUser(string $user): void
+    {
+        $customer = $this->storage->getCustomer();
+        $customer->_set('user', $user);
+        $customer->_save();
+    }
+
+    /**
      * @Given that customer has an email :email
      */
     public function updateCustomerEmail(string $email): void

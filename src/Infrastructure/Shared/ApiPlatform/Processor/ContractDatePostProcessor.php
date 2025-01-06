@@ -6,8 +6,6 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use ContractDate\ContractDateResource;
-use ContractDate\ContractDateResourceFactory;
 use Nursery\Application\Shared\Command\Child\PersistChildCommand;
 use Nursery\Application\Shared\Command\ContractDate\DeleteContractDateByIdCommand;
 use Nursery\Application\Shared\Query\Child\FindChildByUuidOrIdQuery;
@@ -18,6 +16,8 @@ use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\ContractDate;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ContractDateInput;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDate\ContractDateResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDate\ContractDateResourceFactory;
 use Throwable;
 
 /**

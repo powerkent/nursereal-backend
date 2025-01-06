@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ContractDate;
+namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\ContractDate;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
@@ -16,6 +16,8 @@ use Nursery\Domain\Shared\Filter\NurseryStructureFilter;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDate\ContractDateResource;
+use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ContractDate\ContractDateResourceFactory;
 
 /**
  * @extends AbstractCollectionProvider<Child, ContractDateResource>
@@ -31,11 +33,11 @@ final class ContractDateCollectionProvider extends AbstractCollectionProvider
     }
 
     /**
-<<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Provider/ContractDateCollectionProvider.php
+     * <<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Provider/ContractDateCollectionProvider.php.
      * @param  array<string, mixed>         $uriVariables
-=======
-     * @param array<string, mixed> $uriVariables
->>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Provider/ContractDate/ContractDateCollectionProvider.php
+     *                                                    =======
+     * @param  array<string, mixed>         $uriVariables
+     *                                                    >>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Provider/ContractDate/ContractDateCollectionProvider.php
      * @throws DateMalformedStringException
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable
