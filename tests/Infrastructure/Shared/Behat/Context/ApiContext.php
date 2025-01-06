@@ -18,7 +18,7 @@ class ApiContext extends BaseApiContext
 {
     private ?string $token = null;
 
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 

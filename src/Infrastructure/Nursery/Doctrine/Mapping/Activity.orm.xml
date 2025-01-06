@@ -6,7 +6,7 @@
 
     <entity name="Nursery\Domain\Nursery\Model\Activity" table="activity">
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <field name="uuid" type="uuid" unique="true" />

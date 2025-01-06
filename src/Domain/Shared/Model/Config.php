@@ -10,7 +10,7 @@ class Config
 {
     protected ?int $id = null;
 
-    public const AGENT_LOGIN_WITH_PHONE = 'AGENT_LOGIN_WITH_PHONE';
+    public const string AGENT_LOGIN_WITH_PHONE = 'AGENT_LOGIN_WITH_PHONE';
 
     public function __construct(
         protected UuidInterface $uuid,

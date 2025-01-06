@@ -9,8 +9,5 @@ use Ramsey\Uuid\UuidInterface;
 
 interface ChildProcessorInterface
 {
-    /**
-     * @param ChildInputDataInterface $data
-     */
-    public function process($data, UuidInterface $uuid): Child;
+    public function process(ChildInputDataInterface $data, UuidInterface $uuid): Child;
 }

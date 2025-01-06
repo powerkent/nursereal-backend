@@ -55,7 +55,7 @@ final readonly class NurseryStructureContext implements Context
     public function updateNurseryStructureCreatedAt(string $createdAt): void
     {
         $nurseryStructure = $this->storage->getNurseryStructure();
-        $nurseryStructure->_set('createdAt', (new DateTimeImmutable($createdAt)));
+        $nurseryStructure->_set('createdAt', new DateTimeImmutable($createdAt));
         $nurseryStructure->_save();
     }
 
@@ -66,7 +66,7 @@ final readonly class NurseryStructureContext implements Context
     public function updateNurseryStructureUpdatedAt(string $updatedAt): void
     {
         $nurseryStructure = $this->storage->getNurseryStructure();
-        $nurseryStructure->_set('updatedAt', (new DateTimeImmutable($updatedAt)));
+        $nurseryStructure->_set('updatedAt', new DateTimeImmutable($updatedAt));
         $nurseryStructure->_save();
     }
 }

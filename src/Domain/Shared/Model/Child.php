@@ -204,13 +204,4 @@ class Child
 
         return $this;
     }
-
-    public function removeContractDate(ContractDate $contractDate): self
-    {
-        if ($this->contractDates->contains($contractDate)) {
-            $this->contractDates->removeElement($contractDate);
-        }
-
-        return $this;
-    }
 }

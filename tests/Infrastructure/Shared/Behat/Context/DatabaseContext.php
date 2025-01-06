@@ -6,6 +6,7 @@ namespace Nursery\Tests\Infrastructure\Shared\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,7 +18,7 @@ use function in_array;
 use function sprintf;
 use function Zenstruck\Foundry\faker;
 
-final class DatabaseContext implements Context
+final readonly class DatabaseContext implements Context
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -26,11 +27,10 @@ final class DatabaseContext implements Context
 
     /**
      * @BeforeScenario
-     * @throws Exception
      */
     public function cleanDatabase(): void
     {
-        (new ORMPurger($this->entityManager))->purge();
+        new ORMPurger($this->entityManager)->purge();
         $config = new Config(Uuid::uuid4(), Config::AGENT_LOGIN_WITH_PHONE, true);
         $this->entityManager->persist($config);
         $this->entityManager->flush();
@@ -77,7 +77,7 @@ final class DatabaseContext implements Context
                         'fake' === $value ? faker()->text($isText ? 300 : 40) : $value,
                     );
                 } elseif ('datetime' === $type) {
-                    $values[] = sprintf(' %s = "%s"', $column, (new \DateTimeImmutable($value))->format('Y-m-d h:i:s'));
+                    $values[] = sprintf(' %s = "%s"', $column, new DateTimeImmutable($value)->format('Y-m-d h:i:s'));
                 } else {
                     $values[] = sprintf(' %s = %s', $column, $value);
                 }

@@ -10,6 +10,7 @@ use PHPStan\Node\InClassNode;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\ShouldNotHappenException;
 
 /**
  * @implements Rule<InClassNode>
@@ -28,6 +29,7 @@ final class SuffixTraitsWithTraitRule implements Rule
      * @param InClassNode $node
      *
      * @return list<IdentifierRuleError>
+     * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
     {

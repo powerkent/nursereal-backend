@@ -44,7 +44,7 @@ final readonly class IRPContext implements Context
     public function updateIRPCreatedAt(string $createdAt): void
     {
         $irp = $this->storage->getIRP();
-        $irp->_set('createdAt', (new DateTimeImmutable($createdAt)));
+        $irp->_set('createdAt', new DateTimeImmutable($createdAt));
         $irp->_save();
     }
 
@@ -55,7 +55,7 @@ final readonly class IRPContext implements Context
     public function updateIRPStartAt(string $startAt): void
     {
         $irp = $this->storage->getIRP();
-        $irp->_set('startAt', (new DateTimeImmutable($startAt)));
+        $irp->_set('startAt', new DateTimeImmutable($startAt));
         $irp->_save();
     }
 
@@ -66,7 +66,7 @@ final readonly class IRPContext implements Context
     public function updateIRPEndAt(string $endAt): void
     {
         $irp = $this->storage->getIRP();
-        $irp->_set('endAt', (new DateTimeImmutable($endAt)));
+        $irp->_set('endAt', new DateTimeImmutable($endAt));
         $irp->_save();
     }
 }

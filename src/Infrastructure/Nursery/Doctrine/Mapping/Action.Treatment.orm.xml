@@ -6,7 +6,7 @@
 
     <entity name="Nursery\Domain\Nursery\Model\Action\Treatment" table="action_treatment">
         <many-to-one field="treatment" target-entity="Nursery\Domain\Shared\Model\Treatment">
-            <join-column name="treatment_id" referenced-column-name="id" nullable="false" />
+            <join-column name="treatment_id" nullable="false" />
         </many-to-one>
 
         <field name="dose" nullable="true" />

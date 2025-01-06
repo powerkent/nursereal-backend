@@ -6,7 +6,7 @@ namespace Nursery\Infrastructure\Chat\ApiPlatform\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
-use Nursery\Application\Chat\Query\FindMessagesByChannelIdQuery;
+use Nursery\Application\Chat\Query\Message\FindMessagesByChannelIdQuery;
 use Nursery\Domain\Chat\Model\Message;
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Query\QueryBusInterface;

@@ -8,13 +8,13 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
 use DateMalformedStringException;
 use DateTimeImmutable;
-use Nursery\Application\Nursery\Query\FindActionByFiltersQuery;
+use Nursery\Application\Nursery\Query\Action\FindActionByFiltersQuery;
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
-use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResource;
 use Nursery\Infrastructure\Nursery\ApiPlatform\Resource\Action\ActionResourceFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\Provider\AbstractCollectionProvider;
 
 /**
  * @extends AbstractCollectionProvider<Action, ActionResource>

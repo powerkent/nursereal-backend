@@ -6,17 +6,17 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use Avatar\AvatarResource;
+use Avatar\AvatarResourceFactory;
 use Aws\Exception\AwsException;
 use Aws\S3\S3Client;
 use Doctrine\ORM\EntityManagerInterface;
-use Nursery\Application\Shared\Command\CreateAvatarCommand;
+use Nursery\Application\Shared\Command\Avatar\CreateAvatarCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Domain\Shared\Exception\EntityNotFoundException;
 use Nursery\Domain\Shared\Exception\MissingPropertyException;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AvatarInput;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\AvatarResource;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\AvatarResourceFactory;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
 

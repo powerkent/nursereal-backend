@@ -9,7 +9,7 @@ use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
-use Nursery\Application\Shared\Query\FindContractDatesByChildQuery;
+use Nursery\Application\Shared\Query\ContractDate\FindContractDatesByChildQuery;
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Enum\LunchQuality;
 use Nursery\Domain\Nursery\Model\Action\Lunch;

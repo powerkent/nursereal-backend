@@ -18,7 +18,11 @@ final readonly class Normalizer implements DomainNormalizer
     }
 
     /**
+<<<<<<< Updated upstream
      * @param  array<string, mixed> $context
+=======
+     * @param array<string, mixed> $context
+>>>>>>> Stashed changes
      * @throws ExceptionInterface
      */
     public function normalize(mixed $data, ?string $format = null, array $context = []): mixed

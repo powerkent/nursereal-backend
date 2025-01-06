@@ -6,11 +6,11 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Nursery\Application\Shared\Command\UpdateConfigCommand;
+use Config\ConfigResource;
+use Config\ConfigResourceFactory;
+use Nursery\Application\Shared\Command\Config\UpdateConfigCommand;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\ConfigInput;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ConfigResource;
-use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ConfigResourceFactory;
 use Ramsey\Uuid\Uuid;
 
 /**

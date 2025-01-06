@@ -19,7 +19,7 @@
         </discriminator-map>
 
         <id name="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator />
         </id>
 
         <field name="uuid" type="uuid" unique="true" />
@@ -33,11 +33,11 @@
         <field name="updatedAt" type="datetime" nullable="true" />
 
         <many-to-one field="child" target-entity="Nursery\Domain\Shared\Model\Child">
-            <join-column name="child_id" referenced-column-name="id" nullable="false" />
+            <join-column name="child_id" nullable="false" />
         </many-to-one>
 
         <many-to-one field="agent" target-entity="Nursery\Domain\Shared\Model\Agent">
-            <join-column name="agent_id" referenced-column-name="id" nullable="false" />
+            <join-column name="agent_id" nullable="false" />
         </many-to-one>
 
         <field name="comment" nullable="true" />
