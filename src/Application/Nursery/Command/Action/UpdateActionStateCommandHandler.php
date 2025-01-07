@@ -11,7 +11,7 @@ use Nursery\Domain\Nursery\Repository\ActionRepositoryInterface;
 use Nursery\Domain\Shared\Command\CommandHandlerInterface;
 use Nursery\Domain\Shared\Workflow\WorkflowInterface;
 
-final class UpdateActionStateCommandHandler implements CommandHandlerInterface
+final readonly class UpdateActionStateCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private WorkflowInterface $workflow,

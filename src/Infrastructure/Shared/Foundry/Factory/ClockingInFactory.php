@@ -18,44 +18,54 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
  */
 final class ClockingInFactory extends PersistentProxyObjectFactory
 {
+    /**
+     * @var array<string, bool>
+     */
+    /** @phpstan-ignore-next-line  */
+    private static array $usedDates = [];
+
     public static function class(): string
     {
         return ClockingIn::class;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    protected function defaults(): array
+    protected function defaults(): callable
     {
-        /** @var Generator $uniqueGenerator */
-        $uniqueGenerator = self::faker()->unique();
+        return function () {
+            /** @var Generator $uniqueGenerator */
+            $uniqueGenerator = self::faker()->unique();
+            $agent = AgentFactory::random();
+            $nurseryStructure = current($agent->getNurseryStructures()->toArray());
+            do {
+                $dateTime = self::faker()->dateTimeBetween('-5 days');
+                $startHour = self::faker()->numberBetween(6, 16);
+                $startDateTime = $dateTime->setTime($startHour, 0);
+                $endDateTime = clone $startDateTime;
+                $now = new DateTimeImmutable();
+                if (($hour = $startHour + 4) > 19) {
+                    $hour = 19;
+                }
+                $state = ClockingInState::Done;
+                if ($startDateTime->format('Y-m-d') === $now->format('Y-m-d')) {
+                    $endDateTime = null;
+                    $state = ClockingInState::InProgress;
+                } else {
+                    $endDateTime->setTime($hour, 0);
+                }
 
-        $dateTime = self::faker()->dateTimeBetween('-5 days');
-        $startHour = self::faker()->numberBetween(6, 14);
-        $startDateTime = $dateTime->setTime($startHour, 0);
-        $endDateTime = clone $startDateTime;
-        $now = new DateTimeImmutable();
-        if (($hour = $startHour + 7) > 19) {
-            $hour = 19;
-        }
-        $state = ClockingInState::Done;
-        if ($startDateTime->format('Y-m-d') === $now->format('Y-m-d') && $hour < $now->format('H')) {
-            $endDateTime->setTime($hour, 0);
-        } elseif ($startDateTime->format('Y-m-d') === $now->format('Y-m-d')) {
-            $endDateTime = null;
-            $state = ClockingInState::InProgress;
-        } else {
-            $endDateTime->setTime($hour, 0);
-        }
+                $key = "{$agent->getId()}_{$startDateTime->format('Y-m-d')}_".(null !== $endDateTime ? "_{$endDateTime->format('Y-m-d')}" : '');
+            } while (isset(self::$usedDates[$key]) && $endDateTime < $startDateTime);
 
-        return [
-            'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
-            'state' => $state,
-            'agent' => $agent = AgentFactory::random(),
-            'nurseryStructure' => current($agent->getNurseryStructures()->toArray()),
-            'startDateTime' => $startDateTime,
-            'endDateTime' => $endDateTime,
-        ];
+            self::$usedDates[$key] = true;
+
+            return [
+                'uuid'             => Uuid::fromString($uniqueGenerator->uuid()),
+                'state'            => $state,
+                'agent'            => $agent,
+                'nurseryStructure' => $nurseryStructure,
+                'startDateTime'    => $startDateTime,
+                'endDateTime'      => $endDateTime,
+            ];
+        };
     }
 }

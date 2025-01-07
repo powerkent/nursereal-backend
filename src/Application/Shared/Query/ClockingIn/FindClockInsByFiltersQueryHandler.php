@@ -24,7 +24,7 @@ final readonly class FindClockInsByFiltersQueryHandler implements QueryHandlerIn
         return $this->clockingInRepository->searchByFilter(
             startDateTime: $query->filters['startDateTime'],
             endDateTime: $query->filters['endDateTime'],
-            nurseryStructures: array_map(fn (string $uuid): UuidInterface => Uuid::fromString($query->filters['nurseryStructures']), $query->filters['nurseryStructures']),
+            nurseryStructures: array_map(fn (string $uuid): UuidInterface => Uuid::fromString($uuid), $query->filters['nurseryStructures']),
             agents: $query->filters['agents'] ?? [],
         );
     }

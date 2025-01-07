@@ -7,6 +7,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use Exception;
+use InvalidArgumentException;
 use Nursery\Application\Shared\Command\ClockingIn\CreateOrUpdateClockingInCommand;
 use Nursery\Application\Shared\Query\Agent\FindAgentByUuidOrIdQuery;
 use Nursery\Application\Shared\Query\Config\FindConfigByUuidOrNameQuery;
@@ -19,6 +20,8 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn\ClockingInReso
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\ClockingIn\ClockingInResourceFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\InputBag;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @implements ProcessorInterface<ClockingInInput, ClockingInResource>
@@ -39,6 +42,16 @@ final readonly class ClockingInProcessor implements ProcessorInterface
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): ClockingInResource
     {
+        /** @var Request|null $request */
+        $request = $context['request'] ?? null;
+
+        if (!$request instanceof Request) {
+            throw new InvalidArgumentException('Invalid request type in context.');
+        }
+
+        /** @var InputBag<string> $query */
+        $query = $request->query;
+
         /** @var Agent $agent */
         $agent = $this->security->getUser();
         $config = $this->queryBus->ask(new FindConfigByUuidOrNameQuery(name: Config::AGENT_LOGIN_WITH_PHONE));
@@ -51,6 +64,7 @@ final readonly class ClockingInProcessor implements ProcessorInterface
             'startDateTime' => $data->startDateTime,
             'endDateTime' => $data->endDateTime,
             'agent' => $agent,
+            'nurseryStructureUuid' => $query->get('nursery_structure_uuid'),
         ];
 
         $clockingIn = $this->commandBus->dispatch(CreateOrUpdateClockingInCommand::create($primitives));

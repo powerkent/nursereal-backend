@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Doctrine\Repository;
 
 use DateTimeInterface;
+use Nursery\Domain\Shared\Enum\ClockingInState;
 use Nursery\Domain\Shared\Model\ClockingIn;
 use Nursery\Domain\Shared\Repository\ClockingInRepositoryInterface;
 
@@ -23,6 +24,7 @@ class ClockingInRepository extends AbstractRepository implements ClockingInRepos
         DateTimeInterface $endDateTime,
         array $nurseryStructures = [],
         array $agents = [],
+        ?ClockingInState $state = null,
     ): ?array {
         $queryBuilder = $this->createQueryBuilder('o')
             ->select('o, a')
@@ -43,6 +45,12 @@ class ClockingInRepository extends AbstractRepository implements ClockingInRepos
             $queryBuilder
                 ->andWhere('a.uuid IN (:agents)')
                 ->setParameter('agents', $agents);
+        }
+
+        if (null !== $state) {
+            $queryBuilder
+                ->andWhere('o.state = :state')
+                ->setParameter('state', $state->value);
         }
 
         $query = $queryBuilder->getQuery();

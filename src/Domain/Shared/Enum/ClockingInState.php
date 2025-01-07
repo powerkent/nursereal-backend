@@ -8,6 +8,7 @@ use function array_map;
 
 enum ClockingInState: string
 {
+    case New = 'new';
     case InProgress = 'in_progress';
     case Done = 'done';
 

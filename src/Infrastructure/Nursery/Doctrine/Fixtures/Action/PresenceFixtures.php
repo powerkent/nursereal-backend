@@ -8,11 +8,14 @@ use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
-use Nursery\Application\Nursery\Query\Action\FindActionByFiltersQuery;
+use Nursery\Application\Nursery\Query\Action\FindActionByTypeQuery;
 use Nursery\Application\Shared\Query\ContractDate\FindContractDatesByChildQuery;
 use Nursery\Domain\Nursery\Enum\ActionState;
 use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Nursery\Model\Action\Presence;
+use Nursery\Domain\Shared\Model\Agent;
+use Nursery\Domain\Shared\Model\Child;
+use Nursery\Domain\Shared\Model\ContractDate;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Nursery\Foundry\Factory\Action\PresenceFactory;
 use Nursery\Infrastructure\Shared\Doctrine\Fixtures\AbstractFixtures;
@@ -44,20 +47,13 @@ class PresenceFixtures extends AbstractFixtures implements DependentFixtureInter
             foreach ($contractDates as $contractDate) {
                 $presence = null;
                 $agent = AgentFactory::random()->_real();
-                if (mt_rand(1, 100) <= 20) {
-                    $presence = PresenceFactory::createOne(['child' => $child, 'isAbsent' => true]);
-                    $presence = $presence->_real();
-                    $presence->setStartDateTime(null);
-                    $presence->setEndDateTime(null);
-                    $presence->setCompletedAgent($agent);
-                    $presence->setState(ActionState::ActionDone);
-                    $manager->persist($presence);
-                    continue;
-                }
 
+                $presence = $this->markPotentiallyAbsent($child, $agent, $contractDate);
                 if ($contractDate->getContractTimeStart()->format('Y-m-d') < $now) {
-                    $presence = PresenceFactory::createOne(['child' => $child, 'isAbsent' => false]);
-                    $presence = $presence->_real();
+                    if ($presence->isAbsent()) {
+                        continue;
+                    }
+                    $presence->setIsAbsent(false);
                     $presence->setStartDateTime($contractDate->getContractTimeStart());
                     $presence->setEndDateTime($contractDate->getContractTimeEnd());
                     $presence->setCompletedAgent($agent);
@@ -65,8 +61,10 @@ class PresenceFixtures extends AbstractFixtures implements DependentFixtureInter
                 }
 
                 if ($contractDate->getContractTimeStart()->format('Y-m-d') === $now) {
-                    $presence = PresenceFactory::createOne(['child' => $child, 'isAbsent' => false]);
-                    $presence = $presence->_real();
+                    if ($presence->isAbsent()) {
+                        continue;
+                    }
+                    $presence->setIsAbsent(false);
                     $presence->setStartDateTime($contractDate->getContractTimeStart());
                     $presence->setState(ActionState::ActionInProgress);
                     if ($contractDate->getContractTimeEnd() < (new DateTimeImmutable())) {
@@ -77,23 +75,22 @@ class PresenceFixtures extends AbstractFixtures implements DependentFixtureInter
                 }
 
                 if ($contractDate->getContractTimeStart()->format('Y-m-d') > $now) {
-                    $presence = PresenceFactory::createOne(['child' => $child, 'isAbsent' => false]);
-                    $presence = $presence->_real();
+                    if ($presence->isAbsent()) {
+                        continue;
+                    }
+                    $presence->setIsAbsent(false);
                     $presence->setStartDateTime(null);
                     $presence->setEndDateTime(null);
                     $presence->setCompletedAgent(null);
                 }
 
-                if (null !== $presence) {
-                    $manager->persist($presence);
-                }
+                $manager->persist($presence);
             }
         }
 
         $manager->flush();
 
-
-        $presences = $this->queryBus->ask(new FindActionByFiltersQuery(['actions' => [ActionType::Presence->value], 'startDateTime' => new DateTimeImmutable('-2 days'), 'endDateTime' => new DateTimeImmutable('+2 days')]));
+        $presences = $this->queryBus->ask(new FindActionByTypeQuery(ActionType::Presence));
         foreach ($presences as $presence) {
             /** @var Presence $presence */
             if (null === $presence->getStartDateTime() && null === $presence->getEndDateTime() && !$presence->isAbsent()) {
@@ -101,6 +98,21 @@ class PresenceFixtures extends AbstractFixtures implements DependentFixtureInter
                 $manager->flush();
             }
         }
+    }
+
+    private function markPotentiallyAbsent(Child $child, Agent $agent, ContractDate $contractDate): Presence
+    {
+        $presence = PresenceFactory::createOne(['child' => $child, 'isAbsent' => false, 'createdAt' => $contractDate->getContractTimeStart()]);
+        $presence = $presence->_real();
+        if (mt_rand(1, 100) <= 20) {
+            $presence->setIsAbsent(true);
+            $presence->setStartDateTime(null);
+            $presence->setEndDateTime(null);
+            $presence->setCompletedAgent($agent);
+            $presence->setState(ActionState::ActionDone);
+        }
+
+        return $presence;
     }
 
     protected static function modelClass(): string
