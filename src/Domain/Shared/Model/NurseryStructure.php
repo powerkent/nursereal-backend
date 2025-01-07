@@ -31,6 +31,8 @@ class NurseryStructure
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?DateTimeInterface $startAt = null,
+        protected ?float $latitude = null,
+        protected ?float $longitude = null,
         array|Collection $openings = [],
         array|Collection $agents = [],
     ) {
@@ -114,6 +116,30 @@ class NurseryStructure
     public function setStartAt(?DateTimeInterface $startAt): self
     {
         $this->startAt = $startAt;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): self
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }

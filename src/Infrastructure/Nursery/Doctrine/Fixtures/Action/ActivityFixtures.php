@@ -37,7 +37,7 @@ class ActivityFixtures extends AbstractFixtures implements DependentFixtureInter
 
     public function load(ObjectManager $manager): void
     {
-        $presences = PresenceFactory::randomRange(20, 30);
+        $presences = PresenceFactory::randomRange(5, 10);
 
         $now = new DateTimeImmutable()->format('Y-m-d');
         foreach ($presences as $presence) {

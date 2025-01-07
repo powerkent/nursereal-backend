@@ -83,6 +83,10 @@ final class NurseryStructureResource
         public ?DateTimeInterface $createdAt = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?DateTimeInterface $updatedAt = null,
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        public ?float $latitude = null,
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
+        public ?float $longitude = null,
         #[Groups(['nurseryStructure:item'])]
         /** @var array<int, NurseryStructureOpeningView> $openings */
         public array $openings = [],

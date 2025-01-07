@@ -39,6 +39,9 @@ final class NurseryStructureFactory extends PersistentProxyObjectFactory
             'address' => self::faker()->address(),
             'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')),
             'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')) : null,
+            'startAt' => self::faker()->dateTime(),
+            'latitude' => 50.398026,
+            'longitude' => 2.914129,
         ];
     }
 

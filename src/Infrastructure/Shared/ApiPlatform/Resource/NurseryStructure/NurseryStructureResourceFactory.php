@@ -47,6 +47,8 @@ final readonly class NurseryStructureResourceFactory
             user: !$agentLoginWithPhone || !$agentLoginWithPhone->getValue() && isset($agents[0]) ? $agents[0]->getUser() : null,
             createdAt: $nurseryStructure->getCreatedAt(),
             updatedAt: $nurseryStructure->getUpdatedAt(),
+            latitude: $nurseryStructure->getLatitude(),
+            longitude: $nurseryStructure->getLongitude(),
             openings: array_map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening), $openings),
             agents: array_map(fn (Agent $agent): AgentView => $this->agentViewFactory->fromModel($agent), $agents),
             children: array_map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child), $children),

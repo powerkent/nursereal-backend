@@ -47,11 +47,17 @@ return static function (FrameworkConfig $framework): void {
         ->markingStore()
         ->service(ClockingInMarkingStore::class);
 
+    $clockingIn->place()->name(ClockingInState::New->value);
     $clockingIn->place()->name(ClockingInState::InProgress->value);
     $clockingIn->place()->name(ClockingInState::Done->value);
 
     $clockingIn->transition()
+        ->name(ClockingInTransition::InProgress->value)
+        ->from([ClockingInState::New->value])
+        ->to([ClockingInState::InProgress->value]);
+
+    $clockingIn->transition()
         ->name(ClockingInTransition::Completed->value)
-        ->from([ClockingInState::InProgress->value])
+        ->from([ClockingInState::New->value, ClockingInState::InProgress->value, ClockingInState::Done->value])
         ->to([ClockingInState::Done->value]);
 };

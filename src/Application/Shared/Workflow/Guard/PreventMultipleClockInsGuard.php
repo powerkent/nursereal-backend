@@ -7,6 +7,7 @@ namespace Nursery\Application\Shared\Workflow\Guard;
 
 use DateTimeImmutable;
 use Nursery\Application\Shared\Query\ClockingIn\FindClockInsByFiltersQuery;
+use Nursery\Domain\Shared\Enum\ClockingInState;
 use Nursery\Domain\Shared\Enum\ClockingInTransition;
 use Nursery\Domain\Shared\Listener\GuardInterface;
 use Nursery\Domain\Shared\Model\ClockingIn;
@@ -33,6 +34,7 @@ final class PreventMultipleClockInsGuard implements GuardInterface
             'endDateTime' => $end,
             'agents' => [$clockingIn->getAgent()],
             'nurseryStructures' => [$clockingIn->getNurseryStructure()],
+            'state' => ClockingInState::InProgress,
         ]));
 
         return count($clockIns) > 1 ? new RuntimeException(sprintf("unable to clock in several times for this agent '%s'", $clockingIn->getAgent()->getUuid())) : null;
@@ -44,6 +46,7 @@ final class PreventMultipleClockInsGuard implements GuardInterface
     public function transitions(): array
     {
         return [
+            ClockingInTransition::InProgress->value,
             ClockingInTransition::Completed->value,
         ];
     }

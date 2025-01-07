@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Nursery\Domain\Nursery\Repository;
 
 use DateTimeInterface;
+use Exception;
 use Nursery\Domain\Nursery\Enum\ActionState;
+use Nursery\Domain\Nursery\Enum\ActionType;
 use Nursery\Domain\Nursery\Model\Action;
 use Nursery\Domain\Shared\Repository\RepositoryInterface;
 
@@ -31,4 +33,10 @@ interface ActionRepositoryInterface extends RepositoryInterface
         array $nurseryStructures = [],
         array $agents = [],
     ): ?array;
+
+    /**
+     * @return array<int, Action>
+     * @throws Exception
+     */
+    public function searchByType(ActionType $type): array;
 }
