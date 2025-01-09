@@ -14,15 +14,15 @@ class NurseryStructureView
      * @param array<int, NurseryStructureOpeningView> $opening
      */
     public function __construct(
-        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item', 'shiftType:item', 'shiftType:list'])]
         public UuidInterface $uuid,
-        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item', 'shiftType:item', 'shiftType:list'])]
         public ?int $id,
-        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item', 'shiftType:item', 'shiftType:list'])]
         public string $name,
-        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item', 'shiftType:item', 'shiftType:list'])]
         public string $address,
-        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item'])]
+        #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item', 'shiftType:item', 'shiftType:list'])]
         public DateTimeInterface $createdAt,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         /** @var array<int, NurseryStructureOpeningView> $opening */

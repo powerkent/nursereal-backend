@@ -7,13 +7,14 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use Exception;
+use Nursery\Domain\Shared\Processor\AgentInputInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent\AgentResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent\AgentResourceFactory;
 use Ramsey\Uuid\Uuid;
 
 /**
- * @implements ProcessorInterface<AgentInput, AgentResource>
+ * @implements ProcessorInterface<AgentInputInterface, AgentResource>
  */
 final readonly class AgentPostProcessor implements ProcessorInterface
 {

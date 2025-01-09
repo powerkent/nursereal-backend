@@ -87,7 +87,7 @@ final class NurseryStructureResource
         public ?float $latitude = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?float $longitude = null,
-        #[Groups(['nurseryStructure:item'])]
+        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         /** @var array<int, NurseryStructureOpeningView> $openings */
         public array $openings = [],
         #[Groups(['nurseryStructure:item'])]

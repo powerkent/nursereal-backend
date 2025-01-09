@@ -44,7 +44,7 @@ final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandler
                 ->setCreatedAt($createdAt)
                 ->setUpdatedAt(new DateTimeImmutable());
 
-            $this->setNurseryStructure($nurseryStructures, $agent);
+            $this->setNurseryStructures($nurseryStructures, $agent);
 
             return $this->agentRepository->update($agent);
         }
@@ -56,7 +56,7 @@ final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandler
             ->setCreatedAt(new DateTimeImmutable())
             ->setUpdatedAt(null);
 
-        $this->setNurseryStructure($nurseryStructures, $agent);
+        $this->setNurseryStructures($nurseryStructures, $agent);
 
         return $this->agentRepository->update($agent);
     }
@@ -64,7 +64,7 @@ final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandler
     /**
      * @param list<string> $nurseryStructures
      */
-    private function setNurseryStructure(array $nurseryStructures, Agent $agent): void
+    private function setNurseryStructures(array $nurseryStructures, Agent $agent): void
     {
         if (!empty($nurseryStructures)) {
             foreach ($nurseryStructures as $nurseryStructureUuid) {

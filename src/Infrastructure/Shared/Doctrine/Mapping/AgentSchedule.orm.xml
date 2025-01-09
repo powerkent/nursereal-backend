@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Nursery\Domain\Shared\Model\AgentSchedule" table="agent_schedule">
+        <id name="id" type="integer">
+            <generator />
+        </id>
+
+        <field name="uuid" type="uuid" unique="true" />
+
+        <field name="arrivalDateTime" type="datetime" />
+
+        <field name="endOfWorkDateTime" type="datetime" />
+
+        <field name="breakDateTime" type="datetime" />
+
+        <field name="endOfBreakDateTime" type="datetime" />
+
+        <many-to-one field="agent" target-entity="Nursery\Domain\Shared\Model\Agent" inversed-by="schedules">
+            <join-column name="agent_id" nullable="false" on-delete="CASCADE"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

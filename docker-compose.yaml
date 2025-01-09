@@ -52,10 +52,12 @@ services:
         command: /usr/bin/caddy run --config /etc/caddy/dev.Caddyfile
         ports:
             - "80"
-            - 8001:80
+            - 8083:80
         volumes:
             - mercure_data:/data
             - mercure_config:/config
+        networks:
+            - nursereal_network
 
     localstack:
         container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
@@ -67,6 +69,8 @@ services:
         volumes:
             - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
             - "/var/run/docker.sock:/var/run/docker.sock"
+        networks:
+            - nursereal_network
 
 volumes:
     mercure_data:

@@ -30,6 +30,7 @@ final readonly class MessageResourceOpenApiContext implements OpenApiContextInte
                     [
                         'name' => 'channelId',
                         'in' => 'query',
+                        'explode' => true,
                         'schema' => ['type' => 'string', 'enum' => $channelsValues],
                     ],
                 ],

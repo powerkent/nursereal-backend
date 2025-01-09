@@ -19,6 +19,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentPostProcessor
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentPutProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent\AgentCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent\AgentProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentScheduleView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -63,6 +64,7 @@ final class AgentResource
     /**
      * @param array<int, string>               $roles
      * @param array<int, NurseryStructureView> $nurseryStructures
+     * @param array<int, AgentScheduleView>    $schedules
      */
     public function __construct(
         #[ApiProperty(identifier: true)]
@@ -91,6 +93,9 @@ final class AgentResource
         #[Groups(['agent:item', 'agent:list'])]
         /** @var array<int, NurseryStructureView> $nurseryStructures */
         public array $nurseryStructures = [],
+        #[Groups(['agent:item', 'agent:list'])]
+        /** @var array<int, AgentScheduleView> $schedules */
+        public array $schedules = [],
     ) {
     }
 }
