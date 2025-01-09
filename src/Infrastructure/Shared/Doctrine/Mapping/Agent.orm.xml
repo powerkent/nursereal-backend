@@ -39,5 +39,12 @@
                 <cascade-remove />
             </cascade>
         </one-to-many>
+
+        <one-to-many field="schedules" target-entity="Nursery\Domain\Shared\Model\AgentSchedule" mapped-by="agent" orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

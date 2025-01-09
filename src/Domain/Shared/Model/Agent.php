@@ -31,10 +31,14 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
     /** @var Collection<int, ClockingIn> */
     protected Collection $clockIns;
 
+    /** @var Collection<int, AgentSchedule> */
+    protected Collection $schedules;
+
     /**
      * @param array<int, string>                                             $roles
      * @param array<int, NurseryStructure>|Collection<int, NurseryStructure> $nurseryStructures
      * @param array<int, ClockingIn>|Collection<int, ClockingIn>             $clockIns
+     * @param array<int, AgentSchedule>|Collection<int, AgentSchedule>       $schedules
      */
     public function __construct(
         protected UuidInterface $uuid,
@@ -49,6 +53,7 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         array|Collection $nurseryStructures = [],
         array $roles = [],
         array|Collection $clockIns = [],
+        array|Collection $schedules = [],
     ) {
         if (null !== $this->firstname) {
             Assert::stringNotEmpty($firstname, 'Firstname cannot be empty.');
@@ -71,6 +76,7 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
 
         $this->nurseryStructures = is_array($nurseryStructures) ? new ArrayCollection($nurseryStructures) : $nurseryStructures;
         $this->clockIns = is_array($clockIns) ? new ArrayCollection($clockIns) : $clockIns;
+        $this->schedules = is_array($schedules) ? new ArrayCollection($schedules) : $schedules;
     }
 
     public function getId(): ?int
@@ -270,6 +276,24 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
     public function setClockIns(Collection $clockIns): self
     {
         $this->clockIns = $clockIns;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AgentSchedule>
+     */
+    public function getSchedules(): Collection
+    {
+        return $this->schedules;
+    }
+
+    /**
+     * @param Collection<int, AgentSchedule> $schedules
+     */
+    public function setSchedules(Collection $schedules): self
+    {
+        $this->schedules = $schedules;
 
         return $this;
     }

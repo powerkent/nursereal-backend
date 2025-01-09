@@ -6,6 +6,7 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\Pagination\Pagination;
+use Doctrine\Common\Collections\Collection;
 use Nursery\Application\Shared\Query\Agent\FindAgentsByNurseryStructureQuery;
 use Nursery\Application\Shared\Query\Agent\FindAgentsQuery;
 use Nursery\Application\Shared\Query\NurseryStructure\FindNurseryStructureByUuidQuery;
@@ -38,7 +39,16 @@ final class AgentCollectionProvider extends AbstractCollectionProvider
                 throw new ResourceNotFoundException();
             }
 
-            return $this->queryBus->ask(new FindAgentsByNurseryStructureQuery($nurseryStructure));
+            $agents = $this->queryBus->ask(new FindAgentsByNurseryStructureQuery($nurseryStructure));
+
+            foreach ($agents as $agent) {
+                if ($agent->getSchedules() instanceof Collection) {
+                    /* @phpstan-ignore-next-line  */
+                    $agent->getSchedules()->initialize();
+                }
+            }
+
+            return $agents;
         }
 
         return $this->queryBus->ask(new FindAgentsQuery());

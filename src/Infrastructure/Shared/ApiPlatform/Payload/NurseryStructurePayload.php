@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class NurseryStructurePayload
 {
     public function __construct(
-        #[Groups(['agent:item'])]
+        #[Groups(['agent:item', 'shiftType:item'])]
         public UuidInterface $uuid,
     ) {
     }

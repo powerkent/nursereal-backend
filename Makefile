@@ -1,18 +1,15 @@
 .DEFAULT_GOAL := help
 
-DC = docker-compose
-ifeq (, $(shell which $(DC)))
-  DC = docker compose
-endif
+DC = docker compose
 EXEC = $(DC) exec -u www-data app
 SYMFONY = $(EXEC) bin/console
 COMPOSER = $(EXEC) composer
 
 
-RED := $(shell tput -Txterm setaf 1)
-GREEN  := $(shell tput -Txterm setaf 2)
-YELLOW := $(shell tput -Txterm setaf 3)
-RESET  := $(shell tput -Txterm sgr0)
+RED := \033[31m
+GREEN := \033[32m
+YELLOW := \033[33m
+RESET := \033[0m
 TARGET_MAX_CHAR_NUM=30
 
 help:

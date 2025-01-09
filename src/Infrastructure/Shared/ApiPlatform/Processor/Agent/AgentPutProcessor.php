@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityNotFoundException;
 use Exception;
 use Nursery\Application\Shared\Query\Agent\FindAgentByUuidOrIdQuery;
 use Nursery\Domain\Shared\Model\Agent;
-use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Agent\AgentResource;
@@ -38,7 +37,7 @@ final readonly class AgentPutProcessor implements ProcessorInterface
         $agent = $this->queryBus->ask(new FindAgentByUuidOrIdQuery($uriVariables['uuid']));
 
         if (null === $agent) {
-            throw new EntityNotFoundException(Child::class);
+            throw new EntityNotFoundException(Agent::class);
         }
 
         $agent = $this->agentProcessor->process($data, $uriVariables['uuid']);
