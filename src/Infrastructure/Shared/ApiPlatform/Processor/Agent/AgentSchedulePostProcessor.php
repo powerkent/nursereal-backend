@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use DateTimeImmutable;
 use Exception;
-use Nursery\Application\Shared\Command\Agent\CreateAgentScheduleCommand;
+use Nursery\Application\Shared\Command\Agent\CreateOrUpdateAgentScheduleCommand;
 use Nursery\Application\Shared\Query\Agent\FindAgentByUuidOrIdQuery;
 use Nursery\Application\Shared\Query\Agent\FindAgentsByNurseryStructureQuery;
 use Nursery\Application\Shared\Query\Agent\FindShiftTypeByUuidQuery;
@@ -66,7 +66,7 @@ final readonly class AgentSchedulePostProcessor implements ProcessorInterface
                 'breakDateTime' => null !== $data->breakDateTime ? new DateTimeImmutable($data->breakDateTime) : null,
                 'endOfBreakDateTime' => null !== $data->endOfBreakDateTime ? new DateTimeImmutable($data->endOfBreakDateTime) : null,
             ];
-            $agentSchedule = $this->commandBus->dispatch(CreateAgentScheduleCommand::create($primitives));
+            $agentSchedule = $this->commandBus->dispatch(CreateOrUpdateAgentScheduleCommand::create($primitives));
 
             return $this->agentScheduleResourceFactory->fromModel($agentSchedule);
         }
@@ -95,7 +95,7 @@ final readonly class AgentSchedulePostProcessor implements ProcessorInterface
                     'endOfBreakDateTime' => $date->setTime((int) $shiftType->getEndOfBreakTime()->format('H'), (int) $shiftType->getEndOfBreakTime()->format('i')),
                 ];
 
-                $this->commandBus->dispatch(CreateAgentScheduleCommand::create($primitives));
+                $this->commandBus->dispatch(CreateOrUpdateAgentScheduleCommand::create($primitives));
 
                 $date = $date->modify('+1 day');
 
@@ -128,7 +128,7 @@ final readonly class AgentSchedulePostProcessor implements ProcessorInterface
                         'endOfBreakDateTime' => $date->setTime((int) $shiftTypes[$i]->getEndOfBreakTime()->format('H'), (int) $shiftTypes[$i]->getEndOfBreakTime()->format('i')),
                     ];
 
-                    $this->commandBus->dispatch(CreateAgentScheduleCommand::create($primitives));
+                    $this->commandBus->dispatch(CreateOrUpdateAgentScheduleCommand::create($primitives));
 
                     if (count($shiftTypes) - 1 <= $i) {
                         $i = 0;
