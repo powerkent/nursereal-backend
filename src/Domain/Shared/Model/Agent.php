@@ -297,4 +297,13 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function addSchedule(AgentSchedule $agentSchedule): self
+    {
+        if (!$this->schedules->contains($agentSchedule)) {
+            $this->schedules->add($agentSchedule);
+        }
+
+        return $this;
+    }
 }

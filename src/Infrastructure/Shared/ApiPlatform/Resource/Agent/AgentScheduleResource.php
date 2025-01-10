@@ -14,9 +14,9 @@ use ApiPlatform\Metadata\Put;
 use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentScheduleInput;
-use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentPutProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentScheduleDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentSchedulePostProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentSchedulePutProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent\AgentScheduleCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent\AgentScheduleProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentView;
@@ -50,7 +50,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: "is_granted('".Roles::Manager->value."')",
             input: AgentScheduleInput::class,
             provider: AgentScheduleProvider::class,
-            processor: AgentPutProcessor::class, // TODO
+            processor: AgentSchedulePutProcessor::class,
         ),
         new Delete(
             security: "is_granted('".Roles::Manager->value."')",

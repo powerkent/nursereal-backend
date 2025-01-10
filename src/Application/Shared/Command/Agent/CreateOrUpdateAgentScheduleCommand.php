@@ -6,9 +6,9 @@ namespace Nursery\Application\Shared\Command\Agent;
 
 use Nursery\Domain\Shared\Command\AbstractCreateCommand;
 
-final class CreateAgentScheduleCommand extends AbstractCreateCommand
+final class CreateOrUpdateAgentScheduleCommand extends AbstractCreateCommand
 {
-    public static function create(array $primitives): CreateAgentScheduleCommand
+    public static function create(array $primitives): CreateOrUpdateAgentScheduleCommand
     {
         return new self($primitives);
     }
