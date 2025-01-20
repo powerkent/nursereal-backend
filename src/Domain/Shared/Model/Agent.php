@@ -48,7 +48,7 @@ class Agent implements UserDomainInterface, PasswordAuthenticatedUserInterface
         protected ?string $email,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt,
-        protected string $user,
+        protected ?string $user = null,
         protected ?string $password = null,
         array|Collection $nurseryStructures = [],
         array $roles = [],

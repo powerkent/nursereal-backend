@@ -23,7 +23,7 @@ final readonly class AgentResourceFactory
     public function fromModel(Agent $agent): AgentResource
     {
         return new AgentResource(
-            uuid: $agent->getUuid(),
+            uuid: $agent->getUuid()->toString(),
             id: $agent->getId(),
             avatar: $agent->getAvatar()?->getContentUrl(),
             firstname: $agent->getFirstname(),
@@ -33,6 +33,7 @@ final readonly class AgentResourceFactory
             roles: $agent->getRoles(),
             createdAt: $agent->getCreatedAt(),
             updatedAt: $agent->getUpdatedAt(),
+            hasPassword: !empty($agent->getPassword()),
             nurseryStructures: $agent->getNurseryStructures()->map(fn (NurseryStructure $nurseryStructure): NurseryStructureView => $this->nurseryStructureViewFactory->fromModel($nurseryStructure))->toArray(),
             schedules: $agent->getSchedules()->map(fn (AgentSchedule $agentSchedule): AgentScheduleView => $this->agentScheduleViewFactory->fromModel($agentSchedule))->toArray(),
         );

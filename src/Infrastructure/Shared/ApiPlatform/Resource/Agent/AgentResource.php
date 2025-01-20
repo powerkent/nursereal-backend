@@ -9,10 +9,15 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\Model\RequestBody;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentEmailPostProcessor;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentPatchProcessor;
 use DateTimeInterface;
 use Nursery\Domain\Shared\Enum\Roles;
+use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentEmailInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AgentInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentDeleteProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentPostProcessor;
@@ -21,15 +26,14 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent\AgentCollectionProv
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Agent\AgentProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentScheduleView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureView;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ArrayObject;
 
 #[ApiResource(
     shortName: 'Agent',
     operations: [
         new Get(
             normalizationContext: ['groups' => ['agent:item']],
-            security: "is_granted('".Roles::Manager->value."') or is_granted('".Roles::Agent->value."')",
             provider: AgentProvider::class
         ),
         new GetCollection(
@@ -44,6 +48,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             input: AgentInput::class,
             processor: AgentPostProcessor::class,
         ),
+        new Post(
+            uriTemplate: '/agents/{uuid}/send-email',
+            input: AgentEmailInput::class,
+            processor: AgentEmailPostProcessor::class,
+        ),
         new Put(
             normalizationContext: ['groups' => ['agent:item', 'agent:put:read']],
             denormalizationContext: ['groups' => ['agent:item', 'agent:put:write']],
@@ -51,6 +60,31 @@ use Symfony\Component\Serializer\Annotation\Groups;
             input: AgentInput::class,
             provider: AgentProvider::class,
             processor: AgentPutProcessor::class,
+        ),
+        new Post(
+            uriTemplate: '/agents/{uuid}/confirmation',
+            inputFormats: ['multipart' => ['multipart/form-data']],
+            outputFormats: ['jsonld' => ['application/ld+json']],
+            openapi: new Operation(
+                requestBody: new RequestBody(
+                    content: new ArrayObject([
+                        'multipart/form-data' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'avatar' => [
+                                        'type' => 'string',
+                                        'format' => 'binary',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ])
+                )
+            ),
+            normalizationContext: ['groups' => ['agent:item', 'agent:patch:read']],
+            provider: AgentProvider::class,
+            processor: AgentPatchProcessor::class,
         ),
         new Delete(
             security: "is_granted('".Roles::Manager->value."')",
@@ -69,7 +103,7 @@ final class AgentResource
     public function __construct(
         #[ApiProperty(identifier: true)]
         #[Groups(['agent:item', 'agent:list'])]
-        public UuidInterface $uuid,
+        public string $uuid,
         #[ApiProperty(identifier: false)]
         #[Groups(['agent:item', 'agent:list'])]
         public ?int $id,
@@ -90,6 +124,8 @@ final class AgentResource
         public DateTimeInterface $createdAt,
         #[Groups(['agent:item', 'agent:list'])]
         public ?DateTimeInterface $updatedAt = null,
+        #[Groups(['agent:item', 'agent:list'])]
+        public ?bool $hasPassword = null,
         #[Groups(['agent:item', 'agent:list'])]
         /** @var array<int, NurseryStructureView> $nurseryStructures */
         public array $nurseryStructures = [],

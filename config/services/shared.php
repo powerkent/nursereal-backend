@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Aws\S3\S3Client;
 use League\Flysystem\FilesystemOperator;
 use Nursery\Infrastructure\Shared\ApiPlatform\OpenApi\ResourceMetadataFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Agent\AgentPatchProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Serializer\DeserializeListener;
 use Nursery\Infrastructure\Shared\ApiPlatform\Serializer\MultipartDenormalizer;
 use Nursery\Infrastructure\Shared\Security\JWTCreatedListener;
@@ -60,4 +61,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->tag('kernel.event_listener', ['event' => 'kernel.request', 'method' => 'onKernelRequest', 'priority' => 2])
         ->decorate('api_platform.listener.request.deserialize')
         ->autoconfigure(false);
+
+    $services->set(AgentPatchProcessor::class)
+        ->arg('$avatarUploadDir', __DIR__.'/../../volume/tmp');
 };

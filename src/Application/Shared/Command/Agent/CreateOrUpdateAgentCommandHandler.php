@@ -15,14 +15,12 @@ use Nursery\Domain\Shared\Repository\AgentRepositoryInterface;
 use Nursery\Domain\Shared\Serializer\NormalizerInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private QueryBusInterface $queryBus,
         private AgentRepositoryInterface $agentRepository,
-        private UserPasswordHasherInterface $passwordHasher,
         private NormalizerInterface $normalizer,
     ) {
     }
@@ -33,14 +31,12 @@ final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandler
         $agent = $this->agentRepository->searchByUuid(!$command->primitives['uuid'] instanceof UuidInterface ? Uuid::fromString($command->primitives['uuid']) : $command->primitives['uuid']);
 
         $nurseryStructures = $command->primitives['nurseryStructures'];
-        $password = $command->primitives['password'];
 
         if (null !== $agent) {
             $createdAt = $agent->getCreatedAt();
             unset($command->primitives['nurseryStructures'], $command->primitives['createdAt'], $command->primitives['updatedAt']);
             $agent = $this->normalizer->denormalize($command->primitives, Agent::class, context: ['object_to_populate' => $agent]);
             $agent
-                ->setPassword($this->passwordHasher->hashPassword($agent, $password))
                 ->setCreatedAt($createdAt)
                 ->setUpdatedAt(new DateTimeImmutable());
 
@@ -52,7 +48,6 @@ final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandler
         unset($command->primitives['nurseryStructures']);
         $agent = new Agent(...$command->primitives);
         $agent
-            ->setPassword($this->passwordHasher->hashPassword($agent, $password))
             ->setCreatedAt(new DateTimeImmutable())
             ->setUpdatedAt(null);
 
@@ -66,9 +61,10 @@ final readonly class CreateOrUpdateAgentCommandHandler implements CommandHandler
      */
     private function setNurseryStructures(array $nurseryStructures, Agent $agent): void
     {
+
         if (!empty($nurseryStructures)) {
             foreach ($nurseryStructures as $nurseryStructureUuid) {
-                $nurseryStructure = $this->queryBus->ask(new FindNurseryStructureByUuidQuery($nurseryStructureUuid));
+                $nurseryStructure = $this->queryBus->ask(new FindNurseryStructureByUuidQuery(Uuid::fromString($nurseryStructureUuid)));
                 if (null === $nurseryStructure) {
                     throw new EntityNotFoundException(NurseryStructure::class, $nurseryStructureUuid, 'uuid');
                 }
