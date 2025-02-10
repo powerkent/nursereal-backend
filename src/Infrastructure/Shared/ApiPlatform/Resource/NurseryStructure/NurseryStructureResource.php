@@ -18,6 +18,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructure\Nursery
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\NurseryStructure\NurseryStructureProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructure\NurseryStructureCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\NurseryStructure\NurseryStructureProvider;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Address\AddressView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\Agent\AgentView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureOpeningView;
@@ -76,17 +77,13 @@ final class NurseryStructureResource
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public string $name,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public string $address,
+        public AddressView $address,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?string $user,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?DateTimeInterface $createdAt = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         public ?DateTimeInterface $updatedAt = null,
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?float $latitude = null,
-        #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
-        public ?float $longitude = null,
         #[Groups(['nurseryStructure:item', 'nurseryStructure:list'])]
         /** @var array<int, NurseryStructureOpeningView> $openings */
         public array $openings = [],

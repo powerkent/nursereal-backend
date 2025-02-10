@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nursery\Domain\Shared\Model;
 
-use Ramsey\Uuid\UuidInterface;
+use Nursery\Domain\Shared\Enum\AvatarType;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
@@ -13,7 +13,7 @@ class Avatar
     protected ?int $id = null;
 
     public function __construct(
-        protected UuidInterface $uuid,
+        protected AvatarType $type,
         protected string $contentUrl
     ) {
     }
@@ -30,16 +30,14 @@ class Avatar
         return $this;
     }
 
-    public function getUuid(): UuidInterface
+    public function getType(): AvatarType
     {
-        return $this->uuid;
+        return $this->type;
     }
 
-    public function setUuid(UuidInterface $uuid): self
+    public function setType(AvatarType $type): void
     {
-        $this->uuid = $uuid;
-
-        return $this;
+        $this->type = $type;
     }
 
     public function getContentUrl(): string

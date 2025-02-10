@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Nursery\Tests\Infrastructure\Shared\Behat;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Nursery\Domain\Shared\Model\Address;
+use Nursery\Domain\Shared\Model\AgeGroup;
+use Nursery\Domain\Shared\Model\Avatar;
 use Nursery\Domain\Shared\Model\Child;
-use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Model\Customer;
 use Nursery\Domain\Shared\Model\Dosage;
+use Nursery\Domain\Shared\Model\Family;
 use Nursery\Domain\Shared\Model\IRP;
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Model\Treatment;
@@ -156,18 +159,66 @@ final class Storage
     }
 
     /**
-     * @return Proxy<Config>
+     * @return Proxy<AgeGroup>
      */
-    public function getConfig(): Proxy
+    public function getAgeGroup(): Proxy
     {
-        return $this->findEntity(Config::class);
+        return $this->findEntity(AgeGroup::class);
     }
 
     /**
-     * @param Proxy<Config> $config
+     * @param Proxy<AgeGroup> $ageGroup
      */
-    public function setConfig(Proxy $config): void
+    public function setAgeGroup(Proxy $ageGroup): void
     {
-        $this->storeEntity($config);
+        $this->storeEntity($ageGroup);
+    }
+
+    /**
+     * @return Proxy<Address>
+     */
+    public function getAddress(): Proxy
+    {
+        return $this->findEntity(Address::class);
+    }
+
+    /**
+     * @param Proxy<Address> $address
+     */
+    public function setAddress(Proxy $address): void
+    {
+        $this->storeEntity($address);
+    }
+
+    /**
+     * @return Proxy<Avatar>
+     */
+    public function getAvatar(): Proxy
+    {
+        return $this->findEntity(Avatar::class);
+    }
+
+    /**
+     * @param Proxy<Avatar> $avatar
+     */
+    public function setAvatar(Proxy $avatar): void
+    {
+        $this->storeEntity($avatar);
+    }
+
+    /**
+     * @return Proxy<Family>
+     */
+    public function getFamily(): Proxy
+    {
+        return $this->findEntity(Family::class);
+    }
+
+    /**
+     * @param Proxy<Family> $family
+     */
+    public function setFamily(Proxy $family): void
+    {
+        $this->storeEntity($family);
     }
 }

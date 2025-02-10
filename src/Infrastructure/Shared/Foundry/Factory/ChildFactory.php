@@ -6,7 +6,8 @@ namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use DateTimeImmutable;
 use Faker\Factory;
-use Faker\Generator;
+use Nursery\Domain\Shared\Enum\AvatarType;
+use Nursery\Domain\Shared\Enum\Gender;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
 use Ramsey\Uuid\Uuid;
@@ -35,21 +36,21 @@ final class ChildFactory extends PersistentProxyObjectFactory
         $firstname = self::faker()->firstName();
         $lastname = self::faker()->lastName();
 
-        /** @var Generator $uniqueGenerator */
-        $uniqueGenerator = self::faker()->unique();
-
         return [
-            'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
-            'avatar' => AvatarFactory::createOne(['contentUrl' => $faker->imageUrl($firstname, $lastname)]),
+            'uuid' => Uuid::uuid4(),
+            'avatar' => self::faker()->boolean() ? AvatarFactory::createOne(['type' => AvatarType::Child, 'contentUrl' => $faker->imageUrl($firstname, $lastname)]) : null,
             'firstname' => $firstname,
             'lastname' => $lastname,
             'birthday' => DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'gender' => Gender::tryFrom(self::faker()->randomElement(['Male', 'Female'])),
             'nurseryStructure' => NurseryStructureFactory::randomOrCreate(),
+            'ageGroup' => AgeGroupFactory::randomOrCreate(),
+            'isWalking' => self::faker()->boolean(),
+            'family' => FamilyFactory::randomOrCreate(),
             'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')),
             'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')) : null,
             'irp' => self::faker()->boolean() ? IRPFactory::createOne() : null,
             'treatments' => [],
-            'customers' => [],
             'contractDates' => [],
         ];
     }

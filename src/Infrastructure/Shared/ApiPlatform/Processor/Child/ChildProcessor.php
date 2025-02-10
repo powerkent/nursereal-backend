@@ -11,9 +11,12 @@ use Nursery\Application\Shared\Command\Child\CreateChildCommand;
 use Nursery\Application\Shared\Command\Child\UpdateChildCommand;
 use Nursery\Application\Shared\Command\Dosage\CreateDosageCommand;
 use Nursery\Application\Shared\Command\Treatment\CreateTreatmentCommand;
+use Nursery\Application\Shared\Query\AgeGroup\FindAgeGroupByUuidQuery;
 use Nursery\Application\Shared\Query\Child\FindChildByUuidOrIdQuery;
+use Nursery\Application\Shared\Query\Family\FindFamilyByUuidQuery;
 use Nursery\Application\Shared\Query\NurseryStructure\FindNurseryStructureByUuidQuery;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
+use Nursery\Domain\Shared\Enum\Gender;
 use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\Treatment;
 use Nursery\Domain\Shared\Processor\ChildProcessorInterface;
@@ -43,7 +46,11 @@ final readonly class ChildProcessor implements ChildProcessorInterface
             'firstname' => $data->firstname,
             'lastname' => $data->lastname,
             'birthday' => new DateTimeImmutable($data->birthday),
+            'gender' => Gender::from($data->gender),
+            'ageGroup' => null !== $data->ageGroupUuid ? $this->queryBus->ask(new FindAgeGroupByUuidQuery($data->ageGroupUuid)) : null,
+            'isWalking' => $data->isWalking,
             'nurseryStructure' => $this->queryBus->ask(new FindNurseryStructureByUuidQuery($data->nurseryStructureUuid)),
+            'family' => null !== $data->familyUuid ? $this->queryBus->ask(new FindFamilyByUuidQuery($data->familyUuid)) : null,
             'treatments' => [],
         ];
 
@@ -65,11 +72,8 @@ final readonly class ChildProcessor implements ChildProcessorInterface
             return $child;
         }
 
-        $primitives = [
-            'uuid' => $child->getUuid(),
-            'irp' => $irp,
-            'treatments' => [],
-        ];
+        $primitives['uuid'] = $child->getUuid();
+        $primitives['treatments'] = [];
         if (isset($data->treatments) && count($data->treatments)) {
             foreach ($data->treatments as $treatment) {
                 $primitives['treatments'][] = $this->createTreatment($child, $treatment);

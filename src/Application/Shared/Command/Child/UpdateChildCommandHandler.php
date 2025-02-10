@@ -29,10 +29,13 @@ final readonly class UpdateChildCommandHandler implements CommandHandlerInterfac
             throw new EntityNotFoundException(Child::class, 'id', $command->id());
         }
 
-        $child->setFirstname($command->primitives['firstname'] ?? $child->getFirstname());
-        $child->setLastname($command->primitives['lastname'] ?? $child->getLastname());
-        $child->setBirthday($command->primitives['birthday'] ?? $child->getBirthday());
-
+        $child->setFirstname($command->primitives['firstname']);
+        $child->setLastname($command->primitives['lastname']);
+        $child->setBirthday($command->primitives['birthday']);
+        $child->setGender($command->primitives['gender']);
+        $child->setAgeGroup($command->primitives['ageGroup'] ?? null);
+        $child->setIsWalking($command->primitives['isWalking']);
+        $child->setFamily($command->primitives['family'] ?? null);
         $child->setCreatedAt($child->getCreatedAt());
         $child->setUpdatedAt(new DateTimeImmutable());
 

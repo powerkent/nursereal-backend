@@ -13,15 +13,17 @@
 
         <field name="name" />
 
-        <field name="address" />
+        <many-to-one field="address" target-entity="Nursery\Domain\Shared\Model\Address">
+            <join-column name="address_id" on-delete="CASCADE" />
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
 
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
 
-        <field name="latitude" type="float" nullable="true" />
-
-        <field name="longitude" type="float" nullable="true" />
 
         <one-to-many field="openings" target-entity="Nursery\Domain\Shared\Model\NurseryStructureOpening" mapped-by="nurseryStructure" orphan-removal="true">
             <cascade>

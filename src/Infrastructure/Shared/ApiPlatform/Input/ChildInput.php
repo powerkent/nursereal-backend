@@ -19,8 +19,6 @@ final class ChildInput implements ChildInputDataInterface
      */
     public function __construct(
         #[Groups(['child:item'])]
-        public ?string $avatar,
-        #[Groups(['child:item'])]
         #[Assert\NotBlank(message: 'Child requires a firstname.')]
         public string $firstname,
         #[Groups(['child:item'])]
@@ -31,13 +29,26 @@ final class ChildInput implements ChildInputDataInterface
         #[ApiProperty(openapiContext: ['example' => '2024-01-01 00:00:00'])]
         public string $birthday,
         #[Groups(['child:item'])]
+        public string $gender,
+        #[Groups(['child:item'])]
+        public bool $isWalking,
+        #[Groups(['child:item'])]
         #[Assert\NotBlank(message: 'Child requires a nursery structure.')]
         public UuidInterface $nurseryStructureUuid,
+        #[Groups(['child:item'])]
+        #[Assert\NotBlank(message: 'Child requires a familyUuid.')]
+        public ?UuidInterface $familyUuid,
+        #[Groups(['child:item'])]
+        public ?string $ageGroupUuid = null,
         #[Groups(['child:item'])]
         public ?IRPPayload $irp = null,
         #[Groups(['child:item'])]
         /** @var list<TreatmentPayload> $treatments */
         public ?array $treatments = [],
+        #[Groups(['child:item'])]
+        public ?string $comment = null,
+        #[Groups(['child:item'])]
+        public ?string $internalComment = null,
     ) {
     }
 }

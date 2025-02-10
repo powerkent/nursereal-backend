@@ -7,6 +7,7 @@ namespace Nursery\Tests\Infrastructure\Shared\Behat\Context;
 use Behat\Behat\Context\Context;
 use DateTimeImmutable;
 use Exception;
+use Nursery\Infrastructure\Shared\Foundry\Factory\AddressFactory;
 use Nursery\Infrastructure\Shared\Foundry\Factory\NurseryStructureFactory;
 use Nursery\Tests\Infrastructure\Shared\Behat\Storage;
 use Ramsey\Uuid\Uuid;
@@ -39,16 +40,6 @@ final readonly class NurseryStructureContext implements Context
     }
 
     /**
-     * @Given that nursery structure has an address :address
-     */
-    public function updateNurseryStructureAddress(string $address): void
-    {
-        $nurseryStructure = $this->storage->getNurseryStructure();
-        $nurseryStructure->_set('address', $address);
-        $nurseryStructure->_save();
-    }
-
-    /**
      * @Given that nursery structure has a created date :date
      * @throws Exception
      */
@@ -67,6 +58,17 @@ final readonly class NurseryStructureContext implements Context
     {
         $nurseryStructure = $this->storage->getNurseryStructure();
         $nurseryStructure->_set('updatedAt', new DateTimeImmutable($updatedAt));
+        $nurseryStructure->_save();
+    }
+
+    /**
+     * @Given that nursery structure has an address :address with zipcode :zipcode and city :city
+     */
+    public function updateNurseryStructureAddress(string $address, int $zipcode, string $city): void
+    {
+        $address = AddressFactory::createOne(['address' => $address, 'zipcode' => $zipcode, 'city' => $city]);
+        $nurseryStructure = $this->storage->getNurseryStructure();
+        $nurseryStructure->_set('address', $address->_real());
         $nurseryStructure->_save();
     }
 }

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Nursery\Domain\Shared\Model;
 
 use DateTimeInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use LogicException;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Domain\Shared\User\UserDomainInterface;
@@ -18,15 +16,11 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
 {
     protected ?int $id = null;
 
-    /** @var Collection<int, Child> */
-    protected Collection $children;
-
     /** @var array<int, string> */
     public array $roles;
 
     /**
-     * @param array<int, Child>|Collection<int, Child> $children
-     * @param array<int, string>                       $roles
+     * @param array<int, string> $roles
      */
     public function __construct(
         protected UuidInterface $uuid,
@@ -34,20 +28,21 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         protected string $firstname,
         protected string $lastname,
         protected string $email,
-        protected string $user,
-        protected string $password,
+        protected ?string $user,
+        protected ?string $password,
         protected string $phoneNumber,
+        protected ?Family $family,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
-        array|Collection $children = [],
+        protected ?Address $address = null,
+        protected ?float $income = null,
+        protected ?string $internalComment = null,
         array $roles = [],
     ) {
         Assert::stringNotEmpty($firstname, 'Firstname cannot be empty.');
         Assert::stringNotEmpty($lastname, 'Lastname cannot be empty.');
         Assert::email($email, 'Invalid email address.');
-        Assert::stringNotEmpty($user, 'User cannot be empty.');
 
-        $this->children = is_array($children) ? new ArrayCollection($children) : $children;
         $this->roles = $roles;
         if (empty($this->roles)) {
             $this->roles = [Roles::Parent->value];
@@ -132,29 +127,14 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this;
     }
 
-    /**
-     * @return Collection<int, Child>
-     */
-    public function getChildren(): Collection
+    public function getFamily(): ?Family
     {
-        return $this->children;
+        return $this->family;
     }
 
-    /**
-     * @param Collection<int, Child>|array<int, Child> $children
-     */
-    public function setChildren(Collection|array $children): self
+    public function setFamily(?Family $family): self
     {
-        $this->children = $children instanceof Collection ? $children : new ArrayCollection($children);
-
-        return $this;
-    }
-
-    public function addChild(Child $child): self
-    {
-        if (!$this->children->contains($child)) {
-            $this->children->add($child);
-        }
+        $this->family = $family;
 
         return $this;
     }
@@ -183,6 +163,42 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this;
     }
 
+    public function getIncome(): ?float
+    {
+        return $this->income;
+    }
+
+    public function setIncome(?float $income): self
+    {
+        $this->income = $income;
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getInternalComment(): ?string
+    {
+        return $this->internalComment;
+    }
+
+    public function setInternalComment(?string $internalComment): self
+    {
+        $this->internalComment = $internalComment;
+
+        return $this;
+    }
+
     /**
      * @return array<int, string>
      */
@@ -201,12 +217,12 @@ class Customer implements UserDomainInterface, PasswordAuthenticatedUserInterfac
         return $this;
     }
 
-    public function getUser(): string
+    public function getUser(): ?string
     {
         return $this->user;
     }
 
-    public function setUser(string $user): self
+    public function setUser(?string $user): self
     {
         $this->user = $user;
 

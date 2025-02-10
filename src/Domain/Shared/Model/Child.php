@@ -7,6 +7,7 @@ namespace Nursery\Domain\Shared\Model;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Nursery\Domain\Shared\Enum\Gender;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
 
@@ -17,15 +18,11 @@ class Child
     /** @var Collection<int, Treatment> */
     protected Collection $treatments;
 
-    /** @var Collection<int, Customer> */
-    protected Collection $customers;
-
     /** @var Collection<int, ContractDate> */
     protected Collection $contractDates;
 
     /**
      * @param array<int, Treatment>|Collection<int, Treatment>       $treatments
-     * @param array<int, Customer>|Collection<int, Customer>         $customers
      * @param array<int, ContractDate>|Collection<int, ContractDate> $contractDates
      */
     public function __construct(
@@ -34,19 +31,23 @@ class Child
         protected string $firstname,
         protected string $lastname,
         protected DateTimeInterface $birthday,
+        protected Gender $gender,
         protected NurseryStructure $nurseryStructure,
+        protected ?AgeGroup $ageGroup,
+        protected bool $isWalking,
+        protected Family $family,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
         protected ?IRP $irp = null,
+        protected ?string $comment = null,
+        protected ?string $internalComment = null,
         array|Collection $treatments = [],
-        array|Collection $customers = [],
         array|Collection $contractDates = [],
     ) {
         Assert::stringNotEmpty($firstname);
         Assert::stringNotEmpty($lastname);
 
         $this->treatments = is_array($treatments) ? new ArrayCollection($treatments) : $treatments;
-        $this->customers = is_array($customers) ? new ArrayCollection($customers) : $customers;
         $this->contractDates = is_array($contractDates) ? new ArrayCollection($contractDates) : $contractDates;
     }
 
@@ -101,9 +102,45 @@ class Child
         return $this;
     }
 
+    public function getGender(): Gender
+    {
+        return $this->gender;
+    }
+
+    public function setGender(Gender $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
     public function getNurseryStructure(): NurseryStructure
     {
         return $this->nurseryStructure;
+    }
+
+    public function getAgeGroup(): ?AgeGroup
+    {
+        return $this->ageGroup;
+    }
+
+    public function setAgeGroup(?AgeGroup $ageGroup): self
+    {
+        $this->ageGroup = $ageGroup;
+
+        return $this;
+    }
+
+    public function isWalking(): bool
+    {
+        return $this->isWalking;
+    }
+
+    public function setIsWalking(bool $isWalking): self
+    {
+        $this->isWalking = $isWalking;
+
+        return $this;
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -170,19 +207,14 @@ class Child
         return $this;
     }
 
-    /**
-     * @return Collection<int, Customer>
-     */
-    public function getCustomers(): Collection
+    public function getFamily(): Family
     {
-        return $this->customers;
+        return $this->family;
     }
 
-    public function addCustomer(Customer $customer): self
+    public function setFamily(Family $family): self
     {
-        if (!$this->customers->contains($customer)) {
-            $this->customers->add($customer);
-        }
+        $this->family = $family;
 
         return $this;
     }
@@ -210,6 +242,30 @@ class Child
         if (!$this->contractDates->contains($contractDate)) {
             $this->contractDates->add($contractDate);
         }
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getInternalComment(): ?string
+    {
+        return $this->internalComment;
+    }
+
+    public function setInternalComment(?string $internalComment): self
+    {
+        $this->internalComment = $internalComment;
 
         return $this;
     }

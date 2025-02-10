@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure;
 
 use DateTimeInterface;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Address\AddressView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -21,7 +22,7 @@ class NurseryStructureView
         #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item', 'shiftType:item', 'shiftType:list'])]
         public string $name,
         #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item', 'shiftType:item', 'shiftType:list'])]
-        public string $address,
+        public AddressView $address,
         #[Groups(['child:item', 'child:list', 'customer:item', 'agent:item', 'shiftType:item', 'shiftType:list'])]
         public DateTimeInterface $createdAt,
         #[Groups(['child:item', 'child:list', 'customer:item'])]

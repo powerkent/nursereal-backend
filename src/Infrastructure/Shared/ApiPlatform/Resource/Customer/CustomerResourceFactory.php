@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Resource\Customer;
 
-use Nursery\Domain\Shared\Model\Child;
 use Nursery\Domain\Shared\Model\Customer;
-use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildView;
-use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildViewFactory;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Family\FamilyViewFactory;
 
 final readonly class CustomerResourceFactory
 {
-    public function __construct(private ChildViewFactory $childViewFactory)
+    public function __construct(private FamilyViewFactory $familyViewFactory)
     {
     }
 
@@ -25,7 +23,7 @@ final readonly class CustomerResourceFactory
             user: $customer->getUser(),
             email: $customer->getEmail(),
             phoneNumber: $customer->getPhoneNumber(),
-            children: $customer->getChildren()->map(fn (Child $child): ChildView => $this->childViewFactory->fromModel($child))->toArray(),
+            family: null !== $customer->getFamily() ? $this->familyViewFactory->fromModel($customer->getFamily()) : null,
         );
     }
 }

@@ -27,17 +27,13 @@ class NurseryStructure
     public function __construct(
         protected UuidInterface $uuid,
         protected string $name,
-        protected string $address,
+        protected Address $address,
         protected DateTimeInterface $createdAt,
         protected ?DateTimeInterface $updatedAt = null,
-        protected ?DateTimeInterface $startAt = null,
-        protected ?float $latitude = null,
-        protected ?float $longitude = null,
         array|Collection $openings = [],
         array|Collection $agents = [],
     ) {
         Assert::stringNotEmpty($this->name);
-        Assert::stringNotEmpty($this->address);
 
         $this->openings = is_array($openings) ? new ArrayCollection($openings) : $openings;
         $this->agents = is_array($agents) ? new ArrayCollection($agents) : $agents;
@@ -72,12 +68,12 @@ class NurseryStructure
         return $this;
     }
 
-    public function getAddress(): string
+    public function getAddress(): Address
     {
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(Address $address): self
     {
         $this->address = $address;
 
@@ -104,42 +100,6 @@ class NurseryStructure
     public function setUpdatedAt(?DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getStartAt(): ?DateTimeInterface
-    {
-        return $this->startAt;
-    }
-
-    public function setStartAt(?DateTimeInterface $startAt): self
-    {
-        $this->startAt = $startAt;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?float
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(?float $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?float
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(?float $longitude): self
-    {
-        $this->longitude = $longitude;
 
         return $this;
     }

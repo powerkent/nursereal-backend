@@ -9,7 +9,7 @@
             <generator />
         </id>
 
-        <field name="uuid" type="uuid" unique="true" />
+        <field name="type" enum-type="Nursery\Domain\Shared\Enum\AvatarType" />
 
         <field name="contentUrl" />
     </entity>

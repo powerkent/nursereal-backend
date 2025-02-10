@@ -117,10 +117,10 @@ final readonly class TreatmentContext implements Context
                 'dosingTime' => $dosingTime,
             ]);
 
-            $treatment->addDosage($dosage->_real());
+            //            $treatment->addDosage($dosage->_real());
         }
 
-        $treatment->_save();
+        //        $treatment->_save();
     }
 
     /**

@@ -8,6 +8,7 @@ use Behat\Behat\Context\Context;
 use DateTimeImmutable;
 use Exception;
 use Nursery\Infrastructure\Shared\Foundry\Factory\CustomerFactory;
+use Nursery\Infrastructure\Shared\Foundry\Factory\FamilyFactory;
 use Nursery\Tests\Infrastructure\Shared\Behat\Storage;
 use Ramsey\Uuid\Uuid;
 use Zenstruck\Foundry\Test\Factories;
@@ -99,6 +100,16 @@ final readonly class CustomerContext implements Context
     {
         $customer = $this->storage->getCustomer();
         $customer->_set('createdAt', new DateTimeImmutable($createdAt));
+        $customer->_save();
+    }
+
+    /**
+     * @Given that customer is linked to family with uuid :uuid
+     */
+    public function updateCustomerFamily(string $uuid): void
+    {
+        $customer = $this->storage->getCustomer();
+        $customer->_set('family', FamilyFactory::find(['uuid' => $uuid])->_real());
         $customer->_save();
     }
 }

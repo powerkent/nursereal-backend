@@ -15,35 +15,41 @@
 
         <field name="lastname" />
 
-        <field name="email" nullable="true" />
+        <field name="email" />
 
-        <field name="user" length="320" />
+        <field name="user" length="320" nullable="true" />
 
-        <field name="password" length="320" />
+        <field name="password" length="320" nullable="true" />
 
         <field name="phoneNumber" />
 
         <one-to-one field="avatar" target-entity="Nursery\Domain\Shared\Model\Avatar">
-            <join-column name="avatar_id" on-delete="SET NULL"/>
-        </one-to-one>
-
-        <many-to-many field="children" target-entity="Nursery\Domain\Shared\Model\Child" inversed-by="customers">
-            <join-table name="customer_child">
-                <join-columns>
-                    <join-column name="customer_id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="child_id" />
-                </inverse-join-columns>
-            </join-table>
+            <join-column name="avatar_id" on-delete="SET NULL" />
             <cascade>
                 <cascade-persist />
-                <cascade-remove />
             </cascade>
-        </many-to-many>
+        </one-to-one>
+
+        <many-to-one field="family" target-entity="Nursery\Domain\Shared\Model\Family">
+            <join-column name="family_id" nullable="false" />
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
 
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
+
+        <many-to-one field="address" target-entity="Nursery\Domain\Shared\Model\Address">
+            <join-column name="address_id" on-delete="CASCADE" />
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
+
+        <field name="income" type="float" nullable="true" />
+
+        <field name="internalComment" nullable="true" />
     </entity>
 </doctrine-mapping>

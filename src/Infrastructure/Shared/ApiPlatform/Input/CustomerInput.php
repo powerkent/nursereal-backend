@@ -10,12 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class CustomerInput
 {
-    /**
-     * @param array<array<string, string>> $children
-     */
     public function __construct(
-        #[Groups(['customer:item'])]
-        public ?string $avatar,
         #[Groups(['customer:item'])]
         #[Assert\NotBlank(message: 'Customer requires a firstname.')]
         public string $firstname,
@@ -36,17 +31,7 @@ final class CustomerInput
         #[ApiProperty(openapiContext: ['example' => '0606060606'])]
         public string $phoneNumber,
         #[Groups(['customer:item'])]
-        #[ApiProperty(openapiContext: [
-            'type' => 'array',
-            'items' => [
-                'type' => 'object',
-                'properties' => [
-                    'uuid' => ['type' => 'string'],
-                ],
-            ],
-            'example' => [['uuid' => 'ecef809d-6731-4b21-906f-524288122c89'], ['uuid' => '34f17460-f0ba-4e5c-a165-4d9807326596']],
-        ])]
-        public array $children,
+        public string $familyUuid,
     ) {
     }
 }

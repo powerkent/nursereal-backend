@@ -17,7 +17,6 @@ use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AvatarInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Avatar\AvatarResource;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Avatar\AvatarResourceFactory;
-use Ramsey\Uuid\Uuid;
 use RuntimeException;
 
 /**
@@ -73,7 +72,7 @@ final readonly class AvatarProcessor implements ProcessorInterface
             $objectUrl = $this->getPreSignedUrl($bucket, $filename);
 
             $avatar = $this->commandBus->dispatch(CreateAvatarCommand::create([
-                'uuid' => Uuid::uuid4(),
+                'type' => $data->type,
                 'contentUrl' => $objectUrl,
             ]));
         } catch (AwsException $e) {

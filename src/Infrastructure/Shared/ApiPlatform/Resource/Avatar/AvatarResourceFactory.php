@@ -11,7 +11,8 @@ final readonly class AvatarResourceFactory
     public function fromModel(Avatar $avatar): AvatarResource
     {
         return new AvatarResource(
-            uuid: $avatar->getUuid(),
+            id: $avatar->getId(),
+            type: $avatar->getType(),
             contentUrl: $avatar->getContentUrl(),
         );
     }
