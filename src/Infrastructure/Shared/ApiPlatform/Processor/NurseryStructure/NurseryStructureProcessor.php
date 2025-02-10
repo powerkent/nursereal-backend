@@ -8,13 +8,12 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use DateMalformedStringException;
 use DateTimeImmutable;
+use Nursery\Application\Shared\Command\Address\CreateOrUpdateAddressCommand;
 use Nursery\Application\Shared\Command\Agent\CreateOrUpdateAgentCommand;
 use Nursery\Application\Shared\Command\NurseryStructure\CreateOrUpdateNurseryStructureCommand;
 use Nursery\Application\Shared\Query\Agent\FindAgentsByNurseryStructureQuery;
-use Nursery\Application\Shared\Query\Config\FindConfigByUuidOrNameQuery;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
 use Nursery\Domain\Shared\Enum\OpeningDays;
-use Nursery\Domain\Shared\Model\Config;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\NurseryStructureInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\NurseryStructure\NurseryStructureResource;
@@ -39,11 +38,19 @@ final readonly class NurseryStructureProcessor implements ProcessorInterface
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): NurseryStructureResource
     {
+        $address = $this->commandBus->dispatch(CreateOrUpdateAddressCommand::create([
+            'id' => $data->address->id,
+            'address' => $data->address->address,
+            'zipcode' => $data->address->zipcode,
+            'city' => $data->address->city,
+        ]));
+
         $primitives = [
             'uuid' => $uriVariables['uuid'] ?? Uuid::uuid4(),
             'name' => $data->name,
-            'address' => $data->address,
+            'address' => $address,
         ];
+
         foreach ($data->openings as $opening) {
             $primitives['openings'][] = [
                 'openingHour' => new DateTimeImmutable($opening->openingHour),
@@ -54,9 +61,7 @@ final readonly class NurseryStructureProcessor implements ProcessorInterface
 
         $nurseryStructure = $this->commandBus->dispatch(CreateOrUpdateNurseryStructureCommand::create($primitives));
 
-        /* @var Config $config */
-        $config = $this->queryBus->ask(new FindConfigByUuidOrNameQuery(name: Config::AGENT_LOGIN_WITH_PHONE));
-        if (!$config->getValue() && isset($data->user) && isset($data->password)) {
+        if (isset($data->user) && isset($data->password)) {
             $agents = $this->queryBus->ask(new FindAgentsByNurseryStructureQuery($nurseryStructure));
             $primitives = [
                 'uuid' => empty($agents) ? Uuid::uuid4() : $agents[0]->getUuid(),

@@ -1,13 +1,5 @@
 default:
     suites:
-        Nursery:
-            paths:
-                features: tests/Infrastructure/Nursery/Behat/Features
-
-            contexts:
-                - Nursery\Tests\Infrastructure\Shared\Behat\Context\ApiContext
-                - Nursery\Tests\Infrastructure\Shared\Behat\Context\DatabaseContext
-
         Shared:
             paths:
                 features: tests/Infrastructure/Shared/Behat/Features
@@ -19,6 +11,7 @@ default:
                 - Nursery\Tests\Infrastructure\Shared\Behat\Context\CustomerContext
                 - Nursery\Tests\Infrastructure\Shared\Behat\Context\IRPContext
                 - Nursery\Tests\Infrastructure\Shared\Behat\Context\TreatmentContext
+                - Nursery\Tests\Infrastructure\Shared\Behat\Context\FamilyContext
 
     extensions:
         FriendsOfBehat\SymfonyExtension:

@@ -29,12 +29,12 @@ final readonly class CreateOrUpdateCustomerCommandHandler implements CommandHand
 
         $password = $command->primitives['password'];
         if (null !== $customer) {
-            $children = $command->primitives['children'];
-            unset($command->primitives['children']);
+            $family = $command->primitives['family'];
+            unset($command->primitives['family']);
             $customer = $this->normalizer->denormalize($command->primitives, Customer::class, context: ['object_to_populate' => $customer, 'ignored_attributes' => [$password]]);
             $customer
                 ->setPassword($this->passwordHasher->hashPassword($customer, $password))
-                ->setChildren($children)
+                ->setFamily($family)
                 ->setUpdatedAt(new DateTimeImmutable());
 
 

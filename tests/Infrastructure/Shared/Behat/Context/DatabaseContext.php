@@ -11,8 +11,6 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use LogicException;
-use Nursery\Domain\Shared\Model\Config;
-use Ramsey\Uuid\Uuid;
 use function implode;
 use function in_array;
 use function sprintf;
@@ -27,13 +25,14 @@ final readonly class DatabaseContext implements Context
 
     /**
      * @BeforeScenario
+     * @throws Exception
      */
     public function cleanDatabase(): void
     {
+        $connection = $this->entityManager->getConnection();
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS=0');
         new ORMPurger($this->entityManager)->purge();
-        $config = new Config(Uuid::uuid4(), Config::AGENT_LOGIN_WITH_PHONE, true);
-        $this->entityManager->persist($config);
-        $this->entityManager->flush();
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS=1');
     }
 
 

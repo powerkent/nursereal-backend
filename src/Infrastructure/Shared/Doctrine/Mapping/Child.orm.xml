@@ -17,8 +17,13 @@
 
         <field name="birthday" type="datetime" />
 
+        <field name="gender" enum-type="Nursery\Domain\Shared\Enum\Gender" />
+
         <one-to-one field="avatar" target-entity="Nursery\Domain\Shared\Model\Avatar">
             <join-column name="avatar_id" on-delete="SET NULL"/>
+            <cascade>
+                <cascade-persist />
+            </cascade>
         </one-to-one>
 
         <many-to-one field="nurseryStructure" target-entity="Nursery\Domain\Shared\Model\NurseryStructure">
@@ -28,9 +33,22 @@
             </cascade>
         </many-to-one>
 
+        <many-to-one field="ageGroup" target-entity="Nursery\Domain\Shared\Model\AgeGroup">
+            <join-column name="age_group_id" />
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-one>
+
+        <field name="isWalking" type="boolean" />
+
         <field name="createdAt" type="datetime" />
 
         <field name="updatedAt" type="datetime" nullable="true" />
+
+        <field name="comment" nullable="true" />
+
+        <field name="internalComment" nullable="true" />
 
         <one-to-one field="irp" target-entity="Nursery\Domain\Shared\Model\IRP" orphan-removal="true">
             <join-column name="irp" />
@@ -47,12 +65,12 @@
             </cascade>
         </one-to-many>
 
-        <many-to-many field="customers" target-entity="Nursery\Domain\Shared\Model\Customer" mapped-by="children">
+        <many-to-one field="family" target-entity="Nursery\Domain\Shared\Model\Family" inversed-by="children">
+            <join-column name="family_id" nullable="false" />
             <cascade>
                 <cascade-persist />
-                <cascade-remove />
             </cascade>
-        </many-to-many>
+        </many-to-one>
 
         <one-to-many field="contractDates" target-entity="Nursery\Domain\Shared\Model\ContractDate" mapped-by="child">
             <cascade>

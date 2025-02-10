@@ -19,7 +19,9 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Child\ChildPostProcessor
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Child\ChildPutProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Child\ChildCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Child\ChildProvider;
-use Nursery\Infrastructure\Shared\ApiPlatform\View\Customer\CustomerView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\AgeGroup\AgeGroupView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Avatar\AvatarView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Family\FamilyView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\IRP\IRPView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure\NurseryStructureView;
 use Nursery\Infrastructure\Shared\ApiPlatform\View\Treatment\TreatmentView;
@@ -62,7 +64,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class ChildResource
 {
     /**
-     * @param list<CustomerView>|null  $customers
      * @param list<TreatmentView>|null $treatments
      */
     public function __construct(
@@ -73,7 +74,7 @@ final class ChildResource
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?int $id,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
-        public ?string $avatar,
+        public ?AvatarView $avatar,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public string $firstname,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
@@ -81,16 +82,21 @@ final class ChildResource
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $birthday,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public string $gender,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
         public NurseryStructureView $nurseryStructure,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public ?AgeGroupView $ageGroup,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public bool $isWalking,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public FamilyView $family,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?DateTimeInterface $updatedAt = null,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public ?IRPView $irp = null,
-        #[Groups(['child:item', 'child:list', 'customer:item'])]
-        /** @var list<CustomerView>|null $customers */
-        public ?array $customers = null,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         /** @var list<TreatmentView>|null $treatments */
         public ?array $treatments = null,

@@ -31,8 +31,8 @@ FROM nurs-common AS nurs-php-dev
 
 COPY docker/app/entrypoint.sh /usr/local/bin/entrypoint
 
-RUN pecl install pcov xdebug \
-    && docker-php-ext-enable pcov xdebug \
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug \
     && chmod +x /usr/local/bin/entrypoint
 
 RUN echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

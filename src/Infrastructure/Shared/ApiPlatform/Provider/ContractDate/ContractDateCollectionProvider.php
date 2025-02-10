@@ -33,11 +33,7 @@ final class ContractDateCollectionProvider extends AbstractCollectionProvider
     }
 
     /**
-     * <<<<<<< Updated upstream:src/Infrastructure/Shared/ApiPlatform/Provider/ContractDateCollectionProvider.php.
      * @param  array<string, mixed>         $uriVariables
-     *                                                    =======
-     * @param  array<string, mixed>         $uriVariables
-     *                                                    >>>>>>> Stashed changes:src/Infrastructure/Shared/ApiPlatform/Provider/ContractDate/ContractDateCollectionProvider.php
      * @throws DateMalformedStringException
      */
     public function collection(Operation $operation, array $uriVariables = [], array $filters = [], array $context = []): iterable

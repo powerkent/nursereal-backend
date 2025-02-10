@@ -6,11 +6,14 @@ namespace Nursery\Infrastructure\Shared\ApiPlatform\View\NurseryStructure;
 
 use Nursery\Domain\Shared\Model\NurseryStructure;
 use Nursery\Domain\Shared\Model\NurseryStructureOpening;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Address\AddressViewFactory;
 
 final readonly class NurseryStructureViewFactory
 {
-    public function __construct(private NurseryStructureOpeningViewFactory $nurseryStructureOpeningViewFactory)
-    {
+    public function __construct(
+        private NurseryStructureOpeningViewFactory $nurseryStructureOpeningViewFactory,
+        private AddressViewFactory $addressViewFactory,
+    ) {
     }
 
     public function fromModel(NurseryStructure $nurseryStructure): NurseryStructureView
@@ -19,7 +22,7 @@ final readonly class NurseryStructureViewFactory
             uuid: $nurseryStructure->getUuid(),
             id: $nurseryStructure->getId(),
             name: $nurseryStructure->getName(),
-            address: $nurseryStructure->getAddress(),
+            address: $this->addressViewFactory->fromModel($nurseryStructure->getAddress()),
             createdAt: $nurseryStructure->getCreatedAt(),
             opening: $nurseryStructure->getOpenings()->map(fn (NurseryStructureOpening $opening): NurseryStructureOpeningView => $this->nurseryStructureOpeningViewFactory->fromModel($opening))->toArray(),
             updatedAt: $nurseryStructure->getUpdatedAt(),

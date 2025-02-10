@@ -11,13 +11,13 @@
 
         <field name="uuid" type="uuid" unique="true" />
 
-        <field name="firstname" length="320" nullable="true" />
+        <field name="firstname" length="320" />
 
-        <field name="lastname" length="320" nullable="true" />
+        <field name="lastname" length="320" />
 
-        <field name="email" length="320" nullable="true" />
+        <field name="email" length="320" />
 
-        <field name="user" length="320" />
+        <field name="user" length="320" nullable="true" />
 
         <field name="password" length="320" nullable="true" />
 
@@ -25,6 +25,9 @@
 
         <one-to-one field="avatar" target-entity="Nursery\Domain\Shared\Model\Avatar">
             <join-column name="avatar_id" on-delete="SET NULL"/>
+            <cascade>
+                <cascade-persist />
+            </cascade>
         </one-to-one>
 
         <many-to-many field="nurseryStructures" target-entity="Nursery\Domain\Shared\Model\NurseryStructure" mapped-by="agents" />

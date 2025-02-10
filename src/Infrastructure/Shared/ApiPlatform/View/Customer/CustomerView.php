@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\ApiPlatform\View\Customer;
 
 use DateTimeInterface;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Address\AddressView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -21,6 +22,8 @@ class CustomerView
         public ?string $email,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public string $phoneNumber,
+        #[Groups(['child:item', 'child:list', 'customer:item'])]
+        public ?AddressView $address,
         #[Groups(['child:item', 'child:list', 'customer:item'])]
         public DateTimeInterface $createdAt,
     ) {

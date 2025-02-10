@@ -8,9 +8,10 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use Exception;
 use Nursery\Application\Shared\Command\Customer\CreateOrUpdateCustomerCommand;
-use Nursery\Application\Shared\Query\Child\FindChildByUuidOrIdQuery;
+use Nursery\Application\Shared\Query\Family\FindFamilyByUuidQuery;
 use Nursery\Domain\Shared\Command\CommandBusInterface;
-use Nursery\Domain\Shared\Model\Child;
+use Nursery\Domain\Shared\Exception\EntityNotFoundException;
+use Nursery\Domain\Shared\Model\Family;
 use Nursery\Domain\Shared\Query\QueryBusInterface;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\CustomerInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Resource\Customer\CustomerResource;
@@ -35,6 +36,10 @@ final readonly class CustomerProcessor implements ProcessorInterface
      */
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): CustomerResource
     {
+        $family = $this->queryBus->ask(new FindFamilyByUuidQuery($data->familyUuid));
+        if (null === $family) {
+            throw new EntityNotFoundException(Family::class, $data->familyUuid, 'uuid');
+        }
         $primitives = [
             'uuid' => $uriVariables['uuid'] ?? Uuid::uuid4(),
             'firstname' => $data->firstname,
@@ -43,7 +48,7 @@ final readonly class CustomerProcessor implements ProcessorInterface
             'user' => $data->user,
             'password' => $data->password,
             'phoneNumber' => $data->phoneNumber,
-            'children' => array_map(fn (array $child): Child => $this->queryBus->ask(new FindChildByUuidOrIdQuery($child['uuid'])), $data->children),
+            'family' => $family,
         ];
 
         $customer = $this->commandBus->dispatch(CreateOrUpdateCustomerCommand::create($primitives));

@@ -17,8 +17,6 @@ final class AgentInput implements AgentInputInterface
      */
     public function __construct(
         #[Groups(['agent:item'])]
-        public ?string $avatar,
-        #[Groups(['agent:item'])]
         public string $firstname,
         #[Groups(['agent:item'])]
         public string $lastname,

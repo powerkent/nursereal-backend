@@ -17,7 +17,7 @@ use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Customer\CustomerDeleteP
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\Customer\CustomerProcessor;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Customer\CustomerCollectionProvider;
 use Nursery\Infrastructure\Shared\ApiPlatform\Provider\Customer\CustomerProvider;
-use Nursery\Infrastructure\Shared\ApiPlatform\View\Child\ChildView;
+use Nursery\Infrastructure\Shared\ApiPlatform\View\Family\FamilyView;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -59,9 +59,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 final class CustomerResource
 {
-    /**
-     * @param array<int, ChildView>|null $children
-     */
     public function __construct(
         #[ApiProperty(identifier: true)]
         #[Groups(['customer:item', 'customer:list'])]
@@ -73,14 +70,13 @@ final class CustomerResource
         #[Groups(['customer:item', 'customer:list'])]
         public string $lastname,
         #[Groups(['customer:item', 'customer:list'])]
-        public string $user,
+        public ?string $user,
         #[Groups(['customer:item', 'customer:list'])]
         public ?string $email,
         #[Groups(['customer:item', 'customer:list'])]
         public string $phoneNumber,
         #[Groups(['customer:item', 'customer:list'])]
-        /** @var list<ChildView>|null $children */
-        public ?array $children = null,
+        public ?FamilyView $family,
     ) {
     }
 }

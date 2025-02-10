@@ -37,9 +37,11 @@ final readonly class CreateOrUpdateNurseryStructureCommandHandler implements Com
 
             return $this->nurseryStructureRepository->update($nurseryStructure);
         }
+
         $nurseryStructure = $this->setNurseryStructureOpenings($nurseryStructure, $nurseryStructureOpenings);
-        $nurseryStructure = $this->normalizer->denormalize($command->primitives, NurseryStructure::class, context: ['object_to_populate' => $nurseryStructure]);
+        $nurseryStructure = $this->normalizer->denormalize($command->primitives, NurseryStructure::class, context: ['object_to_populate' => $nurseryStructure, 'ignored_attributes' => ['address']]);
         $nurseryStructure->setUpdatedAt(new DateTimeImmutable());
+        $nurseryStructure->setAddress($command->primitives['address']);
 
         return $this->nurseryStructureRepository->update($nurseryStructure);
     }

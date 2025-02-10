@@ -9,10 +9,9 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
 use ArrayObject;
-use Nursery\Domain\Shared\Enum\Avatar;
+use Nursery\Domain\Shared\Enum\AvatarType;
 use Nursery\Infrastructure\Shared\ApiPlatform\Input\AvatarInput;
 use Nursery\Infrastructure\Shared\ApiPlatform\Processor\AvatarProcessor;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -37,8 +36,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                                     ],
                                     'type' => [
                                         'type' => 'string',
-                                        'enum' => [Avatar::Agent->value, Avatar::Customer->value, Avatar::Child->value],
-                                        'example' => Avatar::Agent->value,
+                                        'enum' => [AvatarType::Agent->value, AvatarType::Customer->value, AvatarType::Child->value],
+                                        'example' => AvatarType::Agent->value,
                                     ],
                                     'file' => [
                                         'type' => 'string',
@@ -64,7 +63,9 @@ final class AvatarResource
     public function __construct(
         #[ApiProperty(identifier: true)]
         #[Groups(['avatar:item'])]
-        public UuidInterface $uuid,
+        public ?int $id,
+        #[Groups(['avatar:item'])]
+        public AvatarType $type,
         #[Groups(['avatar:item'])]
         public string $contentUrl,
     ) {

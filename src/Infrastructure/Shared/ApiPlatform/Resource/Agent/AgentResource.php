@@ -76,11 +76,11 @@ final class AgentResource
         #[Groups(['agent:item', 'agent:list'])]
         public ?string $avatar,
         #[Groups(['agent:item', 'agent:list'])]
-        public ?string $firstname,
+        public string $firstname,
         #[Groups(['agent:item', 'agent:list'])]
-        public ?string $lastname,
+        public string $lastname,
         #[Groups(['agent:item', 'agent:list'])]
-        public ?string $email,
+        public string $email,
         #[Groups(['agent:item', 'agent:list'])]
         public ?string $user,
         #[Groups(['agent:item', 'agent:list'])]

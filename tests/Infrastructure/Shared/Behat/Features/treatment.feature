@@ -7,10 +7,12 @@ Feature:
         Given there is a nursery structure with uuid "00000000-0000-0000-0000-000000000001"
         And a manager exists with user "manager@example.com" and password "password123"
         And I am authenticated as "manager@example.com" with password "password123"
+        And there is a family with uuid "00000000-0000-0000-0000-000000000001"
 
     Scenario: I can create a treatment with dosages
         Given there is a child with uuid "00000000-0000-0000-0000-000000000001"
         And that child is linked to nursery structure with uuid "00000000-0000-0000-0000-000000000001"
+        And that child is linked to family with uuid "00000000-0000-0000-0000-000000000001"
         And there is a treatment with uuid "00000000-0000-0000-0000-000000000001"
         And that treatment has name Doliprane
         And that treatment has description "Si besoin"
@@ -66,7 +68,10 @@ Feature:
             "firstname": "Quentin",
             "lastname": "Lemoine",
             "birthday": "1993-06-17",
+            "gender": "Male",
+            "isWalking": true,
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
                     "name": "Doliprane",
@@ -112,7 +117,10 @@ Feature:
             "firstname": "Quentin",
             "lastname": "Lemoine",
             "birthday": "1993-06-17",
+            "gender": "Male",
+            "isWalking": true,
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
                     "name": "Doliprane",
@@ -179,7 +187,10 @@ Feature:
             "firstname": "Quentin",
             "lastname": "Lemoine",
             "birthday": "1993-06-17",
+            "gender": "Male",
+            "isWalking": true,
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
                     "name": "Doliprane",
@@ -243,6 +254,10 @@ Feature:
             "firstname": "Quentin",
             "lastname": "Lemoine",
             "birthday": "1993-06-17",
+            "gender": "Male",
+            "isWalking": true,
+            "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
@@ -356,7 +371,10 @@ Feature:
             "firstname": "Elie",
             "lastname": "Lemoine",
             "birthday": "1994-06-17",
+            "gender": "Male",
+            "isWalking": true,
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
                     "name": "Doliprane",
@@ -383,7 +401,6 @@ Feature:
            "nurseryStructure":"@variableType(object)",
            "createdAt":"2024-10-13T00:00:00+00:00",
            "updatedAt":"@variableType(string)",
-           "customers":[],
            "treatments":[
               {
                  "@type":"TreatmentView",
@@ -413,7 +430,10 @@ Feature:
             "firstname": "Elie",
             "lastname": "Lemoine",
             "birthday": "1994-06-17",
+            "gender": "Male",
+            "isWalking": true,
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
                     "name": "Doliprane",
@@ -450,7 +470,6 @@ Feature:
             "nurseryStructure":"@variableType(object)",
             "createdAt":"2024-10-13T00:00:00+00:00",
             "updatedAt":"@variableType(string)",
-            "customers":[],
             "treatments":[
                 {
                     "@type":"TreatmentView",
@@ -491,7 +510,10 @@ Feature:
             "firstname": "Elie",
             "lastname": "Lemoine",
             "birthday": "1994-06-17",
+            "gender": "Male",
+            "isWalking": true,
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
                     "name": "Doliprane",
@@ -524,7 +546,6 @@ Feature:
             "nurseryStructure":"@variableType(object)",
             "createdAt":"2024-10-13T00:00:00+00:00",
             "updatedAt":"@variableType(string)",
-            "customers":[],
             "treatments":[
                 {
                     "@type":"TreatmentView",
@@ -568,7 +589,10 @@ Feature:
             "firstname": "Elie",
             "lastname": "Lemoine",
             "birthday": "1994-06-17",
+            "gender": "Male",
+            "isWalking": true,
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
                     "name": "Doliprane",
@@ -621,7 +645,6 @@ Feature:
             "nurseryStructure":"@variableType(object)",
             "createdAt":"2024-10-13T00:00:00+00:00",
             "updatedAt":"@variableType(string)",
-            "customers":[],
             "treatments":[
                 {
                     "@type":"TreatmentView",
@@ -694,13 +717,16 @@ Feature:
             | 100mg | 12:00      |
             | 150mg | 16:00      |
         Then the treatment should have 3 dosages
-            Given the request body is:
+        Given the request body is:
         """
         {
             "firstname": "Elie",
             "lastname": "Lemoine",
             "birthday": "1994-06-17",
-            "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001"
+            "gender": "Male",
+            "isWalking": true,
+            "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001"
         }
         """
         And the "Content-Type" request header is "application/ld+json"
@@ -719,7 +745,6 @@ Feature:
            "nurseryStructure":"@variableType(object)",
            "createdAt":"2024-10-13T00:00:00+00:00",
            "updatedAt":"@variableType(string)",
-           "customers":[],
            "treatments":[]
         }
         """
@@ -768,7 +793,10 @@ Feature:
             "firstname": "Elie",
             "lastname": "Lemoine",
             "birthday": "1994-06-17",
+            "gender": "Male",
+            "isWalking": true,
             "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001",
+            "familyUuid": "00000000-0000-0000-0000-000000000001",
             "treatments": [
                 {
                     "name": "Maxilase",
@@ -805,7 +833,6 @@ Feature:
             "nurseryStructure":"@variableType(object)",
             "createdAt":"2024-10-13T00:00:00+00:00",
             "updatedAt":"@variableType(string)",
-            "customers":[],
             "treatments":[
                 {
                     "@type":"TreatmentView",

@@ -6,7 +6,7 @@ namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use DateTimeImmutable;
 use Faker\Factory;
-use Faker\Generator;
+use Nursery\Domain\Shared\Enum\AvatarType;
 use Nursery\Domain\Shared\Enum\Roles;
 use Nursery\Domain\Shared\Model\Agent;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
@@ -36,12 +36,9 @@ final class AgentFactory extends PersistentProxyObjectFactory
         $firstname = self::faker()->firstName();
         $lastname = self::faker()->lastName();
 
-        /** @var Generator $uniqueGenerator */
-        $uniqueGenerator = self::faker()->unique();
-
         return [
-            'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
-            'avatar' => AvatarFactory::createOne(['contentUrl' => $faker->imageUrl($firstname, $lastname)]),
+            'uuid' => Uuid::uuid4(),
+            'avatar' => self::faker()->boolean() ? AvatarFactory::createOne(['type' => AvatarType::Agent, 'contentUrl' => $faker->imageUrl($firstname, $lastname)]) : null,
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => self::faker()->email(),

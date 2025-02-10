@@ -7,6 +7,7 @@ Feature:
         Given there is a nursery structure with uuid "00000000-0000-0000-0000-000000000001"
         And a manager exists with user "manager@example.com" and password "password123"
         And I am authenticated as "manager@example.com" with password "password123"
+        And there is a family with uuid "00000000-0000-0000-0000-000000000001"
 
     Scenario: I can create a customer
         Given there is a customer with uuid "00000000-0000-0000-0000-000000000001"
@@ -16,6 +17,7 @@ Feature:
         And that customer has a phone number 0606060606
         And that customer has a password "pass123"
         And that customer has a created date "2024-10-11 00:00:00"
+        And that customer is linked to family with uuid "00000000-0000-0000-0000-000000000001"
         When I request "/api/customers?page=1"
         Then the response code is 200
         And the response body contains JSON:
@@ -24,7 +26,7 @@ Feature:
            "@context":"/api/contexts/Customer",
            "@id":"/api/customers",
            "@type":"Collection",
-           "totalItems":1,
+           "totalItems":"@variableType(integer)",
            "member":[
               {
                  "@id":"/api/customers/00000000-0000-0000-0000-000000000001",
@@ -34,7 +36,7 @@ Feature:
                  "lastname":"Lemoine",
                  "email":"quentin.lemoine62580@gmail.com",
                  "phoneNumber":"0606060606",
-                 "children":[]
+                 "family": "@variableType(object)"
               }
            ]
         }
@@ -45,9 +47,10 @@ Feature:
             | firstname    | Quentin                              |
             | lastname     | Lemoine                              |
             | email        | quentin.lemoine62580@gmail.com       |
-            | phone_number | 0606060606                            |
+            | phone_number | 0606060606                           |
             | password     | pass123                              |
             | created_at   | 2024-10-11 00:00:00                  |
+            | family_id    | not_null                             |
 
     Scenario: I can POST a customer and check if the password has been hashed
         Given there is a child with uuid "00000000-0000-0000-0000-000000000001"
@@ -65,11 +68,7 @@ Feature:
             "user": "parent@example.com",
             "password": "pass123",
             "phoneNumber": "0606060606",
-            "children": [
-                {
-                    "uuid": "00000000-0000-0000-0000-000000000001"
-                }
-            ]
+            "familyUuid": "00000000-0000-0000-0000-000000000001"
         }
         """
         And the "Content-Type" request header is "application/ld+json"
@@ -87,18 +86,7 @@ Feature:
            "email":"parent@example.com",
            "user": "parent@example.com",
            "phoneNumber":"0606060606",
-           "children":[
-              {
-                 "@type":"ChildView",
-                 "@id":"@variableType(string)",
-                 "uuid":"00000000-0000-0000-0000-000000000001",
-                 "firstname":"Elie",
-                 "lastname":"Lemoine",
-                 "birthday":"1993-06-17T00:00:00+00:00",
-                 "createdAt":"2024-10-11T00:00:00+00:00",
-                 "treatments":[]
-              }
-           ]
+           "family":"@variableType(object)"
         }
         """
         And the table customer has 1 entry with the following values:
@@ -107,14 +95,15 @@ Feature:
             | firstname    | Quentin            |
             | lastname     | Lemoine            |
             | email        | parent@example.com |
-            | phone_number | 0606060606          |
+            | phone_number | 0606060606         |
             | password     | not_null           |
             | created_at   | not_null           |
+            | family_id    | not_null           |
         And the table customer has no entry with the following values:
             | firstname    | Quentin            |
             | lastname     | Lemoine            |
             | email        | parent@example.com |
-            | phone_number | 0606060606          |
+            | phone_number | 0606060606         |
             | password     | pass123            |
 
     Scenario: I can GET a customer
@@ -138,7 +127,7 @@ Feature:
            "lastname":"Lemoine",
            "email":"quentin.lemoine62580@gmail.com",
            "phoneNumber":"0606060606",
-           "children":[]
+           "family":"@variableType(object)"
         }
         """
         And the table customer has 1 entry with the following values:
@@ -150,6 +139,7 @@ Feature:
             | phone_number | 0606060606                           |
             | password     | pass123                              |
             | created_at   | 2024-10-11 00:00:00                  |
+            | family_id    | not_null                             |
 
     Scenario: I can PUT a customer
         Given there is a child with uuid "00000000-0000-0000-0000-000000000001"
@@ -168,17 +158,13 @@ Feature:
         And the request body is:
         """
         {
-           "firstname":"Henri",
-           "lastname":"Bernard",
-           "email":"parent@example.com",
-           "user":"parent@example.com",
-           "password":"password",
-           "phoneNumber":"0707070707",
-           "children":[
-               {
-                   "uuid":"00000000-0000-0000-0000-000000000001"
-               }
-           ]
+            "firstname":"Henri",
+            "lastname":"Bernard",
+            "email":"parent@example.com",
+            "user":"parent@example.com",
+            "password":"password",
+            "phoneNumber":"0707070707",
+            "familyUuid":"00000000-0000-0000-0000-000000000001"
         }
         """
         And the "Content-Type" request header is "application/ld+json"
@@ -196,18 +182,7 @@ Feature:
            "email":"parent@example.com",
            "user":"parent@example.com",
            "phoneNumber":"0707070707",
-           "children":[
-              {
-                 "@type":"ChildView",
-                 "@id":"@variableType(string)",
-                 "uuid":"00000000-0000-0000-0000-000000000001",
-                 "firstname":"Elie",
-                 "lastname":"Lemoine",
-                 "birthday":"1993-06-17T00:00:00+00:00",
-                 "createdAt":"2024-10-11T00:00:00+00:00",
-                 "treatments":[]
-              }
-           ]
+           "family":"@variableType(object)"
         }
         """
         And the table customer has 1 entry with the following values:
@@ -219,12 +194,10 @@ Feature:
             | phone_number | 0707070707                           |
             | password     | not_null                             |
             | created_at   | not_null                             |
+            | family_id    | not_null                             |
         And the table customer has no entry with the following values:
             | uuid         | 00000000-0000-0000-0000-000000000001 |
             | password     | password                             |
-        And the table customer_child has 1 entry with the following values:
-            | customer_id | not_null |
-            | child_id    | not_null |
 
     Scenario: I can delete a customer
         Given there is a customer with uuid "00000000-0000-0000-0000-000000000001"

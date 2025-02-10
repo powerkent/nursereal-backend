@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\Foundry\Factory;
 
 use Faker\Factory;
-use Faker\Generator;
+use Nursery\Domain\Shared\Enum\AvatarType;
 use Nursery\Domain\Shared\Model\Avatar;
 use Nursery\Infrastructure\Shared\Foundry\Provider\CustomImageProvider;
-use Ramsey\Uuid\Uuid;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -31,11 +30,8 @@ final class AvatarFactory extends PersistentProxyObjectFactory
         $faker = Factory::create();
         $faker->addProvider(new CustomImageProvider($faker));
 
-        /** @var Generator $uniqueGenerator */
-        $uniqueGenerator = self::faker()->unique();
-
         return [
-            'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
+            'type' => $faker->randomElement(AvatarType::cases()),
             'contentUrl' => $faker->imageUrl(),
         ];
     }

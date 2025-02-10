@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('mercure', [
-        'enable_profiler' => '%kernel.debug%',
         'hubs' => [
             'default' => [
                 'url' => '%env(MERCURE_URL)%',

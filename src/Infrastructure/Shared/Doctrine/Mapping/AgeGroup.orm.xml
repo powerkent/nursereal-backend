@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Nursery\Domain\Shared\Model\AgeGroup" table="age_group">
+        <id name="id" type="integer">
+            <generator />
+        </id>
+
+        <field name="uuid" type="uuid" unique="true" />
+
+        <field name="name" length="255" />
+
+        <field name="minAge" type="integer" />
+
+        <field name="maxAge" type="integer" nullable="true" />
+
+        <field name="adultChildRatio" type="integer" />
+
+        <field name="createdAt" type="datetime" />
+
+        <field name="updatedAt" type="datetime" nullable="true" />
+
+        <many-to-many field="nurseryStructures" target-entity="Nursery\Domain\Shared\Model\NurseryStructure">
+            <join-table name="agegroup_nurserystructure">
+                <join-columns>
+                    <join-column name="agegroup_id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="nurserystructure_id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+     </entity>
+</doctrine-mapping>

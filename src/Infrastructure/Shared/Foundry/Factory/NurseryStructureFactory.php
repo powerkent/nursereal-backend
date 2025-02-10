@@ -36,12 +36,9 @@ final class NurseryStructureFactory extends PersistentProxyObjectFactory
         return [
             'uuid' => Uuid::fromString($uniqueGenerator->uuid()),
             'name' => self::faker()->company(),
-            'address' => self::faker()->address(),
+            'address' => AddressFactory::createOne(),
             'createdAt' => DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')),
             'updatedAt' => self::faker()->boolean() ? DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-5 days')) : null,
-            'startAt' => self::faker()->dateTime(),
-            'latitude' => 50.398026,
-            'longitude' => 2.914129,
         ];
     }
 

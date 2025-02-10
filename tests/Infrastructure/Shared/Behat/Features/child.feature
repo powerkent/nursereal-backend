@@ -7,6 +7,7 @@ Feature:
         Given there is a nursery structure with uuid "00000000-0000-0000-0000-000000000001"
         And a manager exists with user "manager@example.com" and password "password123"
         And I am authenticated as "manager@example.com" with password "password123"
+        And there is a family with uuid "00000000-0000-0000-0000-000000000001"
 
     Scenario: I can create a child
         Given there is a child with uuid "00000000-0000-0000-0000-000000000001"
@@ -14,6 +15,10 @@ Feature:
         And that child has lastname Lemoine
         And that child has not IRP
         And that child has a birthday on "1993-06-17"
+        And that child has a gender "Male"
+        And that child is walking true
+        And that child has not AgeGroup
+        And that child is linked to family with uuid "00000000-0000-0000-0000-000000000001"
         And that child has a created date "2024-10-11 00:00:00"
         And that child has an updated date "2024-10-11 12:00:00"
         When I request "/api/children?page=1"
@@ -40,7 +45,7 @@ Feature:
                         "uuid": "00000000-0000-0000-0000-000000000001",
                         "id": "@variableType(integer)",
                         "name": "@variableType(string)",
-                        "address": "@variableType(string)",
+                        "address": "@variableType(object)",
                         "createdAt": "@variableType(string)",
                         "opening": [
                             {
@@ -80,9 +85,10 @@ Feature:
                             }
                         ]
                     },
+                    "isWalking": true,
+                    "family": "@variableType(object)",
                     "createdAt": "2024-10-11T00:00:00+00:00",
                     "updatedAt": "2024-10-11T12:00:00+00:00",
-                    "customers": [],
                     "treatments": []
                 }
             ]
@@ -98,6 +104,10 @@ Feature:
             | created_at           | 2024-10-11 00:00:00                  |
             | updated_at           | 2024-10-11 12:00:00                  |
             | nursery_structure_id | not_null                             |
+            | age_group_id         | null                                 |
+            | family_id            | not_null                             |
+            | gender               | Male                                 |
+            | is_walking           | 1                                    |
 
     Scenario: I can POST a child
         Given the request body is:
@@ -106,6 +116,9 @@ Feature:
           "firstname": "Quentin",
           "lastname": "Lemoine",
           "birthday": "1993-06-17",
+          "gender": "Male",
+          "isWalking": true,
+          "familyUuid": "00000000-0000-0000-0000-000000000001",
           "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001"
         }
         """
@@ -129,7 +142,7 @@ Feature:
               "uuid":"00000000-0000-0000-0000-000000000001",
               "id":"@variableType(integer)",
               "name":"@variableType(string)",
-              "address":"@variableType(string)",
+              "address":"@variableType(object)",
               "createdAt":"@variableType(string)",
               "opening":[
                  {
@@ -169,8 +182,9 @@ Feature:
                  }
               ]
            },
+           "isWalking": true,
+           "family": "@variableType(object)",
            "createdAt":"@variableType(string)",
-           "customers":[],
            "treatments":[]
         }
         """
@@ -184,12 +198,20 @@ Feature:
             | created_at           | not_null            |
             | updated_at           | null                |
             | nursery_structure_id | not_null            |
+            | age_group_id         | null                |
+            | family_id            | not_null            |
+            | gender               | Male                |
+            | is_walking           | 1                   |
 
     Scenario: I can GET a child
         Given there is a child with uuid "00000000-0000-0000-0000-000000000001"
         And that child has firstname Quentin
         And that child has lastname Lemoine
         And that child has a birthday on "1993-06-17"
+        And that child has a gender "Male"
+        And that child is walking true
+        And that child has not AgeGroup
+        And that child is linked to family with uuid "00000000-0000-0000-0000-000000000001"
         And that child has a created date "2024-10-11 00:00:00"
         And that child has an updated date "2024-10-11 12:00:00"
         When I request "/api/children/00000000-0000-0000-0000-000000000001"
@@ -211,7 +233,7 @@ Feature:
               "uuid":"00000000-0000-0000-0000-000000000001",
               "id":"@variableType(integer)",
               "name":"@variableType(string)",
-              "address":"@variableType(string)",
+              "address":"@variableType(object)",
               "createdAt":"@variableType(string)",
               "opening":[
                  {
@@ -251,9 +273,10 @@ Feature:
                  }
               ]
            },
+           "isWalking": true,
+           "family": "@variableType(object)",
            "createdAt":"2024-10-11T00:00:00+00:00",
            "updatedAt":"2024-10-11T12:00:00+00:00",
-           "customers":[],
            "treatments":[]
         }
         """
@@ -263,6 +286,9 @@ Feature:
         And that child has firstname Quentin
         And that child has lastname Lemoine
         And that child has a birthday on "1993-06-17"
+        And that child has a gender "Male"
+        And that child is walking true
+        And that child has not AgeGroup
         And that child has a created date "2024-10-11 00:00:00"
         And the request body is:
         """
@@ -270,6 +296,9 @@ Feature:
           "firstname": "Dimebag",
           "lastname": "Darrell",
           "birthday": "2024-01-01 00:00:00",
+          "gender": "Female",
+          "isWalking": true,
+          "familyUuid": "00000000-0000-0000-0000-000000000001",
           "nurseryStructureUuid": "00000000-0000-0000-0000-000000000001"
         }
         """
@@ -287,13 +316,14 @@ Feature:
            "firstname":"Dimebag",
            "lastname":"Darrell",
            "birthday":"2024-01-01T00:00:00+00:00",
+           "gender": "Female",
            "nurseryStructure":{
               "@type":"NurseryStructureView",
               "@id":"@variableType(string)",
               "uuid":"00000000-0000-0000-0000-000000000001",
               "id":"@variableType(integer)",
               "name":"@variableType(string)",
-              "address":"@variableType(string)",
+              "address":"@variableType(object)",
               "createdAt":"@variableType(string)",
               "opening":[
                  {
@@ -333,9 +363,10 @@ Feature:
                  }
               ]
            },
+           "isWalking": true,
+           "family": "@variableType(object)",
            "createdAt":"2024-10-11T00:00:00+00:00",
            "updatedAt":"@variableType(string)",
-           "customers":[],
            "treatments":[]
         }
         """

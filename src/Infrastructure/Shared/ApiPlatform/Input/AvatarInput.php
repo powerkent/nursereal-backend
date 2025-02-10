@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nursery\Infrastructure\Shared\ApiPlatform\Input;
 
 use ApiPlatform\Metadata\ApiProperty;
-use Nursery\Domain\Shared\Enum\Avatar;
+use Nursery\Domain\Shared\Enum\AvatarType;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -20,10 +20,10 @@ class AvatarInput
         #[Groups('avatar:item')]
         #[ApiProperty(openapiContext: [
             'type' => 'string',
-            'enum' => [Avatar::Agent->value, Avatar::Customer->value, Avatar::Child->value],
-            'example' => Avatar::Agent->value,
+            'enum' => [AvatarType::Agent->value, AvatarType::Customer->value, AvatarType::Child->value],
+            'example' => AvatarType::Agent->value,
         ])]
-        public Avatar $type,
+        public AvatarType $type,
         #[Groups('avatar:item')]
         public ?File $file = null,
     ) {

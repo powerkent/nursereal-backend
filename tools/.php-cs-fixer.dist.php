@@ -31,6 +31,7 @@ return (new PhpCsFixer\Config())
         'no_unneeded_control_parentheses' => false,
         'blank_line_between_import_groups' => false,
         'class_attributes_separation' => false,
+        'native_type_declaration_casing' => false,
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder);
